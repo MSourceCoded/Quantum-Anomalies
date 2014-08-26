@@ -1,0 +1,16 @@
+[
+{
+  "modid": "quantumanomalies",
+  "name": "Quantum Anomalies",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SourceCoded"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": ["sourcecodedcore"]
+}
+]

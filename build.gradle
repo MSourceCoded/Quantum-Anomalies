@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+version = "1.7.10-0.1.0"
+group= "sourcecoded.quantum" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "quantumAnomalies"
+
+minecraft {
+    version = "1.7.10-10.13.0.1207"
+	
+	replace "@VERSION@", project.version
+	replaceIn "Constants.java"
+}
+
+dependencies {
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+	
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+	classifier = "UNIVERSAL"
+}
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = "SRC"
+}
+
+task deobfJar(type: Jar) {
+	from sourceSets.main.output
+	classifier = "DEOBF"
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	from 'build/docs/javadoc'
+	classifier = "JAVADOC"
+}
+
+artifacts {
+	archives deobfJar
+	archives sourceJar
+	archives javadocJar
+}
