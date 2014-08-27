@@ -38,6 +38,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileDebug.class, new TESRDebug());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCornerstone.class, new TESRCornerstone());
         ClientRegistry.bindTileEntitySpecialRenderer(TileRiftSmelter.class, new TESRRiftSmelter());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileRiftInfuser.class, new TESRRiftInfuser());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRiftInjector.class, new TESRRiftInjector());
     }
 }

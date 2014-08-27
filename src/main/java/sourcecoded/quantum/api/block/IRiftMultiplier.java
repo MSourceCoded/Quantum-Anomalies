@@ -1,5 +1,7 @@
 package sourcecoded.quantum.api.block;
 
+import net.minecraft.util.EnumChatFormatting;
+
 /**
  * Implement this on any blocks that you want to
  * act as multipliers for rift devices.
@@ -26,17 +28,25 @@ public strictfp interface IRiftMultiplier {
         /**
          * The speed boost
          */
-        SPEED,
+        SPEED(EnumChatFormatting.RED, EnumChatFormatting.GREEN),
 
         /**
          * The energy usage
          */
-        ENERGY_USAGE,
+        ENERGY_USAGE(EnumChatFormatting.RED, EnumChatFormatting.GREEN),
 
         /**
          * Efficiency of production increase
          */
-        PRODUCTION
+        PRODUCTION(EnumChatFormatting.GREEN, EnumChatFormatting.RED);
+
+        public EnumChatFormatting positive;
+        public EnumChatFormatting negative;
+
+        RiftMultiplierTypes(EnumChatFormatting positive, EnumChatFormatting negative) {
+            this.positive = positive;
+            this.negative = negative;
+        }
     }
 
 }

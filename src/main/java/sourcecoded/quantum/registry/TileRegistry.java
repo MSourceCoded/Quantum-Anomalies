@@ -20,6 +20,6 @@ public class TileRegistry extends AbstractTileRegistry {
 
         addTile("debug", TileDebug.class);
         addTile("riftSmelter", TileRiftSmelter.class);
-        addTile("riftInfuser", TileRiftInfuser.class);
+        addTile("riftInjector", TileRiftInjector.class);
     }
 }

@@ -1,17 +1,17 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
-import sourcecoded.quantum.tile.TileRiftInfuser;
-import sourcecoded.quantum.tile.TileRiftSmelter;
+import sourcecoded.quantum.tile.TileRiftInjector;
 
-public class BlockRiftInfuser extends BlockQuantum implements ITileEntityProvider, IBlockRenderHook {
+public class BlockRiftInjector extends BlockQuantum implements ITileEntityProvider, IBlockRenderHook {
 
-    public BlockRiftInfuser() {
+    public BlockRiftInjector() {
         super();
         this.setBlockName("blockRiftInfuser");
         this.setBlockTextureName("infusedStone");
@@ -36,10 +36,21 @@ public class BlockRiftInfuser extends BlockQuantum implements ITileEntityProvide
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileRiftInfuser();
+        return new TileRiftInjector();
     }
 
     @Override
     public void callbackInventory(TileEntity tile) {
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
+        if (!world.isRemote) {
+            TileRiftInjector tile = (TileRiftInjector) world.getTileEntity(x, y, z);
+
+            tile.click();
+
+            return true;
+        }
+        return false;
     }
 }

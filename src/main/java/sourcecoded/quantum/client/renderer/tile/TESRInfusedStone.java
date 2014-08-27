@@ -31,16 +31,17 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
 
         tess.startDrawingQuads();
         this.bindTexture(texDark);
+        tess.setColorRGBA_F(1F, 1F, 1F, 1F);
 
-        TessUtils.drawCube(tess, 0, 0, 0, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 1F - cubeSize, 0, 0, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 1F - cubeSize, 1F - cubeSize, 0, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 0, 1F - cubeSize, 0, cubeSize, 0, 0, 1, 1);
+        TessUtils.drawCube(tess, 0, 0, 0, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 1F - cubeSize, 0, 0, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 1F - cubeSize, 1F - cubeSize, 0, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 0, 1F - cubeSize, 0, cubeSize, 0, 0, 0.5, 0.5);
 
-        TessUtils.drawCube(tess, 0, 0, 1F - cubeSize, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 1F - cubeSize, 0, 1F - cubeSize, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 1F - cubeSize, 1F - cubeSize, 1F - cubeSize, cubeSize, 0, 0, 1, 1);
-        TessUtils.drawCube(tess, 0, 1F - cubeSize, 1F - cubeSize, cubeSize, 0, 0, 1, 1);
+        TessUtils.drawCube(tess, 0, 0, 1F - cubeSize, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 1F - cubeSize, 0, 1F - cubeSize, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 1F - cubeSize, 1F - cubeSize, 1F - cubeSize, cubeSize, 0, 0, 0.5, 0.5);
+        TessUtils.drawCube(tess, 0, 1F - cubeSize, 1F - cubeSize, cubeSize, 0, 0, 0.5, 0.5);
         tess.draw();
 
         tess.startDrawingQuads();

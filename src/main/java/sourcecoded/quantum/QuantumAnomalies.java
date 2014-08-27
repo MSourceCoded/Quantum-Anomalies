@@ -34,8 +34,9 @@ import sourcecoded.quantum.worldgen.biome.BiomeHellAnomaly;
 import java.io.IOException;
 
 import static sourcecoded.quantum.Constants.*;
-import static sourcecoded.quantum.handler.ConfigHandler.*;
-import static sourcecoded.quantum.handler.ConfigHandler.Properties.*;
+import static sourcecoded.quantum.handler.ConfigHandler.Properties.END_ANOMALY_WEIGHT;
+import static sourcecoded.quantum.handler.ConfigHandler.Properties.HELL_ANOMALY_WEIGHT;
+import static sourcecoded.quantum.handler.ConfigHandler.getConfig;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:sourcecodedcore")
 public class QuantumAnomalies {

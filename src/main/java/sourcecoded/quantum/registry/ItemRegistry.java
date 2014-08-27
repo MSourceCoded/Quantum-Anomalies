@@ -1,6 +1,9 @@
 package sourcecoded.quantum.registry;
 
+import net.minecraft.item.Item;
 import sourcecoded.core.item.AbstractItemRegistry;
+import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.item.ItemCaosShard;
 import sourcecoded.quantum.item.ItemSceptre;
 
@@ -17,5 +20,13 @@ public class ItemRegistry extends AbstractItemRegistry {
         addItem("itemSceptre", new ItemSceptre());
 
         addItem("itemCaosShard", new ItemCaosShard());
+    }
+
+    @Override
+    public void addItem(String name, Item item) {
+        super.addItem(name, item);
+
+        if (item instanceof IInjectorRecipe)
+            InjectorRegistry.addRecipe((IInjectorRecipe) item);
     }
 }

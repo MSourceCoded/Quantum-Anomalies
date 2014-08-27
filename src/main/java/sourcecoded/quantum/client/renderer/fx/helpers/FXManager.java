@@ -4,6 +4,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.client.renderer.fx.FXPortalFragment;
+import sourcecoded.quantum.client.renderer.fx.FXRiftInjection;
 import sourcecoded.quantum.client.renderer.fx.FXRiftNode;
 import sourcecoded.quantum.client.renderer.fx.FXRiftNodeOrbit;
 
@@ -25,6 +26,18 @@ public class FXManager {
         FXRiftNode.DataHolder data = new FXRiftNode.DataHolder(0F, 0F, 0F, 0.07F, size);
         data.fadeLength = 0.4F;
         FXRiftNode nodeFX = new FXRiftNode(world, x, y, z, data, false);
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        return nodeFX;
+    }
+
+    public static FXRiftInjection injectionFX(float size, World world, double x, double y, double z, boolean reversed) {
+        FXRiftInjection.DataHolder data = new FXRiftInjection.DataHolder(1F, 0F, 1F, 0.25F, size);
+        data.fadeLength = 0.4F;
+        if (reversed) {
+            data.xRad *= -1;
+            data.zRad *= -1;
+        }
+        FXRiftInjection nodeFX = new FXRiftInjection(world, x, y, z, data);
         FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
         return nodeFX;
     }

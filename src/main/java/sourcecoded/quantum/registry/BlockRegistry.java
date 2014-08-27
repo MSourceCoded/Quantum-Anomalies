@@ -1,6 +1,9 @@
 package sourcecoded.quantum.registry;
 
+import net.minecraft.block.Block;
 import sourcecoded.core.block.AbstractBlockRegistry;
+import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.block.*;
 
 public class BlockRegistry extends AbstractBlockRegistry {
@@ -23,6 +26,14 @@ public class BlockRegistry extends AbstractBlockRegistry {
 
         this.addBlock("blockDebug", new BlockDebug());
         this.addBlock("blockRiftSmelter", new BlockRiftSmelter());
-        this.addBlock("blockRiftInfuser", new BlockRiftInfuser());
+        this.addBlock("blockRiftInjector", new BlockRiftInjector());
+    }
+
+    @Override
+    public void addBlock(String name, Block blockOBJ) {
+        super.addBlock(name, blockOBJ);
+
+        if (blockOBJ instanceof IInjectorRecipe)
+            InjectorRegistry.addRecipe((IInjectorRecipe) blockOBJ);
     }
 }

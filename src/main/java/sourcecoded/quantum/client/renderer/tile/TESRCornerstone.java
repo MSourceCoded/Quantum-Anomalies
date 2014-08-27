@@ -47,6 +47,7 @@ public class TESRCornerstone extends TESRStaticHandler {
 
             tess.addTranslation((float)x, (float)y, (float)z);
             tess.startDrawingQuads();
+            tess.setColorRGBA_F(1F, 1F, 1F, 1F);
             Minecraft.getMinecraft().renderEngine.bindTexture(texDark);
             model.tessellatePart(tess, "Base");
             tess.draw();
