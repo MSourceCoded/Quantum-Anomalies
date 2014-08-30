@@ -1,9 +1,11 @@
 package sourcecoded.quantum.client.renderer.tile;
 
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.utils.TessUtils;
@@ -29,8 +31,10 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
 
         Tessellator tess = Tessellator.instance;
 
+
         tess.startDrawingQuads();
         this.bindTexture(texDark);
+        glColor4f(1F, 1F, 1F, 1F);
         tess.setColorRGBA_F(1F, 1F, 1F, 1F);
 
         TessUtils.drawCube(tess, 0, 0, 0, cubeSize, 0, 0, 0.5, 0.5);

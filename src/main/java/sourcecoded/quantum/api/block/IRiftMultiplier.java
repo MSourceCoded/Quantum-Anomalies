@@ -4,7 +4,9 @@ import net.minecraft.util.EnumChatFormatting;
 
 /**
  * Implement this on any blocks that you want to
- * act as multipliers for rift devices.
+ * act as multipliers for rift devices. This is
+ * also commonly referred to as a "Quantum Manipulation
+ * Catalyst"
  *
  * All floats returned are in the form of
  * decimal format

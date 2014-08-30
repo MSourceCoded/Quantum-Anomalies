@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.tile.TileRiftSmelter;
@@ -42,12 +43,12 @@ public class BlockRiftSmelter extends BlockQuantum implements ITileEntityProvide
 
     @Override
     public int getEnergyRequired() {
-        return 1000;
+        return InjectionConstants.INJECTION_STANDARD_MACHINE;
     }
 
     @Override
     public byte getTier() {
-        return 0;
+        return 1;
     }
 
     @Override

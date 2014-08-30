@@ -1,5 +1,6 @@
 package sourcecoded.quantum.api.sceptre;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import sourcecoded.quantum.api.gesture.IGesture;
@@ -31,9 +32,18 @@ public interface ISceptreFocus {
 
     /**
      * Get the actual name of the focus. This is used to
-     * be displayed displayed on the tooltip
+     * be displayed displayed on the tooltip. You can
+     * use unlocalized names for this, like
+     * modid.sceptre.focus.focusName.
      */
     public String getName();
+
+    /**
+     * Checks if the focus is currently "unlocked".
+     * You can pass this through to research, or anything
+     * you like.
+     */
+    public boolean canBeUsed(EntityPlayer player, ItemStack itemstack);
 
     /**
      * Get the colour for the name that will be displayed

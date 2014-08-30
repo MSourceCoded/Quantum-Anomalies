@@ -4,7 +4,8 @@ import net.minecraft.item.Item;
 import sourcecoded.core.item.AbstractItemRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
-import sourcecoded.quantum.item.ItemCaosShard;
+import sourcecoded.quantum.item.ItemChaosShard;
+import sourcecoded.quantum.item.ItemInfusedStick;
 import sourcecoded.quantum.item.ItemSceptre;
 
 public class ItemRegistry extends AbstractItemRegistry {
@@ -19,7 +20,8 @@ public class ItemRegistry extends AbstractItemRegistry {
     public void addAll() {
         addItem("itemSceptre", new ItemSceptre());
 
-        addItem("itemCaosShard", new ItemCaosShard());
+        addItem("itemChaosShard", new ItemChaosShard());
+        addItem("itemInfusedStick", new ItemInfusedStick());
     }
 
     @Override

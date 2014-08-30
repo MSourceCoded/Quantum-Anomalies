@@ -13,7 +13,7 @@ public class BlockRiftNode extends BlockQuantum implements ITileEntityProvider {
 
     public BlockRiftNode() {
         super();
-        this.setBlockName("riftNode");
+        this.setBlockName("blockRiftNode");
         this.setBlockTextureName("haze");
     }
 

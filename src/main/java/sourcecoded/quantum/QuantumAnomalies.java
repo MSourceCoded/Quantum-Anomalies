@@ -15,25 +15,25 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import sourcecoded.core.configuration.VersionConfig;
-import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
+import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityHellishCrystal;
 import sourcecoded.quantum.handler.ConfigHandler;
+import sourcecoded.quantum.listeners.SecretListener;
+import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
 import sourcecoded.quantum.registry.TileRegistry;
-import sourcecoded.quantum.sceptre.FocusBlue;
-import sourcecoded.quantum.sceptre.FocusGreen;
-import sourcecoded.quantum.sceptre.FocusRed;
 import sourcecoded.quantum.worldgen.biome.BiomeEndAnomaly;
 import sourcecoded.quantum.worldgen.biome.BiomeHellAnomaly;
 
 import java.io.IOException;
 
 import static sourcecoded.quantum.Constants.*;
+import static sourcecoded.quantum.handler.ConfigHandler.Properties.END_ANOMALY_ID;
 import static sourcecoded.quantum.handler.ConfigHandler.Properties.END_ANOMALY_WEIGHT;
 import static sourcecoded.quantum.handler.ConfigHandler.Properties.HELL_ANOMALY_WEIGHT;
 import static sourcecoded.quantum.handler.ConfigHandler.getConfig;
@@ -44,16 +44,18 @@ public class QuantumAnomalies {
     @SidedProxy(serverSide = Constants.PROXY_COMMON, clientSide = Constants.PROXY_CLIENT)
     public static IProxy proxy;
 
-    public static final BiomeEndAnomaly endAnomaly = new BiomeEndAnomaly(150);
-    public static final BiomeHellAnomaly hellAnomaly = new BiomeHellAnomaly(151);
+    public static BiomeEndAnomaly endAnomaly;
+    public static BiomeHellAnomaly hellAnomaly;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
+        QuantumAPI.isQAPresent = true;
         ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.1", Constants.MODID));
 
-        SceptreFocusRegistry.registerFocus(new FocusRed());
-        SceptreFocusRegistry.registerFocus(new FocusGreen());
-        SceptreFocusRegistry.registerFocus(new FocusBlue());
+        endAnomaly = new BiomeEndAnomaly(getConfig().getInteger(END_ANOMALY_ID.getCategory(), END_ANOMALY_ID.getName()));
+        hellAnomaly = new BiomeHellAnomaly(getConfig().getInteger(END_ANOMALY_ID.getCategory(), END_ANOMALY_ID.getName()));
+
+        NetworkHandler.initNetwork();
     }
 
     @Mod.EventHandler
@@ -83,11 +85,12 @@ public class QuantumAnomalies {
         proxy.register();
 
         MinecraftForge.EVENT_BUS.register(this);
+        FMLCommonHandler.instance().bus().register(new SecretListener());
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        Achievements.initAchievements();
     }
 
     @Mod.EventHandler

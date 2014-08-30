@@ -97,6 +97,8 @@ public class ItemSceptreRenderer implements IItemRenderer {
         model.renderOnly(probes);
         model.renderPart("Box001");
 
+        glDisable(GL_BLEND);
+
         glEnable(GL_LIGHTING);
 
         glPopMatrix();

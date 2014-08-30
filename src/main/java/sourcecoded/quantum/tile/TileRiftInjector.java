@@ -1,6 +1,5 @@
 package sourcecoded.quantum.tile;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -11,7 +10,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
@@ -19,9 +17,9 @@ import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
+import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.structure.Multiblock;
 import sourcecoded.quantum.utils.WorldUtils;
-
-import java.util.List;
 
 public class TileRiftInjector extends TileEntity implements ITileRiftHandler, ISidedInventory {
 
@@ -30,6 +28,9 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
     public ItemStack currentItem;
 
     public int ticker = 0;
+    public int multiblockTicker = 0;
+
+    public int tier;
 
     public float speed = 1F;
     public float energy = 1F;
@@ -39,9 +40,19 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
 
     public int energyInfused = 0;
 
-    public void updateEntity() {
-        boolean update = false;
+    boolean isParticle = false;
 
+    Multiblock tier1 = new Multiblock("cic", "i i", "cic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
+    Multiblock tier2 = new Multiblock("ciiic", "i   i", "i   i", "i   i", "ciiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
+    Multiblock[] tier3 = {
+            new Multiblock("ciiiiic", "i     i", "i     i", "i     i", "i     i", "i     i", "ciiiiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new Multiblock("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', BlockRegistry.instance().getBlockByName("cornerStone")),
+    };
+
+    public void updateEntity() {
         if (ticker >= 10) {
             speed = WorldUtils.getMultiplication(worldObj, xCoord, yCoord, zCoord, 5, 5, 5, IRiftMultiplier.RiftMultiplierTypes.SPEED);
             energy = WorldUtils.getMultiplication(worldObj, xCoord, yCoord, zCoord, 5, 5, 5, IRiftMultiplier.RiftMultiplierTypes.ENERGY_USAGE);
@@ -54,35 +65,82 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
             if (this.currentItem != null) {
                 if (this.canInject()) {
                     int energyToTake = (int) Math.floor((float)energyPerTick / (float)speed);
-                    energyInfused += energyToTake;
-                    takeRiftEnergy(energyToTake);
-                    IInjectorRecipe recipe = InjectorRegistry.getRecipeForInput(currentItem);
-                    if (energyInfused >= (recipe.getEnergyRequired() * currentItem.stackSize)) {
-                        inject();
-                        energyInfused = 0;
-                        update = true;
+                    if (energyToTake < getRiftEnergy()) {
+                        isParticle = true;
+                        energyInfused += energyToTake;
+                        takeRiftEnergy(energyToTake);
+                        IInjectorRecipe recipe = InjectorRegistry.getRecipeForInput(currentItem);
+                        if (energyInfused >= (recipe.getEnergyRequired() * currentItem.stackSize)) {
+                            inject();
+                            energyInfused = 0;
+                            update();
+                        }
+                    } else {
+                        isParticle = false;
+                        update();
                     }
                 } else energyInfused = 0;
             } else energyInfused = 0;
 
+            if (multiblockTicker >= 100) multiblockTicker = 0;
+            if (multiblockTicker == 0) tier = getTier();
+
+            if (energyInfused == 0) isParticle = false;
+
         } else {
-            if (energyInfused != 0 && ticker % 5 == 0) {
+            if (isParticle && ticker % 5 == 0) {
                 FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, true);
                 FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, false);
             }
         }
 
-        if (update)
-            update();
+        multiblockTicker++;
 
     }
 
-    public void click() {
-        if (currentItem != null) {
+    int getTier() {
+        int tier = 0;
+        if (tier1.valid(worldObj, xCoord, yCoord - 1, zCoord)) tier = 1;
+        else return tier;
+        if (tier2.valid(worldObj, xCoord, yCoord - 2, zCoord)) tier = 2;
+        else return tier;
+
+        for (int i = 0; i < tier3.length; i++)
+            if (!tier3[i].valid(worldObj, xCoord, yCoord - 3 + i, zCoord)) return tier;
+        tier++;
+
+        return tier;
+    }
+
+    public void click(EntityPlayer clickEntity) {
+        if (clickEntity.getCurrentEquippedItem() == null) {
+            if (currentItem == null) return;
             worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord + 1D, zCoord, currentItem));
             currentItem = null;
             update();
+        } else {
+            ItemStack held = clickEntity.getCurrentEquippedItem();
+            ItemStack newHeld = held.copy();
+
+            if (InjectorRegistry.getRecipeForInput(held) == null) return;
+
+            newHeld.stackSize = 1;
+
+            if (currentItem != null && newHeld.isItemEqual(currentItem)) {
+                if (currentItem.stackSize == getInventoryStackLimit()) return;
+                currentItem.stackSize++;
+            }
+            if (currentItem == null) {
+                currentItem = newHeld;
+            }
+
+            held.stackSize--;
+            clickEntity.setCurrentItemOrArmor(0, held);
+
+            update();
         }
+
+        System.err.println(getRiftEnergy());
     }
 
     void inject() {
@@ -100,8 +158,9 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
         if (!InjectorRegistry.hasRecipeForInput(currentItem)) return false;
         IInjectorRecipe recipe = InjectorRegistry.getRecipeForInput(currentItem);
 
-        if (getRiftEnergy() < recipe.getEnergyRequired()) return false;
         if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) return false;
+
+        if (recipe.getTier() > tier) return false;
 
         if (this.currentItem == null)
             return false;
@@ -133,6 +192,8 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
         }
 
         nbt.setTag("Items", nbttaglist);
+
+        nbt.setBoolean("isCooking", isParticle);
     }
 
     @Override
@@ -146,6 +207,8 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
 
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(0);
                 this.currentItem = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+
+        isParticle = nbt.getBoolean("isCooking");
     }
 
     @Override

@@ -13,7 +13,7 @@ public class BlockRiftInjector extends BlockQuantum implements ITileEntityProvid
 
     public BlockRiftInjector() {
         super();
-        this.setBlockName("blockRiftInfuser");
+        this.setBlockName("blockRiftInjector");
         this.setBlockTextureName("infusedStone");
         this.setHardness(6F);
     }
@@ -47,10 +47,10 @@ public class BlockRiftInjector extends BlockQuantum implements ITileEntityProvid
         if (!world.isRemote) {
             TileRiftInjector tile = (TileRiftInjector) world.getTileEntity(x, y, z);
 
-            tile.click();
+            tile.click(player);
 
             return true;
         }
-        return false;
+        return true;
     }
 }

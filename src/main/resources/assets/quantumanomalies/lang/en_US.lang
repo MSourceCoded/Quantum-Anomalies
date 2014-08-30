@@ -1,0 +1,41 @@
+#####################################
+# Standard Blocks and Items
+#####################################
+
+qa.blocks.blockChaosEnder.name=Chaos Bricks (Ender)
+qa.blocks.blockChaosHell.name=Chaos Bricks (Hell)
+
+qa.blocks.blockCornerstone.name=Infused Cornerstone
+qa.blocks.blockInfusedStone.name=Infused Stone
+qa.blocks.blockInfusedGlass.name=Infused Glass
+
+qa.blocks.blockRiftInjector.name=Quantum Rift Injection Pool
+qa.blocks.blockRiftNode.name=Quantum Rift Node
+qa.blocks.blockRiftSmelter.name=Quantum Rift Furnace
+
+qa.items.itemChaosShard.name=Chaos Shard
+
+#####################################
+# Achievements
+#####################################
+
+achievement.qa|secret=Cracking the Code
+achievement.qa|secret.desc=Turn to page 394
+
+#####################################
+# Sceptre
+#####################################
+
+qa.sceptre.name=Quantum Sceptre
+qa.sceptre.focus.null=No Focus
+
+#####################################
+# Lore
+#####################################
+
+qa.lore.multipliers.showShift.0=Quantum Manipulation Catalyst
+qa.lore.multipliers.showShift.1=Hold %s<SHIFT>%s for details
+
+qa.lore.multipliers.speed=Speed Multiplier
+qa.lore.multipliers.energy=Energy Usage
+qa.lore.multipliers.production=Production

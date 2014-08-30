@@ -21,8 +21,8 @@ public class BlockRegistry extends AbstractBlockRegistry {
         this.addBlock("cornerStone", new BlockCornerstone());
         this.addBlock("gravityNode", new BlockGravityNode());
 
-        this.addBlock("blockCaosHell", new BlockCaosHell());
-        this.addBlock("blockCaosEnder", new BlockCaosEnder());
+        this.addBlock("blockChaosHell", new BlockChaosHell());
+        this.addBlock("blockChaosEnder", new BlockChaosEnder());
 
         this.addBlock("blockDebug", new BlockDebug());
         this.addBlock("blockRiftSmelter", new BlockRiftSmelter());

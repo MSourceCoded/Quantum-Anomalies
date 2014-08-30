@@ -5,9 +5,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.TileInfusedGlass;
@@ -16,7 +19,7 @@ public class BlockInfusedGlass extends BlockQuantum implements ITileEntityProvid
 
     public BlockInfusedGlass() {
         super();
-        this.setBlockName("blockInfusedStone");
+        this.setBlockName("blockInfusedGlass");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
     }
@@ -34,6 +37,10 @@ public class BlockInfusedGlass extends BlockQuantum implements ITileEntityProvid
         return false;
     }
 
+    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
+        return true;
+    }
+
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileInfusedGlass();
     }
@@ -48,7 +55,7 @@ public class BlockInfusedGlass extends BlockQuantum implements ITileEntityProvid
 
     @Override
     public int getEnergyRequired() {
-        return Constants.BLOCK_STANDARD_INFUSION;
+        return InjectionConstants.INJECTION_STANDARD_BLOCK;
     }
 
     @Override

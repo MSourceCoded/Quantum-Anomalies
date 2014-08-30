@@ -6,13 +6,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
 import sourcecoded.quantum.api.gesture.IGesture;
+import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.utils.ItemUtils;
@@ -26,18 +29,20 @@ public class ItemSceptre extends ItemQuantum {
     public float step = 0.025F;
     
     public ItemSceptre() {
-        this.setUnlocalizedName("sceptre");
+        this.setUnlocalizedName("itemSceptre");
     }
 
     public String getItemStackDisplayName(ItemStack item) {
-        String baseName = EnumChatFormatting.GOLD + "Sceptre";
+        //String baseName = EnumChatFormatting.GOLD + "Sceptre";
+        String baseName = EnumChatFormatting.GOLD + StatCollector.translateToLocal("qa.sceptre.name");
+        String nullFocus = StatCollector.translateToLocal("qa.sceptre.focus.null");
 
         if (item.stackTagCompound != null)
             if (item.stackTagCompound.hasKey("focus")) {
                 String focusName = SceptreFocusRegistry.getFocus(item.stackTagCompound.getString("focus")).getName();
                 EnumChatFormatting focusColour = SceptreFocusRegistry.getFocus(item.stackTagCompound.getString("focus")).getNameColour();
                 return String.format("%s %s[%s]%s", baseName, focusColour, focusName, EnumChatFormatting.WHITE);
-            } else return String.format("%s %s[No Focus]%s", baseName, EnumChatFormatting.LIGHT_PURPLE, EnumChatFormatting.WHITE);
+            } else return String.format("%s %s[%s]%s", baseName, EnumChatFormatting.LIGHT_PURPLE, nullFocus, EnumChatFormatting.WHITE);
         else return baseName;
     }
 
@@ -114,9 +119,9 @@ public class ItemSceptre extends ItemQuantum {
         }
 
         if (stack.stackTagCompound.hasKey("focus"))
-            focus = SceptreFocusRegistry.getNextFocus(SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus")));
+            focus = SceptreFocusRegistry.getNextFocus(SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus")), (EntityPlayer)entityLiving, stack);
         else
-            focus = SceptreFocusRegistry.getNextFocus(null);
+            focus = SceptreFocusRegistry.getNextFocus(null, (EntityPlayer)entityLiving, stack);
 
         changeFocus(focus, stack);
         return false;
@@ -148,5 +153,4 @@ public class ItemSceptre extends ItemQuantum {
             focus.onActivated(stack);
         } else stack.stackTagCompound.removeTag("focus");
     }
-
 }

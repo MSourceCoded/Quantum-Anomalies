@@ -15,10 +15,10 @@ import sourcecoded.quantum.registry.ItemRegistry;
 import java.util.List;
 import java.util.Random;
 
-public class BlockCaosHell extends BlockQuantum implements IRiftMultiplier, IBlockHasItem {
+public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier, IBlockHasItem {
 
-    public BlockCaosHell() {
-        this.setBlockName("blockCaosHell");
+    public BlockChaosHell() {
+        this.setBlockName("blockChaosHell");
         this.setBlockTextureName("caosBrickHell");
         this.setHardness(5F);
     }
@@ -59,9 +59,7 @@ public class BlockCaosHell extends BlockQuantum implements IRiftMultiplier, IBlo
         @SuppressWarnings("unchecked")
         @Override
         public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
-            list.add("Speed Multiplier: " + RiftMultiplierUtils.getLore(RiftMultiplierTypes.SPEED, field_150939_a));
-            list.add("Energy Usage: " + RiftMultiplierUtils.getLore(RiftMultiplierTypes.ENERGY_USAGE, field_150939_a));
-            list.add("Production: " + RiftMultiplierUtils.getLore(RiftMultiplierTypes.PRODUCTION, field_150939_a));
+            RiftMultiplierUtils.addLoreToItemBlock(this, list);
         }
     }
 }

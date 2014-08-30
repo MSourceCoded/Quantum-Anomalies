@@ -11,7 +11,4 @@ public class Constants {
 
 
     public static final String VERSION = "@VERSION@";
-
-
-    public static int BLOCK_STANDARD_INFUSION = 500;
 }
