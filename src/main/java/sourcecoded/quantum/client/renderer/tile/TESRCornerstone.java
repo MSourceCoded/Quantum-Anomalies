@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
+import sourcecoded.quantum.tile.TileCornerstone;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,7 +17,7 @@ public class TESRCornerstone extends TESRStaticHandler {
 
     WavefrontObject model = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, "model/block/cornerstone.obj"));
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
-    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/haze.png");
+    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
     @Override
     public void renderTile(TileEntity te, double x, double y, double z, float ptt, boolean isStatic) {
@@ -31,7 +32,11 @@ public class TESRCornerstone extends TESRStaticHandler {
             Tessellator tess = Tessellator.instance;
 
             tess.startDrawingQuads();
-            tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+            //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+
+            float[] rgb = ((TileCornerstone) te).colour.rgb;
+
+            tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
             tess.setBrightness(240);
             this.bindTexture(texHaze);
             model.tessellatePart(tess, "Glow");

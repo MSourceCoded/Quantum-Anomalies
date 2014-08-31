@@ -10,6 +10,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
@@ -18,7 +19,7 @@ import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.utils.MathUtils;
 import sourcecoded.quantum.utils.WorldUtils;
 
-public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITileRiftHandler {
+public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITileRiftHandler, IDyeable {
 
     /** Items to cook */
     private static final int[] slotsTop = new int[]{0};
@@ -44,6 +45,8 @@ public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITil
     public float speed = 1F;
     public float energy = 1F;
     public float production = 1F;
+
+    public Colourizer colour = Colourizer.PURPLE;
 
     //Rift Storage
     RiftEnergyStorage rift = new RiftEnergyStorage(1000);
@@ -75,7 +78,11 @@ public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITil
         }
 
         if (update)
-            this.markDirty();
+            update();
+    }
+
+    void update() {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     private boolean canSmelt() {
@@ -151,6 +158,12 @@ public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITil
     }
 
     @Override
+    public void dye(Colourizer colour) {
+        this.colour = colour;
+        update();
+    }
+
+    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         rift.writeRiftToNBT(nbt);
@@ -168,6 +181,8 @@ public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITil
         }
 
         nbt.setTag("Items", nbttaglist);
+
+        nbt.setInteger("colourIndex", colour.ordinal());
     }
 
     @Override
@@ -187,19 +202,8 @@ public class TileRiftSmelter extends TileEntity implements ISidedInventory, ITil
         }
 
         this.furnaceCookTime = nbt.getShort("CookTime");
-    }
 
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.func_148857_g());
-        markDirty();
+        colour = Colourizer.values()[nbt.getInteger("colourIndex")];
     }
 
     @Override

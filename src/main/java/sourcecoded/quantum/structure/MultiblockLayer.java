@@ -8,11 +8,11 @@ import net.minecraft.world.World;
 
 import java.util.HashMap;
 
-public class Multiblock {
+public class MultiblockLayer {
 
     Block[][] blocks;
 
-    public Multiblock(Object... params) {
+    public MultiblockLayer(Object... params) {
         String s = "";
         int i = 0;
         int j = 0;

@@ -11,7 +11,7 @@ import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.tile.TileRiftSmelter;
 
-public class BlockRiftSmelter extends BlockQuantum implements ITileEntityProvider, IBlockRenderHook, IInjectorRecipe {
+public class BlockRiftSmelter extends BlockInfusedStone {
 
     public BlockRiftSmelter() {
         super();
@@ -24,21 +24,8 @@ public class BlockRiftSmelter extends BlockQuantum implements ITileEntityProvide
         return AdvancedTileProxy.renderID;
     }
 
-    @Override
-    public boolean isOpaqueCube() {
-        return false;
-    }
-
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileRiftSmelter();
-    }
-
-    @Override
-    public void callbackInventory(TileEntity tile) {
     }
 
     @Override

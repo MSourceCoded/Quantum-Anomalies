@@ -1,13 +1,14 @@
 package sourcecoded.quantum.client.renderer.tile;
 
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
+import sourcecoded.quantum.tile.TileCornerstone;
+import sourcecoded.quantum.tile.TileInfusedStone;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -15,7 +16,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class TESRInfusedStone extends TileEntitySpecialRenderer {
 
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
-    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/haze.png");
+    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float ptt) {
@@ -49,7 +50,12 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
         tess.draw();
 
         tess.startDrawingQuads();
-        tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+        //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+
+        float[] rgb = ((TileInfusedStone) te).colour.rgb;
+
+        tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
+
         tess.setBrightness(240);
         this.bindTexture(texHaze);
         TessUtils.drawCube(tess, innerPadding, innerPadding, innerPadding, 1F - (innerPadding * 2), 0, 0, 1, 1);

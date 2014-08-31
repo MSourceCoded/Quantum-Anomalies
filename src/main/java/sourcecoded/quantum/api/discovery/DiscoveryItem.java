@@ -190,6 +190,14 @@ public class DiscoveryItem {
     }
 
     /**
+     * Set the hidden state of the
+     * item.
+     */
+    public void setHidden(boolean val) {
+        this.hidden = val;
+    }
+
+    /**
      * Checks if all the parents are unlocked
      */
     public boolean areAllParentsUnlocked() {

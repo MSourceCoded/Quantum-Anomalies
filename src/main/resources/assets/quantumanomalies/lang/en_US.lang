@@ -30,6 +30,13 @@ qa.sceptre.name=Quantum Sceptre
 qa.sceptre.focus.null=No Focus
 
 #####################################
+# Journal
+#####################################
+
+qa.items.itemJournal.name=%sAnomolical Journal%s
+qa.items.itemJournal.lore.0=%s[ah-nom-ol-ic-al]
+
+#####################################
 # Lore
 #####################################
 
@@ -39,3 +46,6 @@ qa.lore.multipliers.showShift.1=Hold %s<SHIFT>%s for details
 qa.lore.multipliers.speed=Speed Multiplier
 qa.lore.multipliers.energy=Energy Usage
 qa.lore.multipliers.production=Production
+
+qa.lore.dyeable.0=Dyeable!
+qa.lore.dyeable.1=Any colour you want!

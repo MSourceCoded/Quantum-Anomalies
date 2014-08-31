@@ -18,7 +18,7 @@ import sourcecoded.quantum.tile.TileCornerstone;
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
-public class BlockCornerstone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe {
+public class BlockCornerstone extends BlockInfusedStone {
 
     public BlockCornerstone() {
         super();
@@ -31,25 +31,12 @@ public class BlockCornerstone extends BlockQuantum implements ITileEntityProvide
         return AdvancedTileProxy.renderID;
     }
 
-    @Override
-    public boolean isOpaqueCube() {
-        return true;
-    }
-
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
     public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
         return side == ForgeDirection.UP || side == ForgeDirection.DOWN;
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileCornerstone();
-    }
-
-    public float getExplosionResistance(Entity entity) {
-        return 15F;
     }
 
     @Override

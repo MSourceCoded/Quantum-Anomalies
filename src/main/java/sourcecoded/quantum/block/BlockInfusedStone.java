@@ -1,21 +1,32 @@
 package sourcecoded.quantum.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.block.Colourizer;
+import sourcecoded.quantum.api.block.RiftMultiplierUtils;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
+import sourcecoded.quantum.tile.IDyeable;
 import sourcecoded.quantum.tile.TileInfusedStone;
 
-public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvider, IBlockRenderHook, IInjectorRecipe {
+import java.util.List;
+
+public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe, IBlockHasItem {
 
     public BlockInfusedStone() {
         super();
@@ -26,6 +37,20 @@ public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvid
 
     public int getRenderType() {
         return SimpleTileProxy.renderID;
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
+        ItemStack stack = player.getCurrentEquippedItem();
+
+        if (stack != null && stack.getItem() == Items.dye) {
+            TileEntity tile = world.getTileEntity(x, y, z);
+            if (tile != null && tile instanceof IDyeable) {
+                ((IDyeable) tile).dye(Colourizer.match(stack.getItemDamage()));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -43,10 +68,6 @@ public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvid
 
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileInfusedStone();
-    }
-
-    @Override
-    public void callbackInventory(TileEntity tile) {
     }
 
     public float getExplosionResistance(Entity entity) {

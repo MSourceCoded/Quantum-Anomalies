@@ -8,6 +8,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.block.BlockInfusedGlass;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
+import sourcecoded.quantum.tile.TileCornerstone;
+import sourcecoded.quantum.tile.TileInfusedGlass;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -15,7 +17,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class TESRInfusedGlass extends TileEntitySpecialRenderer {
 
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/glassBlack.png");
-    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/glassPurple.png");
+    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/glassPurpleDesaturated.png");
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float ptt) {
@@ -34,7 +36,12 @@ public class TESRInfusedGlass extends TileEntitySpecialRenderer {
         tess.draw();
 
         tess.startDrawingQuads();
-        tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+        //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+
+        float[] rgb = ((TileInfusedGlass) te).colour.rgb;
+
+        tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
+
         tess.setBrightness(240);
         this.bindTexture(texHaze);
         draw(tess, te);

@@ -18,7 +18,7 @@ import sourcecoded.quantum.utils.WorldUtils;
 
 import java.util.List;
 
-public class TileRiftNode extends TileEntity implements ITileRiftHandler {
+public class TileRiftNode extends TileQuantum implements ITileRiftHandler {
 
     public RiftEnergyStorage riftStorage = new RiftEnergyStorage(10000);
 
@@ -116,19 +116,6 @@ public class TileRiftNode extends TileEntity implements ITileRiftHandler {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         riftStorage.readRiftFromNBT(nbt);
-    }
-
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.func_148857_g());
-        markDirty();
     }
 
     @Override

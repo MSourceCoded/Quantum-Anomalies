@@ -18,10 +18,10 @@ import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.registry.BlockRegistry;
-import sourcecoded.quantum.structure.Multiblock;
+import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.utils.WorldUtils;
 
-public class TileRiftInjector extends TileEntity implements ITileRiftHandler, ISidedInventory {
+public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, ISidedInventory {
 
     public RiftEnergyStorage rift = new RiftEnergyStorage(5000);
 
@@ -42,14 +42,14 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
 
     boolean isParticle = false;
 
-    Multiblock tier1 = new Multiblock("cic", "i i", "cic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
-    Multiblock tier2 = new Multiblock("ciiic", "i   i", "i   i", "i   i", "ciiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
-    Multiblock[] tier3 = {
-            new Multiblock("ciiiiic", "i     i", "i     i", "i     i", "i     i", "i     i", "ciiiiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new Multiblock("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new Multiblock("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', BlockRegistry.instance().getBlockByName("cornerStone")),
+    MultiblockLayer tier1 = new MultiblockLayer("cic", "i i", "cic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
+    MultiblockLayer tier2 = new MultiblockLayer("ciiic", "i   i", "i   i", "i   i", "ciiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
+    MultiblockLayer[] tier3 = {
+            new MultiblockLayer("ciiiiic", "i     i", "i     i", "i     i", "i     i", "i     i", "ciiiiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
+            new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', BlockRegistry.instance().getBlockByName("cornerStone")),
     };
 
     public void updateEntity() {
@@ -209,19 +209,6 @@ public class TileRiftInjector extends TileEntity implements ITileRiftHandler, IS
                 this.currentItem = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 
         isParticle = nbt.getBoolean("isCooking");
-    }
-
-    @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        readFromNBT(pkt.func_148857_g());
-        markDirty();
     }
 
     @Override
