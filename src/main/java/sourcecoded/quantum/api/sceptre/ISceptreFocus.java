@@ -39,6 +39,14 @@ public interface ISceptreFocus {
     public String getName();
 
     /**
+     * Gets the 'lore' to display. This can be
+     * unlocalized, such as modid.sceptre.focus.focusLore
+     *
+     * @param item The itemstack to add the lore to
+     */
+    public String[] getLore(ItemStack item);
+
+    /**
      * Checks if the focus is currently "unlocked".
      * You can pass this through to research, or anything
      * you like.
@@ -62,6 +70,22 @@ public interface ISceptreFocus {
      * @param item The ItemStack the focus was enabled on
      */
     public void onDeactivated(ItemStack item);
+
+    /**
+     * Called when the player starts using the item
+     * (when the gesture starts)
+     * @param player The player clicking
+     * @param item The ItemStack the focus is on
+     */
+    public void onClickBegin(EntityPlayer player, ItemStack item);
+
+    /**
+     * Called when the player stops using the item
+     * (when the gesture ends)
+     * @param player The player clicking
+     * @param item The ItemStack the focus is on
+     */
+    public void onClickEnd(EntityPlayer player, ItemStack item);
 
     /**
      * Called when the item is ticking (in hotbar/hand etc)

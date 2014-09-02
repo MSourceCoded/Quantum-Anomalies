@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,10 +14,12 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
 import sourcecoded.quantum.api.gesture.IGesture;
-import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.utils.ItemUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ItemSceptre extends ItemQuantum {
 
@@ -27,7 +28,7 @@ public class ItemSceptre extends ItemQuantum {
     public float[] offsetInitial = new float[2];
 
     public float step = 0.025F;
-    
+
     public ItemSceptre() {
         this.setUnlocalizedName("itemSceptre");
     }
@@ -39,10 +40,11 @@ public class ItemSceptre extends ItemQuantum {
 
         if (item.stackTagCompound != null)
             if (item.stackTagCompound.hasKey("focus")) {
-                String focusName = SceptreFocusRegistry.getFocus(item.stackTagCompound.getString("focus")).getName();
+                String focusName = getFocus(item).getName();
                 EnumChatFormatting focusColour = SceptreFocusRegistry.getFocus(item.stackTagCompound.getString("focus")).getNameColour();
-                return String.format("%s %s[%s]%s", baseName, focusColour, focusName, EnumChatFormatting.WHITE);
-            } else return String.format("%s %s[%s]%s", baseName, EnumChatFormatting.LIGHT_PURPLE, nullFocus, EnumChatFormatting.WHITE);
+                return String.format("%s %s[%s]%s", baseName, focusColour, StatCollector.translateToLocal(focusName), EnumChatFormatting.WHITE);
+            } else
+                return String.format("%s %s[%s]%s", baseName, EnumChatFormatting.LIGHT_PURPLE, nullFocus, EnumChatFormatting.WHITE);
         else return baseName;
     }
 
@@ -61,7 +63,7 @@ public class ItemSceptre extends ItemQuantum {
         NBTTagCompound colours = item.stackTagCompound.getCompoundTag("colourData");
 
         if (item.stackTagCompound.hasKey("focus")) {
-            ISceptreFocus focus = SceptreFocusRegistry.getFocus(item.stackTagCompound.getString("focus"));
+            ISceptreFocus focus = getFocus(item);
 
             if (focus != null) {
                 focus.onItemTick(item);
@@ -69,15 +71,18 @@ public class ItemSceptre extends ItemQuantum {
             } else item.stackTagCompound.removeTag("focus");
         }
 
-        if (rgb == null) rgb = new float[] {0.8F, 0F, 0.8F};
+        if (rgb == null) rgb = new float[]{0.8F, 0F, 0.8F};
 
         float oR = colours.getFloat("r");
         float oG = colours.getFloat("g");
         float oB = colours.getFloat("b");
 
-        if (oR > rgb[0]+step) oR -= step; else if (oR < rgb[0]-step) oR += step;
-        if (oG > rgb[1]+step) oG -= step; else if (oG < rgb[1]-step) oG += step;
-        if (oB > rgb[2]+step) oB -= step; else if (oB < rgb[2]-step) oB += step;
+        if (oR > rgb[0] + step) oR -= step;
+        else if (oR < rgb[0] - step) oR += step;
+        if (oG > rgb[1] + step) oG -= step;
+        else if (oG < rgb[1] - step) oG += step;
+        if (oB > rgb[2] + step) oB -= step;
+        else if (oB < rgb[2] - step) oB += step;
 
         colours.setFloat("r", oR);
         colours.setFloat("g", oG);
@@ -87,25 +92,26 @@ public class ItemSceptre extends ItemQuantum {
     }
 
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
-        if (world.isRemote) {
-            ISceptreFocus focus = SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus"));
-            if (focus != null) {
-                IGesture[] gestures = focus.getAvailableGestures();
-                if (gestures != null) {
-                    for (IGesture gesture : gestures)
-                       if (gesture.calculateGesture(player, world, stack, mostRecentGesture)) return;
-                }
+        ISceptreFocus focus = getFocus(stack);
+        if (focus != null) {
+            focus.onClickEnd(player, stack);
+            IGesture[] gestures = focus.getAvailableGestures();
+            if (gestures != null) {
+                for (IGesture gesture : gestures)
+                    if (gesture.calculateGesture(player, world, stack, mostRecentGesture)) return;
             }
         }
     }
 
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (world.isRemote) {
-            mostRecentGesture = new GesturePointMap();
+        ISceptreFocus focus = getFocus(stack);
+        if (focus != null)
+            focus.onClickBegin(player, stack);
 
-            Minecraft mc = Minecraft.getMinecraft();        //Wrap me to the beginning
-            offsetInitial = new float[]{mc.thePlayer.getRotationYawHead(), mc.thePlayer.rotationPitch};
-        }
+        mostRecentGesture = new GesturePointMap();
+
+        offsetInitial = new float[]{player.getRotationYawHead(), player.rotationPitch};
+
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
@@ -119,9 +125,9 @@ public class ItemSceptre extends ItemQuantum {
         }
 
         if (stack.stackTagCompound.hasKey("focus"))
-            focus = SceptreFocusRegistry.getNextFocus(SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus")), (EntityPlayer)entityLiving, stack);
+            focus = SceptreFocusRegistry.getNextFocus(getFocus(stack), (EntityPlayer) entityLiving, stack);
         else
-            focus = SceptreFocusRegistry.getNextFocus(null, (EntityPlayer)entityLiving, stack);
+            focus = SceptreFocusRegistry.getNextFocus(null, (EntityPlayer) entityLiving, stack);
 
         changeFocus(focus, stack);
         return false;
@@ -135,22 +141,32 @@ public class ItemSceptre extends ItemQuantum {
         return 72000;
     }
 
-    @SideOnly(Side.CLIENT)
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-        Minecraft mc = Minecraft.getMinecraft();        //Wrap me to the beginning
-
-        float yaw = offsetInitial[0] - mc.thePlayer.getRotationYawHead();
-        float pitch = offsetInitial[1] - mc.thePlayer.rotationPitch;
+        float yaw = offsetInitial[0] - player.getRotationYawHead();
+        float pitch = offsetInitial[1] - player.rotationPitch;
         mostRecentGesture.addPoint(yaw, pitch);
     }
 
     void changeFocus(ISceptreFocus focus, ItemStack stack) {
-        ISceptreFocus oldFocus = SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus"));
+        ISceptreFocus oldFocus = getFocus(stack);
         if (oldFocus != null) oldFocus.onDeactivated(stack);
 
         if (focus != null) {
             stack.stackTagCompound.setString("focus", focus.getFocusIdentifier());
             focus.onActivated(stack);
         } else stack.stackTagCompound.removeTag("focus");
+    }
+
+    ISceptreFocus getFocus(ItemStack stack) {
+        return SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus"));
+    }
+
+    public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean idk) {
+        ItemUtils.checkCompound(stack);
+        if (getFocus(stack) != null) {
+            String[] array = getFocus(stack).getLore(stack);
+            for (String s : array)
+                lore.add(StatCollector.translateToLocal(s));
+        }
     }
 }

@@ -1,14 +1,11 @@
 package sourcecoded.quantum.block;
 
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
-import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.tile.TileRiftSmelter;
 
 public class BlockRiftSmelter extends BlockInfusedStone {

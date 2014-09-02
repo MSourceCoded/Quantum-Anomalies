@@ -1,32 +1,23 @@
 package sourcecoded.quantum.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import sourcecoded.core.block.IBlockHasItem;
-import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.api.block.RiftMultiplierUtils;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
-import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.IDyeable;
 import sourcecoded.quantum.tile.TileInfusedStone;
 
-import java.util.List;
-
-public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe, IBlockHasItem {
+public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe {
 
     public BlockInfusedStone() {
         super();

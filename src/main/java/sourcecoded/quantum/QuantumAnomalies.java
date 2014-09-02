@@ -16,26 +16,28 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.quantum.api.QuantumAPI;
+import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityHellishCrystal;
 import sourcecoded.quantum.handler.ConfigHandler;
+import sourcecoded.quantum.listeners.BiomeListener;
 import sourcecoded.quantum.listeners.SecretListener;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
 import sourcecoded.quantum.registry.TileRegistry;
+import sourcecoded.quantum.sceptre.focus.FocusDematerialization;
+import sourcecoded.quantum.sceptre.focus.FocusHelium;
 import sourcecoded.quantum.worldgen.biome.BiomeEndAnomaly;
 import sourcecoded.quantum.worldgen.biome.BiomeHellAnomaly;
 
 import java.io.IOException;
 
 import static sourcecoded.quantum.Constants.*;
-import static sourcecoded.quantum.handler.ConfigHandler.Properties.END_ANOMALY_ID;
-import static sourcecoded.quantum.handler.ConfigHandler.Properties.END_ANOMALY_WEIGHT;
-import static sourcecoded.quantum.handler.ConfigHandler.Properties.HELL_ANOMALY_WEIGHT;
+import static sourcecoded.quantum.handler.ConfigHandler.Properties.*;
 import static sourcecoded.quantum.handler.ConfigHandler.getConfig;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:sourcecodedcore")
@@ -53,7 +55,10 @@ public class QuantumAnomalies {
         ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.1", Constants.MODID));
 
         endAnomaly = new BiomeEndAnomaly(getConfig().getInteger(END_ANOMALY_ID.getCategory(), END_ANOMALY_ID.getName()));
-        hellAnomaly = new BiomeHellAnomaly(getConfig().getInteger(END_ANOMALY_ID.getCategory(), END_ANOMALY_ID.getName()));
+        hellAnomaly = new BiomeHellAnomaly(getConfig().getInteger(HELL_ANOMALY_ID.getCategory(), HELL_ANOMALY_ID.getName()));
+
+        SceptreFocusRegistry.registerFocus(new FocusDematerialization());
+        SceptreFocusRegistry.registerFocus(new FocusHelium());
 
         NetworkHandler.initNetwork();
     }
@@ -62,8 +67,10 @@ public class QuantumAnomalies {
     public void init(FMLInitializationEvent event) {
         int id = 0;
 
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
+            MinecraftForge.EVENT_BUS.register(new BiomeListener());
+        }
 
         BlockRegistry.instance().registerAll();
         ItemRegistry.instance().registerAll();
@@ -85,6 +92,7 @@ public class QuantumAnomalies {
         proxy.register();
 
         MinecraftForge.EVENT_BUS.register(this);
+
         FMLCommonHandler.instance().bus().register(new SecretListener());
     }
 

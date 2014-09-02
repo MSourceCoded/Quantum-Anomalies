@@ -107,7 +107,7 @@ public class EntityHellishCrystal extends Entity {
                     if (!this.worldObj.isRemote) {
                         this.worldObj.createExplosion((Entity) null, this.posX, this.posY, this.posZ, 6.0F, true);
 
-                        this.worldObj.setBlock((int)this.posX, (int)this.posY, (int)this.posZ, BlockRegistry.instance().getBlockByName("blockCaosHell"));
+                        this.worldObj.setBlock((int)this.posX, (int)this.posY, (int)this.posZ, BlockRegistry.instance().getBlockByName("blockChaosHell"));
 
                         WorldUtils.generateRiftNode(worldObj, (int) this.posX, (int) this.posY + 6, (int) this.posZ);
 

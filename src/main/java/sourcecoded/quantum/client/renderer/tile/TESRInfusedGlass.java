@@ -8,7 +8,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.block.BlockInfusedGlass;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.tile.TileInfusedGlass;
 import sourcecoded.quantum.utils.TessUtils;
 

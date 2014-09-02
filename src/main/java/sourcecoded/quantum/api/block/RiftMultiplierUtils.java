@@ -1,7 +1,6 @@
 package sourcecoded.quantum.api.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;

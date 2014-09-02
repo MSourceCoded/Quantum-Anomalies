@@ -22,12 +22,23 @@ qa.items.itemChaosShard.name=Chaos Shard
 achievement.qa|secret=Cracking the Code
 achievement.qa|secret.desc=Turn to page 394
 
+achievement.qa|learning=Learning to Quantum
+achievement.qa|learning.desc=What the...
+
 #####################################
 # Sceptre
 #####################################
 
 qa.sceptre.name=Quantum Sceptre
 qa.sceptre.focus.null=No Focus
+
+qa.sceptre.focus.dematerialization=Dematerialization Focus
+qa.sceptre.focus.dematerialization.lore.0=WARNING!
+qa.sceptre.focus.dematerialization.lore.1=It can be a bit.... shocking
+
+qa.sceptre.focus.helium=Helium Focus
+qa.sceptre.focus.helium.lore.0=Lighter than Air
+
 
 #####################################
 # Journal

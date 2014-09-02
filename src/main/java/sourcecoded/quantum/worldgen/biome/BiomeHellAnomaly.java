@@ -7,10 +7,11 @@ import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import sourcecoded.quantum.api.worldgen.IBiomeAnomaly;
 import sourcecoded.quantum.worldgen.decorator.BiomeHellAnomalyDecorator;
 
 @SuppressWarnings("unchecked")
-public class BiomeHellAnomaly extends BiomeGenBase {
+public class BiomeHellAnomaly extends BiomeGenBase implements IBiomeAnomaly {
 
     public BiomeHellAnomaly(int id) {
         super(id);

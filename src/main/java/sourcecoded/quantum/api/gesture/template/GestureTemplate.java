@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.gesture.template;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
 import sourcecoded.quantum.api.gesture.IGesture;
@@ -33,8 +34,8 @@ public abstract class GestureTemplate implements IGesture {
      * @param world The world of the player
      * @param pointMap The point map of the gesture
      */
-    public void doCallback(EntityPlayer player, World world, GesturePointMap pointMap) {
-        callback.callbackGesture(player, world, pointMap);
+    public void doCallback(EntityPlayer player, World world, GesturePointMap pointMap, ItemStack item) {
+        callback.callbackGesture(player, world, pointMap, item);
     }
 
 }

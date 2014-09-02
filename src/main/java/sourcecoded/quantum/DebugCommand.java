@@ -28,6 +28,5 @@ public class DebugCommand extends CommandBase {
 
         EntityLightningBolt bolt = new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ);
         player.worldObj.spawnEntityInWorld(bolt);
-
     }
 }

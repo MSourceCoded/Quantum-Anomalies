@@ -5,9 +5,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.tile.TileInfusedStone;
 import sourcecoded.quantum.utils.TessUtils;
 

@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.gesture;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
@@ -18,7 +19,8 @@ public interface IGestureCallback {
      * @param world The world the gesture is in
      * @param pointMap A point map of the gesture. You can hook into this
      *                 for accessing each specific point traced by the player
+     * @param itemstack The Itemstack the gesture was executed on
      */
-    public void callbackGesture(EntityPlayer player, World world, GesturePointMap pointMap);
+    public void callbackGesture(EntityPlayer player, World world, GesturePointMap pointMap, ItemStack itemstack);
 
 }

@@ -5,10 +5,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
+import sourcecoded.quantum.api.worldgen.IBiomeAnomaly;
 import sourcecoded.quantum.worldgen.decorator.BiomeEndAnomalyDecorator;
 
 @SuppressWarnings("unchecked")
-public class BiomeEndAnomaly extends BiomeGenBase {
+public class BiomeEndAnomaly extends BiomeGenBase implements IBiomeAnomaly {
 
     public BiomeEndAnomaly(int id) {
         super(id);

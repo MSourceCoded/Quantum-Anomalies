@@ -9,7 +9,6 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.tile.TileRiftSmelter;
 
 import static org.lwjgl.opengl.GL11.*;

@@ -2,7 +2,8 @@ package sourcecoded.quantum.api.injection;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InjectorRegistry {
 

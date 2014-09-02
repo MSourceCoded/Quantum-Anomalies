@@ -75,7 +75,7 @@ public class GestureCircle extends GestureTemplate {
         int result = toCompare.compareTo(tracer);                               //Get the result of the gesture. Does it match?
         if (result != 1) return false;                                          //Return false if they don't match
 
-        this.doCallback(player, world, tracer);                                 //Finally, callback the interface passed in the constructor
+        this.doCallback(player, world, tracer, item);                           //Finally, callback the interface passed in the constructor
         return true;
     }
 }

@@ -3,7 +3,6 @@ package sourcecoded.quantum.api.discovery;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -33,15 +32,17 @@ public class DiscoveryCategory {
     /**
      * Set the icon of the Category
      */
-    public void setIcon(ResourceLocation location) {
+    public DiscoveryCategory setIcon(ResourceLocation location) {
         this.icon = location;
+        return this;
     }
 
     /**
      * Set the background of the Category
      */
-    public void setBackground(ResourceLocation location) {
+    public DiscoveryCategory setBackground(ResourceLocation location) {
         this.background = location;
+        return this;
     }
 
     /**
@@ -54,8 +55,9 @@ public class DiscoveryCategory {
     /**
      * Set the identifying key of the Category.
      */
-    public void setKey(String newKey) {
+    public DiscoveryCategory setKey(String newKey) {
         this.key = newKey;
+        return this;
     }
 
     /**
@@ -77,8 +79,9 @@ public class DiscoveryCategory {
     /**
      * Set if the Category is 'unlocked' (accessible)
      */
-    public void setUnlocked(boolean state) {
+    public DiscoveryCategory setUnlocked(boolean state) {
         this.isUnlocked = state;
+        return this;
     }
 
     /**
@@ -91,8 +94,9 @@ public class DiscoveryCategory {
     /**
      * Set the Category's hidden state (can be seen)
      */
-    public void setHidden(boolean state) {
+    public DiscoveryCategory setHidden(boolean state) {
         this.isHidden = state;
+        return this;
     }
 
     /**
@@ -105,8 +109,9 @@ public class DiscoveryCategory {
     /**
      * Add a discovery item to this category
      */
-    public void addDiscoveryItem(DiscoveryItem item) {
+    public DiscoveryCategory addDiscoveryItem(DiscoveryItem item) {
         discoveries.put(item.key, item);
+        return this;
     }
 
     /**

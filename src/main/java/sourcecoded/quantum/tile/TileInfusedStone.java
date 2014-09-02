@@ -1,7 +1,6 @@
 package sourcecoded.quantum.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import sourcecoded.quantum.api.block.Colourizer;
 
 public class TileInfusedStone extends TileQuantum implements IDyeable {

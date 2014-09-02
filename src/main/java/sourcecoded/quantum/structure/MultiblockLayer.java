@@ -1,9 +1,6 @@
 package sourcecoded.quantum.structure;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
