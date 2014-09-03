@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.block.RiftMultiplierUtils;
-import sourcecoded.quantum.registry.ItemRegistry;
+import sourcecoded.quantum.registry.QAItems;
 
 import java.util.List;
 import java.util.Random;
@@ -26,7 +26,7 @@ public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier, IBl
     }
 
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-        return ItemRegistry.instance().getItemByName("itemCaosShard");
+        return QAItems.CHAOS_SHARD.getItem();
     }
 
     @Override

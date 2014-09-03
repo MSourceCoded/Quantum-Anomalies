@@ -9,7 +9,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
-import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.utils.WorldUtils;
 import sourcecoded.quantum.utils.shapes.SphereCallback;
 import sourcecoded.quantum.utils.shapes.SphereUtils;
@@ -107,14 +107,14 @@ public class EntityEnderishCrystal extends Entity {
                     if (!this.worldObj.isRemote) {
                         this.worldObj.createExplosion((Entity) null, this.posX, this.posY, this.posZ, 6.0F, true);
 
-                        this.worldObj.setBlock((int)this.posX, (int)this.posY, (int)this.posZ, BlockRegistry.instance().getBlockByName("blockChaosEnder"));
+                        this.worldObj.setBlock((int)this.posX, (int)this.posY, (int)this.posZ, QABlocks.CHAOS_ENDER.getBlock());
 
                         WorldUtils.generateRiftNode(worldObj, (int)this.posX, (int)this.posY + 6, (int)this.posZ);
 
                         SphereCallback callback = new SphereCallback() {
                             @Override
                             public void call(int x, int y, int z) {
-                                worldObj.setBlock(x, y, z, BlockRegistry.instance().getBlockByName("infusedStone"));
+                                worldObj.setBlock(x, y, z, QABlocks.INJECTED_STONE.getBlock());
                             }
                         };
 

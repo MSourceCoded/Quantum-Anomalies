@@ -10,7 +10,7 @@ import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.tile.TileCornerstone;
 
-public class BlockCornerstone extends BlockInfusedStone {
+public class BlockCornerstone extends BlockInjectedStone {
 
     public BlockCornerstone() {
         super();

@@ -15,13 +15,13 @@ import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.IDyeable;
-import sourcecoded.quantum.tile.TileInfusedStone;
+import sourcecoded.quantum.tile.TileInjectedStone;
 
-public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe {
+public class BlockInjectedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe {
 
-    public BlockInfusedStone() {
+    public BlockInjectedStone() {
         super();
-        this.setBlockName("blockInfusedStone");
+        this.setBlockName("blockInjectedStone");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
     }
@@ -58,7 +58,7 @@ public class BlockInfusedStone extends BlockQuantum implements ITileEntityProvid
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileInfusedStone();
+        return new TileInjectedStone();
     }
 
     public float getExplosionResistance(Entity entity) {

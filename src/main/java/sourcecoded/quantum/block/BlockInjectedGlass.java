@@ -5,19 +5,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.injection.InjectionConstants;
-import sourcecoded.quantum.tile.TileInfusedGlass;
+import sourcecoded.quantum.tile.TileInjectedGlass;
 
-public class BlockInfusedGlass extends BlockInfusedStone {
+public class BlockInjectedGlass extends BlockInjectedStone {
 
-    public BlockInfusedGlass() {
+    public BlockInjectedGlass() {
         super();
-        this.setBlockName("blockInfusedGlass");
+        this.setBlockName("blockInjectedGlass");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileInfusedGlass();
+        return new TileInjectedGlass();
     }
 
     @Override

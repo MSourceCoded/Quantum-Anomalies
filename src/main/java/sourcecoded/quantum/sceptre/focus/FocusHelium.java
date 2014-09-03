@@ -1,11 +1,9 @@
 package sourcecoded.quantum.sceptre.focus;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Vec3;
-import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.gesture.IGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;

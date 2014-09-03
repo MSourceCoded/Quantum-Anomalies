@@ -13,7 +13,7 @@ import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
-import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.utils.WorldUtils;
 
@@ -38,14 +38,14 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
 
     boolean isParticle = false;
 
-    MultiblockLayer tier1 = new MultiblockLayer("cic", "i i", "cic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
-    MultiblockLayer tier2 = new MultiblockLayer("ciiic", "i   i", "i   i", "i   i", "ciiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone"));
+    MultiblockLayer tier1 = new MultiblockLayer("cic", "i i", "cic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock());
+    MultiblockLayer tier2 = new MultiblockLayer("ciiic", "i   i", "i   i", "i   i", "ciiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock());
     MultiblockLayer[] tier3 = {
-            new MultiblockLayer("ciiiiic", "i     i", "i     i", "i     i", "i     i", "i     i", "ciiiiic", 'c', BlockRegistry.instance().getBlockByName("cornerStone"), 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', BlockRegistry.instance().getBlockByName("infusedStone")),
-            new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', BlockRegistry.instance().getBlockByName("cornerStone")),
+            new MultiblockLayer("ciiiiic", "i     i", "i     i", "i     i", "i     i", "i     i", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock()),
     };
 
     public void updateEntity() {

@@ -6,9 +6,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.block.BlockInfusedGlass;
+import sourcecoded.quantum.block.BlockInjectedGlass;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileInfusedGlass;
+import sourcecoded.quantum.tile.TileInjectedGlass;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -37,7 +37,7 @@ public class TESRInfusedGlass extends TileEntitySpecialRenderer {
         tess.startDrawingQuads();
         //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
 
-        float[] rgb = ((TileInfusedGlass) te).colour.rgb;
+        float[] rgb = ((TileInjectedGlass) te).colour.rgb;
 
         tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
 
@@ -54,17 +54,17 @@ public class TESRInfusedGlass extends TileEntitySpecialRenderer {
     void draw(Tessellator tess, TileEntity te) {
         if (te.hasWorldObj()) {
             ForgeDirection currentDirection = ForgeDirection.UP;
-            boolean top = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean top = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
             currentDirection = ForgeDirection.DOWN;
-            boolean bottom = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean bottom = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
             currentDirection = ForgeDirection.NORTH;
-            boolean north = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean north = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
             currentDirection = ForgeDirection.SOUTH;
-            boolean south = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean south = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
             currentDirection = ForgeDirection.EAST;
-            boolean east = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean east = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
             currentDirection = ForgeDirection.WEST;
-            boolean west = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInfusedGlass;
+            boolean west = te.getWorldObj().getBlock(te.xCoord + currentDirection.offsetX, te.yCoord + currentDirection.offsetY, te.zCoord + currentDirection.offsetZ) instanceof BlockInjectedGlass;
 
             if (!top) TessUtils.drawFace(ForgeDirection.UP, tess, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1);
             if (!bottom) TessUtils.drawFace(ForgeDirection.DOWN, tess, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1);

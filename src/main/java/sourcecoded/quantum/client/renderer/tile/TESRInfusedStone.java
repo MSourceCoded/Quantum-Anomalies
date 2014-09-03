@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileInfusedStone;
+import sourcecoded.quantum.tile.TileInjectedStone;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -50,7 +50,7 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
         tess.startDrawingQuads();
         //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
 
-        float[] rgb = ((TileInfusedStone) te).colour.rgb;
+        float[] rgb = ((TileInjectedStone) te).colour.rgb;
 
         tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
 

@@ -3,7 +3,7 @@ package sourcecoded.quantum.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import sourcecoded.quantum.api.block.Colourizer;
 
-public class TileInfusedStone extends TileQuantum implements IDyeable {
+public class TileInjectedGlass extends TileQuantum implements IDyeable {
 
     public Colourizer colour = Colourizer.PURPLE;
 

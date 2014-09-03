@@ -5,11 +5,11 @@ import net.minecraft.item.ItemStack;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 
-public class ItemInfusedStick extends ItemQuantum implements IInjectorRecipe {
+public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe {
 
-    public ItemInfusedStick() {
+    public ItemInjectedStick() {
         this.setTextureName("infusedStick");
-        this.setUnlocalizedName("itemInfusedStick");
+        this.setUnlocalizedName("itemInjectedStick");
     }
 
     @Override

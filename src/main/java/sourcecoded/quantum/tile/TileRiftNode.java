@@ -95,8 +95,15 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void checkLightning() {
         List bolts = worldObj.getEntitiesWithinAABB(EntityLightningBolt.class, AxisAlignedBB.getBoundingBox(xCoord - radius, 0, zCoord - radius, xCoord + radius, 256, zCoord + radius));
+
+        for (Object entity : worldObj.weatherEffects) {
+            if (entity instanceof EntityLightningBolt)                  //Don't forget to check the locale later TODO
+                bolts.add(entity);
+        }
+
         if (shockCooldown == 0)
             giveRiftEnergy(RandomUtils.nextInt(boltValueMin, boltValueMax) * bolts.size());
         if (bolts.size() > 0)

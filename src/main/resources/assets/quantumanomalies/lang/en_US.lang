@@ -5,9 +5,9 @@
 qa.blocks.blockChaosEnder.name=Chaos Bricks (Ender)
 qa.blocks.blockChaosHell.name=Chaos Bricks (Hell)
 
-qa.blocks.blockCornerstone.name=Infused Cornerstone
-qa.blocks.blockInfusedStone.name=Infused Stone
-qa.blocks.blockInfusedGlass.name=Infused Glass
+qa.blocks.blockCornerstone.name=Injected Cornerstone
+qa.blocks.blockInjectedStone.name=Injected Stone
+qa.blocks.blockInjectedGlass.name=Injected Glass
 
 qa.blocks.blockRiftInjector.name=Quantum Rift Injection Pool
 qa.blocks.blockRiftNode.name=Quantum Rift Node

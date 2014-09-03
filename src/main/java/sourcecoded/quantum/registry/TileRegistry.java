@@ -1,7 +1,6 @@
 package sourcecoded.quantum.registry;
 
 import sourcecoded.core.tile.AbstractTileRegistry;
-import sourcecoded.quantum.tile.*;
 
 public class TileRegistry extends AbstractTileRegistry {
     public static TileRegistry instance;
@@ -12,14 +11,7 @@ public class TileRegistry extends AbstractTileRegistry {
 
     @Override
     public void addAll() {
-        addTile("riftNode", TileRiftNode.class);
-        addTile("infusedStone", TileInfusedStone.class);
-        addTile("infusedGlass", TileInfusedGlass.class);
-        addTile("cornerStone", TileCornerstone.class);
-        addTile("gravityNode", TileGravityNode.class);
-
-        addTile("debug", TileDebug.class);
-        addTile("riftSmelter", TileRiftSmelter.class);
-        addTile("riftInjector", TileRiftInjector.class);
+        for (QABlocks block : QABlocks.values())
+            if (block.tileEntity != null) addTile(block.getBlockName(), block.tileEntity);
     }
 }

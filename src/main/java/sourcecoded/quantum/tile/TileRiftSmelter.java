@@ -11,7 +11,7 @@ import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
-import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.utils.MathUtils;
 import sourcecoded.quantum.utils.WorldUtils;
 
@@ -125,30 +125,30 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
 
     //Oh god why
     public boolean multiblock() {
-        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord + 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord - 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord + 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord - 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
 
-        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("cornerStone")) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord + 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord - 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord + 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord - 1) != QABlocks.INJECTED_CORNERSTONE.getBlock()) return false;
 
-        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord + 1, zCoord) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord + 1, zCoord) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord - 1, zCoord) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord - 1, zCoord) != QABlocks.INJECTED_STONE.getBlock()) return false;
 
-        if (worldObj.getBlock(xCoord, yCoord + 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord, yCoord + 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord + 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord - 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
+        if (worldObj.getBlock(xCoord, yCoord + 1, zCoord + 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord, yCoord + 1, zCoord - 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord + 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord - 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
 
-        if (worldObj.getBlock(xCoord + 1, yCoord, zCoord + 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord + 1, yCoord, zCoord - 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord, zCoord + 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
-        if (worldObj.getBlock(xCoord - 1, yCoord, zCoord - 1) != BlockRegistry.instance().getBlockByName("infusedStone")) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord, zCoord + 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord + 1, yCoord, zCoord - 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord, zCoord + 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
+        if (worldObj.getBlock(xCoord - 1, yCoord, zCoord - 1) != QABlocks.INJECTED_STONE.getBlock()) return false;
 
         return true;
     }

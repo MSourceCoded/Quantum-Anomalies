@@ -13,7 +13,7 @@ import sourcecoded.quantum.client.renderer.tile.*;
 import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityHellishCrystal;
-import sourcecoded.quantum.registry.ItemRegistry;
+import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.*;
 
 public class ClientProxy implements IProxy {
@@ -31,10 +31,10 @@ public class ClientProxy implements IProxy {
         RenderingRegistry.registerBlockHandler(new SimpleTileProxy());
         RenderingRegistry.registerBlockHandler(new AdvancedTileProxy());
 
-        MinecraftForgeClient.registerItemRenderer(ItemRegistry.instance().getItemByName("itemSceptre"), new ItemSceptreRenderer());
+        MinecraftForgeClient.registerItemRenderer(QAItems.SCEPTRE.getItem(), new ItemSceptreRenderer());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileInfusedStone.class, new TESRInfusedStone());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileInfusedGlass.class, new TESRInfusedGlass());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedStone.class, new TESRInfusedStone());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedGlass.class, new TESRInfusedGlass());
         ClientRegistry.bindTileEntitySpecialRenderer(TileDebug.class, new TESRDebug());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCornerstone.class, new TESRCornerstone());
         ClientRegistry.bindTileEntitySpecialRenderer(TileRiftSmelter.class, new TESRRiftSmelter());

@@ -8,7 +8,7 @@ import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.tile.TileRiftSmelter;
 
-public class BlockRiftSmelter extends BlockInfusedStone {
+public class BlockRiftSmelter extends BlockInjectedStone {
 
     public BlockRiftSmelter() {
         super();

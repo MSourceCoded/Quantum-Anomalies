@@ -1,8 +1,5 @@
 package sourcecoded.quantum.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +15,6 @@ import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.utils.ItemUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ItemSceptre extends ItemQuantum {

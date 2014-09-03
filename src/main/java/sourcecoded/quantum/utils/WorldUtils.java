@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
-import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileRiftNode;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public strictfp class WorldUtils {
     }
 
     public static void generateRiftNode(World world, int x, int y, int z) {
-        world.setBlock(x, y, z, BlockRegistry.instance().getBlockByName("riftNode"));
+        world.setBlock(x, y, z, QABlocks.RIFT_NODE.getBlock());
         TileRiftNode node = (TileRiftNode) world.getTileEntity(x, y, z);
         node.riftStorage.giveRiftEnergy(RandomUtils.nextInt(6500, 10000));
     }
