@@ -16,6 +16,11 @@ public class TileInjectedGlass extends TileQuantum implements IDyeable {
     }
 
     @Override
+    public Colourizer getColour() {
+        return colour;
+    }
+
+    @Override
     public void writeToNBT(NBTTagCompound tags) {
         super.writeToNBT(tags);
 
@@ -28,9 +33,4 @@ public class TileInjectedGlass extends TileQuantum implements IDyeable {
 
         colour = Colourizer.values()[tags.getInteger("colourIndex")];
     }
-
-    void update() {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
 }

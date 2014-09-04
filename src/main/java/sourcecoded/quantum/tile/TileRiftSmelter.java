@@ -77,10 +77,6 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
             update();
     }
 
-    void update() {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
     private boolean canSmelt() {
         if (getRiftEnergy() < energyPerOperation) return false;
         if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) return false;
@@ -157,6 +153,11 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
     public void dye(Colourizer colour) {
         this.colour = colour;
         update();
+    }
+
+    @Override
+    public Colourizer getColour() {
+        return colour;
     }
 
     @Override

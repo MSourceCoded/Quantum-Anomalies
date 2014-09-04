@@ -21,4 +21,9 @@ public class TileQuantum extends TileEntity {
         markDirty();
     }
 
+    public void update() {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        markDirty();
+    }
+
 }

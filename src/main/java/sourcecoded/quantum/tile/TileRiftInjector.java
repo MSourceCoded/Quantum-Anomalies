@@ -168,10 +168,6 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
         }
     }
 
-    void update() {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);

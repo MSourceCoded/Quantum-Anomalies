@@ -19,9 +19,11 @@ import java.util.List;
 
 public class ItemSceptre extends ItemQuantum {
 
-    public GesturePointMap mostRecentGesture = new GesturePointMap();
+    public GesturePointMap mostRecentGestureServer = new GesturePointMap();
+    public GesturePointMap mostRecentGestureClient = new GesturePointMap();
 
-    public float[] offsetInitial = new float[2];
+    public float[] offsetInitialServer = new float[2];
+    public float[] offsetInitialClient = new float[2];
 
     public float step = 0.025F;
 
@@ -87,6 +89,14 @@ public class ItemSceptre extends ItemQuantum {
         item.stackTagCompound.setTag("colourData", colours);
     }
 
+    GesturePointMap getMostRecentGesture(World world) {
+        if (world.isRemote) return mostRecentGestureClient; else return mostRecentGestureServer;
+    }
+
+    float[] getOffset(World world) {
+        if (world.isRemote) return offsetInitialClient; else return offsetInitialServer;
+    }
+
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
         ISceptreFocus focus = getFocus(stack);
         if (focus != null) {
@@ -94,7 +104,7 @@ public class ItemSceptre extends ItemQuantum {
             IGesture[] gestures = focus.getAvailableGestures();
             if (gestures != null) {
                 for (IGesture gesture : gestures)
-                    if (gesture.calculateGesture(player, world, stack, mostRecentGesture)) return;
+                    if (gesture.calculateGesture(player, world, stack, getMostRecentGesture(world))) return;
             }
         }
     }
@@ -104,9 +114,15 @@ public class ItemSceptre extends ItemQuantum {
         if (focus != null)
             focus.onClickBegin(player, stack);
 
-        mostRecentGesture = new GesturePointMap();
+        if (!world.isRemote) {
+            mostRecentGestureServer = new GesturePointMap();
 
-        offsetInitial = new float[]{player.getRotationYawHead(), player.rotationPitch};
+            offsetInitialServer = new float[]{player.getRotationYawHead(), player.rotationPitch};
+        } else {
+            mostRecentGestureClient = new GesturePointMap();
+
+            offsetInitialClient = new float[]{player.getRotationYawHead(), player.rotationPitch};
+        }
 
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
@@ -138,9 +154,9 @@ public class ItemSceptre extends ItemQuantum {
     }
 
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-        float yaw = offsetInitial[0] - player.getRotationYawHead();
-        float pitch = offsetInitial[1] - player.rotationPitch;
-        mostRecentGesture.addPoint(yaw, pitch);
+        float yaw = getOffset(player.worldObj)[0] - player.getRotationYawHead();
+        float pitch = getOffset(player.worldObj)[1] - player.rotationPitch;
+        getMostRecentGesture(player.worldObj).addPoint(yaw, pitch);
     }
 
     void changeFocus(ISceptreFocus focus, ItemStack stack) {

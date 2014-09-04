@@ -6,4 +6,6 @@ public interface IDyeable {
 
     public void dye(Colourizer colour);
 
+    public Colourizer getColour();
+
 }
