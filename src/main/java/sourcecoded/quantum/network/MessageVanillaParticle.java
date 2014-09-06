@@ -1,0 +1,54 @@
+package sourcecoded.quantum.network;
+
+import cpw.mods.fml.common.network.ByteBufUtils;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.stats.StatList;
+
+public class MessageVanillaParticle implements IMessage, IMessageHandler<MessageVanillaParticle, IMessage> {
+
+    String name;
+    double x, y, z, velX, velY, velZ;
+
+    public MessageVanillaParticle() {}
+    public MessageVanillaParticle(String name, double x, double y, double z, double velX, double velY, double velZ) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.velX = velX;
+        this.velY = velY;
+        this.velZ = velZ;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        name = ByteBufUtils.readUTF8String(buf);
+        x = buf.readDouble();
+        y = buf.readDouble();
+        z = buf.readDouble();
+        velX = buf.readDouble();
+        velY = buf.readDouble();
+        velZ = buf.readDouble();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        ByteBufUtils.writeUTF8String(buf, name);
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
+        buf.writeDouble(velX);
+        buf.writeDouble(velY);
+        buf.writeDouble(velZ);
+    }
+
+    @Override
+    public IMessage onMessage(MessageVanillaParticle message, MessageContext ctx) {
+        Minecraft.getMinecraft().theWorld.spawnParticle(message.name, message.x, message.y, message.z, message.velX, message.velY, message.velZ);
+        return null;
+    }
+}

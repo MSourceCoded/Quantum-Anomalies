@@ -84,8 +84,10 @@ public interface ISceptreFocus {
      * (when the gesture ends)
      * @param player The player clicking
      * @param item The ItemStack the focus is on
+     * @param ticker The amount of time the item was
+     *               'drawn' for
      */
-    public void onClickEnd(EntityPlayer player, ItemStack item);
+    public void onClickEnd(EntityPlayer player, ItemStack item, int ticker);
 
     /**
      * Called when the item is ticking (in hotbar/hand etc)

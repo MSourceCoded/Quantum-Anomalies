@@ -31,17 +31,7 @@ public class BlockInjectedStone extends BlockQuantum implements ITileEntityProvi
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
-        ItemStack stack = player.getCurrentEquippedItem();
-
-        if (stack != null && stack.getItem() == Items.dye) {
-            TileEntity tile = world.getTileEntity(x, y, z);
-            if (tile != null && tile instanceof IDyeable) {
-                ((IDyeable) tile).dye(Colourizer.match(stack.getItemDamage()));
-                return true;
-            }
-        }
-
-        return false;
+        return IDyeable.DyeUtils.attemptDye(player, world, x, y, z);
     }
 
     @Override

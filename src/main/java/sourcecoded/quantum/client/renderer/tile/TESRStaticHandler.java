@@ -1,5 +1,6 @@
 package sourcecoded.quantum.client.renderer.tile;
 
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -14,5 +15,9 @@ public abstract class TESRStaticHandler extends TileEntitySpecialRenderer {
      * ptt will be 0 if isStatic, as it is a static render
      */
     public abstract void renderTile(TileEntity te, double x, double y, double z, float ptt, boolean isStatic);
+
+    static void brightness(Tessellator tess) {
+        tess.setBrightness(150);
+    }
 
 }

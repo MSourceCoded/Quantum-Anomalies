@@ -22,7 +22,7 @@ public class TESRRiftInjector extends TESRStaticHandler {
 
     WavefrontObject model = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, "model/block/infuser.obj"));
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
-    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/haze.png");
+    ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
     @Override
     public void renderTile(TileEntity te, double x, double y, double z, float ptt, boolean isStatic) {
@@ -59,6 +59,7 @@ public class TESRRiftInjector extends TESRStaticHandler {
             if (injector != null && injector.hasWorldObj()) {
                 try {
                     percentage = (float)injector.getRiftEnergy() / (float)injector.getMaxRiftEnergy();
+                    tess.setColorRGBA_F(injector.colour.rgb[0], injector.colour.rgb[1], injector.colour.rgb[2], GlowRenderHandler.instance().brightness);
                 } catch (ArithmeticException exception) {
                     //Divided by 0
                 }
@@ -82,6 +83,7 @@ public class TESRRiftInjector extends TESRStaticHandler {
             tess.addTranslation((float) x, (float) y, (float) z);
             tess.startDrawingQuads();
             tess.setColorRGBA_F(1F, 1F, 1F, 1F);
+            brightness(tess);
             Minecraft.getMinecraft().renderEngine.bindTexture(texDark);
             model.tessellatePart(tess, "Base");
             tess.draw();

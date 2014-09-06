@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXHelper;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 
@@ -23,13 +24,13 @@ public class RenderEnergyPacket extends Render {
 
         Tessellator tess = Tessellator.instance;
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(tex);
-
         glPushMatrix();
 
         glDepthMask(false);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        Minecraft.getMinecraft().renderEngine.bindTexture(tex);
 
         float scale = 0.1F;
 
@@ -39,7 +40,11 @@ public class RenderEnergyPacket extends Render {
         tess.startDrawingQuads();
         tess.setBrightness(240);
 
-        tess.setColorRGBA_F(1F, 0F, 1F, 0.5F);
+        //tess.setColorRGBA_F(1F, 0F, 1F, 0.5F);
+
+        Colourizer colour = ent.getColour();
+
+        tess.setColorRGBA_F(colour.rgb[0], colour.rgb[1], colour.rgb[2], 0.3F);
 
         FXHelper.drawTrackingParticle(tess, pos, scale, rot);
 

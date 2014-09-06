@@ -13,7 +13,7 @@ import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class TESRInfusedGlass extends TileEntitySpecialRenderer {
+public class TESRInjectedGlass extends TileEntitySpecialRenderer {
 
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/glassBlack.png");
     ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/glassPurpleDesaturated.png");

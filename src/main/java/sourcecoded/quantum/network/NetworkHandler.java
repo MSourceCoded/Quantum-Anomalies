@@ -15,6 +15,7 @@ public class NetworkHandler {
         wrapper.registerMessage(MessageAchievement.class, MessageAchievement.class, 0, Side.SERVER);
 
         /* Sending to client */
+        wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 0, Side.CLIENT);
     }
 
 }

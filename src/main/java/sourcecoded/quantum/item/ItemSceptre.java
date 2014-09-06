@@ -100,7 +100,7 @@ public class ItemSceptre extends ItemQuantum {
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
         ISceptreFocus focus = getFocus(stack);
         if (focus != null) {
-            focus.onClickEnd(player, stack);
+            focus.onClickEnd(player, stack, count);
             IGesture[] gestures = focus.getAvailableGestures();
             if (gestures != null) {
                 for (IGesture gesture : gestures)

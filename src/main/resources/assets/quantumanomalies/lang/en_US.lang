@@ -13,7 +13,10 @@ qa.blocks.blockRiftInjector.name=Quantum Rift Injection Pool
 qa.blocks.blockRiftNode.name=Quantum Rift Node
 qa.blocks.blockRiftSmelter.name=Quantum Rift Furnace
 
+qa.blocks.blockManipulation.name=Matter Manipulation Structure
+
 qa.items.itemChaosShard.name=Chaos Shard
+qa.items.itemInjectedStick.name=Injected Stick
 
 #####################################
 # Achievements

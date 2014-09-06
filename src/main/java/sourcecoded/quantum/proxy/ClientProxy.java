@@ -33,11 +33,12 @@ public class ClientProxy implements IProxy {
 
         MinecraftForgeClient.registerItemRenderer(QAItems.SCEPTRE.getItem(), new ItemSceptreRenderer());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedStone.class, new TESRInfusedStone());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedGlass.class, new TESRInfusedGlass());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedStone.class, new TESRInjectedStone());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedGlass.class, new TESRInjectedGlass());
         ClientRegistry.bindTileEntitySpecialRenderer(TileDebug.class, new TESRDebug());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCornerstone.class, new TESRCornerstone());
         ClientRegistry.bindTileEntitySpecialRenderer(TileRiftSmelter.class, new TESRRiftSmelter());
         ClientRegistry.bindTileEntitySpecialRenderer(TileRiftInjector.class, new TESRRiftInjector());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileManipulation.class, new TESRManipulation());
     }
 }

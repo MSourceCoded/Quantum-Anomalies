@@ -79,7 +79,6 @@ public class FXRiftInjection extends EntityFX {
 
         EntityLivingBase renderEntity = FMLClientHandler.instance().getClient().thePlayer;
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(tex);
 
         float progress = (float) particleAge / particleMaxAge;
 
@@ -90,6 +89,8 @@ public class FXRiftInjection extends EntityFX {
         glDepthMask(false);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        Minecraft.getMinecraft().renderEngine.bindTexture(tex);
 
         float scale = data.size;
 

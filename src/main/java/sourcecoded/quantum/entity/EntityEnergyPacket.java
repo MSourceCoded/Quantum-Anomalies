@@ -1,7 +1,9 @@
 package sourcecoded.quantum.entity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,6 +15,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.RandomUtils;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.gravity.IGravityEntity;
 
@@ -42,19 +45,23 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
      */
     public int energy;
 
+    Colourizer colour = Colourizer.PURPLE;
+
     public EntityEnergyPacket(World world) {
         super(world);
         this.noClip = true;
         this.setSize(0.1F, 0.1F);
     }
 
-    public EntityEnergyPacket(World world, int energy, int xOrigin, int yOrigin, int zOrigin) {
+    public EntityEnergyPacket(World world, int energy, int xOrigin, int yOrigin, int zOrigin, Colourizer colour) {
         this(world);
         origin = new int[3];
         origin[0] = xOrigin;
         origin[1] = yOrigin;
         origin[2] = zOrigin;
         this.energy = energy;
+        this.colour = colour;
+        dataWatcherInit();
     }
 
     public void setEnergy(int amount) {
@@ -62,7 +69,11 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
     }
 
     public int getEnergy() {
-        return energy;
+        return this.dataWatcher.getWatchableObjectInt(10);
+    }
+
+    public Colourizer getColour() {
+        return Colourizer.values()[this.dataWatcher.getWatchableObjectInt(11)];
     }
 
     @Override
@@ -70,8 +81,15 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
         return false;
     }
 
+    void dataWatcherInit() {
+        this.dataWatcher.updateObject(10, energy);
+        this.dataWatcher.updateObject(11, colour.ordinal());
+    }
+
     @Override
     public void entityInit() {
+        this.dataWatcher.addObject(10, energy);
+        this.dataWatcher.addObject(11, Colourizer.PURPLE.ordinal());
     }
 
     @SuppressWarnings("unchecked")
@@ -93,8 +111,10 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
                     TileEntity tile = worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ);
 
                     if (tile != null && tile instanceof ITileRiftHandler) {
-                        ((ITileRiftHandler) tile).giveRiftEnergy(energy);
-                        this.setDead();
+                        this.energy -= ((ITileRiftHandler) tile).giveRiftEnergy(energy);
+                        dataWatcher.updateObject(10, energy);
+                        if (energy <= 0)
+                            this.setDead();
                     }
                 }
             }
@@ -116,6 +136,10 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
         this.moveEntity(motionX, motionY, motionZ);
     }
 
+    protected boolean canTriggerWalking() {
+        return false;
+    }
+
     @SideOnly(Side.CLIENT)
     public boolean isInRangeToRenderDist(double distance) {
         double d1 = 0.25D;
@@ -125,10 +149,14 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
 
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
+        energy = nbt.getInteger("energy");
+        colour = Colourizer.values()[nbt.getInteger("colourIndex")];
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
+        nbt.setInteger("energy", energy);
+        nbt.setInteger("colourIndex", colour.ordinal());
     }
 
     @Override

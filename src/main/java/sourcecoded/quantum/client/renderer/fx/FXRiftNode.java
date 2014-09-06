@@ -80,10 +80,6 @@ public class FXRiftNode extends EntityFX {
 
         EntityLivingBase renderEntity = FMLClientHandler.instance().getClient().thePlayer;
 
-        if (!hollow)
-            Minecraft.getMinecraft().renderEngine.bindTexture(tex);
-        else
-            Minecraft.getMinecraft().renderEngine.bindTexture(texH);
         tess.draw();
 
         glPushMatrix();
@@ -91,6 +87,11 @@ public class FXRiftNode extends EntityFX {
         glDepthMask(false);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        if (!hollow)
+            Minecraft.getMinecraft().renderEngine.bindTexture(tex);
+        else
+            Minecraft.getMinecraft().renderEngine.bindTexture(texH);
 
         float scale = data.size;
 

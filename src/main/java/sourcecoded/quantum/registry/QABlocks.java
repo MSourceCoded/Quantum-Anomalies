@@ -14,7 +14,8 @@ public enum QABlocks {
     INJECTED_STONE("blockInjectedStone", new BlockInjectedStone(), TileInjectedStone.class),
     RIFT_INJECTION_POOL("blockInjectionPool", new BlockRiftInjector(), TileRiftInjector.class),
     RIFT_NODE("blockRiftNode", new BlockRiftNode(), TileRiftNode.class),
-    RIFT_SMELTER("blockRiftFurnace", new BlockRiftSmelter(), TileRiftSmelter.class);
+    RIFT_SMELTER("blockRiftFurnace", new BlockRiftSmelter(), TileRiftSmelter.class),
+    MANIPULATION("blockManipulation", new BlockManipulation(), TileManipulation.class);
 
     public String identifier;
     public Block instance;

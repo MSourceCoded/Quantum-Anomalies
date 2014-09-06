@@ -55,6 +55,7 @@ public class TESRRiftSmelter extends TESRStaticHandler {
             tess.addTranslation((float)x, (float)y, (float)z);
             tess.startDrawingQuads();
             tess.setColorRGBA_F(1F, 1F, 1F, 1F);
+            brightness(tess);
             Minecraft.getMinecraft().renderEngine.bindTexture(texDark);
             model.tessellatePart(tess, "Base");
             tess.draw();

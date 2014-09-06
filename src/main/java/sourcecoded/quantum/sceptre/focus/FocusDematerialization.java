@@ -65,7 +65,7 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
     }
 
     @Override
-    public void onClickEnd(EntityPlayer player, ItemStack item) {
+    public void onClickEnd(EntityPlayer player, ItemStack item, int ticker) {
     }
 
     @Override
@@ -91,6 +91,8 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
         if (!player.worldObj.isRemote) {
             NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
             player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));
+
+            player.fallDistance = 0F;
 
             if (RandomUtils.nextInt(0, 3) == 2)
                 player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));

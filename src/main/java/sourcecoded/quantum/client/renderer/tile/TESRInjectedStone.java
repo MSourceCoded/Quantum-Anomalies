@@ -11,7 +11,7 @@ import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class TESRInfusedStone extends TileEntitySpecialRenderer {
+public class TESRInjectedStone extends TileEntitySpecialRenderer {
 
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
     ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
@@ -30,8 +30,8 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
 
         Tessellator tess = Tessellator.instance;
 
-
         tess.startDrawingQuads();
+        TESRStaticHandler.brightness(tess);
         this.bindTexture(texDark);
         glColor4f(1F, 1F, 1F, 1F);
         tess.setColorRGBA_F(1F, 1F, 1F, 1F);
@@ -48,7 +48,6 @@ public class TESRInfusedStone extends TileEntitySpecialRenderer {
         tess.draw();
 
         tess.startDrawingQuads();
-        //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
 
         float[] rgb = ((TileInjectedStone) te).colour.rgb;
 
