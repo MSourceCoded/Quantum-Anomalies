@@ -27,6 +27,6 @@ public class DebugCommand extends CommandBase {
         //FXManager.portalFX1Fragment(send.getEntityWorld(), (int)player.posX, (int)player.posY, (int)player.posZ);
 
         EntityLightningBolt bolt = new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ);
-        player.worldObj.spawnEntityInWorld(bolt);
+        player.worldObj.addWeatherEffect(bolt);
     }
 }

@@ -12,9 +12,10 @@ public class MessageVanillaParticle implements IMessage, IMessageHandler<Message
 
     String name;
     double x, y, z, velX, velY, velZ;
+    int amount;
 
     public MessageVanillaParticle() {}
-    public MessageVanillaParticle(String name, double x, double y, double z, double velX, double velY, double velZ) {
+    public MessageVanillaParticle(String name, double x, double y, double z, double velX, double velY, double velZ, int amount) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -22,6 +23,7 @@ public class MessageVanillaParticle implements IMessage, IMessageHandler<Message
         this.velX = velX;
         this.velY = velY;
         this.velZ = velZ;
+        this.amount = amount;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class MessageVanillaParticle implements IMessage, IMessageHandler<Message
         velX = buf.readDouble();
         velY = buf.readDouble();
         velZ = buf.readDouble();
+        amount = buf.readInt();
     }
 
     @Override
@@ -44,11 +47,13 @@ public class MessageVanillaParticle implements IMessage, IMessageHandler<Message
         buf.writeDouble(velX);
         buf.writeDouble(velY);
         buf.writeDouble(velZ);
+        buf.writeInt(amount);
     }
 
     @Override
     public IMessage onMessage(MessageVanillaParticle message, MessageContext ctx) {
-        Minecraft.getMinecraft().theWorld.spawnParticle(message.name, message.x, message.y, message.z, message.velX, message.velY, message.velZ);
+        for (int i = 0; i < message.amount; i++)
+            Minecraft.getMinecraft().theWorld.spawnParticle(message.name, message.x, message.y, message.z, message.velX, message.velY, message.velZ);
         return null;
     }
 }

@@ -39,6 +39,7 @@ import java.io.IOException;
 import static sourcecoded.quantum.Constants.*;
 import static sourcecoded.quantum.handler.ConfigHandler.Properties.*;
 import static sourcecoded.quantum.handler.ConfigHandler.getConfig;
+import static sourcecoded.quantum.handler.ConfigHandler.getInteger;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:sourcecodedcore")
 public class QuantumAnomalies {
@@ -54,8 +55,8 @@ public class QuantumAnomalies {
         QuantumAPI.isQAPresent = true;
         ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.1", Constants.MODID));
 
-        endAnomaly = new BiomeEndAnomaly(getConfig().getInteger(END_ANOMALY_ID.getCategory(), END_ANOMALY_ID.getName()));
-        hellAnomaly = new BiomeHellAnomaly(getConfig().getInteger(HELL_ANOMALY_ID.getCategory(), HELL_ANOMALY_ID.getName()));
+        endAnomaly = new BiomeEndAnomaly(getInteger(END_ANOMALY_ID));
+        hellAnomaly = new BiomeHellAnomaly(getInteger(HELL_ANOMALY_ID));
 
         SceptreFocusRegistry.registerFocus(new FocusDematerialization());
         SceptreFocusRegistry.registerFocus(new FocusHelium());
@@ -85,9 +86,9 @@ public class QuantumAnomalies {
         BiomeManager.addSpawnBiome(endAnomaly);
         BiomeManager.addSpawnBiome(hellAnomaly);
 
-        BiomeManager.desertBiomes.add(new BiomeManager.BiomeEntry(hellAnomaly, getConfig().getInteger(HELL_ANOMALY_WEIGHT.getCategory(), HELL_ANOMALY_WEIGHT.getName())));
-        BiomeManager.coolBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getConfig().getInteger(END_ANOMALY_WEIGHT.getCategory(), END_ANOMALY_WEIGHT.getName())));
-        BiomeManager.warmBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getConfig().getInteger(END_ANOMALY_WEIGHT.getCategory(), END_ANOMALY_WEIGHT.getName())));
+        BiomeManager.desertBiomes.add(new BiomeManager.BiomeEntry(hellAnomaly, getInteger(HELL_ANOMALY_WEIGHT)));
+        BiomeManager.coolBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
+        BiomeManager.warmBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
 
         proxy.register();
 

@@ -15,7 +15,7 @@ import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.utils.MathUtils;
 import sourcecoded.quantum.utils.WorldUtils;
 
-public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITileRiftHandler, IDyeable {
+public class TileRiftSmelter extends TileDyeable implements ISidedInventory, ITileRiftHandler {
 
     /** Items to cook */
     private static final int[] slotsTop = new int[]{0};
@@ -41,8 +41,6 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
     public float speed = 1F;
     public float energy = 1F;
     public float production = 1F;
-
-    public Colourizer colour = Colourizer.PURPLE;
 
     //Rift Storage
     RiftEnergyStorage rift = new RiftEnergyStorage(1000);
@@ -150,17 +148,6 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
     }
 
     @Override
-    public void dye(Colourizer colour) {
-        this.colour = colour;
-        update();
-    }
-
-    @Override
-    public Colourizer getColour() {
-        return colour;
-    }
-
-    @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         rift.writeRiftToNBT(nbt);
@@ -178,8 +165,6 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
         }
 
         nbt.setTag("Items", nbttaglist);
-
-        nbt.setInteger("colourIndex", colour.ordinal());
     }
 
     @Override
@@ -199,8 +184,6 @@ public class TileRiftSmelter extends TileQuantum implements ISidedInventory, ITi
         }
 
         this.furnaceCookTime = nbt.getShort("CookTime");
-
-        colour = Colourizer.values()[nbt.getInteger("colourIndex")];
     }
 
     @Override

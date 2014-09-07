@@ -8,30 +8,14 @@ import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 
-public class TileManipulation extends TileQuantum implements IDyeable, IFluidHandler, ITileRiftHandler {
-
-    public Colourizer colour = Colourizer.PURPLE;
+public class TileManipulation extends TileDyeable implements IFluidHandler, ITileRiftHandler {
 
     public RiftEnergyStorage storage = new RiftEnergyStorage(100);
-
-    @Override
-    public void dye(Colourizer colour) {
-        if (!worldObj.isRemote) {
-            this.colour = colour;
-            update();
-        }
-    }
-
-    @Override
-    public Colourizer getColour() {
-        return colour;
-    }
 
     @Override
     public void writeToNBT(NBTTagCompound tags) {
         super.writeToNBT(tags);
 
-        tags.setInteger("colourIndex", colour.ordinal());
         storage.writeRiftToNBT(tags);
     }
 
@@ -39,7 +23,6 @@ public class TileManipulation extends TileQuantum implements IDyeable, IFluidHan
     public void readFromNBT(NBTTagCompound tags) {
         super.readFromNBT(tags);
 
-        colour = Colourizer.values()[tags.getInteger("colourIndex")];
         storage.readRiftFromNBT(tags);
     }
 

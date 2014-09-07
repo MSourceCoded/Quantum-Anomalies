@@ -17,7 +17,7 @@ import sourcecoded.quantum.tile.TileRiftNode;
 
 import java.util.Random;
 
-public class BlockRiftNode extends BlockQuantum implements ITileEntityProvider {
+public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
 
     public BlockRiftNode() {
         super();
@@ -33,20 +33,6 @@ public class BlockRiftNode extends BlockQuantum implements ITileEntityProvider {
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
-    }
-
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
-        ItemStack stack = player.getCurrentEquippedItem();
-
-        if (stack != null && stack.getItem() == Items.dye) {
-            TileEntity tile = world.getTileEntity(x, y, z);
-            if (tile != null && tile instanceof IDyeable) {
-                ((IDyeable) tile).dye(Colourizer.match(stack.getItemDamage()));
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public int getComparatorInputOverride(World world, int x, int y, int z, int side) {

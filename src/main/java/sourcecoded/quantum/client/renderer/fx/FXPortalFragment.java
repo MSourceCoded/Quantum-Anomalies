@@ -82,8 +82,6 @@ public class FXPortalFragment extends EntityFX {
 
         float percentage = (float)particleAge / (float)particleMaxAge;
 
-        EntityLivingBase renderEntity = FMLClientHandler.instance().getClient().thePlayer;
-
         tess.draw();
 
         glPushMatrix();

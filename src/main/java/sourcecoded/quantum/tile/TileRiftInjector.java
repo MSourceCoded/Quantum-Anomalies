@@ -18,7 +18,7 @@ import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.utils.WorldUtils;
 
-public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, ISidedInventory, IDyeable {
+public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, ISidedInventory {
 
     public RiftEnergyStorage rift = new RiftEnergyStorage(5000);
 
@@ -48,19 +48,6 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
             new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
             new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock()),
     };
-
-    public Colourizer colour = Colourizer.PURPLE;
-
-    @Override
-    public void dye(Colourizer colour) {
-        this.colour = colour;
-        update();
-    }
-
-    @Override
-    public Colourizer getColour() {
-        return colour;
-    }
 
     public void updateEntity() {
         if (ticker >= 10) {
@@ -99,8 +86,8 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
 
         } else {
             if (isParticle && ticker % 5 == 0) {
-                FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, true, colour);
-                FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, false, colour);
+                FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, true, getColour());
+                FXManager.injectionFX(0.1F, worldObj, xCoord + 0.5F, yCoord + 0.3F, zCoord + 0.5F, false, getColour());
             }
         }
 
@@ -198,8 +185,6 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
         nbt.setTag("Items", nbttaglist);
 
         nbt.setBoolean("isCooking", isParticle);
-
-        nbt.setInteger("colourIndex", colour.ordinal());
     }
 
     @Override
@@ -215,8 +200,6 @@ public class TileRiftInjector extends TileQuantum implements ITileRiftHandler, I
                 this.currentItem = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 
         isParticle = nbt.getBoolean("isCooking");
-
-        colour = Colourizer.values()[nbt.getInteger("colourIndex")];
     }
 
     @Override

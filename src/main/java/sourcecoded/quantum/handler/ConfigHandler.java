@@ -42,6 +42,22 @@ public class ConfigHandler {
         getConfig().saveConfig();
     }
 
+    public static int getInteger(Properties prop) {
+        return config.getInteger(prop.getCategory(), prop.getName());
+    }
+
+    public static double getDouble(Properties prop) {
+        return config.getDouble(prop.getCategory(), prop.getName());
+    }
+
+    public static String getString(Properties prop) {
+        return config.getString(prop.getCategory(), prop.getName());
+    }
+
+    public static Boolean getBoolean(Properties prop) {
+        return config.getBool(prop.getCategory(), prop.getName());
+    }
+
     public static VersionConfig getConfig() {
         return config;
     }
@@ -52,7 +68,8 @@ public class ConfigHandler {
 
     public static enum Categories {
         INTEGRATION("integration", "For integration with other mods and APIs"),
-        WORLD_GEN("world_gen", "Changes how the WorldGen in the mod works. Mostly requires a new world to take effect");
+        WORLD_GEN("world_gen", "Changes how the WorldGen in the mod works. Mostly requires a new world to take effect"),
+        RENDERING("rendering", "Changes how things look. Change these settings for performance/quality settings");
 
         private String categoryName, comment;
 
@@ -83,7 +100,11 @@ public class ConfigHandler {
         HELL_ANOMALY_WEIGHT(Categories.WORLD_GEN, "hell_anomaly_biome_weight", "The weight used for generating Hell Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 40-80 for Biomes o' Plenty)", 3),
 
         END_ANOMALY_ID(Categories.WORLD_GEN, "end_anomaly_biome_id", "The ID used for the End Anomaly Biome", 150),
-        HELL_ANOMALY_ID(Categories.WORLD_GEN, "hell_anomaly_biome_id", "The ID used for the Hell Anomaly Biome", 151);
+        HELL_ANOMALY_ID(Categories.WORLD_GEN, "hell_anomaly_biome_id", "The ID used for the Hell Anomaly Biome", 151),
+
+        /* Rendering */
+        PARTICLE_RANGE_HIGH(Categories.RENDERING, "particle_range_high", "The range (in blocks) particles with a HIGH priority should be rendered.", 64.0D),
+        PARTICLE_RANGE_LOW(Categories.RENDERING, "particle_range_low", "The range (in blocks) particles with a LOW priority should be rendered.", 40.0D);
 
         String category, propertyName, comment;
         Object defaultValue;

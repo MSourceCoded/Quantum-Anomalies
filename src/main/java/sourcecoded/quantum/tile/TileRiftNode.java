@@ -1,10 +1,13 @@
 package sourcecoded.quantum.tile;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -17,13 +20,14 @@ import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
+import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.network.MessageVanillaParticle;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.utils.WorldUtils;
 
 import java.util.List;
 
-public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyeable {
+public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
     public RiftEnergyStorage riftStorage = new RiftEnergyStorage(10000);
 
@@ -41,19 +45,6 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyea
 
     float force = 0.1F;
 
-    public Colourizer colour = Colourizer.PURPLE;
-
-    @Override
-    public void dye(Colourizer colour) {
-        this.colour = colour;
-        update();
-    }
-
-    @Override
-    public Colourizer getColour() {
-        return colour;
-    }
-
     @SuppressWarnings("unchecked")
     public void updateEntity() {
         super.updateEntity();
@@ -64,17 +55,20 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyea
             shockCooldown--;
 
         if (this.worldObj.isRemote) {
-            //FXManager.portalFX1Fragment(worldObj, xCoord, yCoord, zCoord);
             float size = Math.max(1F * ((float) getRiftEnergy() / (float) getMaxRiftEnergy()), 0.1F);
-            if (this.worldObj.rand.nextInt(9) == 0) {
-                FXManager.riftNodeFX1Larger(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, colour);
-                //FXManager.portalFX1Hole(2F, worldObj, xCoord, yCoord, zCoord);
-                //FXManager.portalFX2Filler(2F, worldObj, xCoord, yCoord, zCoord);
-            }
-            if (this.worldObj.rand.nextInt(5) == 0) {
-                FXManager.riftNodeFX1Smaller(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
-                if (size > 0.4F)
-                    FXManager.orbitingFX1(size / 10F, worldObj, xCoord, yCoord, zCoord, colour);
+            EntityPlayer renderEntity = FMLClientHandler.instance().getClientPlayerEntity();
+
+            double distance = renderEntity.getDistance(xCoord, yCoord, zCoord);
+
+            if (distance < ConfigHandler.getDouble(ConfigHandler.Properties.PARTICLE_RANGE_HIGH)) {
+                if (this.worldObj.rand.nextInt(9) == 0)
+                    FXManager.riftNodeFX1Larger(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, getColour());
+
+                if (this.worldObj.rand.nextInt(5) == 0) {
+                    FXManager.riftNodeFX1Smaller(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+                    if (distance < ConfigHandler.getDouble(ConfigHandler.Properties.PARTICLE_RANGE_LOW) && size > 0.4F)
+                        FXManager.orbitingFX1(size / 10F, worldObj, xCoord, yCoord, zCoord, getColour());
+                }
             }
         } else {
             if (ticker2 % 5 == 0)
@@ -134,16 +128,23 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyea
     @SuppressWarnings("unchecked")
     public void checkLightning() {
         if (getColour() != Colourizer.LIGHT_BLUE) return;
-        List bolts = worldObj.getEntitiesWithinAABB(EntityLightningBolt.class, AxisAlignedBB.getBoundingBox(xCoord - radius, 0, zCoord - radius, xCoord + radius, 256, zCoord + radius));
+        AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(xCoord - radius, 0, zCoord - radius, xCoord + radius, 256, zCoord + radius);
+        List bolts = worldObj.getEntitiesWithinAABB(EntityLightningBolt.class, bb);
 
         for (Object entity : worldObj.weatherEffects) {
-            if (entity instanceof EntityLightningBolt)                  //Don't forget to check the locale later TODO
-                bolts.add(entity);
+            if (entity instanceof EntityLightningBolt) {          //TODO check locale
+                EntityLightningBolt bolt = (EntityLightningBolt) entity;
+                if (bb.isVecInside(Vec3.createVectorHelper(bolt.posX, bolt.posY, bolt.posZ)))
+                    bolts.add(bolt);
+            }
         }
 
         if (shockCooldown == 0)
             giveRiftEnergy(RandomUtils.nextInt(boltValueMin, boltValueMax) * bolts.size());
         if (bolts.size() > 0) {
+            IMessage message = new MessageVanillaParticle("hugeexplosion", xCoord + 0.5, yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D, 1);
+            NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);
+
             shockCooldown = maxShockCooldown;
             update();
         }
@@ -157,12 +158,13 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyea
         List list = WorldUtils.searchForBlock(worldObj, xCoord, yCoord, zCoord, radius, radius, radius, BlockFire.class);
         for (Object block : list)
             if (block instanceof BlockFire) {
-                if (giveRiftEnergy(fireVal) != 0)
+                if (giveRiftEnergy(fireVal) != 0) {
                     didThing = true;
+                }
             }
 
         if (didThing) {
-            IMessage message = new MessageVanillaParticle("lava", xCoord + 0.5 , yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D);
+            IMessage message = new MessageVanillaParticle("lava", xCoord + 0.5, yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D, Math.max(list.size() / 3, 1));
             NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);
         }
 
@@ -173,14 +175,12 @@ public class TileRiftNode extends TileQuantum implements ITileRiftHandler, IDyea
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         riftStorage.writeRiftToNBT(nbt);
-        nbt.setInteger("colourIndex", colour.ordinal());
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         riftStorage.readRiftFromNBT(nbt);
-        colour = Colourizer.values()[nbt.getInteger("colourIndex")];
     }
 
     @Override

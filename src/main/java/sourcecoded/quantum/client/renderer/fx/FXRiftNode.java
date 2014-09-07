@@ -28,7 +28,9 @@ public class FXRiftNode extends EntityFX {
 
         public float size = 1F;
 
-        public DataHolder() {}
+        public DataHolder() {
+        }
+
         public DataHolder(float r, float g, float b, float bright, float size) {
             this.red = r;
             this.green = g;
@@ -66,7 +68,7 @@ public class FXRiftNode extends EntityFX {
         this.particleGreen = data.green;
         this.particleBlue = data.blue;
         this.particleGravity = 0.0f;
-        this.particleMaxAge = ((int)(36.0D / (Math.random() * 0.3D + 0.7D)));
+        this.particleMaxAge = ((int) (36.0D / (Math.random() * 0.3D + 0.7D)));
         this.noClip = false;
     }
 
@@ -77,8 +79,6 @@ public class FXRiftNode extends EntityFX {
 
     public void renderParticle(Tessellator tess, float ptt, float rotX, float rotXZ, float rotZ, float rotYZ, float rotXY) {
         brightness = brightnessFade.updateFade(particleAge);
-
-        EntityLivingBase renderEntity = FMLClientHandler.instance().getClient().thePlayer;
 
         tess.draw();
 
@@ -96,7 +96,7 @@ public class FXRiftNode extends EntityFX {
         float scale = data.size;
 
         float[] pos = FXHelper.trackingParticleLocale(this, ptt);
-        float[] rot = new float[] {rotX, rotXZ, rotZ, rotYZ, rotXY};
+        float[] rot = new float[]{rotX, rotXZ, rotZ, rotYZ, rotXY};
 
         draw(tess, pos, scale, rot);
 
@@ -107,6 +107,7 @@ public class FXRiftNode extends EntityFX {
         Minecraft.getMinecraft().renderEngine.bindTexture(FXHelper.getParticleTexture());
 
         tess.startDrawingQuads();
+
     }
 
     public void draw(Tessellator tess, float[] pos, float scale, float[] rot) {

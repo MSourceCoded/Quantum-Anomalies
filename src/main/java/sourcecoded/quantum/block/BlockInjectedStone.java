@@ -17,7 +17,7 @@ import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.IDyeable;
 import sourcecoded.quantum.tile.TileInjectedStone;
 
-public class BlockInjectedStone extends BlockQuantum implements ITileEntityProvider, IInjectorRecipe {
+public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
 
     public BlockInjectedStone() {
         super();
@@ -28,10 +28,6 @@ public class BlockInjectedStone extends BlockQuantum implements ITileEntityProvi
 
     public int getRenderType() {
         return SimpleTileProxy.renderID;
-    }
-
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
-        return IDyeable.DyeUtils.attemptDye(player, world, x, y, z);
     }
 
     @Override

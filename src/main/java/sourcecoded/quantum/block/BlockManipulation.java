@@ -23,13 +23,13 @@ import sourcecoded.quantum.tile.TileManipulation;
 
 import java.util.Random;
 
-public class BlockManipulation extends BlockQuantum implements ITileEntityProvider {
+public class BlockManipulation extends BlockDyeable implements ITileEntityProvider {
 
     public BlockManipulation() {
         super();
         this.setBlockName("blockManipulation");
         this.setBlockTextureName("infusedStone");
-        this.setHardness(5F);
+        this.setHardness(6F);
         this.setTickRandomly(true);
     }
 
@@ -82,10 +82,6 @@ public class BlockManipulation extends BlockQuantum implements ITileEntityProvid
                 }
             }
         }
-    }
-
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
-        return IDyeable.DyeUtils.attemptDye(player, world, x, y, z);
     }
 
     public int getRenderType() {

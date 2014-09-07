@@ -77,8 +77,6 @@ public class FXRiftNodeOrbit extends EntityFX {
     public void renderParticle(Tessellator tess, float ptt, float rotX, float rotXZ, float rotZ, float rotYZ, float rotXY) {
         brightness = brightnessFade.updateFade(particleAge);
 
-        EntityLivingBase renderEntity = FMLClientHandler.instance().getClient().thePlayer;
-
         float progress = (float) particleAge / particleMaxAge;
 
         tess.draw();
