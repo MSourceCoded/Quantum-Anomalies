@@ -3,7 +3,7 @@ package sourcecoded.quantum.api.sceptre;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import sourcecoded.quantum.api.gesture.IGesture;
+import sourcecoded.quantum.api.gesture.AbstractGesture;
 
 /**
  * An Interface for Sceptre Foci. This interface will allow your
@@ -12,7 +12,8 @@ import sourcecoded.quantum.api.gesture.IGesture;
  *
  * It is recommended you use this in conjunction with Gestures,
  * although it is not a requirement
- * @see sourcecoded.quantum.api.gesture.IGesture
+ *
+ * @see sourcecoded.quantum.api.gesture.AbstractGesture
  */
 public interface ISceptreFocus {
 
@@ -111,9 +112,9 @@ public interface ISceptreFocus {
      *
      * Return null if you do not wish to use Gestures.
      *
-     * @see sourcecoded.quantum.api.gesture.IGesture
+     * @see sourcecoded.quantum.api.gesture.AbstractGesture
      */
-    public IGesture[] getAvailableGestures();
+    public AbstractGesture[] getAvailableGestures();
 
     /**
      * Return a float array that contains an RBG color code for the focus.

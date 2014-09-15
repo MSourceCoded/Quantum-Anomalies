@@ -8,10 +8,10 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
+import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
-import sourcecoded.quantum.api.gesture.IGesture;
-import sourcecoded.quantum.api.gesture.IGestureCallback;
-import sourcecoded.quantum.api.gesture.template.GestureCircle;
+import sourcecoded.quantum.api.gesture.demos.GestureSquare;
+import sourcecoded.quantum.api.gesture.demos.IGestureCallback;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusUtils;
 
@@ -77,8 +77,8 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
     }
 
     @Override
-    public IGesture[] getAvailableGestures() {
-        return new IGesture[]{new GestureCircle(this)};
+    public AbstractGesture[] getAvailableGestures() {
+        return new AbstractGesture[] {new GestureSquare(this)};
     }
 
     @Override
@@ -86,8 +86,8 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
         return Colourizer.GRAY.rgb;
     }
 
-    @Override
     public void callbackGesture(EntityPlayer player, World world, GesturePointMap pointMap, ItemStack item) {
+        System.err.println("Yooooo");
         if (!player.worldObj.isRemote) {
             NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
             player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));

@@ -9,8 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
-import sourcecoded.quantum.api.gesture.IGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.utils.ItemUtils;
@@ -19,10 +19,8 @@ import java.util.List;
 
 public class ItemSceptre extends ItemQuantum {
 
-    public GesturePointMap mostRecentGestureServer = new GesturePointMap();
     public GesturePointMap mostRecentGestureClient = new GesturePointMap();
 
-    public float[] offsetInitialServer = new float[2];
     public float[] offsetInitialClient = new float[2];
 
     public float step = 0.025F;
@@ -89,22 +87,14 @@ public class ItemSceptre extends ItemQuantum {
         item.stackTagCompound.setTag("colourData", colours);
     }
 
-    GesturePointMap getMostRecentGesture(World world) {
-        if (world.isRemote) return mostRecentGestureClient; else return mostRecentGestureServer;
-    }
-
-    float[] getOffset(World world) {
-        if (world.isRemote) return offsetInitialClient; else return offsetInitialServer;
-    }
-
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
         ISceptreFocus focus = getFocus(stack);
-        if (focus != null) {
+        if (focus != null && world.isRemote) {
             focus.onClickEnd(player, stack, count);
-            IGesture[] gestures = focus.getAvailableGestures();
+            AbstractGesture[] gestures = focus.getAvailableGestures();
             if (gestures != null) {
-                for (IGesture gesture : gestures)
-                    if (gesture.calculateGesture(player, world, stack, getMostRecentGesture(world))) return;
+                for (AbstractGesture gesture : gestures)
+                    if (gesture.attemptGesture(player, world, stack, mostRecentGestureClient)) return;
             }
         }
     }
@@ -114,11 +104,7 @@ public class ItemSceptre extends ItemQuantum {
         if (focus != null)
             focus.onClickBegin(player, stack);
 
-        if (!world.isRemote) {
-            mostRecentGestureServer = new GesturePointMap();
-
-            offsetInitialServer = new float[]{player.getRotationYawHead(), player.rotationPitch};
-        } else {
+        if (world.isRemote) {
             mostRecentGestureClient = new GesturePointMap();
 
             offsetInitialClient = new float[]{player.getRotationYawHead(), player.rotationPitch};
@@ -154,9 +140,11 @@ public class ItemSceptre extends ItemQuantum {
     }
 
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
-        float yaw = getOffset(player.worldObj)[0] - player.getRotationYawHead();
-        float pitch = getOffset(player.worldObj)[1] - player.rotationPitch;
-        getMostRecentGesture(player.worldObj).addPoint(yaw, pitch);
+        if (player.worldObj.isRemote) {
+            float yaw = offsetInitialClient[0] - player.getRotationYawHead();
+            float pitch = offsetInitialClient[1] - player.rotationPitch;
+            mostRecentGestureClient.addPoint(-yaw, -pitch);
+        }
     }
 
     void changeFocus(ISceptreFocus focus, ItemStack stack) {

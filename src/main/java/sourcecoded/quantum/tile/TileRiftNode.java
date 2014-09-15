@@ -1,18 +1,14 @@
 package sourcecoded.quantum.tile;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
@@ -31,8 +27,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
     public RiftEnergyStorage riftStorage = new RiftEnergyStorage(10000);
 
-    transient int ticker;
-    transient int ticker2;
+    transient int energyUpdateTicker;
+    transient int worldInteractionTicker;
     transient int radius = 10;
     transient int maxPacket = 100;
     transient int boltValueMin = 3000;
@@ -48,8 +44,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     @SuppressWarnings("unchecked")
     public void updateEntity() {
         super.updateEntity();
-        ticker++;
-        ticker2++;
+        energyUpdateTicker++;
+        worldInteractionTicker++;
 
         if (shockCooldown > 0)
             shockCooldown--;
@@ -71,14 +67,14 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                 }
             }
         } else {
-            if (ticker2 % 5 == 0)
+            if (worldInteractionTicker % 5 == 0)
                 checkLightning();
 
-            if (ticker2 % 40 == 0)
+            if (worldInteractionTicker % 40 == 0)
                 checkFire();
 
-            if (ticker >= 30) {
-                ticker = 0;
+            if (energyUpdateTicker >= 30) {
+                energyUpdateTicker = 0;
 
                 force = 0.1F;
                 List<TileEntity> tiles = WorldUtils.searchForTile(worldObj, xCoord, yCoord, zCoord, radius, radius, radius, ITileRiftHandler.class);
