@@ -29,7 +29,9 @@ import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
 import sourcecoded.quantum.registry.TileRegistry;
+import sourcecoded.quantum.sceptre.focus.FocusBind;
 import sourcecoded.quantum.sceptre.focus.FocusDematerialization;
+import sourcecoded.quantum.sceptre.focus.FocusDiagnostic;
 import sourcecoded.quantum.sceptre.focus.FocusHelium;
 import sourcecoded.quantum.worldgen.biome.BiomeEndAnomaly;
 import sourcecoded.quantum.worldgen.biome.BiomeHellAnomaly;
@@ -60,6 +62,8 @@ public class QuantumAnomalies {
 
         SceptreFocusRegistry.registerFocus(new FocusDematerialization());
         SceptreFocusRegistry.registerFocus(new FocusHelium());
+        SceptreFocusRegistry.registerFocus(new FocusDiagnostic());
+        SceptreFocusRegistry.registerFocus(new FocusBind());
 
         NetworkHandler.initNetwork();
     }

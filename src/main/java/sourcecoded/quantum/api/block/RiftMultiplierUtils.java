@@ -5,6 +5,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RiftMultiplierUtils {
             loreList.add(translate("qa.lore.multipliers.production", "Production") + ": " + getLore(IRiftMultiplier.RiftMultiplierTypes.PRODUCTION, itemblock.field_150939_a));
         } else {
             loreList.add(String.format("%s" + translate("qa.lore.multipliers.showShift.0", "Quantum Manipulation Catalyst"), EnumChatFormatting.LIGHT_PURPLE));
-            loreList.add(String.format(translate("qa.lore.multipliers.showShift.1", "Hold %s<SHIFT>%s for details"), EnumChatFormatting.GREEN.toString() + EnumChatFormatting.ITALIC.toString(), EnumChatFormatting.GRAY));
+            loreList.add(String.format(translate("qa.lore.multipliers.showShift.1", "Hold {c:GREEN}{c:ITALIC}<SHIFT>{c:GRAY} for details"), EnumChatFormatting.GREEN.toString() + EnumChatFormatting.ITALIC.toString(), EnumChatFormatting.GRAY));
         }
     }
 
@@ -44,8 +45,6 @@ public class RiftMultiplierUtils {
      * Translates with a Default Value
      */
     public static String translate(String key, String def) {
-        String returned = StatCollector.translateToLocal(key);
-        if (returned.equals(key)) returned = def;
-        return returned;
+        return LocalizationUtils.translateLocalWithColours(key, def);
     }
 }

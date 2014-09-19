@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
@@ -44,11 +45,11 @@ public class FocusHelium implements ISceptreFocus {
     }
 
     @Override
-    public void onClickBegin(EntityPlayer player, ItemStack item) {
+    public void onClickBegin(EntityPlayer player, ItemStack item, World world) {
     }
 
     @Override
-    public void onClickEnd(EntityPlayer player, ItemStack item, int ticker) {
+    public void onClickEnd(EntityPlayer player, ItemStack item, World world, int ticker) {
         double distance = 35F;
 
         Vec3 lookVec = player.getLook(1.0F);
@@ -61,6 +62,11 @@ public class FocusHelium implements ISceptreFocus {
         player.motionZ += force * lookVec.zCoord;
 
         player.fallDistance = 0F;
+    }
+
+    @Override
+    public boolean onBlockClick(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        return false;
     }
 
     @Override

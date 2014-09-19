@@ -31,7 +31,7 @@ public class TileRiftSmelter extends TileDyeable implements ISidedInventory, ITi
     public int furnaceCookTime;
 
     /** The Energy per item smelted */
-    public int energyPerOperation = 5;
+    public int energyPerOperation = 160;
 
     /** The amount of time it takes to cook an item */
     public int cookTime = 30;
@@ -43,7 +43,11 @@ public class TileRiftSmelter extends TileDyeable implements ISidedInventory, ITi
     public float production = 1F;
 
     //Rift Storage
-    RiftEnergyStorage rift = new RiftEnergyStorage(1000);
+    RiftEnergyStorage rift;
+
+    public TileRiftSmelter() {
+        rift = new RiftEnergyStorage(50000);
+    }
 
     public void updateEntity() {
         boolean update = false;

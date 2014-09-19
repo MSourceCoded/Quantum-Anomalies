@@ -13,6 +13,7 @@ import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.utils.ItemUtils;
 
 import java.util.List;
@@ -90,7 +91,7 @@ public class ItemSceptre extends ItemQuantum {
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int count) {
         ISceptreFocus focus = getFocus(stack);
         if (focus != null && world.isRemote) {
-            focus.onClickEnd(player, stack, count);
+            focus.onClickEnd(player, stack, world, count);
             AbstractGesture[] gestures = focus.getAvailableGestures();
             if (gestures != null) {
                 for (AbstractGesture gesture : gestures)
@@ -99,10 +100,15 @@ public class ItemSceptre extends ItemQuantum {
         }
     }
 
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        ISceptreFocus focus = getFocus(stack);
+        return focus != null && focus.onBlockClick(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+    }
+
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         ISceptreFocus focus = getFocus(stack);
         if (focus != null)
-            focus.onClickBegin(player, stack);
+            focus.onClickBegin(player, stack, world);
 
         if (world.isRemote) {
             mostRecentGestureClient = new GesturePointMap();
@@ -161,12 +167,13 @@ public class ItemSceptre extends ItemQuantum {
         return SceptreFocusRegistry.getFocus(stack.stackTagCompound.getString("focus"));
     }
 
+    @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List lore, boolean idk) {
         ItemUtils.checkCompound(stack);
         if (getFocus(stack) != null) {
             String[] array = getFocus(stack).getLore(stack);
             for (String s : array)
-                lore.add(StatCollector.translateToLocal(s));
+                lore.add(LocalizationUtils.translateLocalWithColours(s, s));
         }
     }
 }

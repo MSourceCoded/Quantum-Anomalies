@@ -3,6 +3,7 @@ package sourcecoded.quantum.api.sceptre;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 import sourcecoded.quantum.api.gesture.AbstractGesture;
 
 /**
@@ -77,8 +78,9 @@ public interface ISceptreFocus {
      * (when the gesture starts)
      * @param player The player clicking
      * @param item The ItemStack the focus is on
+     * @param world The world the item was clicked in
      */
-    public void onClickBegin(EntityPlayer player, ItemStack item);
+    public void onClickBegin(EntityPlayer player, ItemStack item, World world);
 
     /**
      * Called when the player stops using the item
@@ -87,8 +89,26 @@ public interface ISceptreFocus {
      * @param item The ItemStack the focus is on
      * @param ticker The amount of time the item was
      *               'drawn' for
+     * @param world The world the item was clicked in
      */
-    public void onClickEnd(EntityPlayer player, ItemStack item, int ticker);
+    public void onClickEnd(EntityPlayer player, ItemStack item, World world, int ticker);
+
+    /**
+     * A direct proxy to the onItemUseFirst method in the
+     * Item class. Called when the player clicks a block
+     * @param stack The itemstack used
+     * @param player The player clicking
+     * @param world The world the item is used in
+     * @param x The x position of the block clicked
+     * @param y The y position of the block clicked
+     * @param z The z position of the block clicked
+     * @param side The side the block was clicked
+     * @param hitX The x location of the hit
+     * @param hitY The y location of the hit
+     * @param hitZ The z location of the hit
+     * @return Did you do something? (stop the block activating)
+     */
+    public boolean onBlockClick(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ);
 
     /**
      * Called when the item is ticking (in hotbar/hand etc)

@@ -67,7 +67,7 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
 
     @Override
     public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
-        int val = (int) Math.floor(200F * explosion.explosionSize * RandomUtils.nextFloat(0.5F, 1.5F));
+        int val = (int) Math.floor(5000 * explosion.explosionSize * RandomUtils.nextFloat(0.5F, 1.5F));        //Explosion val
         TileRiftNode node = (TileRiftNode) world.getTileEntity(x, y, z);
         if (node != null && node.colour == Colourizer.ORANGE) {
             if (node.shockCooldown <= 0 && node.giveRiftEnergy(val) != 0) {

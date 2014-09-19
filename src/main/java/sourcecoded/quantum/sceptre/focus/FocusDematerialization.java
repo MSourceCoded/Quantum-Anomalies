@@ -55,7 +55,7 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
     }
 
     @Override
-    public void onClickBegin(EntityPlayer player, ItemStack item) {
+    public void onClickBegin(EntityPlayer player, ItemStack item, World world) {
         if (!player.worldObj.isRemote && player.isSneaking()) {
             NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
             compound.setDouble("boundX", player.posX);
@@ -65,7 +65,12 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
     }
 
     @Override
-    public void onClickEnd(EntityPlayer player, ItemStack item, int ticker) {
+    public void onClickEnd(EntityPlayer player, ItemStack item, World world, int ticker) {
+    }
+
+    @Override
+    public boolean onBlockClick(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+        return false;
     }
 
     @Override
@@ -90,12 +95,14 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
         System.err.println("Yooooo");
         if (!player.worldObj.isRemote) {
             NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
-            player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));
+            if (compound.hasKey("boundX")) {
+                player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));
 
-            player.fallDistance = 0F;
+                player.fallDistance = 0F;
 
-            if (RandomUtils.nextInt(0, 3) == 2)
-                player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
+                if (RandomUtils.nextInt(0, 3) == 2)
+                    player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
+            }
         }
     }
 }

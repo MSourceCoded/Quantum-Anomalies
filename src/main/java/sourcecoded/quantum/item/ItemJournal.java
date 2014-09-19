@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.List;
 
@@ -15,12 +16,12 @@ public class ItemJournal extends ItemQuantum {
     }
 
     public String getItemStackDisplayName(ItemStack item) {
-        return String.format(StatCollector.translateToLocal(getUnlocalizedName(item) + ".name"), EnumChatFormatting.LIGHT_PURPLE, EnumChatFormatting.WHITE);
+        return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(item) + ".name", "{c:PURPLE}Anomolical Journal{c:WHITE}");
     }
 
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
-        list.add(String.format(StatCollector.translateToLocal(getUnlocalizedName(item) + ".lore.0"), EnumChatFormatting.ITALIC));
+        list.add(LocalizationUtils.translateLocalWithColours(getUnlocalizedName(item) + ".lore.0", "{c:ITALIC}[ah-nom-ol-ic-al]"));
     }
 
 }

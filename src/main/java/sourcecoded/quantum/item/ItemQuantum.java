@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
@@ -30,7 +31,7 @@ public abstract class ItemQuantum extends Item {
     }
 
     public String getItemStackDisplayName(ItemStack item) {
-        return StatCollector.translateToLocal(getUnlocalizedName(item) + ".name");
+        return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(item) + ".name", getUnlocalizedName(item) + ".name");
     }
 
 }

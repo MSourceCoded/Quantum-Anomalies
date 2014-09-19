@@ -2,11 +2,15 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
+import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.tile.IDyeable;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
@@ -14,7 +18,7 @@ import static sourcecoded.core.util.LocalizationUtils.prefix;
 /**
  * Base Class
  */
-public class BlockQuantum extends Block {
+public class BlockQuantum extends Block implements IBlockHasItem {
 
     public String customName;
 
@@ -55,8 +59,11 @@ public class BlockQuantum extends Block {
     }
 
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(getUnlocalizedName() + ".name");
+        return LocalizationUtils.translateLocalWithColours(getUnlocalizedName() + ".name", getUnlocalizedName() + ".name");
     }
 
-
+    @Override
+    public Class<? extends ItemBlock> getItemBlock(Block block) {
+        return ItemBlockQuantum.class;
+    }
 }

@@ -20,7 +20,7 @@ import sourcecoded.quantum.utils.WorldUtils;
 
 public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, ISidedInventory {
 
-    public RiftEnergyStorage rift = new RiftEnergyStorage(5000);
+    public RiftEnergyStorage rift;
 
     public ItemStack currentItem;
 
@@ -33,7 +33,7 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
     public float energy = 1F;
 
     /* The amount of energy to infuse per tick */
-    public int energyPerTick = 5;
+    public int energyPerTick = 100;
 
     public int energyInfused = 0;
 
@@ -48,6 +48,10 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
             new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock()),
     };
+
+    public TileRiftInjector() {
+        rift = new RiftEnergyStorage(100000);
+    }
 
     public void updateEntity() {
         if (ticker >= 10) {

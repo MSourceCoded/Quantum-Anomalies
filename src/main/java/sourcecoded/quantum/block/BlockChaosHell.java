@@ -8,12 +8,13 @@ import net.minecraft.item.ItemStack;
 import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.block.RiftMultiplierUtils;
+import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.registry.QAItems;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier, IBlockHasItem {
+public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier {
 
     public BlockChaosHell() {
         this.setBlockName("blockChaosHell");
@@ -48,7 +49,7 @@ public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier, IBl
         return theItemBlock.class;
     }
 
-    public static class theItemBlock extends ItemBlock {
+    public static class theItemBlock extends ItemBlockQuantum {
 
         public theItemBlock(Block block) {
             super(block);

@@ -10,7 +10,11 @@ import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 
 public class TileManipulation extends TileDyeable implements IFluidHandler, ITileRiftHandler {
 
-    public RiftEnergyStorage storage = new RiftEnergyStorage(100);
+    public RiftEnergyStorage storage;
+
+    public TileManipulation() {
+        storage = new RiftEnergyStorage(10000);
+    }
 
     @Override
     public void writeToNBT(NBTTagCompound tags) {

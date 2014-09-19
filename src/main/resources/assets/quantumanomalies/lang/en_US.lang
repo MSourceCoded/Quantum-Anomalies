@@ -14,6 +14,9 @@ qa.blocks.blockRiftNode.name=Quantum Rift Node
 qa.blocks.blockRiftSmelter.name=Quantum Rift Furnace
 
 qa.blocks.blockManipulation.name=Matter Manipulation Structure
+qa.blocks.blockSynchronize.name={c:LIGHT_PURPLE}Quantum Entanglement Platform{c:WHITE}
+
+qa.block.blockSynchronize.lore.0={c:ITALIC}One of us.... One of us....
 
 qa.items.itemChaosShard.name=Chaos Shard
 qa.items.itemInjectedStick.name=Injected Stick
@@ -42,20 +45,32 @@ qa.sceptre.focus.dematerialization.lore.1=It can be a bit.... shocking
 qa.sceptre.focus.helium=Helium Focus
 qa.sceptre.focus.helium.lore.0=Lighter than Air
 
+qa.sceptre.focus.diagnostic=Diagnostics Focus
+qa.sceptre.focus.diagnostic.lore.0=I wonder how this is doing...
+qa.sceptre.focus.diagnostic.energyContained={c:GOLD}Energy: {c:ITALIC}%s {c:GOLD}QRE
+qa.sceptre.focus.diagnostic.energyCapacity={c:AQUA}Capacity: {c:ITALIC}%s {c:AQUA}QRE
+
+qa.sceptre.focus.bind=Binding Focus
+qa.sceptre.focus.bind.lore.0=I wonder if I can link these...
+qa.sceptre.focus.bind.bindingSet={c:GOLD}Block set as Binding Location!
+qa.sceptre.focus.bind.notSet={c:RED}Binding not set! Sneak click to set binding location!
+qa.sceptre.focus.bind.notBindable={c:RED}You can't bind to this block. Sneak click to set binding location!
+qa.sceptre.focus.bind.bindingFailed={c:RED}Binding was not Successful!
+qa.sceptre.focus.bind.bindingComplete={c:AQUA}Binding Successful!
 
 #####################################
 # Journal
 #####################################
 
-qa.items.itemJournal.name=%sAnomolical Journal%s
-qa.items.itemJournal.lore.0=%s[ah-nom-ol-ic-al]
+qa.items.itemJournal.name={c:LIGHT_PURPLE}Anomolical Journal{c:WHITE}
+qa.items.itemJournal.lore.0={c:ITALIC}[ah-nom-ol-ic-al]
 
 #####################################
 # Lore
 #####################################
 
 qa.lore.multipliers.showShift.0=Quantum Manipulation Catalyst
-qa.lore.multipliers.showShift.1=Hold %s<SHIFT>%s for details
+qa.lore.multipliers.showShift.1=Hold {c:GREEN}{c:ITALIC}<SHIFT>{c:GRAY} for details
 
 qa.lore.multipliers.speed=Speed Multiplier
 qa.lore.multipliers.energy=Energy Usage

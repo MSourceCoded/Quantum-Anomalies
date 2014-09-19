@@ -40,7 +40,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
                 ITileRiftHandler handler = getHandler(world, x, y, z);
                 if (handler.getRiftEnergy() >= 15) {
                     block.updateTick(world, x, y + 1, z, random);
-                    handler.takeRiftEnergy(15);
+                    handler.takeRiftEnergy(300);
                 }
             }
         }
@@ -77,7 +77,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
                 if (sideBlock != null && (sideBlock == Blocks.water || sideBlock == Blocks.flowing_water)) {
                     if (handler.getRiftEnergy() >= 30) {
                         world.setBlock(xO, yO, zO, Blocks.ice);
-                        handler.takeRiftEnergy(30);
+                        handler.takeRiftEnergy(500);
                     }
                 }
             }

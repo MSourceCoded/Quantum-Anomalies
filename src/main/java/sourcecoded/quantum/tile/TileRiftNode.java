@@ -25,21 +25,20 @@ import java.util.List;
 
 public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
-    public RiftEnergyStorage riftStorage = new RiftEnergyStorage(10000);
+    public RiftEnergyStorage riftStorage;
 
     transient int energyUpdateTicker;
     transient int worldInteractionTicker;
     transient int radius = 10;
-    transient int maxPacket = 100;
-    transient int boltValueMin = 3000;
-    transient int boltValueMax = 7000;
-
-    transient int fireVal = 2;
 
     public transient int maxShockCooldown = 100;
     public int shockCooldown = 0;
 
     float force = 0.1F;
+
+    public TileRiftNode() {
+        riftStorage = new RiftEnergyStorage(1000000);
+    }
 
     @SuppressWarnings("unchecked")
     public void updateEntity() {
@@ -87,15 +86,15 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
                     ITileRiftHandler handler = (ITileRiftHandler) tile;
                     int remaining = handler.getMaxRiftEnergy() - handler.getRiftEnergy();
-                    int toSend = Math.min(remaining, maxPacket);
+                    int toSend = Math.min(Math.min(remaining, 3000), getRiftEnergy());          //Max Packet Size
 
-                    boolean canSend = (handler.getRiftEnergy() + toSend) <= handler.getMaxRiftEnergy();
+                    boolean canSend = getRiftEnergy() >= 1000 && (handler.getRiftEnergy() + toSend) <= handler.getMaxRiftEnergy();      //Packet Minimum
 
                     if (toSend > 0 && riftStorage.getRiftEnergy() >= toSend && canSend) {
 
                         if (handler.getBehaviour() == EnergyBehaviour.NOT_ACCEPTING) continue;
                         if (handler.getBehaviour() == EnergyBehaviour.EQUALIZE)
-                            if ((handler.getRiftEnergy() + toSend) >= getRiftEnergy()) continue;
+                            if ((handler.getRiftEnergy() + toSend) > getRiftEnergy()) continue;
 
                         EntityEnergyPacket entity = new EntityEnergyPacket(worldObj, toSend, xCoord, yCoord, zCoord, colour);
                         entity.setPosition(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
@@ -136,7 +135,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         }
 
         if (shockCooldown == 0)
-            giveRiftEnergy(RandomUtils.nextInt(boltValueMin, boltValueMax) * bolts.size());
+            giveRiftEnergy(RandomUtils.nextInt(300000, 700000) * bolts.size());             //Bolt min/max
         if (bolts.size() > 0) {
             IMessage message = new MessageVanillaParticle("hugeexplosion", xCoord + 0.5, yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D, 1);
             NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);
@@ -154,7 +153,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         List list = WorldUtils.searchForBlock(worldObj, xCoord, yCoord, zCoord, radius, radius, radius, BlockFire.class);
         for (Object block : list)
             if (block instanceof BlockFire) {
-                if (giveRiftEnergy(fireVal) != 0) {
+                if (giveRiftEnergy(10) != 0) {          //Fire per tick
                     didThing = true;
                 }
             }
