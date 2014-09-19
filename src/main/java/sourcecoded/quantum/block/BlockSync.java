@@ -41,7 +41,8 @@ public class BlockSync extends BlockDyeable implements IInjectorRecipe, ITileEnt
 
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         TileSync tile = (TileSync) world.getTileEntity(x, y, z);
-        tile.onDestroy();
+        if (tile != null)
+            tile.onDestroy();
         super.breakBlock(world, x, y, z, block, meta);
     }
 
@@ -94,7 +95,7 @@ public class BlockSync extends BlockDyeable implements IInjectorRecipe, ITileEnt
         }
 
         public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
-            list.add(LocalizationUtils.translateLocalWithColours("qa.block.blockSynchronize.lore.0", "Tex: WIP; Model: WIP; Function: WIP;"));
+            list.add(LocalizationUtils.translateLocalWithColours("qa.block.blockSynchronize.lore.0", "{c:ITALIC}One of us.... One of us...."));
         }
     }
 }

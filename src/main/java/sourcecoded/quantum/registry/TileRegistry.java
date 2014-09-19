@@ -1,7 +1,6 @@
 package sourcecoded.quantum.registry;
 
 import sourcecoded.core.tile.AbstractTileRegistry;
-import sourcecoded.quantum.api.entanglement.EntanglementRegistry;
 
 public class TileRegistry extends AbstractTileRegistry {
     public static TileRegistry instance;
@@ -13,10 +12,7 @@ public class TileRegistry extends AbstractTileRegistry {
     @Override
     public void addAll() {
         for (QABlocks block : QABlocks.values())
-            if (block.tileEntity != null) {
+            if (block.tileEntity != null)
                 addTile(block.getBlockName(), block.tileEntity);
-                if (block.canEntangle)
-                    EntanglementRegistry.whitelistTileBlock(block.getBlock());
-            }
     }
 }

@@ -1,15 +1,11 @@
 package sourcecoded.quantum.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import sourcecoded.quantum.api.entanglement.EntangleConstants;
-import sourcecoded.quantum.api.entanglement.EntanglementRegistry;
 import sourcecoded.quantum.api.tileentity.IBindable;
-import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -28,6 +24,10 @@ public class TileSync extends TileDyeable implements IBindable {
     public void updateEntity() {
         super.updateEntity();
 
+        doThing();
+    }
+
+    public void doThing() {
         if (!worldObj.isRemote) {
 
             TileEntity tile = worldObj.getTileEntity(boundX, boundY, boundZ);
@@ -35,35 +35,12 @@ public class TileSync extends TileDyeable implements IBindable {
             if (tile != null && tile instanceof TileSync) {
                 TileSync bound = (TileSync) tile;
 
-                boolean dataChanged = hasNBTChanged();
                 boolean metaChanged = hasMetaChanged();
                 boolean blockChanged = hasBlockChanged();
 
                 if (blockChanged || metaChanged) {
                     bound.changeBlock(lastBlock, lastMeta);
                 }
-
-                if (dataChanged) {
-                    TileEntity tileEntity = getTileAbove();
-                    if (tileEntity != null) {
-                        NBTTagCompound newCompound = new NBTTagCompound();
-                        NBTTagCompound boundCompound = new NBTTagCompound();
-
-                        tileEntity.writeToNBT(newCompound);
-                        newCompound = stripNBT(newCompound);
-
-                        TileEntity boundTile = bound.getTileAbove();
-
-                        if (boundTile != null) {
-                            boundTile.writeToNBT(boundCompound);
-
-                            combineNBT(boundCompound, newCompound);
-
-                            boundTile.readFromNBT(boundCompound);
-                        }
-                    }
-                }
-
             }
         }
     }
@@ -72,9 +49,6 @@ public class TileSync extends TileDyeable implements IBindable {
         TileSync tile = getBoundTile();
         if (tile != null) {
             tile.invalidate();
-            TileEntity tileAbove = tile.getTileAbove();
-            if (tileAbove != null)
-                tileAbove.invalidate();
             tile.worldObj.setBlockToAir(tile.xCoord, tile.yCoord + 1, tile.zCoord);
         }
 
@@ -95,7 +69,8 @@ public class TileSync extends TileDyeable implements IBindable {
             keys = nbt.getDeclaredField("tagMap");
             keys.setAccessible(true);
             map = (HashMap<String, NBTBase>) keys.get(compound);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return map;
     }
@@ -105,10 +80,7 @@ public class TileSync extends TileDyeable implements IBindable {
     }
 
     public void changeBlock(Block block, int meta) {
-        TileEntity tile = getTileAbove();
-        if (tile != null)
-            tile.invalidate();
-        if (!EntanglementRegistry.isAllowed(block))
+        if (block instanceof ITileEntityProvider)
             worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
         else
             worldObj.setBlock(xCoord, yCoord + 1, zCoord, block, meta, 3);
@@ -119,10 +91,6 @@ public class TileSync extends TileDyeable implements IBindable {
         if (tile != null && tile instanceof TileSync)
             return (TileSync) tile;
         return null;
-    }
-
-    public TileEntity getTileAbove() {
-        return worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
     }
 
     public Block getBlockAbove() {
@@ -163,16 +131,6 @@ public class TileSync extends TileDyeable implements IBindable {
         return false;
     }
 
-    public NBTTagCompound stripNBT(NBTTagCompound compound) {
-        NBTTagCompound newTags = (NBTTagCompound) compound.copy();
-        newTags.removeTag("id");
-        newTags.removeTag("x");
-        newTags.removeTag("y");
-        newTags.removeTag("z");
-
-        return newTags;
-    }
-
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -205,13 +163,13 @@ public class TileSync extends TileDyeable implements IBindable {
 
         TileEntity tile = worldObj.getTileEntity(x, y, z);
         if (tile != null && tile instanceof TileSync) {
-                boundX = x;
-                boundY = y;
-                boundZ = z;
+            boundX = x;
+            boundY = y;
+            boundZ = z;
 
-                if (!silent)
-                    getBoundTile().tryBind(xCoord, yCoord, zCoord, true);
-                return true;
+            if (!silent)
+                getBoundTile().tryBind(xCoord, yCoord, zCoord, true);
+            return true;
         } else
             return false;
     }

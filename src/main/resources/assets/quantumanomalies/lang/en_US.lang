@@ -21,6 +21,8 @@ qa.block.blockSynchronize.lore.0={c:ITALIC}One of us.... One of us....
 qa.items.itemChaosShard.name=Chaos Shard
 qa.items.itemInjectedStick.name=Injected Stick
 
+itemGroup.Quantum Anomalies=Quantum Anomalies
+
 #####################################
 # Achievements
 #####################################
