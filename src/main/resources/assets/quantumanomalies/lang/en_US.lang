@@ -51,6 +51,8 @@ qa.sceptre.focus.diagnostic=Diagnostics Focus
 qa.sceptre.focus.diagnostic.lore.0=I wonder how this is doing...
 qa.sceptre.focus.diagnostic.energyContained={c:GOLD}Energy: {c:ITALIC}%s {c:GOLD}QRE
 qa.sceptre.focus.diagnostic.energyCapacity={c:AQUA}Capacity: {c:ITALIC}%s {c:AQUA}QRE
+qa.sceptre.focus.diagnostic.energyBehaviour={c:LIGHT_PURPLE}Behaviour: {c:ITALIC}%s
+qa.sceptre.focus.diagnostic.notEnergy={c:GRAY}{c:ITALIC}This block does not support Rift Energy
 
 qa.sceptre.focus.bind=Binding Focus
 qa.sceptre.focus.bind.lore.0=I wonder if I can link these...

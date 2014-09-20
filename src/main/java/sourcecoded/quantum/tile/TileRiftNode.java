@@ -14,6 +14,7 @@ import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
+import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.handler.ConfigHandler;

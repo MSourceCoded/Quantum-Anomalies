@@ -2,15 +2,11 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
-import sourcecoded.quantum.tile.IDyeable;
 import sourcecoded.quantum.tile.TileRiftInjector;
 
 public class BlockRiftInjector extends BlockDyeable implements ITileEntityProvider, IBlockRenderHook {

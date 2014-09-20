@@ -3,10 +3,7 @@ package sourcecoded.quantum.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -14,11 +11,8 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
-import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
-import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
-import sourcecoded.quantum.tile.IDyeable;
-import sourcecoded.quantum.tile.TileInjectedGlass;
+import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.tile.TileManipulation;
 
 import java.util.Random;
@@ -38,7 +32,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
             Block block = world.getBlock(x, y + 1, z);
             if (block != null) {
                 ITileRiftHandler handler = getHandler(world, x, y, z);
-                if (handler.getRiftEnergy() >= 15) {
+                if (handler.getRiftEnergy() >= 300) {
                     block.updateTick(world, x, y + 1, z, random);
                     handler.takeRiftEnergy(300);
                 }
@@ -75,7 +69,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
                 Block sideBlock = world.getBlock(xO, yO, zO);
                 ITileRiftHandler handler = getHandler(world, x, y, z);
                 if (sideBlock != null && (sideBlock == Blocks.water || sideBlock == Blocks.flowing_water)) {
-                    if (handler.getRiftEnergy() >= 30) {
+                    if (handler.getRiftEnergy() >= 500) {
                         world.setBlock(xO, yO, zO, Blocks.ice);
                         handler.takeRiftEnergy(500);
                     }

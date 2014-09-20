@@ -18,6 +18,7 @@ import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
+import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
 import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityHellishCrystal;
@@ -74,6 +75,7 @@ public class QuantumAnomalies {
 
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
+            FMLCommonHandler.instance().bus().register(RainbowRenderHandler.instance());
             MinecraftForge.EVENT_BUS.register(new BiomeListener());
         }
 

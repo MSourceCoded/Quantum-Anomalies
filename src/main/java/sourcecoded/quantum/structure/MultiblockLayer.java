@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class MultiblockLayer {
 
-    Block[][] blocks;
+    Object[][] blocks;
 
     public MultiblockLayer(Object... params) {
         String s = "";
@@ -33,16 +33,15 @@ public class MultiblockLayer {
             }
         }
 
-        HashMap<Character, Block> matches;
+        HashMap<Character, Object> matches;
 
-        for (matches = new HashMap<Character, Block>(); i < params.length; i += 2) {
+        for (matches = new HashMap<Character, Object>(); i < params.length; i += 2) {
             Character character = (Character)params[i];
 
-            if (params[i + 1] instanceof Block)
-                matches.put(character, (Block)params[i + 1]);
+            matches.put(character, params[i + 1]);
         }
 
-        blocks = new Block[x][z];
+        blocks = new Object[x][z];
 
         for (int xC = 0; xC < x; ++xC)
             for (int zC = 0; zC < z; ++zC) {
@@ -63,7 +62,7 @@ public class MultiblockLayer {
 
         for (int xO = 0; xO < blocks.length; xO++)
             for (int zO = 0; zO < blocks[xO].length; zO++) {
-                Block compare = blocks[xO][zO];
+                Object compare = blocks[xO][zO];
                 if (compare == null) continue;
                 if (!compare.getClass().isAssignableFrom(world.getBlock(x + xO, y, z + zO).getClass())) return false;
             }

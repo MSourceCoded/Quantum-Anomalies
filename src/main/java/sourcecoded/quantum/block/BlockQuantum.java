@@ -4,14 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
 import sourcecoded.quantum.item.ItemBlockQuantum;
-import sourcecoded.quantum.tile.IDyeable;
+import sourcecoded.quantum.api.tileentity.IDyeable;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 

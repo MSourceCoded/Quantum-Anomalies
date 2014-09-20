@@ -21,7 +21,8 @@ public enum Colourizer {
     LIGHT_BLUE("lightBlue", 0F, 0.5F, 1F),
     MAGENTA("magenta", 0.7F, 0.5F, 0.7F),
     ORANGE("orange", 1F, 0.5F, 0F),
-    WHITE("white", 1F, 1F, 1F);
+    WHITE("white", 1F, 1F, 1F),
+    RAINBOW("rainbow", 0F, 0F, 0F);
 
     public float[] rgb;
     public int meta;

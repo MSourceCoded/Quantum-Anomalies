@@ -1,4 +1,4 @@
-package sourcecoded.quantum.tile;
+package sourcecoded.quantum.api.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -22,6 +22,14 @@ public interface IDyeable {
                 TileEntity tile = world.getTileEntity(x, y, z);
                 if (tile != null && tile instanceof IDyeable) {
                     ((IDyeable) tile).dye(Colourizer.match(stack.getItemDamage()));
+                    return true;
+                }
+            }
+
+            if (stack != null && stack.getItem() == Items.nether_star) {
+                TileEntity tile = world.getTileEntity(x, y, z);
+                if (tile != null && tile instanceof IDyeable) {
+                    ((IDyeable) tile).dye(Colourizer.RAINBOW);
                     return true;
                 }
             }

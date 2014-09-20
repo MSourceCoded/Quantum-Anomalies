@@ -1,9 +1,6 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.Explosion;
@@ -12,7 +9,6 @@ import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
-import sourcecoded.quantum.tile.IDyeable;
 import sourcecoded.quantum.tile.TileRiftNode;
 
 import java.util.Random;
