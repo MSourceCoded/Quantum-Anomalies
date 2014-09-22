@@ -5,6 +5,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.BlockFire;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -20,9 +22,14 @@ import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.network.MessageVanillaParticle;
 import sourcecoded.quantum.network.NetworkHandler;
+import sourcecoded.quantum.registry.QABlocks;
+import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.utils.WorldUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static sourcecoded.quantum.api.block.Colourizer.LIGHT_BLUE;
 
 public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
@@ -36,6 +43,16 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     public int shockCooldown = 0;
 
     float force = 0.1F;
+
+    public MultiblockLayer[] vacuumLayers = new MultiblockLayer[] {
+            new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaa aai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
+            new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
+    };
 
     public TileRiftNode() {
         riftStorage = new RiftEnergyStorage(1000000);
@@ -72,6 +89,45 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
             if (worldInteractionTicker % 40 == 0)
                 checkFire();
+
+            //Instability
+            if (getRiftEnergy() < ((float)getMaxRiftEnergy() * 0.05F) && worldInteractionTicker % 20 == 0 && RandomUtils.nextInt(0, 10) == 0) {
+                int x = RandomUtils.nextInt(xCoord - 15, xCoord + 15);
+                int y = RandomUtils.nextInt(yCoord - 2, yCoord + 2);
+                int z = RandomUtils.nextInt(zCoord - 15, zCoord + 15);
+
+                switch(getColour()) {
+                    case LIGHT_BLUE:
+                        if (!worldObj.isDaytime())
+                            worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, x, y, z));
+                        break;
+
+                    case ORANGE:
+                        int ex = RandomUtils.nextInt(xCoord - 7, xCoord + 7);
+                        int ez = RandomUtils.nextInt(zCoord - 7, zCoord + 7);
+                        worldObj.createExplosion(null, ex, y, ez, RandomUtils.nextFloat(3, 6), true);
+                        break;
+
+                    case RED:
+                        for (int i = 0; i < RandomUtils.nextInt(10, 20); i++) {
+                            int nx = RandomUtils.nextInt(xCoord - 7, xCoord + 7);
+                            int nz = RandomUtils.nextInt(zCoord - 7, zCoord + 7);
+
+                            for (int j = yCoord; j > yCoord - 10; j--) {
+                                if (worldObj.getBlock(nx, j, nz) == Blocks.air) {
+                                    worldObj.setBlock(nx, j, nz, Blocks.fire);
+                                    if (worldObj.getBlock(nx, j - 1, nz) != Blocks.air) {
+                                        IMessage message = new MessageVanillaParticle("lava", nx, yCoord + RandomUtils.nextFloat(1F, -1F), nz, 1D, 0.2D, 1D, 4);
+                                        NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
+
+            checkPowered();
 
             if (energyUpdateTicker >= 30) {
                 energyUpdateTicker = 0;
@@ -118,12 +174,70 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                     }
                 }
             }
+
+            if (worldInteractionTicker % 10 == 0)
+                checkPowered();
         }
+    }
+
+    public void checkPowered() {
+        if (getColour() != Colourizer.BLACK) return;
+        boolean flag = false;
+        if (worldObj.isBlockIndirectlyGettingPowered(xCoord + 3, yCoord, zCoord)) flag = true;
+        if (worldObj.isBlockIndirectlyGettingPowered(xCoord - 3, yCoord, zCoord)) flag = true;
+        if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord + 3)) flag = true;
+        if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord - 3)) flag = true;
+
+        if (!flag) return;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<IInventory> getVacuumImports() {
+        ArrayList<IInventory> inventories = new ArrayList<IInventory>();
+        List<TileCornerstone> cornerstones = WorldUtils.searchForTile(worldObj, xCoord, yCoord, zCoord, 3, 3, 3, TileCornerstone.class);
+        for (TileCornerstone cornerstone : cornerstones) {
+            if (cornerstone.getColour() != Colourizer.LIME) continue;
+                inventories.addAll(cornerstone.getAdjacentInventories());
+        }
+        return inventories;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<IInventory> getVacuumExports() {
+        ArrayList<IInventory> inventories = new ArrayList<IInventory>();
+        List<TileCornerstone> cornerstones = WorldUtils.searchForTile(worldObj, xCoord, yCoord, zCoord, 3, 3, 3, TileCornerstone.class);
+        for (TileCornerstone cornerstone : cornerstones) {
+            if (cornerstone.getColour() != Colourizer.ORANGE) continue;
+            inventories.addAll(cornerstone.getAdjacentInventories());
+        }
+        return inventories;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<IInventory> getVacuumCatalysts() {
+        ArrayList<IInventory> inventories = new ArrayList<IInventory>();
+        List<TileCornerstone> cornerstones = WorldUtils.searchForTile(worldObj, xCoord, yCoord, zCoord, 3, 3, 3, TileCornerstone.class);
+        for (TileCornerstone cornerstone : cornerstones) {
+            if (cornerstone.getColour() != Colourizer.WHITE) continue;
+            inventories.addAll(cornerstone.getAdjacentInventories());
+        }
+        return inventories;
+    }
+
+    public boolean validMultiblock() {
+        if (getColour() != Colourizer.BLACK) return false;
+        for (int i = 0; i<vacuumLayers.length; i++) {
+            MultiblockLayer layer = vacuumLayers[i];
+            if (!layer.valid(worldObj, xCoord, yCoord + (i - 3), zCoord))
+                return false;
+        }
+
+        return true;
     }
 
     @SuppressWarnings("unchecked")
     public void checkLightning() {
-        if (getColour() != Colourizer.LIGHT_BLUE) return;
+        if (getColour() != LIGHT_BLUE) return;
         AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(xCoord - radius, 0, zCoord - radius, xCoord + radius, 256, zCoord + radius);
         List bolts = worldObj.getEntitiesWithinAABB(EntityLightningBolt.class, bb);
 

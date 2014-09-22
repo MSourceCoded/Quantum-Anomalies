@@ -5,6 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.api.block.Colourizer;
 
 public interface IDyeable {
@@ -21,7 +22,8 @@ public interface IDyeable {
             if (stack != null && stack.getItem() == Items.dye) {
                 TileEntity tile = world.getTileEntity(x, y, z);
                 if (tile != null && tile instanceof IDyeable) {
-                    ((IDyeable) tile).dye(Colourizer.match(stack.getItemDamage()));
+                    Colourizer color = Colourizer.match(stack.getItemDamage());
+                    ((IDyeable) tile).dye(color);
                     return true;
                 }
             }
@@ -36,7 +38,6 @@ public interface IDyeable {
 
             return false;
         }
-
     }
 
 }

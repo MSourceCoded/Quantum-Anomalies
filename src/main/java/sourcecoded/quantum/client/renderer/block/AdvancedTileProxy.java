@@ -37,22 +37,21 @@ public class AdvancedTileProxy implements ISimpleBlockRenderingHandler{
         glScalef(scale, scale, scale);
 
         TESRStaticHandler renderer = (TESRStaticHandler) TileEntityRendererDispatcher.instance.mapSpecialRenderers.get(te.getClass());
-        renderer.renderTile(te, 0.0, 0.0, 0.0, 0, true);
+        renderer.renderTile(te, 0.0, 0.0, 0.0, 0, true, renderBlocks);
 
-        renderer.renderTile(te, 0.0, 0.0, 0.0, 0, false);
+        renderer.renderTile(te, 0.0, 0.0, 0.0, 0, false, renderBlocks);
 
     }
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderBlocks) {
         if (block instanceof ITileEntityProvider) {
-            ITileEntityProvider prov = (ITileEntityProvider) block;
-            te = prov.createNewTileEntity(null, world.getBlockMetadata(x, y, z));
+            te = world.getTileEntity(x, y, z);
         } else return false;
 
         Tessellator.instance.draw();
         TESRStaticHandler renderer = (TESRStaticHandler) TileEntityRendererDispatcher.instance.mapSpecialRenderers.get(te.getClass());
-        renderer.renderTile(te, x, y, z, 0, true);
+        renderer.renderTile(te, x, y, z, 0, true, renderBlocks);
         Tessellator.instance.startDrawingQuads();
 
         return true;

@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.injection.InjectionConstants;
+import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
+import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.TileInjectedGlass;
 
 public class BlockInjectedGlass extends BlockInjectedStone {
@@ -14,6 +16,10 @@ public class BlockInjectedGlass extends BlockInjectedStone {
         this.setBlockName("blockInjectedGlass");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
+    }
+
+    public int getRenderType() {
+        return AdvancedTileProxy.renderID;
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {

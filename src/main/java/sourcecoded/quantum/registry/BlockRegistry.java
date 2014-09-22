@@ -2,7 +2,6 @@ package sourcecoded.quantum.registry;
 
 import net.minecraft.block.Block;
 import sourcecoded.core.block.AbstractBlockRegistry;
-import sourcecoded.quantum.api.entanglement.EntanglementRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 

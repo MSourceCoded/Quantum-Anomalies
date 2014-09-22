@@ -1,6 +1,7 @@
 package sourcecoded.quantum.client.renderer.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +21,7 @@ public class TESRRiftSmelter extends TESRStaticHandler {
     ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
     @Override
-    public void renderTile(TileEntity te, double x, double y, double z, float ptt, boolean isStatic) {
+    public void renderTile(TileEntity te, double x, double y, double z, float ptt, boolean isStatic, RenderBlocks renderBlocks) {
         if (!isStatic) {
             glPushMatrix();
             glTranslated(x + 0.5, y, z + 0.5);

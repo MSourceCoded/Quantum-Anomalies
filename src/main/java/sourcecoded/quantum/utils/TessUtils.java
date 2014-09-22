@@ -40,15 +40,15 @@ public class TessUtils {
             tess.addVertexWithUV(maxX, minY, minZ, U, V);
             tess.addVertexWithUV(minX, minY, minZ, u, V);
         } else if (direction == ForgeDirection.WEST) {
-            tess.addVertexWithUV(minX, minY, minZ, U, v);       //WEST
-            tess.addVertexWithUV(minX, minY, maxZ, U, V);
-            tess.addVertexWithUV(minX, maxY, maxZ, u, V);
-            tess.addVertexWithUV(minX, maxY, minZ, u, v);
+            tess.addVertexWithUV(minX, minY, minZ, U, V);       //WEST
+            tess.addVertexWithUV(minX, minY, maxZ, u, V);
+            tess.addVertexWithUV(minX, maxY, maxZ, u, v);
+            tess.addVertexWithUV(minX, maxY, minZ, U, v);
         } else if (direction == ForgeDirection.EAST) {
-            tess.addVertexWithUV(maxX, maxY, maxZ, u, V);       //EAST
+            tess.addVertexWithUV(maxX, maxY, minZ, u, v);       //EAST
+            tess.addVertexWithUV(maxX, maxY, maxZ, U, v);
             tess.addVertexWithUV(maxX, minY, maxZ, U, V);
-            tess.addVertexWithUV(maxX, minY, minZ, U, v);
-            tess.addVertexWithUV(maxX, maxY, minZ, u, v);
+            tess.addVertexWithUV(maxX, minY, minZ, u, V);
         }
     }
 }
