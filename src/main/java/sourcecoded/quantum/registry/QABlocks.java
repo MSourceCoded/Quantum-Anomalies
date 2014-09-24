@@ -1,6 +1,7 @@
 package sourcecoded.quantum.registry;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import sourcecoded.quantum.block.*;
 import sourcecoded.quantum.tile.*;
@@ -15,7 +16,8 @@ public enum QABlocks {
     RIFT_INJECTION_POOL("blockInjectionPool", new BlockRiftInjector(), TileRiftInjector.class),
     RIFT_NODE("blockRiftNode", new BlockRiftNode(), TileRiftNode.class),
     RIFT_SMELTER("blockRiftFurnace", new BlockRiftSmelter(), TileRiftSmelter.class),
-    MANIPULATION("blockManipulation", new BlockManipulation(), TileManipulation.class),
+    MANIPULATION_STANDARD("blockManipulation", new BlockManipulation(Material.rock), TileManipulation.class),
+    MANIPULATION_WATER("blockManipulationWater", new BlockManipulation(Material.water), TileManipulation.class),
     SYNC("blockSynchronize", new BlockSync(), TileSync.class);
 
     public String identifier;

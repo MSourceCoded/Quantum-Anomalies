@@ -3,7 +3,10 @@ package sourcecoded.quantum.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -13,18 +16,51 @@ import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.api.tileentity.IDyeable;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileManipulation;
 
 import java.util.Random;
 
 public class BlockManipulation extends BlockDyeable implements ITileEntityProvider {
 
-    public BlockManipulation() {
-        super();
-        this.setBlockName("blockManipulation");
+    public BlockManipulation(Material mat) {
+        super(mat);
+        if (mat != Material.water)
+            this.setBlockName("blockManipulation");
+        else
+            this.setBlockName("blockManipulationWater");
+
+        if (mat == Material.water)
+            this.setCreativeTab(null);
+
         this.setBlockTextureName("infusedStone");
         this.setHardness(6F);
         this.setTickRandomly(true);
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
+        Colourizer oldColour = getDye(world, x, y, z);
+        boolean result = IDyeable.DyeUtils.attemptDye(player, world, x, y, z);
+        Colourizer newColour = getDye(world, x, y, z);
+        if (result && newColour == Colourizer.BLUE)
+            changeBlock(world, x, y, z, QABlocks.MANIPULATION_WATER.getBlock());
+        if (result && oldColour == Colourizer.BLUE && newColour != Colourizer.BLUE)
+            changeBlock(world, x, y, z, QABlocks.MANIPULATION_STANDARD.getBlock());
+
+        return result;
+    }
+
+    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+        return Item.getItemFromBlock(QABlocks.MANIPULATION_STANDARD.getBlock());
+    }
+
+    public void changeBlock(World world, int x, int y, int z, Block block) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        world.setBlock(x, y, z, block);
+        if (tile != null) {
+            tile.validate();
+            world.setTileEntity(x, y, z, tile);
+        }
     }
 
     public void updateTick(World world, int x, int y, int z, Random random) {
@@ -103,7 +139,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
         return getDye((World) world, x, y, z) == Colourizer.LIME;
     }
 
-    Colourizer getDye(World world, int x, int y, int z) {
+    Colourizer getDye(IBlockAccess world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile != null) {
             IDyeable dyeable = (IDyeable) tile;

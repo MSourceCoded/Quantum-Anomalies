@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -17,6 +18,8 @@ import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.tileentity.IDyeable;
+import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.handler.ConfigHandler;
@@ -43,6 +46,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     public int shockCooldown = 0;
 
     float force = 0.1F;
+
+    boolean crafting = false;
+    IVacuumRecipe currentActiveRecipe;
 
     public MultiblockLayer[] vacuumLayers = new MultiblockLayer[] {
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
@@ -189,6 +195,34 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord - 3)) flag = true;
 
         if (!flag) return;
+
+        boolean craftingReturned = attemptCrafting();
+        if (!craftingReturned) {
+            crafting = false;
+            if (currentActiveRecipe != null) {
+                //Do the instability
+                currentActiveRecipe = null;
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean attemptCrafting() {
+        if (!validMultiblock()) return false;
+
+        List<IInventory> imports = getVacuumImports();
+        List<IInventory> exports = getVacuumExports();
+        List<IInventory> catalystImports = getVacuumCatalysts();
+
+        if (imports.size() == 0 || exports.size() == 0 || catalystImports.size() == 0) return false;
+
+        IVacuumRecipe matchingRecipe = VacuumRegistry.getRecipeForCatalyst(trimNull(getItemsFromInventory(catalystImports.get(0), true)));
+        if (matchingRecipe == null) return false;
+        currentActiveRecipe = matchingRecipe;
+
+        crafting = true;
+
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -222,6 +256,24 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             inventories.addAll(cornerstone.getAdjacentInventories());
         }
         return inventories;
+    }
+
+    public List<ItemStack> getItemsFromInventory(IInventory inventory, boolean includeNull) {
+        List<ItemStack> stacks = new ArrayList<ItemStack>();
+        for (int i = 0; i < inventory.getSizeInventory(); i++) {
+            ItemStack currentItemstack = inventory.getStackInSlot(i);
+            if (includeNull) stacks.add(currentItemstack);
+            else if (currentItemstack != null) stacks.add(currentItemstack);
+        }
+        return stacks;
+    }
+
+    public List trimNull(List list) {
+        for (int i = list.size(); i > 0; i--) {
+            if (list.get(i) == null) list.remove(i);
+            if (list.get(i) != null) return list;
+        }
+        return list;
     }
 
     public boolean validMultiblock() {
