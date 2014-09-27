@@ -6,13 +6,13 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
+import sourcecoded.quantum.api.tileentity.IBindable;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
@@ -99,7 +99,7 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
 
     }
 
-    int getTier() {
+    public int getTier() {
         int tier = 0;
         if (tier1.valid(worldObj, xCoord, yCoord - 1, zCoord)) tier = 1;
         else return tier;

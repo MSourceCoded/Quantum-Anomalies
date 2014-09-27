@@ -9,17 +9,30 @@ qa.blocks.blockCornerstone.name=Injected Cornerstone
 qa.blocks.blockInjectedStone.name=Injected Stone
 qa.blocks.blockInjectedGlass.name=Injected Glass
 
-qa.blocks.blockRiftInjector.name=Quantum Rift Injection Pool
+qa.blocks.blockRiftInjector.name={c:LIGHT_PURPLE}Quantum Rift Injection Pool{c:RESET}
+qa.blocks.blockRiftInjector.lore.0={c:ITALIC}Let's get Quantum...
+qa.blocks.blockRiftInjector.diagnose={c:WHITE}Tier: {c:ITALIC}%s
+
 qa.blocks.blockRiftNode.name=Quantum Rift Node
 qa.blocks.blockRiftSmelter.name=Quantum Rift Furnace
 
-qa.blocks.blockManipulation.name=Matter Manipulation Structure
-qa.blocks.blockSynchronize.name={c:LIGHT_PURPLE}Quantum Entanglement Platform{c:WHITE}
+qa.blocks.blockManipulation.name={c:LIGHT_PURPLE}Matter Manipulation Structure{c:RESET}
+qa.blocks.blockManipulation.name={c:LIGHT_PURPLE}Matter Manipulation Structure{c:RESET}
+qa.blocks.blockManipulation.lore.0={c:ITALIC}What's the matter?
 
-qa.block.blockSynchronize.lore.0={c:ITALIC}One of us.... One of us....
+qa.blocks.blockMatterArrangementTable.name={c:LIGHT_PURPLE}Matter Arrangement Table{c:RESET}
+qa.blocks.blockMatterArrangementTable.lore.0={c:ITALIC}Entropic Arrangement at your Fingertips
+
+qa.blocks.blockSynchronize.name={c:LIGHT_PURPLE}Quantum Entanglement Platform{c:WHITE}
+qa.blocks.blockSynchronize.lore.0={c:ITALIC}One of us.... One of us....
 
 qa.items.itemChaosShard.name=Chaos Shard
 qa.items.itemInjectedStick.name=Injected Stick
+
+qa.items.itemObsidianJewel.name@0={c:AQUA}Obsidian Jewel{c:RESET}
+qa.items.itemObsidianJewel.name@1={c:LIGHT_PURPLE}Charged Obsidian Jewel{c:RESET}
+qa.items.itemObsidianJewel.lore.0@0={c:ITALIC}Refined Density
+qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
@@ -46,7 +59,6 @@ qa.sceptre.focus.dematerialization.lore.1=It can be a bit.... shocking
 
 qa.sceptre.focus.helium=Helium Focus
 qa.sceptre.focus.helium.lore.0=Lighter than Air
-
 qa.sceptre.focus.diagnostic=Diagnostics Focus
 qa.sceptre.focus.diagnostic.lore.0=I wonder how this is doing...
 qa.sceptre.focus.diagnostic.energyContained={c:GOLD}Energy: {c:ITALIC}%s {c:GOLD}QRE
@@ -70,7 +82,7 @@ qa.items.itemJournal.name={c:LIGHT_PURPLE}Anomolical Journal{c:WHITE}
 qa.items.itemJournal.lore.0={c:ITALIC}[ah-nom-ol-ic-al]
 
 #####################################
-# Lore
+# Misc Lore
 #####################################
 
 qa.lore.multipliers.showShift.0=Quantum Manipulation Catalyst

@@ -8,16 +8,17 @@ import sourcecoded.quantum.tile.*;
 
 public enum QABlocks {
 
+    INJECTED_STONE("blockInjectedStone", new BlockInjectedStone(), TileInjectedStone.class),
     CHAOS_ENDER("blockChaosEnder", new BlockChaosEnder()),
     CHAOS_HELL("blockChaosHell", new BlockChaosHell()),
     INJECTED_CORNERSTONE("blockInjectedCornerstone", new BlockCornerstone(), TileCornerstone.class),
     INJECTED_GLASS("blockInjectedGlass", new BlockInjectedGlass(), TileInjectedGlass.class),
-    INJECTED_STONE("blockInjectedStone", new BlockInjectedStone(), TileInjectedStone.class),
     RIFT_INJECTION_POOL("blockInjectionPool", new BlockRiftInjector(), TileRiftInjector.class),
     RIFT_NODE("blockRiftNode", new BlockRiftNode(), TileRiftNode.class),
     RIFT_SMELTER("blockRiftFurnace", new BlockRiftSmelter(), TileRiftSmelter.class),
     MANIPULATION_STANDARD("blockManipulation", new BlockManipulation(Material.rock), TileManipulation.class),
     MANIPULATION_WATER("blockManipulationWater", new BlockManipulation(Material.water), TileManipulation.class),
+    ARRANGEMENT("blockArrangementTable", new BlockArrangement(), TileArrangement.class),
     SYNC("blockSynchronize", new BlockSync(), TileSync.class);
 
     public String identifier;

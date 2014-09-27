@@ -25,11 +25,8 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
 
     public BlockManipulation(Material mat) {
         super(mat);
-        if (mat != Material.water)
-            this.setBlockName("blockManipulation");
-        else
-            this.setBlockName("blockManipulationWater");
 
+        this.setBlockName("blockManipulation");
         if (mat == Material.water)
             this.setCreativeTab(null);
 
@@ -64,7 +61,8 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
     }
 
     public void updateTick(World world, int x, int y, int z, Random random) {
-        if (getDye(world, x, y, z) == Colourizer.LIME) {
+        Colourizer dye = getDye(world, x, y, z);
+        if (dye == Colourizer.LIME) {
             Block block = world.getBlock(x, y + 1, z);
             if (block != null) {
                 ITileRiftHandler handler = getHandler(world, x, y, z);

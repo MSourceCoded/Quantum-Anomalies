@@ -20,10 +20,12 @@ public class ItemRegistry extends AbstractItemRegistry {
     }
 
     @Override
-    public void addItem(String name, Item item) {
+    public AbstractItemRegistry addItem(String name, Item item) {
         super.addItem(name, item);
 
         if (item instanceof IInjectorRecipe)
             InjectorRegistry.addRecipe((IInjectorRecipe) item);
+
+        return this;
     }
 }

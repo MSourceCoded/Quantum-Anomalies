@@ -2,7 +2,6 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -10,16 +9,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
-import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.item.ItemBlockQuantum;
-import sourcecoded.quantum.tile.TileInjectedGlass;
 import sourcecoded.quantum.tile.TileSync;
-
-import java.util.List;
 
 public class BlockSync extends BlockDyeable implements IInjectorRecipe, ITileEntityProvider {
 
@@ -94,8 +88,8 @@ public class BlockSync extends BlockDyeable implements IInjectorRecipe, ITileEnt
             super(block);
         }
 
-        public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
-            list.add(LocalizationUtils.translateLocalWithColours("qa.block.blockSynchronize.lore.0", "{c:ITALIC}One of us.... One of us...."));
-        }
+//        public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
+//            list.add(LocalizationUtils.translateLocalWithColours("qa.block.blockSynchronize.lore.0", "{c:ITALIC}One of us.... One of us...."));
+//        }
     }
 }

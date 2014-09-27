@@ -149,9 +149,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
                     ITileRiftHandler handler = (ITileRiftHandler) tile;
                     int remaining = handler.getMaxRiftEnergy() - handler.getRiftEnergy();
-                    int toSend = Math.min(Math.min(remaining, 3000), getRiftEnergy());          //Max Packet Size
+                    int toSend = Math.min(Math.min(remaining, 1000), getRiftEnergy());          //Max Packet Size
 
-                    boolean canSend = getRiftEnergy() >= 1000 && (handler.getRiftEnergy() + toSend) <= handler.getMaxRiftEnergy();      //Packet Minimum
+                    boolean canSend = getRiftEnergy() >= 500 && (handler.getRiftEnergy() + toSend) <= handler.getMaxRiftEnergy();      //Packet Minimum
 
                     if (toSend > 0 && riftStorage.getRiftEnergy() >= toSend && canSend) {
 
@@ -302,7 +302,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         }
 
         if (shockCooldown == 0)
-            giveRiftEnergy(RandomUtils.nextInt(300000, 700000) * bolts.size());             //Bolt min/max
+            giveRiftEnergy(RandomUtils.nextInt(100000, 300000) * bolts.size());             //Bolt min/max
         if (bolts.size() > 0) {
             IMessage message = new MessageVanillaParticle("hugeexplosion", xCoord + 0.5, yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D, 1);
             NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);

@@ -1,14 +1,12 @@
 package sourcecoded.quantum.registry;
 
 import net.minecraft.item.Item;
-import sourcecoded.quantum.item.ItemChaosShard;
-import sourcecoded.quantum.item.ItemInjectedStick;
-import sourcecoded.quantum.item.ItemJournal;
-import sourcecoded.quantum.item.ItemSceptre;
+import sourcecoded.quantum.item.*;
 
 public enum QAItems {
 
     SCEPTRE("itemSceptre", new ItemSceptre()),
+    OBSIDIAN_JEWEL("itemObsidianJewel", new ItemObsidianJewel()),
     CHAOS_SHARD("itemChaosShard", new ItemChaosShard()),
     JOURNAL("itemJournal", new ItemJournal()),
     INJECTED_STICK("itemInjectedStick", new ItemInjectedStick());

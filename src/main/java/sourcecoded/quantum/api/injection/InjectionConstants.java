@@ -8,9 +8,9 @@ package sourcecoded.quantum.api.injection;
  */
 public class InjectionConstants {
 
-    public static int INJECTION_STANDARD_BLOCK = 5000;
-    public static int INJECTION_STANDARD_MACHINE = 20000;
+    public static int INJECTION_STANDARD_BLOCK = 15000;
+    public static int INJECTION_STANDARD_MACHINE = 50000;
 
-    public static int INJECTION_STANDARD_ITEM = 3000;
+    public static int INJECTION_STANDARD_ITEM = 7500;
 
 }

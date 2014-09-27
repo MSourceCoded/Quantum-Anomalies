@@ -1,6 +1,7 @@
 package sourcecoded.quantum.client.renderer.tile;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -11,17 +12,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
-import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileRiftInjector;
+import sourcecoded.quantum.client.renderer.fx.helpers.FXHelper;
+import sourcecoded.quantum.tile.TileArrangement;
+import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class TESRRiftInjector extends TESRStaticHandler {
+public class TESRArrangement extends TESRStaticHandler {
 
-    WavefrontObject model = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, "model/block/infuser.obj"));
+    WavefrontObject model = (WavefrontObject) AdvancedModelLoader.loadModel(new ResourceLocation(Constants.MODID, "model/block/arranger.obj"));
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
     ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
@@ -37,41 +40,35 @@ public class TESRRiftInjector extends TESRStaticHandler {
 
             Tessellator tess = Tessellator.instance;
 
-            TileRiftInjector injector = (TileRiftInjector) te;
+            float innerPadding = 0.03F;
 
-            if (injector != null && injector.hasWorldObj() && injector.currentItem != null) {
-                EntityItem item = new EntityItem(injector.getWorldObj(), 0D, 0D, 0D, injector.currentItem);
+            tess.startDrawingQuads();
+
+            float[] rgb = ((TileArrangement) te).colour.rgb;
+
+            tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
+            tess.setBrightness(240);
+            this.bindTexture(texHaze);
+            TessUtils.drawCube(tess, innerPadding, innerPadding, innerPadding, 1F - (innerPadding * 2), 0, 0, 1, 1);
+            tess.draw();
+
+            TileArrangement arrangement = (TileArrangement) te;
+            if (arrangement.hasWorldObj() && arrangement.activeRecipe != null) {
+                float speed = 0.0025F;
+                arrangement.renderProgress += ptt * speed;
+
+                if (arrangement.renderProgress >= 1F)
+                    arrangement.renderProgress = 0F;
+
+                EntityItem item = new EntityItem(arrangement.getWorldObj(), 0D, 0D, 0D, arrangement.activeRecipe.getOutput());
                 item.hoverStart = 0.0F;
                 RenderItem.renderInFrame = true;
 
-                RenderManager.instance.renderEntityWithPosYaw(item, 0.5D, 0.35D, 0.5D, 0F, 0F);
+                double yo = 1.5D + 0.125*Math.sin(arrangement.renderProgress * 2 * Math.PI);
+                RenderManager.instance.renderEntityWithPosYaw(item, 0.5D, yo, 0.5D, 0F, 0F);
 
                 RenderItem.renderInFrame = false;
             }
-
-            glColor4f(1F, 1F, 1F, 1F);
-            tess.startDrawingQuads();
-            tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
-            tess.setBrightness(240);
-            this.bindTexture(texHaze);
-
-            float percentage = 0F;
-
-            if (injector != null) {
-                try {
-                    percentage = (float)injector.getRiftEnergy() / (float)injector.getMaxRiftEnergy();
-                    tess.setColorRGBA_F(injector.colour.rgb[0], injector.colour.rgb[1], injector.colour.rgb[2], GlowRenderHandler.instance().brightness);
-                } catch (ArithmeticException exception) {
-                    //Divided by 0
-                }
-            }
-
-            float minimum = 3.9F/16F;
-
-            float height = percentage * 4.5F/16F + minimum;
-            TessUtils.drawFace(ForgeDirection.UP, tess, 1/16F, height, 1/16F, 1-1/16F, height, 1-1/16F, 0, 0, 1, 1);
-
-            tess.draw();
 
             glEnable(GL_LIGHTING);
             glPopMatrix();
@@ -79,16 +76,18 @@ public class TESRRiftInjector extends TESRStaticHandler {
             Tessellator tess = Tessellator.instance;
 
             x += 0.5;
+            y += 0.5;
             z += 0.5;
 
-            tess.addTranslation((float) x, (float) y, (float) z);
+            tess.addTranslation((float)x, (float)y, (float)z);
             tess.startDrawingQuads();
             tess.setColorRGBA_F(1F, 1F, 1F, 1F);
             brightness(tess);
             Minecraft.getMinecraft().renderEngine.bindTexture(texDark);
-            model.tessellatePart(tess, "Base");
+            model.tessellateAll(tess);
             tess.draw();
-            tess.addTranslation((float) -x, (float) -y, (float) -z);
+            tess.addTranslation((float)-x, (float)-y, (float)-z);
+
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         }
     }

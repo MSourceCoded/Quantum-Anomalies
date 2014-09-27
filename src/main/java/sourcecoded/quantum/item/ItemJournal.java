@@ -18,10 +18,4 @@ public class ItemJournal extends ItemQuantum {
     public String getItemStackDisplayName(ItemStack item) {
         return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(item) + ".name", "{c:PURPLE}Anomolical Journal{c:WHITE}");
     }
-
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
-        list.add(LocalizationUtils.translateLocalWithColours(getUnlocalizedName(item) + ".lore.0", "{c:ITALIC}[ah-nom-ol-ic-al]"));
-    }
-
 }

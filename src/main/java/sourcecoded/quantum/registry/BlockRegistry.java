@@ -19,10 +19,12 @@ public class BlockRegistry extends AbstractBlockRegistry {
     }
 
     @Override
-    public void addBlock(String name, Block blockOBJ) {
+    public AbstractBlockRegistry addBlock(String name, Block blockOBJ) {
         super.addBlock(name, blockOBJ);
 
         if (blockOBJ instanceof IInjectorRecipe)
             InjectorRegistry.addRecipe((IInjectorRecipe) blockOBJ);
+
+        return this;
     }
 }
