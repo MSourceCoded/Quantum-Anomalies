@@ -4,17 +4,26 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.tileentity.IBindable;
+import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
+import sourcecoded.quantum.api.vacuum.Instability;
+import sourcecoded.quantum.registry.QABlocks;
+import sourcecoded.quantum.registry.QAItems;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler {
@@ -227,4 +236,6 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
     public EnergyBehaviour getBehaviour() {
         return EnergyBehaviour.DRAIN;
     }
+
+
 }

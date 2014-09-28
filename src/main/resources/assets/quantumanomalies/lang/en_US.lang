@@ -37,6 +37,12 @@ qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
 #####################################
+# Instability
+#####################################
+
+death.attack.qa.vacuum.instability=%s made a fatal mistake
+
+#####################################
 # Achievements
 #####################################
 

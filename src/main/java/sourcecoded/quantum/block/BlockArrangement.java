@@ -108,7 +108,6 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
                         for (Point3D point : destroyPoints) {
                             if (point.getX() == nx && point.getY() == y && point.getZ() == nz) {
-                                if (!world.isRemote)
                                     NetworkHandler.wrapper.sendToDimension(new MessageBlockBreakFX(nx, y, nz), world.provider.dimensionId);
                                 world.setBlockToAir(nx, y, nz);
                             }
@@ -116,7 +115,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
                         List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(nx, y, nz, nx + 1, y + 1, nz + 1));
                         if (items.size() == 1)
-                            items.get(0).setDead();
+                            items.get(0).getEntityItem().stackSize-=1;
                     }
 
                 ItemStack result = recipe.getOutput();
@@ -132,18 +131,15 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
                 entity.motionX = 0;
                 entity.motionZ = 0;
 
-                if (!world.isRemote) {
                     world.spawnEntityInWorld(entity);
                     for (int i1 = 0; i1 < 9; ++i1) {
                         double d0 = RandomUtils.rnd.nextGaussian() * 0.02D;
                         double d1 = RandomUtils.rnd.nextGaussian() * 0.02D;
                         double d2 = RandomUtils.rnd.nextGaussian() * 0.02D;
                         NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("happyVillager", xO + RandomUtils.rnd.nextFloat(), yO + 1 + RandomUtils.nextFloat(0F, 0.3F), zO + RandomUtils.rnd.nextFloat(), d0, d1, d2, 1), world.provider.dimensionId);
-                    }
                 }
             } else {
-                if (!world.isRemote)
-                    NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("mobSpell", xO + 0.5, yO + 1, zO + 0.5, 1D, 0D, 0D, 1), world.provider.dimensionId);
+                NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("mobSpell", xO + 0.5, yO + 1, zO + 0.5, 1D, 0D, 0D, 1), world.provider.dimensionId);
             }
         }
 

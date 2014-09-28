@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
@@ -28,11 +29,13 @@ import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.utils.WorldUtils;
+import sourcecoded.quantum.vacuum.instability.InstabilityHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static sourcecoded.quantum.api.block.Colourizer.LIGHT_BLUE;
+import static sourcecoded.quantum.api.block.Colourizer.match;
 
 public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
@@ -50,7 +53,11 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     boolean crafting = false;
     IVacuumRecipe currentActiveRecipe;
 
-    public MultiblockLayer[] vacuumLayers = new MultiblockLayer[] {
+    ArrayList<ItemStack> remainingInputs;
+
+    InstabilityHandler currentHandler;
+
+    public MultiblockLayer[] vacuumLayers = new MultiblockLayer[]{
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
             new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
             new MultiblockLayer("iiiiiii", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iaaaaai", "iiiiiii", 'a', Blocks.air, 'i', QABlocks.INJECTED_STONE.getBlock()),
@@ -60,8 +67,70 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
     };
 
+
     public TileRiftNode() {
         riftStorage = new RiftEnergyStorage(1000000);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        riftStorage.writeRiftToNBT(nbt);
+        nbt.setBoolean("crafting", crafting);
+
+
+        if (crafting) {
+            NBTTagList remaining = new NBTTagList();
+
+            for (ItemStack remainingInput : this.remainingInputs) {
+                if (remainingInput != null) {
+                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                    remainingInput.writeToNBT(nbttagcompound1);
+                    remaining.appendTag(nbttagcompound1);
+                }
+            }
+
+            nbt.setTag("RemainingItems", remaining);
+
+            NBTTagList catalysts = new NBTTagList();
+
+            for (ItemStack currentCatalyst : getItemsFromInventory(getVacuumCatalysts().get(0), true)) {
+                if (currentCatalyst != null) {
+                    NBTTagCompound nbttagcompound1 = new NBTTagCompound();
+                    currentCatalyst.writeToNBT(nbttagcompound1);
+                    catalysts.appendTag(nbttagcompound1);
+                }
+            }
+
+            nbt.setTag("Catalysts", catalysts);
+        }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        riftStorage.readRiftFromNBT(nbt);
+        crafting = nbt.getBoolean("crafting");
+        if (crafting) {
+            NBTTagList remaining = nbt.getTagList("RemainingItems", 10);
+            this.remainingInputs = new ArrayList<ItemStack>();
+
+            for (int i = 0; i < remaining.tagCount(); ++i) {
+                NBTTagCompound nbttagcompound1 = remaining.getCompoundTagAt(i);
+
+                this.remainingInputs.add(ItemStack.loadItemStackFromNBT(nbttagcompound1));
+            }
+
+            NBTTagList catalysts = nbt.getTagList("Catalysts", 10);
+
+            ArrayList<ItemStack> catalystList = new ArrayList<ItemStack>();
+            for (int i = 0; i < catalysts.tagCount(); ++i) {
+                NBTTagCompound nbttagcompound1 = catalysts.getCompoundTagAt(i);
+
+                catalystList.add(ItemStack.loadItemStackFromNBT(nbttagcompound1));
+            }
+            this.currentActiveRecipe = VacuumRegistry.getRecipeForCatalyst(catalystList);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -97,12 +166,12 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                 checkFire();
 
             //Instability
-            if (getRiftEnergy() < ((float)getMaxRiftEnergy() * 0.05F) && worldInteractionTicker % 20 == 0 && RandomUtils.nextInt(0, 10) == 0) {
+            if (getRiftEnergy() < ((float) getMaxRiftEnergy() * 0.05F) && worldInteractionTicker % 20 == 0 && RandomUtils.nextInt(0, 10) == 0) {
                 int x = RandomUtils.nextInt(xCoord - 15, xCoord + 15);
                 int y = RandomUtils.nextInt(yCoord - 2, yCoord + 2);
                 int z = RandomUtils.nextInt(zCoord - 15, zCoord + 15);
 
-                switch(getColour()) {
+                switch (getColour()) {
                     case LIGHT_BLUE:
                         if (!worldObj.isDaytime())
                             worldObj.addWeatherEffect(new EntityLightningBolt(worldObj, x, y, z));
@@ -132,8 +201,6 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                         break;
                 }
             }
-
-            checkPowered();
 
             if (energyUpdateTicker >= 30) {
                 energyUpdateTicker = 0;
@@ -183,6 +250,16 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
             if (worldInteractionTicker % 10 == 0)
                 checkPowered();
+
+            if (crafting && worldInteractionTicker % 20 == 0)
+                craftingCycle();
+
+            if (currentHandler != null) {
+                if (currentHandler.isAlive())
+                    currentHandler.tick();
+                else
+                    currentHandler = null;
+            }
         }
     }
 
@@ -201,6 +278,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             crafting = false;
             if (currentActiveRecipe != null) {
                 //Do the instability
+
+                currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
+
                 currentActiveRecipe = null;
             }
         }
@@ -219,10 +299,95 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         IVacuumRecipe matchingRecipe = VacuumRegistry.getRecipeForCatalyst(trimNull(getItemsFromInventory(catalystImports.get(0), true)));
         if (matchingRecipe == null) return false;
         currentActiveRecipe = matchingRecipe;
+        //if (matchingRecipe.getEnergyRequired() > getRiftEnergy()) return false;
+
+        if (remainingInputs == null || remainingInputs.size() == 0)
+            remainingInputs = new ArrayList<ItemStack>(matchingRecipe.getIngredients());
 
         crafting = true;
 
         return true;
+    }
+
+    public void craftingCycle() {
+        //if (!validMultiblock() || getRiftEnergy() < currentActiveRecipe.getEnergyRequired()) {
+        if (!validMultiblock()) {
+            crafting = false;
+            //Do Instability here
+            currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
+            System.err.println("Instability");
+            return;
+        }
+
+        List<IInventory> imports = getVacuumImports();
+        List<IInventory> exports = getVacuumExports();
+
+        if (remainingInputs.size() > 0) {
+            ItemStack nextItem = remainingInputs.get(0);
+
+            boolean itemFound = false;
+
+            inventoryFindLoop:
+            for (IInventory inventory : imports) {
+                for (int i = 0; i < inventory.getSizeInventory(); i++) {
+                    ItemStack current = inventory.getStackInSlot(i);
+                    if (current == null) continue;
+                    if (current.isItemEqual(nextItem)) {
+                        current.stackSize -= 1;
+                        if (current.stackSize > 0)
+                            inventory.setInventorySlotContents(i, current);
+                        else
+                            inventory.setInventorySlotContents(i, null);
+                        remainingInputs.remove(0);
+                        itemFound = true;
+                        break inventoryFindLoop;
+                    }
+                }
+            }
+
+            if (!itemFound) {
+                crafting = false;
+                //Do Instability here
+
+                currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
+                System.err.println("Instability");
+            }
+        } else {
+            IInventory inventory = null;
+
+            for (IInventory cInventory : exports) {
+                if (getItemsFromInventory(cInventory, true).contains(null)) {
+                    inventory = cInventory;
+                    break;
+                }
+            }
+
+            if (inventory != null) {
+                insertItems(currentActiveRecipe.getOutputs(), inventory);
+            }
+
+            takeRiftEnergy(currentActiveRecipe.getEnergyRequired());
+
+            currentActiveRecipe = null;
+            crafting = false;
+        }
+    }
+
+    public void insertItems(List<ItemStack> stacks, IInventory inventory) {
+        for (ItemStack stack : stacks) {
+            for (int i = 0; i < inventory.getSizeInventory(); i++) {
+                ItemStack stackInSlot = inventory.getStackInSlot(i);
+                if (stackInSlot == null) {
+                    inventory.setInventorySlotContents(i, stack);
+                    break;
+                }
+                if (stackInSlot.isItemEqual(stack)) {
+                    stackInSlot.stackSize += stack.stackSize;
+                    inventory.setInventorySlotContents(i, stackInSlot);
+                    break;
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -231,7 +396,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         List<TileCornerstone> cornerstones = WorldUtils.searchForTile(worldObj, xCoord, yCoord, zCoord, 3, 3, 3, TileCornerstone.class);
         for (TileCornerstone cornerstone : cornerstones) {
             if (cornerstone.getColour() != Colourizer.LIME) continue;
-                inventories.addAll(cornerstone.getAdjacentInventories());
+            inventories.addAll(cornerstone.getAdjacentInventories());
         }
         return inventories;
     }
@@ -269,16 +434,16 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     }
 
     public List trimNull(List list) {
-        for (int i = list.size(); i > 0; i--) {
+        for (int i = list.size() - 1; i > 0; i--) {
             if (list.get(i) == null) list.remove(i);
-            if (list.get(i) != null) return list;
+            else if (list.get(i) != null) return list;
         }
         return list;
     }
 
     public boolean validMultiblock() {
         if (getColour() != Colourizer.BLACK) return false;
-        for (int i = 0; i<vacuumLayers.length; i++) {
+        for (int i = 0; i < vacuumLayers.length; i++) {
             MultiblockLayer layer = vacuumLayers[i];
             if (!layer.valid(worldObj, xCoord, yCoord + (i - 3), zCoord))
                 return false;
@@ -331,18 +496,6 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         }
 
         update();
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        riftStorage.writeRiftToNBT(nbt);
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
-        riftStorage.readRiftFromNBT(nbt);
     }
 
     @Override

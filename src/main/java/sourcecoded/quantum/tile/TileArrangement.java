@@ -15,7 +15,7 @@ public class TileArrangement extends TileDyeable {
         tickTime++;
 
         if (tickTime % 10 == 0)
-        activeRecipe = ((BlockArrangement)QABlocks.ARRANGEMENT.getBlock()).tryCraft(worldObj, xCoord, yCoord, zCoord, false);
+            activeRecipe = ((BlockArrangement)QABlocks.ARRANGEMENT.getBlock()).tryCraft(worldObj, xCoord, yCoord, zCoord, false);
 
         if (tickTime == 20)
             tickTime = 0;

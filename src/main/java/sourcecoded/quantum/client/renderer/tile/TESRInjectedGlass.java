@@ -54,8 +54,6 @@ public class TESRInjectedGlass extends TESRStaticHandler {
 
             if (te.hasWorldObj())
                 tryRender(te, te.getWorldObj(), tess);
-            else
-                TessUtils.drawCube(tess, 0, 0, 0, 1, 0, 0, 1, 1);
 
             tess.draw();
 
@@ -69,15 +67,16 @@ public class TESRInjectedGlass extends TESRStaticHandler {
 
             if (te.hasWorldObj()) {
                 tryRender(te, te.getWorldObj(), tess);
-            } else
+            } else {
+                tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], 1F);
                 TessUtils.drawCube(tess, 0, 0, 0, 1, 0, 0, 1, 1);
+            }
 
             tess.draw();
 
             glDisable(GL_BLEND);
             glEnable(GL_LIGHTING);
             glPopMatrix();
-        } else {
         }
     }
 

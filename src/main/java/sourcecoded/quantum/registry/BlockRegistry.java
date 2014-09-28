@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import sourcecoded.core.block.AbstractBlockRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
+import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 
 public class BlockRegistry extends AbstractBlockRegistry {
     public static BlockRegistry instance;
@@ -24,6 +26,9 @@ public class BlockRegistry extends AbstractBlockRegistry {
 
         if (blockOBJ instanceof IInjectorRecipe)
             InjectorRegistry.addRecipe((IInjectorRecipe) blockOBJ);
+
+        if (blockOBJ instanceof IVacuumRecipe)
+            VacuumRegistry.addRecipe((IVacuumRecipe) blockOBJ);
 
         return this;
     }

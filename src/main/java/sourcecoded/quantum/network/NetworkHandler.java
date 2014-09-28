@@ -17,6 +17,7 @@ public class NetworkHandler {
         /* Sending to client */
         wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 0, Side.CLIENT);
         wrapper.registerMessage(MessageBlockBreakFX.class, MessageBlockBreakFX.class, 1, Side.CLIENT);
+        wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 2, Side.CLIENT);
     }
 
 }
