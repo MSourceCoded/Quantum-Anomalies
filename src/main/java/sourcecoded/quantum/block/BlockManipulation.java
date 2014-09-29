@@ -7,21 +7,26 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+import sourcecoded.core.crafting.ICraftable;
+import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileManipulation;
+import sourcecoded.quantum.vacuum.recipes.Manipulation;
 
 import java.util.Random;
 
-public class BlockManipulation extends BlockDyeable implements ITileEntityProvider {
+public class BlockManipulation extends BlockDyeable implements ITileEntityProvider, ICraftableBlock {
 
     public BlockManipulation(Material mat) {
         super(mat);
@@ -149,5 +154,11 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileManipulation();
+    }
+
+    @Override
+    public IRecipe[] getRecipes(Block block) {
+        VacuumRegistry.addRecipe(new Manipulation());
+        return new IRecipe[0];
     }
 }

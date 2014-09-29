@@ -20,7 +20,6 @@ public abstract class ItemQuantum extends Item {
     public String customName;
 
     public List<String> loreList;
-    public boolean gotLore = false;
 
     public ItemQuantum() {
         loreList = new ArrayList<String>();
@@ -51,8 +50,8 @@ public abstract class ItemQuantum extends Item {
     }
 
     public void tryLore(String unlocalizedBase, ItemStack stack) {
+        loreList = new ArrayList<String>();
         boolean search = true;
-        gotLore = true;
         int run = 0;
         while (search) {
             String formatted = unlocalizedBase + ".lore." + run;
@@ -68,8 +67,7 @@ public abstract class ItemQuantum extends Item {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean idk) {
-        if (!gotLore)
-            tryLore(itemStack.getUnlocalizedName(), itemStack);
+        tryLore(itemStack.getUnlocalizedName(), itemStack);
         list.addAll(loreList);
     }
 

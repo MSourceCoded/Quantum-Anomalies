@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
+import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.TileRiftNode;
 
 import java.util.Random;
@@ -19,6 +20,7 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
         super();
         this.setBlockName("blockRiftNode");
         this.setBlockTextureName("haze");
+        this.setCreativeTab(null);
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess iba, int x, int y, int z) {
@@ -44,7 +46,7 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
 
     @Override
     public int getRenderType() {
-        return -1;
+        return SimpleTileProxy.renderID;
     }
 
     @Override

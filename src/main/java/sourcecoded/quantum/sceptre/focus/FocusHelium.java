@@ -54,7 +54,7 @@ public class FocusHelium implements ISceptreFocus {
 
         Vec3 lookVec = player.getLook(1.0F);
 
-        double tick = Math.min(1D, (item.getItem().getMaxItemUseDuration(item) - ticker) / 10D);
+        double tick = Math.min(10D, (item.getItem().getMaxItemUseDuration(item) - ticker) / 10D);
 
         double force = 2.5D * tick;
         player.motionX += force * lookVec.xCoord;

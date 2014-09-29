@@ -1,6 +1,7 @@
 package sourcecoded.quantum.tile;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.BlockFire;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -14,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import sourcecoded.core.util.RandomUtils;
+import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
@@ -43,6 +45,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
     transient int energyUpdateTicker;
     transient int worldInteractionTicker;
+    transient int renderTicker;
     transient int radius = 10;
 
     public transient int maxShockCooldown = 100;
@@ -56,6 +59,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     ArrayList<ItemStack> remainingInputs;
 
     InstabilityHandler currentHandler;
+    public boolean unstable;
 
     public MultiblockLayer[] vacuumLayers = new MultiblockLayer[]{
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
@@ -104,6 +108,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
             nbt.setTag("Catalysts", catalysts);
         }
+        nbt.setBoolean("Unstable", unstable);
     }
 
     @Override
@@ -131,6 +136,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             }
             this.currentActiveRecipe = VacuumRegistry.getRecipeForCatalyst(catalystList);
         }
+        unstable = nbt.getBoolean("Unstable");
     }
 
     @SuppressWarnings("unchecked")
@@ -148,15 +154,30 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
             double distance = renderEntity.getDistance(xCoord, yCoord, zCoord);
 
+            Colourizer renderColour = getColour();
+
+            if (crafting) renderColour = Colourizer.WHITE;
+            if (unstable) renderColour = Colourizer.RED;
+
             if (distance < ConfigHandler.getDouble(ConfigHandler.Properties.PARTICLE_RANGE_HIGH)) {
                 if (this.worldObj.rand.nextInt(9) == 0)
-                    FXManager.riftNodeFX1Larger(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, getColour());
+                    FXManager.riftNodeFX1Larger(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, renderColour);
 
                 if (this.worldObj.rand.nextInt(5) == 0) {
                     FXManager.riftNodeFX1Smaller(size, worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
-                    if (distance < ConfigHandler.getDouble(ConfigHandler.Properties.PARTICLE_RANGE_LOW) && size > 0.4F)
-                        FXManager.orbitingFX1(size / 10F, worldObj, xCoord, yCoord, zCoord, getColour());
+                    if (distance < ConfigHandler.getDouble(ConfigHandler.Properties.PARTICLE_RANGE_LOW) && size > 0.4F && !crafting)
+                        FXManager.orbitingFX1(size / 10F, worldObj, xCoord, yCoord, zCoord, renderColour);
                 }
+
+                if (crafting) {
+                    renderTicker++;
+
+                    if (renderTicker > 10) {
+                        FXManager.vacuumFX1(worldObj, xCoord, yCoord, zCoord);
+                        FXManager.vacuumFX1(worldObj, xCoord, yCoord, zCoord);
+                        FXManager.vacuumFX1(worldObj, xCoord, yCoord, zCoord);
+                    }
+                } else renderTicker = 0;
             }
         } else {
             if (worldInteractionTicker % 5 == 0)
@@ -257,9 +278,11 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             if (currentHandler != null) {
                 if (currentHandler.isAlive())
                     currentHandler.tick();
-                else
+                else {
+                    resetInstability();
                     currentHandler = null;
-            }
+                }
+            } else resetInstability();
         }
     }
 
@@ -275,20 +298,37 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
         boolean craftingReturned = attemptCrafting();
         if (!craftingReturned) {
-            crafting = false;
+            setCrafting(false);
             if (currentActiveRecipe != null) {
                 //Do the instability
 
-                currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
+                instability();
 
                 currentActiveRecipe = null;
             }
         }
     }
 
+    public void setCrafting(boolean state) {
+        this.crafting = state;
+        update();
+    }
+
+    public void instability() {
+        currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
+        unstable = true;
+        update();
+    }
+
+    public void resetInstability() {
+        unstable = false;
+        update();
+    }
+
     @SuppressWarnings("unchecked")
     public boolean attemptCrafting() {
         if (!validMultiblock()) return false;
+        if (crafting) return true;
 
         List<IInventory> imports = getVacuumImports();
         List<IInventory> exports = getVacuumExports();
@@ -301,10 +341,11 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
         currentActiveRecipe = matchingRecipe;
         //if (matchingRecipe.getEnergyRequired() > getRiftEnergy()) return false;
 
-        if (remainingInputs == null || remainingInputs.size() == 0)
-            remainingInputs = new ArrayList<ItemStack>(matchingRecipe.getIngredients());
+        remainingInputs = new ArrayList<ItemStack>(matchingRecipe.getIngredients());
 
-        crafting = true;
+        setCrafting(true);
+
+        vacuumEnergy(currentActiveRecipe.getVacuumEnergyStart());
 
         return true;
     }
@@ -312,10 +353,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
     public void craftingCycle() {
         //if (!validMultiblock() || getRiftEnergy() < currentActiveRecipe.getEnergyRequired()) {
         if (!validMultiblock()) {
-            crafting = false;
+            setCrafting(false);
             //Do Instability here
-            currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
-            System.err.println("Instability");
+            instability();
             return;
         }
 
@@ -334,11 +374,17 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                     if (current == null) continue;
                     if (current.isItemEqual(nextItem)) {
                         current.stackSize -= 1;
+                        nextItem.stackSize -= 1;
                         if (current.stackSize > 0)
                             inventory.setInventorySlotContents(i, current);
                         else
                             inventory.setInventorySlotContents(i, null);
-                        remainingInputs.remove(0);
+
+                        vacuumEnergy(currentActiveRecipe.getVacuumEnergyPerItem());
+
+                        if (nextItem.stackSize <= 0)
+                            remainingInputs.remove(0);
+
                         itemFound = true;
                         break inventoryFindLoop;
                     }
@@ -346,11 +392,12 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             }
 
             if (!itemFound) {
-                crafting = false;
+                setCrafting(false);
                 //Do Instability here
 
-                currentHandler = new InstabilityHandler(currentActiveRecipe, currentActiveRecipe.getInstabilityLevel(), this);
-                System.err.println("Instability");
+                QuantumAnomalies.logger.warn("Item Missing: " + nextItem.getDisplayName() + ". Stopping crafting.");
+
+                instability();
             }
         } else {
             IInventory inventory = null;
@@ -366,11 +413,17 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                 insertItems(currentActiveRecipe.getOutputs(), inventory);
             }
 
-            takeRiftEnergy(currentActiveRecipe.getEnergyRequired());
-
             currentActiveRecipe = null;
-            crafting = false;
+            setCrafting(false);
         }
+    }
+
+    public void vacuumEnergy(int energy) {
+//        int result = takeRiftEnergy(energy);
+//        if (result != energy) {
+//            setCrafting(false);
+//            instability();
+//        }
     }
 
     public void insertItems(List<ItemStack> stacks, IInventory inventory) {
@@ -388,6 +441,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                 }
             }
         }
+
+        for (int i = 0; i < 10; i++)
+            NetworkHandler.wrapper.sendToAllAround(new MessageVanillaParticle("happyVillager", xCoord + RandomUtils.nextDouble(0F, 1F), yCoord + RandomUtils.nextDouble(0F, 1F), zCoord + RandomUtils.nextDouble(0F, 1F), 0F, 0F, 0F, 1), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 32));
     }
 
     @SuppressWarnings("unchecked")
@@ -468,7 +524,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
         if (shockCooldown == 0)
             giveRiftEnergy(RandomUtils.nextInt(100000, 300000) * bolts.size());             //Bolt min/max
-        if (bolts.size() > 0) {
+        if (shockCooldown == 0 && bolts.size() > 0) {
             IMessage message = new MessageVanillaParticle("hugeexplosion", xCoord + 0.5, yCoord + 0.6, zCoord + 0.5, 0D, 0.2D, 0D, 1);
             NetworkHandler.wrapper.sendToDimension(message, worldObj.provider.dimensionId);
 

@@ -12,7 +12,9 @@ public interface IVacuumRecipe {
 
     public List<ItemStack> getOutputs();
 
-    public int getEnergyRequired();
+    public int getVacuumEnergyStart();
+
+    public int getVacuumEnergyPerItem();
 
     public Instability getInstabilityLevel();
 }

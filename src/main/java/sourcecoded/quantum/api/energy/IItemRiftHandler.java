@@ -6,7 +6,7 @@ public interface IItemRiftHandler {
 
     /**
      * Takes rift energy from the storage
-     * @param stack  The Itemstack requesting
+     * @param stack  The Itemstack instance of this item
      * @param amount The amount requested
      * @return The amount that was received
      */
@@ -14,7 +14,7 @@ public interface IItemRiftHandler {
 
     /**
      * Gives rift energy to the storage
-     * @param stack The Itemstack offering
+     * @param stack The Itemstack instance of this item
      * @param amount The amount offered
      * @return The amount taken
      */

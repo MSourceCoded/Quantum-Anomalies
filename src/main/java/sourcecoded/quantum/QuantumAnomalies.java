@@ -3,10 +3,7 @@ package sourcecoded.quantum;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -18,6 +15,7 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import sourcecoded.core.configuration.VersionConfig;
+import sourcecoded.core.util.SourceLogger;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
@@ -60,8 +58,12 @@ public class QuantumAnomalies {
     public static BiomeEndAnomaly endAnomaly;
     public static BiomeHellAnomaly hellAnomaly;
 
+    public static SourceLogger logger;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
+        logger = new SourceLogger("Quantum Anomalies");
+
         QuantumAPI.isQAPresent = true;
         ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.1", Constants.MODID));
 
@@ -110,6 +112,8 @@ public class QuantumAnomalies {
         MinecraftForge.EVENT_BUS.register(new ArrangementTableListener());
 
         FMLCommonHandler.instance().bus().register(new SecretListener());
+
+        FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");
     }
 
     @Mod.EventHandler

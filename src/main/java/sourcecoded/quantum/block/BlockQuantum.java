@@ -1,8 +1,12 @@
 package sourcecoded.quantum.block;
 
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.core.block.IBlockHasItem;
@@ -11,6 +15,8 @@ import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
 import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.api.tileentity.IDyeable;
+
+import java.util.List;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 

@@ -66,25 +66,25 @@ public class InstabilityHandler {
     public void tick() {
         if (!isAlive()) return;
         ticker++;
-
-        if (instabilityLevel == null) {
-            isAlive = false;
-            return;
-        }
-
-        Instability in = getInstability();
-
-        if (in != Instability.CATACLYSMIC_SWITCH)
-            handleInstabilityForTick(in);
-        else {
-            if (!cataSwitched)
-                handleInstabilityForTick(in);
-            else
-                handleCataclysmicSwitch(in);
-        }
-
-
-        if (ticker == 600) isAlive = false;
+//
+//        if (instabilityLevel == null) {
+//            isAlive = false;
+//            return;
+//        }
+//
+//        Instability in = getInstability();
+//
+//        if (in != Instability.CATACLYSMIC_SWITCH)
+//            handleInstabilityForTick(in);
+//        else {
+//            if (!cataSwitched)
+//                handleInstabilityForTick(in);
+//            else
+//                handleCataclysmicSwitch(in);
+//        }
+//
+//
+        if (ticker == 20) isAlive = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -111,6 +111,9 @@ public class InstabilityHandler {
             for (Entity entity : living) {
 
                 if (entity instanceof EntityDragon || entity instanceof EntityDragonPart || entity instanceof EntityWither || entity instanceof EntityWitherSkull)
+                    continue;
+
+                if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
                     continue;
 
                 Vec3 direction = Vec3.createVectorHelper(entity.posX - node.xCoord, entity.posY - node.yCoord, entity.posZ - node.zCoord);

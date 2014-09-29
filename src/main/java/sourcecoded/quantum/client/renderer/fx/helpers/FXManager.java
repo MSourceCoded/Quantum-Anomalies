@@ -43,6 +43,25 @@ public class FXManager {
         return nodeFX;
     }
 
+    public static FXPortalFragment vacuumFX1(World world, int x, int y, int z) {
+        float size = RandomUtils.nextFloat(0.04F, 0.07F);
+
+        float r = RandomUtils.nextFloat(0F, 0.5F);
+        float g = RandomUtils.nextFloat(0F, 0.5F);
+        float b = RandomUtils.nextFloat(0F, 0.5F);
+
+        FXPortalFragment.DataHolder data = new FXPortalFragment.DataHolder(r, g, b, 0.3F, size);
+        data.fadeLength = 0F;
+
+        data.xRadius = RandomUtils.nextFloat(-3F, 3F);
+        data.yRadius = RandomUtils.nextFloat(-3F, 3F);
+        data.zRadius = RandomUtils.nextFloat(-3F, 3F);
+
+        FXPortalFragment fx = new FXPortalFragment(world, x + 0.5, y + 0.5, z + 0.5, data);
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
+        return fx;
+    }
+
     public static FXPortalFragment portalFX1Fragment(World world, int x, int y, int z) {
         float size = RandomUtils.nextFloat(0.02F, 0.04F);
 

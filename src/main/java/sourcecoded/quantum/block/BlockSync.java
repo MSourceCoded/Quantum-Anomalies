@@ -2,34 +2,50 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.TileSync;
+import sourcecoded.quantum.vacuum.recipes.SyncCharged;
+import sourcecoded.quantum.vacuum.recipes.SyncStandard;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class BlockSync extends BlockDyeable implements ITileEntityProvider, IVacuumRecipe {
+public class BlockSync extends BlockDyeable implements ITileEntityProvider, ICraftableBlock {
 
     public BlockSync() {
         super();
         this.setBlockName("blockSynchronize");
         this.setBlockTextureName("infusedStone");
         this.setHardness(6F);
+    }
+
+    public int damageDropped(int meta) {
+        return meta;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void getSubBlocks(int unknown, CreativeTabs tab, List subItems) {
+        subItems.add(new ItemStack(this, 1, 0));
+        subItems.add(new ItemStack(this, 1, 1));
     }
 
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
@@ -70,58 +86,23 @@ public class BlockSync extends BlockDyeable implements ITileEntityProvider, IVac
         return TheItemBlock.class;
     }
 
+    @Override
+    public IRecipe[] getRecipes(Block block) {
+        VacuumRegistry.addRecipe(new SyncStandard());
+        VacuumRegistry.addRecipe(new SyncCharged());
+        return new IRecipe[0];
+    }
+
     public static class TheItemBlock extends ItemBlockQuantum {
 
         public TheItemBlock(Block block) {
             super(block);
+            this.setHasSubtypes(true);
         }
 
 //        public void addInformation(ItemStack item, EntityPlayer player, List list, boolean idk) {
 //            list.add(LocalizationUtils.translateLocalWithColours("qa.block.blockSynchronize.lore.0", "{c:ITALIC}One of us.... One of us...."));
 //        }
-    }
 
-    @Override
-    public List<ItemStack> getIngredients() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(Blocks.hopper),
-                new ItemStack(Items.clock),
-                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1),
-                new ItemStack(QABlocks.INJECTED_STONE.getBlock()),
-                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock()),
-                new ItemStack(Items.nether_star)
-        };
-
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public List<ItemStack> getCatalysts() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(Items.redstone),
-                new ItemStack(Items.clock),
-                new ItemStack(Items.ender_eye),
-        };
-
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public List<ItemStack> getOutputs() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(this, 2),
-        };
-
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public int getEnergyRequired() {
-        return 100000;
-    }
-
-    @Override
-    public Instability getInstabilityLevel() {
-        return Instability.DIMENSIONAL_SHIFT;
     }
 }

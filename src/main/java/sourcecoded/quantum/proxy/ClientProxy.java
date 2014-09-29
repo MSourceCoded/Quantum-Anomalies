@@ -42,5 +42,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileManipulation.class, new TESRManipulation());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSync.class, new TESRSync());
         ClientRegistry.bindTileEntitySpecialRenderer(TileArrangement.class, new TESRArrangement());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRiftNode.class, new TESRRiftNode());
     }
 }

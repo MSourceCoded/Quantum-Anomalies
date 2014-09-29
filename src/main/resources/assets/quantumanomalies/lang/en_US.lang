@@ -13,8 +13,10 @@ qa.blocks.blockRiftInjector.name={c:LIGHT_PURPLE}Quantum Rift Injection Pool{c:R
 qa.blocks.blockRiftInjector.lore.0={c:ITALIC}Let's get Quantum...
 qa.blocks.blockRiftInjector.diagnose={c:WHITE}Tier: {c:ITALIC}%s
 
-qa.blocks.blockRiftNode.name=Quantum Rift Node
-qa.blocks.blockRiftSmelter.name=Quantum Rift Furnace
+qa.blocks.blockRiftNode.name={c:LIGHT_PURPLE}Quantum Rift Node{c:RESET}
+qa.blocks.blockRiftNode.lore.0={c:ITALIC}Collective Chaos
+qa.blocks.blockRiftSmelter.name={c:AQUA}Quantum Rift Furnace{c:RESET}
+qa.blocks.blockRiftSmelter.lore.0={c:ITALIC}Gotta go fast!
 
 qa.blocks.blockManipulation.name={c:LIGHT_PURPLE}Matter Manipulation Structure{c:RESET}
 qa.blocks.blockManipulation.name={c:LIGHT_PURPLE}Matter Manipulation Structure{c:RESET}
@@ -23,8 +25,10 @@ qa.blocks.blockManipulation.lore.0={c:ITALIC}What's the matter?
 qa.blocks.blockMatterArrangementTable.name={c:LIGHT_PURPLE}Matter Arrangement Table{c:RESET}
 qa.blocks.blockMatterArrangementTable.lore.0={c:ITALIC}Entropic Arrangement at your Fingertips
 
-qa.blocks.blockSynchronize.name={c:LIGHT_PURPLE}Quantum Entanglement Platform{c:WHITE}
-qa.blocks.blockSynchronize.lore.0={c:ITALIC}One of us.... One of us....
+qa.blocks.blockSynchronize.name@0={c:LIGHT_PURPLE}Quantum Entanglement Platform{c:WHITE}
+qa.blocks.blockSynchronize.name@1={c:LIGHT_PURPLE}Dimensional Rift Entanglement Platform{c:WHITE}
+qa.blocks.blockSynchronize.lore.0@0={c:ITALIC}One of us.... One of us....
+qa.blocks.blockSynchronize.lore.0@1={c:ITALIC}Tile Entities are people too!
 
 qa.items.itemChaosShard.name=Chaos Shard
 qa.items.itemInjectedStick.name=Injected Stick
