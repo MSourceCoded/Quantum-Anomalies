@@ -29,6 +29,7 @@ import sourcecoded.quantum.entity.EntityItemJewel;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.listeners.ArrangementTableListener;
 import sourcecoded.quantum.listeners.BiomeListener;
+import sourcecoded.quantum.listeners.FlightListener;
 import sourcecoded.quantum.listeners.SecretListener;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
@@ -85,6 +86,7 @@ public class QuantumAnomalies {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
             FMLCommonHandler.instance().bus().register(RainbowRenderHandler.instance());
+            FMLCommonHandler.instance().bus().register(FlightListener.getInstance());
             MinecraftForge.EVENT_BUS.register(new BiomeListener());
         }
 
@@ -125,6 +127,7 @@ public class QuantumAnomalies {
     public void serverStarting(FMLServerStartingEvent e) {
         e.registerServerCommand(new CommandSpawnEntity());
         e.registerServerCommand(new DebugCommand());
+        e.registerServerCommand(new DamageCommand());
     }
 
     @SubscribeEvent

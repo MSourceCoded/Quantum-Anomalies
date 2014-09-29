@@ -3,6 +3,7 @@ package sourcecoded.quantum.network;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import sun.plugin2.message.Message;
 
 public class NetworkHandler {
 
@@ -13,11 +14,12 @@ public class NetworkHandler {
 
         /* Sending to server */
         wrapper.registerMessage(MessageAchievement.class, MessageAchievement.class, 0, Side.SERVER);
+        wrapper.registerMessage(MessageFlight.class, MessageFlight.class, 1, Side.SERVER);
 
         /* Sending to client */
-        wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 0, Side.CLIENT);
-        wrapper.registerMessage(MessageBlockBreakFX.class, MessageBlockBreakFX.class, 1, Side.CLIENT);
-        wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 2, Side.CLIENT);
+        wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 10, Side.CLIENT);
+        wrapper.registerMessage(MessageBlockBreakFX.class, MessageBlockBreakFX.class, 11, Side.CLIENT);
+        wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 12, Side.CLIENT);
     }
 
 }

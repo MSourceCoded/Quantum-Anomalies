@@ -5,7 +5,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import sourcecoded.quantum.utils.PlayerUtils;
 
 public class MessageSetPlayerVelocity implements IMessage, IMessageHandler<MessageSetPlayerVelocity, IMessage> {
 
@@ -34,10 +34,7 @@ public class MessageSetPlayerVelocity implements IMessage, IMessageHandler<Messa
 
     @Override
     public IMessage onMessage(MessageSetPlayerVelocity message, MessageContext ctx) {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        player.motionX += message.x;
-        player.motionY += message.y;
-        player.motionZ += message.z;
+        PlayerUtils.setVelocityClient(message.x, message.y, message.z);
         return null;
     }
 }

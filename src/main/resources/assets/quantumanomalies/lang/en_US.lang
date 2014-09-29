@@ -41,6 +41,22 @@ qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
 #####################################
+# Armor
+#####################################
+
+qa.items.riftArmor_helm.name={c:LIGHT_PURPLE}Quantum Rift Helmet{c:RESET}
+qa.items.riftArmor_helm.lore.0={c:ITALIC}Hold your breath and count to 10...
+
+qa.items.riftArmor_chest.name={c:LIGHT_PURPLE}Quantum Rift Chestplate{c:RESET}
+qa.items.riftArmor_chest.lore.0={c:ITALIC}No shirt, no service...
+
+qa.items.riftArmor_legs.name={c:LIGHT_PURPLE}Quantum Rift Leggings{c:RESET}
+qa.items.riftArmor_legs.lore.0={c:ITALIC}Pants are for losers!
+
+qa.items.riftArmor_boots.name={c:LIGHT_PURPLE}Quantum Rift Boots{c:RESET}
+qa.items.riftArmor_boots.lore.0={c:ITALIC}And you thought heels were bad...
+
+#####################################
 # Instability
 #####################################
 

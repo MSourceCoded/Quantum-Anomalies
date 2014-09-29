@@ -5,7 +5,7 @@ import sourcecoded.quantum.api.gravity.GravityHandler;
 import sourcecoded.quantum.api.gravity.IGravityTile;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 
-public class TileGravityNode extends TileEntity implements IGravityTile {
+public class TileGravityNode extends TileEntity {
 
     public GravityHandler gravityHandler = new GravityHandler(0.05F);
 

@@ -84,7 +84,7 @@ public class InstabilityHandler {
 //        }
 //
 //
-        if (ticker == 20) isAlive = false;
+        if (ticker == 600) isAlive = false;
     }
 
     @SuppressWarnings("unchecked")
