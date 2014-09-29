@@ -5,6 +5,8 @@ package sourcecoded.quantum.api.energy;
  * this should be set to drain.
  *
  * In Australia it's spelled "Behaviour". Shut up.
+ *
+ * @author SourceCoded
  */
 public enum EnergyBehaviour {
 

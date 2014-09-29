@@ -14,7 +14,7 @@ import sourcecoded.quantum.api.gesture.AbstractGesture;
  * It is recommended you use this in conjunction with Gestures,
  * although it is not a requirement
  *
- * @see sourcecoded.quantum.api.gesture.AbstractGesture
+ * @author SourceCoded
  */
 public interface ISceptreFocus {
 

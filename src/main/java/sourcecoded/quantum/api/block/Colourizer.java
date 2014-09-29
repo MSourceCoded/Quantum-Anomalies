@@ -4,6 +4,15 @@ import net.minecraft.item.ItemDye;
 
 import java.util.Arrays;
 
+/**
+ * An Enumeration containing all the available
+ * colours to be used in Dyeables and other
+ * various implementations
+ *
+ * @see sourcecoded.quantum.api.tileentity.IDyeable
+ *
+ * @author SourceCoded
+ */
 public enum Colourizer {
 
     BLACK("black", 0F, 0F, 0F),
@@ -32,6 +41,10 @@ public enum Colourizer {
         meta = Arrays.asList(ItemDye.field_150923_a).indexOf(name);
     }
 
+    /**
+     * Match the colourizer to the given
+     * ItemDye metadata
+     */
     public static Colourizer match(int meta) {
         for (Colourizer colour : Colourizer.values())
             if (colour.meta == meta) return colour;

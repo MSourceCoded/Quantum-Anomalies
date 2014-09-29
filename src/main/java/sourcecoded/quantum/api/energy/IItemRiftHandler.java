@@ -2,6 +2,16 @@ package sourcecoded.quantum.api.energy;
 
 import net.minecraft.item.ItemStack;
 
+/**
+ * An interface for use on Items that are
+ * capable of holding Rift Energy. It is
+ * recommended that you use this in conjunction
+ * with RiftEnergyStorage
+ *
+ * @see sourcecoded.quantum.api.energy.RiftEnergyStorage
+ *
+ * @author SourceCoded
+ */
 public interface IItemRiftHandler {
 
     /**

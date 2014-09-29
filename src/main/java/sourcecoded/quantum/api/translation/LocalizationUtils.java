@@ -3,10 +3,22 @@ package sourcecoded.quantum.api.translation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
+/**
+ * A static utility class for Localization. This is
+ * used for hooking into the standard formatting of the
+ * .lang files of Quantum Anomalies. This is not required
+ * as part of the API, but I decided to include it for others
+ * to use if they feel inclined to.
+ *
+ * @author SourceCoded
+ */
 public class LocalizationUtils {
 
     /**
-     * Translates with a Default Value
+     * Translates a given key to the local language with
+     * a default fallback value.
+     *
+     * @see net.minecraft.util.StatCollector#translateToLocal(String)
      */
     public static String translate(String key, String def) {
         String returned = StatCollector.translateToLocal(key);
@@ -17,6 +29,9 @@ public class LocalizationUtils {
     /**
      * Translates the given string to local, replacing
      * '{c:COLOUR}' with the appropriate chat colour
+     *
+     * @see #translate(String, String)
+     * @see net.minecraft.util.StatCollector#translateToLocal(String)
      */
     public static String translateLocalWithColours(String key, String def) {
         String n = translate(key, def);

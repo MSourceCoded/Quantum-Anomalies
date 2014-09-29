@@ -2,6 +2,8 @@ package sourcecoded.quantum.api.gravity;
 
 /**
  * Any particle affected by TileEntities with a gravitational pull
+ *
+ * @author SourceCoded
  */
 public interface IGravityEntity {
 

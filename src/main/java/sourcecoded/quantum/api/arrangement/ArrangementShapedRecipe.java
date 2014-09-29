@@ -6,11 +6,27 @@ import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
 
+/**
+ * The object used for Arrangement Recipes in a shaped formation.
+ * These are constructed in the exact same manner that you would
+ * by going GameRegistry.addShapedRecipe.
+ *
+ * @see cpw.mods.fml.common.registry.GameRegistry#addShapedRecipe(net.minecraft.item.ItemStack, Object...)
+ *
+ * @author SourceCoded
+ */
 public class ArrangementShapedRecipe implements IArrangementRecipe{
 
     ItemStack output;
     ItemMatrix grid;
 
+    /**
+     * Create a new Shaped Recipe object. The params are the
+     * same as you would put into GameRegistry.addShapedRecipe
+     * @see cpw.mods.fml.common.registry.GameRegistry#addShapedRecipe(net.minecraft.item.ItemStack, Object...)
+     *
+     * e.g. new ItemStack(yourOutput), "obo", "bob", "obo", 'o', yourBlock, 'b', yourOtherBlock
+     */
     public ArrangementShapedRecipe(ItemStack output, Object... params) {
         this.output = output;
 
@@ -62,11 +78,22 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
             }
     }
 
+    /**
+     * Does this recipe match the grid
+     * supplied
+     */
     @Override
     public boolean matches(ItemMatrix grid) {
         return matchesAny(grid);
     }
 
+    /**
+     * Checks if the Recipe matches the ItemMatrix
+     * given in any direction/rotation in steps
+     * of 90 deg
+     *
+     * @see net.minecraftforge.common.util.ForgeDirection
+     */
     public boolean matchesAny(ItemMatrix i) {
         ItemMatrix i90 = ItemMatrix.rotate90(i);
         ItemMatrix i180 = ItemMatrix.rotate180(i);
@@ -74,8 +101,12 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
         return grid.matches(i) || grid.matches(i90) || grid.matches(i180) || grid.matches(i270);
     }
 
+    /**
+     * Get the ItemStack output for the
+     * recipe
+     */
     @Override
     public ItemStack getOutput() {
-        return output;
+        return output.copy();
     }
 }

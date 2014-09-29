@@ -1,30 +1,42 @@
 package sourcecoded.quantum.api.energy;
 
+/**
+ * Used for containers that withhold Rift Energy
+ * without necessarily being contained to a
+ * TileEntity or Item.
+ *
+ * @author SourceCoded
+ */
 public interface IRiftEnergyStorage {
 
     /**
-     * Takes rift energy from the storage
+     * Take energy from the storage
      *
-     * @param amount The amount requested
-     * @return The amount that was received
+     * @param amount The amount of energy
+     *               to be taken
+     * @return The amount of energy
+     * that was taken from the storage
      */
     public int takeRiftEnergy(int amount);
 
     /**
-     * Gives rift energy to the storage
-     *
-     * @param amount     The amount offered
-     * @return The amount taken
+     * Give the storage energy.
+     * @param amount The amount of energy
+     *               to be given
+     * @return The amount of energy that
+     * was accepted
      */
     public int giveRiftEnergy(int amount);
 
     /**
-     * Get the amount of Rift Energy present in the storage
+     * Get the current amount of Rift Energy
+     * in the storage
      */
     public int getRiftEnergy();
 
     /**
-     * Get the maximum amount of Rift Energy the storage can hold
+     * Get the Maximum capacity of the
+     * storage
      */
     public int getMaxRiftEnergy();
 

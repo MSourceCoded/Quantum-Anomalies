@@ -1,5 +1,15 @@
 package sourcecoded.quantum.api.energy;
 
+/**
+ * An interface for use with TileEntities
+ * that are capable of holding RiftEnergy.
+ * It is recommended that you use this with
+ * RiftEnergyStorage
+ *
+ * @see sourcecoded.quantum.api.energy.RiftEnergyStorage
+ *
+ * @author SourceCoded
+ */
 public interface ITileRiftHandler {
 
     /**

@@ -2,6 +2,15 @@ package sourcecoded.quantum.api.vacuum;
 
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 
+/**
+ * An Enumeration of the different forms of Instability for
+ * Vacuum Catalyst Crafting. Instability is ONLY calculated
+ * if the Crafting failed. If the crafting went correctly,
+ * Instability is not used. Handling of Instability is done
+ * in the Quantum Anomalies mod itself
+ *
+ * @author SourceCoded
+ */
 public enum Instability {
     //No effect
     NONE("none"),
@@ -83,51 +92,102 @@ public enum Instability {
         this.doesPull = true;
     }
 
+    /**
+     * Get the instability name, translated
+     * to local with Colours enabled
+     */
     public String getInstabilityName() {
         String n = String.format(nameFormat, instabilityName) + ".name";
         return LocalizationUtils.translateLocalWithColours(n, n);
     }
 
+    /**
+     * Does this instability damage entities
+     */
     public boolean doesDamage() {
         return doesDamage;
     }
 
+    /**
+     * Get the damage caused by this
+     * instability to nearby entities
+     */
     public int getDamage() {
         return damageValue;
     }
 
+    /**
+     * The range to damage entities in.
+     * This value is fed directly to an
+     * AxisAlignedBB.
+     *
+     * @see net.minecraft.util.AxisAlignedBB
+     */
     public int getDamageRadius() {
         return damageRadius;
     }
 
+    /**
+     * Does this instability cause explosions
+     */
     public boolean doesExplosion() {
         return doesExplosion;
     }
 
+    /**
+     * Get the explosion size/potency
+     */
     public int explosionSize() {
         return explosionValue;
     }
 
+
+    /**
+     * Get the amount of variation
+     * in an explosions power
+     */
+    @Deprecated
     public int explosionVariation() {
         return explosionShift;
     }
 
+    /**
+     * Is this explosion fiery
+     */
     public boolean isExplosionFiery() {
         return explosionFiery;
     }
 
+    /**
+     * Does this instability cause Lightning strikes
+     */
     public boolean doesLightning() {
         return doesLightning;
     }
 
+    /**
+     * Does this instability pull entities into the
+     * rift node
+     */
     public boolean pullsEntities() {
         return doesPull;
     }
 
+    /**
+     * The pull strength represented as a double,
+     * calculated as blocks/tick
+     */
     public double pullStrength() {
         return pullStrength;
     }
 
+    /**
+     * The range, in blocks, the pull can
+     * reach. This is fed directly to an
+     * AxisAlignedBB as a radius from the node
+     *
+     * @see net.minecraft.util.AxisAlignedBB
+     */
     public int pullRange() {
         return pullRange;
     }

@@ -5,6 +5,13 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 
+/**
+ * The static registry for all Sceptre Foci. This
+ * is where you register your Foci objects to be used
+ * with the Quantum Sceptre.
+ *
+ * @author SourceCoded
+ */
 public class SceptreFocusRegistry {
 
     private static ArrayList<ISceptreFocus> foci = new ArrayList<ISceptreFocus>();
@@ -28,7 +35,9 @@ public class SceptreFocusRegistry {
     }
 
     /**
-     * Get the next focus in the list
+     * Get the next focus in the list. This is
+     * used by the Sceptre to get the next available,
+     * unlocked focus.
      */
     public static ISceptreFocus getNextFocus(ISceptreFocus focus, EntityPlayer player, ItemStack itemstack) {
         if (foci.size() == 0) return null;

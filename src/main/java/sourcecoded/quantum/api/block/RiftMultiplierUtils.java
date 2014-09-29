@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Utilities in relation to Rift Multipliers, mostly used for Lore.
+ *
+ * @author SourceCoded
  */
 public class RiftMultiplierUtils {
 

@@ -13,6 +13,8 @@ import net.minecraft.util.EnumChatFormatting;
  *
  * e.g. 1.2F translates to 20% increase
  * e.g. 0.8F translates to 20% decrease
+ *
+ * @author SourceCoded
  */
 public strictfp interface IRiftMultiplier {
 
@@ -23,7 +25,7 @@ public strictfp interface IRiftMultiplier {
     public float getRiftMultiplication(RiftMultiplierTypes type);
 
     /**
-     * The types of Rift mu
+     * The types of Rift multiplication
      */
     public static enum RiftMultiplierTypes {
 

@@ -4,6 +4,8 @@ package sourcecoded.quantum.api.tileentity;
  * An interface for use with the Binding
  * Sceptre focus. Implement this on the tile
  * that you want the binding to be sent to.
+ *
+ * @author SourceCoded
  */
 public interface IBindable {
 

@@ -3,8 +3,9 @@ package sourcecoded.quantum.api.injection;
 /**
  * Various data about Injections for the mod.
  * Keep in mind these values may change, so don't
- * cache them. This is because of the configurable
- * difficulties of the mod
+ * cache them.
+ *
+ * @author SourceCoded
  */
 public class InjectionConstants {
 

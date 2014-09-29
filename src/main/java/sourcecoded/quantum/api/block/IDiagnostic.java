@@ -8,6 +8,8 @@ import net.minecraft.world.World;
  * Implement this on any block you wish to have
  * a custom action happen with the Diagnostics
  * sceptre focus
+ *
+ * @author SourceCoded
  */
 public interface IDiagnostic {
 
