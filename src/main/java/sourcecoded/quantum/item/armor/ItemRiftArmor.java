@@ -11,7 +11,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import sourcecoded.core.util.RandomUtils;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.registry.QAItems;
+import sourcecoded.quantum.vacuum.recipes.VacuumArmorBoots;
+import sourcecoded.quantum.vacuum.recipes.VacuumArmorChest;
+import sourcecoded.quantum.vacuum.recipes.VacuumArmorHead;
+import sourcecoded.quantum.vacuum.recipes.VacuumArmorLegs;
 
 import java.util.List;
 
@@ -28,14 +33,18 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
         switch (armorType) {
             case HELM:
                 name = "helm";
+                VacuumRegistry.addRecipe(new VacuumArmorHead());
                 break;
             case CHEST:
                 name = "chest";
+                VacuumRegistry.addRecipe(new VacuumArmorChest());
                 break;
             case LEGS:
+                VacuumRegistry.addRecipe(new VacuumArmorLegs());
                 name = "legs";
                 break;
             case BOOTS:
+                VacuumRegistry.addRecipe(new VacuumArmorBoots());
                 name = "boots";
                 break;
         }
@@ -80,9 +89,6 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
         double posX = player.posX;
         double posY = player.posY;
         double posZ = player.posZ;
-
-        if (itemStack.getItem() == QAItems.RIFT_BOOTS.getItem())
-            player.fallDistance = 0;
 
         if (itemStack.getItem() == QAItems.RIFT_HELM.getItem())
             player.setAir(300);

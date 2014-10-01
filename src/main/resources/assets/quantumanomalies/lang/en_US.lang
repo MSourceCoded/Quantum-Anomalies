@@ -30,15 +30,22 @@ qa.blocks.blockSynchronize.name@1={c:LIGHT_PURPLE}Dimensional Rift Entanglement 
 qa.blocks.blockSynchronize.lore.0@0={c:ITALIC}One of us.... One of us....
 qa.blocks.blockSynchronize.lore.0@1={c:ITALIC}Tile Entities are people too!
 
+qa.blocks.blockPlayerEntanglement.name={c:LIGHT_PURPLE}Player Entanglement Device{c:RESET}
+qa.blocks.blockPlayerEntanglement.lore.0={c:ITALIC}Never leave home without your keys again
+
 qa.items.itemChaosShard.name=Chaos Shard
-qa.items.itemInjectedStick.name=Injected Stick
+
+qa.items.itemInjectedStick.name@0={c:AQUA}Injected Stick{c:RESET}
+qa.items.itemInjectedStick.lore.0@0={c:ITALIC}A truly disastrous weapon
+qa.items.itemInjectedStick.name@1={c:LIGHT_PURPLE}Entropic Stick{c:RESET}
+qa.items.itemInjectedStick.lore.0@1={c:ITALIC}Not for playing fetch
 
 qa.items.itemObsidianJewel.name@0={c:AQUA}Obsidian Jewel{c:RESET}
 qa.items.itemObsidianJewel.name@1={c:LIGHT_PURPLE}Charged Obsidian Jewel{c:RESET}
 qa.items.itemObsidianJewel.lore.0@0={c:ITALIC}Refined Density
 qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 
-qa.items.itemEntropicStar.name={c:AQUA}Entropic Star{c:RESET}
+qa.items.itemEntropicStar.name={c:LIGHT_PURPLE}Entropic Star{c:RESET}
 qa.items.itemEntropicStar.lore.0={c:ITALIC}Atomically Pure
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
@@ -80,7 +87,7 @@ qa.items.itemRiftSword.lore.0={c:ITALIC}Destroyer of Souls
 # Instability
 #####################################
 
-death.attack.qa.vacuum.instability=%s made a fatal mistake
+death.attack.qa.vacuum.instability=%s forgot to RTFM 3:<
 
 #####################################
 # Achievements

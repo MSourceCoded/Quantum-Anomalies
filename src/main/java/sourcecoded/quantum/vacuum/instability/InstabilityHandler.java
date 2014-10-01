@@ -63,24 +63,24 @@ public class InstabilityHandler {
     public void tick() {
         if (!isAlive()) return;
         ticker++;
-//
-//        if (instabilityLevel == null) {
-//            isAlive = false;
-//            return;
-//        }
-//
-//        Instability in = getInstability();
-//
-//        if (in != Instability.CATACLYSMIC_SWITCH)
-//            handleInstabilityForTick(in);
-//        else {
-//            if (!cataSwitched)
-//                handleInstabilityForTick(in);
-//            else
-//                handleCataclysmicSwitch(in);
-//        }
-//
-//
+
+        if (instabilityLevel == null) {
+            isAlive = false;
+            return;
+        }
+
+        Instability in = getInstability();
+
+        if (in != Instability.CATACLYSMIC_SWITCH)
+            handleInstabilityForTick(in);
+        else {
+            if (!cataSwitched)
+                handleInstabilityForTick(in);
+            else
+                handleCataclysmicSwitch(in);
+        }
+
+
         if (ticker == 600) isAlive = false;
     }
 

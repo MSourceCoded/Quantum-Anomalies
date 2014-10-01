@@ -1,24 +1,36 @@
 package sourcecoded.quantum.item.tools;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
+import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
+import sourcecoded.quantum.registry.QAItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 
-public class ItemRiftSword extends ItemSword {
+public class ItemRiftSword extends ItemSword implements ICraftableItem {
 
     public ItemRiftSword() {
         super(QuantumAnomalies.materialRift);
@@ -34,6 +46,28 @@ public class ItemRiftSword extends ItemSword {
 
     public boolean isItemTool(ItemStack stack) {
         return true;
+    }
+
+    public void onUpdate(ItemStack stack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_) {
+        if (!stack.hasTagCompound())
+            stack.stackTagCompound = new NBTTagCompound();
+
+        double dmg = Math.max(entity.fallDistance / 15F, QuantumAnomalies.materialRift.getDamageVsEntity() + 5);
+
+        stack.stackTagCompound.setDouble("damageModifier", dmg);
+    }
+
+    public Multimap getAttributeModifiers(ItemStack stack) {
+        if (!stack.hasTagCompound())
+            stack.stackTagCompound = new NBTTagCompound();
+        if (!stack.stackTagCompound.hasKey("damageModifier"))
+            stack.stackTagCompound.setDouble("damageModifier", 1D);
+
+        double dmg = stack.stackTagCompound.getDouble("damageModifier");
+
+        Multimap multimap = HashMultimap.create();
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", dmg, 0));
+        return multimap;
     }
 
     public String customName;
@@ -85,4 +119,9 @@ public class ItemRiftSword extends ItemSword {
         list.addAll(loreList);
     }
 
+    @Override
+    public IRecipe[] getRecipes(Item item) {
+        ArrangementRegistry.addRecipe(new ArrangementShapedRecipe(new ItemStack(this), " s ", " s ", " i ", 's', QAItems.ENTROPIC_STAR.getItem(), 'i', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1)));
+        return new IRecipe[0];
+    }
 }

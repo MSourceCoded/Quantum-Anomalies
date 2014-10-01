@@ -10,11 +10,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.StatCollector;
+import sourcecoded.core.crafting.ICraftable;
+import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
+import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
+import sourcecoded.quantum.registry.QAItems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,7 @@ import java.util.Set;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 
-public class ItemRiftPickaxe extends ItemPickaxe {
+public class ItemRiftPickaxe extends ItemPickaxe implements ICraftableItem {
 
     public ItemRiftPickaxe() {
         super(QuantumAnomalies.materialRift);
@@ -89,4 +95,9 @@ public class ItemRiftPickaxe extends ItemPickaxe {
         list.addAll(loreList);
     }
 
+    @Override
+    public IRecipe[] getRecipes(Item item) {
+        ArrangementRegistry.addRecipe(new ArrangementShapedRecipe(new ItemStack(this), "sss", " i ", " i ", 's', QAItems.ENTROPIC_STAR.getItem(), 'i', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1)));
+        return new IRecipe[0];
+    }
 }

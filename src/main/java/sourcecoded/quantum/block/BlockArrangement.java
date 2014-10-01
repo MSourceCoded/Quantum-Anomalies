@@ -1,6 +1,6 @@
 package sourcecoded.quantum.block;
 
-import javafx.geometry.Point3D;
+import sourcecoded.quantum.api.Point3D;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;

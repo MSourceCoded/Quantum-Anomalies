@@ -7,18 +7,23 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.StatCollector;
+import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
+import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
+import sourcecoded.quantum.registry.QAItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 
-public class ItemRiftShovel extends ItemSpade {
+public class ItemRiftShovel extends ItemSpade implements ICraftableItem {
 
     public ItemRiftShovel() {
         super(QuantumAnomalies.materialRift);
@@ -85,4 +90,9 @@ public class ItemRiftShovel extends ItemSpade {
         list.addAll(loreList);
     }
 
+    @Override
+    public IRecipe[] getRecipes(Item item) {
+        ArrangementRegistry.addRecipe(new ArrangementShapedRecipe(new ItemStack(this), " s ", " i ", " i ", 's', QAItems.ENTROPIC_STAR.getItem(), 'i', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1)));
+        return new IRecipe[0];
+    }
 }

@@ -1,5 +1,6 @@
 package sourcecoded.quantum.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,6 +15,8 @@ import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.entity.EntityItemJewel;
 import sourcecoded.quantum.registry.QAItems;
 
+import java.util.List;
+
 public class ItemObsidianJewel extends ItemQuantum implements ICraftableItem, IInjectorRecipe {
 
     public ItemObsidianJewel() {
@@ -22,6 +25,11 @@ public class ItemObsidianJewel extends ItemQuantum implements ICraftableItem, II
         setMaxDamage(0);
         setHasSubtypes(true);
         setMaxStackSize(8);
+    }
+
+    public void getSubItems(Item item, CreativeTabs tab, List list) {
+        list.add(new ItemStack(this, 1, 0));
+        list.add(new ItemStack(this, 1, 1));
     }
 
     public boolean hasCustomEntity(ItemStack stack) {

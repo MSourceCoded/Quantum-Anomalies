@@ -19,7 +19,9 @@ public enum QABlocks {
     MANIPULATION_STANDARD("blockManipulation", new BlockManipulation(Material.rock), TileManipulation.class),
     MANIPULATION_WATER("blockManipulationWater", new BlockManipulation(Material.water), TileManipulation.class),
     ARRANGEMENT("blockArrangementTable", new BlockArrangement(), TileArrangement.class),
-    SYNC("blockSynchronize", new BlockSync(), TileSync.class);
+    SYNC("blockSynchronize", new BlockSync(), TileSync.class),
+    PLAYER("blockPlayerEntanglement", new BlockPlayer(), TilePlayer.class)
+    ;
 
     public String identifier;
     public Block instance;

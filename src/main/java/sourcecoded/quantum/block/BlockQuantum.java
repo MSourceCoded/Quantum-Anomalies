@@ -24,6 +24,8 @@ public class BlockQuantum extends Block implements IBlockHasItem {
     public BlockQuantum(Material mat) {
         super(mat);
         this.setCreativeTab(QATabs.quantumTab);
+
+        this.setHardness(6F);
     }
 
     public BlockQuantum() {
