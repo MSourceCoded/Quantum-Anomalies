@@ -11,26 +11,24 @@ import sourcecoded.quantum.registry.QAItems;
 import java.util.Arrays;
 import java.util.List;
 
-public class Manipulation implements IVacuumRecipe {
+public class VacuumSyncStandard implements IVacuumRecipe {
 
     ItemStack[] ingredients;
     ItemStack[] catalysts;
     ItemStack[] outputs;
 
-    public Manipulation() {
+    public VacuumSyncStandard() {
     }
 
     @Override
     public List<ItemStack> getIngredients() {
         ingredients = new ItemStack[] {
-                new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 4),
-                new ItemStack(Items.water_bucket),
-                new ItemStack(Blocks.netherrack),
-                new ItemStack(Blocks.grass),
-                new ItemStack(Items.dye, 1, 15),
-                new ItemStack(Items.redstone, 2),
-                new ItemStack(Blocks.ice),
-                new ItemStack(Blocks.snow)
+                new ItemStack(Items.ender_eye, 4),
+                new ItemStack(Items.ender_pearl, 2),
+                new ItemStack(Blocks.redstone_block),
+                new ItemStack(Items.gold_ingot, 2),
+                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock(), 1),
+                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1)
         };
 
         return Arrays.asList(ingredients);
@@ -39,10 +37,11 @@ public class Manipulation implements IVacuumRecipe {
     @Override
     public List<ItemStack> getCatalysts() {
         catalysts = new ItemStack[] {
-                new ItemStack(Blocks.dispenser),
-                new ItemStack(Blocks.grass),
-                new ItemStack(Blocks.stone),
-                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1)
+                new ItemStack(Items.ender_pearl),
+                new ItemStack(Items.ender_eye),
+                new ItemStack(Items.nether_star),
+                new ItemStack(Items.ender_eye),
+                new ItemStack(Items.ender_pearl),
         };
 
         return Arrays.asList(catalysts);
@@ -51,7 +50,7 @@ public class Manipulation implements IVacuumRecipe {
     @Override
     public List<ItemStack> getOutputs() {
         outputs = new ItemStack[] {
-                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock())
+                new ItemStack(QABlocks.SYNC.getBlock(), 4)
         };
 
         return Arrays.asList(outputs);
@@ -59,17 +58,16 @@ public class Manipulation implements IVacuumRecipe {
 
     @Override
     public int getVacuumEnergyStart() {
-        return 25000;
+        return 100000;
     }
 
     @Override
     public int getVacuumEnergyPerItem() {
-        return 1000;
+        return 3000;
     }
 
     @Override
     public Instability getInstabilityLevel() {
-        return Instability.DISMAL;
+        return Instability.EXTREME;
     }
-
 }

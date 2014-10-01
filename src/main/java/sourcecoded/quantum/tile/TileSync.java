@@ -4,26 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.tileentity.IBindable;
-import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
-import sourcecoded.quantum.api.vacuum.Instability;
-import sourcecoded.quantum.registry.QABlocks;
-import sourcecoded.quantum.registry.QAItems;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler {
@@ -40,7 +31,6 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
     public TileSync() {
         rift = new RiftEnergyStorage(50000);
     }
-
 
     @Override
     public void updateEntity() {
@@ -60,7 +50,10 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
                 boolean metaChanged = hasMetaChanged();
                 boolean blockChanged = hasBlockChanged();
 
-                if (blockChanged && getRiftEnergy() >= 5000) {
+                boolean shouldSyncNBT = worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 1;
+                boolean nbtChanged = hasNBTChanged();
+
+                if (blockChanged && getRiftEnergy() >= 3000) {
                     bound.changeBlock(lastBlock, lastMeta);
                     takeRiftEnergy(5000);
                 } else if (blockChanged) {
@@ -72,10 +65,47 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
                     worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
                     bound.changeBlock(Blocks.air, 0);
                 }
-                if (metaChanged && getRiftEnergy() >= 3000) {
+                if (metaChanged && getRiftEnergy() >= 2000) {
                     bound.changeBlock(lastBlock, lastMeta);
                     takeRiftEnergy(5000);
+                } else if (metaChanged) {
+                    if (!blockChangedLastTick) {
+                        for (ItemStack stack : getBlockAbove().getDrops(worldObj, xCoord, yCoord + 1, zCoord, lastMeta, 0))
+                            worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord + 1, zCoord, stack));
+                    }
+                    blockChangedLastTick = false;
+                    worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
+                    bound.changeBlock(Blocks.air, 0);
                 }
+
+                nbt:
+                if (shouldSyncNBT) {
+                    if (nbtChanged && getRiftEnergy() >= 200) {
+                        TileEntity tileBound = bound.getTileAbove();
+                        TileEntity thisTile = getTileAbove();
+
+                        if (tileBound == null || thisTile == null)
+                            break nbt;
+
+                        NBTTagCompound sendingCompound = new NBTTagCompound();
+                        thisTile.writeToNBT(sendingCompound);
+
+                        NBTTagCompound comparisonCompound = new NBTTagCompound();
+                        tileBound.writeToNBT(comparisonCompound);
+
+                        combineNBT(comparisonCompound, stripNBT(sendingCompound));
+
+                        tileBound.readFromNBT(comparisonCompound);
+
+                        takeRiftEnergy(200);
+                    } else if (nbtChanged) {
+                        for (ItemStack stack : getBlockAbove().getDrops(worldObj, xCoord, yCoord + 1, zCoord, lastMeta, 0))
+                            worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord + 1, zCoord, stack));
+                        worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
+                        bound.changeBlock(Blocks.air, 0);
+                    }
+                }
+
             }
         }
     }
@@ -87,6 +117,14 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
             tile.worldObj.setBlockToAir(tile.xCoord, tile.yCoord + 1, tile.zCoord);
         }
 
+    }
+
+    public NBTTagCompound stripNBT(NBTTagCompound compound) {
+        compound.removeTag("x");
+        compound.removeTag("y");
+        compound.removeTag("z");
+        compound.removeTag("id");
+        return compound;
     }
 
     public void combineNBT(NBTTagCompound original, NBTTagCompound compare) {
@@ -116,7 +154,7 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
 
     public void changeBlock(Block block, int meta) {
         blockChangedLastTick = true;
-        if (block instanceof ITileEntityProvider)
+        if (block instanceof ITileEntityProvider && worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0)
             worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
         else
             worldObj.setBlock(xCoord, yCoord + 1, zCoord, block, meta, 3);
@@ -131,6 +169,10 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
 
     public Block getBlockAbove() {
         return worldObj.getBlock(xCoord, yCoord + 1, zCoord);
+    }
+
+    public TileEntity getTileAbove() {
+        return worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
     }
 
     public boolean hasMetaChanged() {
@@ -236,6 +278,4 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
     public EnergyBehaviour getBehaviour() {
         return EnergyBehaviour.DRAIN;
     }
-
-
 }

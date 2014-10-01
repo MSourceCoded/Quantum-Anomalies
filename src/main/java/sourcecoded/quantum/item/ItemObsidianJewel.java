@@ -1,6 +1,5 @@
 package sourcecoded.quantum.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

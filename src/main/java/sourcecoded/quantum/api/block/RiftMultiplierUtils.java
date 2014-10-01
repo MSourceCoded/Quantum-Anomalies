@@ -3,7 +3,6 @@ package sourcecoded.quantum.api.block;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 

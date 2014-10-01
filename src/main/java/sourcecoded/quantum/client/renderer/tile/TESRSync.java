@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileSync;

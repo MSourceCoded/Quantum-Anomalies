@@ -1,7 +1,6 @@
 package sourcecoded.quantum.vacuum.instability;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityDragonPart;
@@ -15,9 +14,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
-import sourcecoded.quantum.api.gravity.IGravityEntity;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
 import sourcecoded.quantum.network.MessageSetPlayerVelocity;

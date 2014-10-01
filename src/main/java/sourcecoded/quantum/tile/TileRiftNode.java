@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static sourcecoded.quantum.api.block.Colourizer.LIGHT_BLUE;
-import static sourcecoded.quantum.api.block.Colourizer.match;
 
 public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 

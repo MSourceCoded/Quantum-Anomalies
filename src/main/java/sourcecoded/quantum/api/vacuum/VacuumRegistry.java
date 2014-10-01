@@ -1,6 +1,5 @@
 package sourcecoded.quantum.api.vacuum;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;

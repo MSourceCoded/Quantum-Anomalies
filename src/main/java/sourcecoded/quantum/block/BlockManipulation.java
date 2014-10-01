@@ -13,16 +13,15 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
-import sourcecoded.core.crafting.ICraftable;
 import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
+import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
-import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileManipulation;
-import sourcecoded.quantum.vacuum.recipes.Manipulation;
+import sourcecoded.quantum.vacuum.recipes.VacuumManipulation;
 
 import java.util.Random;
 
@@ -158,7 +157,7 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
 
     @Override
     public IRecipe[] getRecipes(Block block) {
-        VacuumRegistry.addRecipe(new Manipulation());
+        VacuumRegistry.addRecipe(new VacuumManipulation());
         return new IRecipe[0];
     }
 }

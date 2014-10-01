@@ -1,10 +1,8 @@
 package sourcecoded.quantum.tile;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import sourcecoded.quantum.api.block.Colourizer;
 
 import java.util.ArrayList;
 import java.util.List;

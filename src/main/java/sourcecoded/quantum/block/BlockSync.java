@@ -3,8 +3,6 @@ package sourcecoded.quantum.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -13,20 +11,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.core.crafting.ICraftableBlock;
-import sourcecoded.quantum.api.injection.IInjectorRecipe;
-import sourcecoded.quantum.api.injection.InjectionConstants;
-import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
-import sourcecoded.quantum.api.vacuum.Instability;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.item.ItemBlockQuantum;
-import sourcecoded.quantum.registry.QABlocks;
-import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.TileSync;
-import sourcecoded.quantum.vacuum.recipes.SyncCharged;
-import sourcecoded.quantum.vacuum.recipes.SyncStandard;
+import sourcecoded.quantum.vacuum.recipes.VacuumSyncCharged;
+import sourcecoded.quantum.vacuum.recipes.VacuumSyncStandard;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BlockSync extends BlockDyeable implements ITileEntityProvider, ICraftableBlock {
@@ -88,8 +79,8 @@ public class BlockSync extends BlockDyeable implements ITileEntityProvider, ICra
 
     @Override
     public IRecipe[] getRecipes(Block block) {
-        VacuumRegistry.addRecipe(new SyncStandard());
-        VacuumRegistry.addRecipe(new SyncCharged());
+        VacuumRegistry.addRecipe(new VacuumSyncStandard());
+        VacuumRegistry.addRecipe(new VacuumSyncCharged());
         return new IRecipe[0];
     }
 

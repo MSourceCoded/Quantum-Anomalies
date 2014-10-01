@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import sourcecoded.core.block.IBlockHasItem;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.block.RiftMultiplierUtils;
 import sourcecoded.quantum.item.ItemBlockQuantum;

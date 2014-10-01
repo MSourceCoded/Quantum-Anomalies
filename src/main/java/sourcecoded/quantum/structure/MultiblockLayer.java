@@ -1,6 +1,5 @@
 package sourcecoded.quantum.structure;
 
-import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 import java.util.HashMap;

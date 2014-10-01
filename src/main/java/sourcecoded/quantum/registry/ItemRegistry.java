@@ -4,6 +4,8 @@ import net.minecraft.item.Item;
 import sourcecoded.core.item.AbstractItemRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
+import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 
 public class ItemRegistry extends AbstractItemRegistry {
 
@@ -25,6 +27,9 @@ public class ItemRegistry extends AbstractItemRegistry {
 
         if (item instanceof IInjectorRecipe)
             InjectorRegistry.addRecipe((IInjectorRecipe) item);
+
+        if (item instanceof IVacuumRecipe)
+            VacuumRegistry.addRecipe((IVacuumRecipe) item);
 
         return this;
     }

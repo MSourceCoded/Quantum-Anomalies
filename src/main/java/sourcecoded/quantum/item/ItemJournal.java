@@ -1,12 +1,7 @@
 package sourcecoded.quantum.item;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
-
-import java.util.List;
 
 public class ItemJournal extends ItemQuantum {
 

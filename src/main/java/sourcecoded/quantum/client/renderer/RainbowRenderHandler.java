@@ -5,7 +5,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import sourcecoded.quantum.api.block.Colourizer;
 
 import java.awt.*;
-import java.awt.color.ColorSpace;
 
 public class RainbowRenderHandler {
 

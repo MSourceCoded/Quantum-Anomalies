@@ -1,9 +1,6 @@
 package sourcecoded.quantum.api.arrangement;
 
-import javafx.geometry.Point3D;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
 
 /**
  * An interface for use with custom ArrangementRecipes.

@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.gesture.GesturePointMap;
-import sourcecoded.quantum.api.gesture.GestureSegment;
 
 public abstract class GestureTemplate extends AbstractGesture {
 

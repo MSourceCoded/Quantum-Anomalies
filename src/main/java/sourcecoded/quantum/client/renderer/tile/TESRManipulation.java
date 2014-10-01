@@ -6,14 +6,10 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
-import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileCornerstone;
-import sourcecoded.quantum.tile.TileInjectedStone;
 import sourcecoded.quantum.tile.TileManipulation;
 import sourcecoded.quantum.utils.TessUtils;
 

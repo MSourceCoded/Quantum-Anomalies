@@ -7,18 +7,15 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.WorldEvent;
 import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.core.util.SourceLogger;
 import sourcecoded.quantum.api.QuantumAPI;
-import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
-import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
@@ -29,13 +26,11 @@ import sourcecoded.quantum.entity.EntityItemJewel;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.listeners.ArrangementTableListener;
 import sourcecoded.quantum.listeners.BiomeListener;
-import sourcecoded.quantum.listeners.FlightListener;
 import sourcecoded.quantum.listeners.SecretListener;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
-import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.registry.TileRegistry;
 import sourcecoded.quantum.sceptre.focus.FocusBind;
 import sourcecoded.quantum.sceptre.focus.FocusDematerialization;
@@ -60,6 +55,8 @@ public class QuantumAnomalies {
     public static BiomeHellAnomaly hellAnomaly;
 
     public static SourceLogger logger;
+
+    public static Item.ToolMaterial materialRift = EnumHelper.addToolMaterial("rift", 4, 1000, 30F, 15F, 30);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
@@ -86,9 +83,9 @@ public class QuantumAnomalies {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
             FMLCommonHandler.instance().bus().register(RainbowRenderHandler.instance());
-            FMLCommonHandler.instance().bus().register(FlightListener.getInstance());
             MinecraftForge.EVENT_BUS.register(new BiomeListener());
         }
+
 
         BlockRegistry.instance().registerAll();
         ItemRegistry.instance().registerAll();

@@ -38,6 +38,9 @@ qa.items.itemObsidianJewel.name@1={c:LIGHT_PURPLE}Charged Obsidian Jewel{c:RESET
 qa.items.itemObsidianJewel.lore.0@0={c:ITALIC}Refined Density
 qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 
+qa.items.itemEntropicStar.name={c:AQUA}Entropic Star{c:RESET}
+qa.items.itemEntropicStar.lore.0={c:ITALIC}Atomically Pure
+
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
 #####################################
@@ -55,6 +58,23 @@ qa.items.riftArmor_legs.lore.0={c:ITALIC}Pants are for losers!
 
 qa.items.riftArmor_boots.name={c:LIGHT_PURPLE}Quantum Rift Boots{c:RESET}
 qa.items.riftArmor_boots.lore.0={c:ITALIC}And you thought heels were bad...
+
+#####################################
+# Tools & Weaponry
+#####################################
+
+qa.items.itemRiftAxe.name={c:LIGHT_PURPLE}Quantum Rift Axe{c:RESET}
+qa.items.itemRiftAxe.lore.0={c:ITALIC}For the Scientific Lumberjack
+
+qa.items.itemRiftPickaxe.name={c:LIGHT_PURPLE}Quantum Rift Pickaxe{c:RESET}
+qa.items.itemRiftPickaxe.lore.0={c:ITALIC}A.K.A. Stormageddon, Dark Lord of All
+
+qa.items.itemRiftSpade.name={c:LIGHT_PURPLE}Quantum Rift Shovel{c:RESET}
+qa.items.itemRiftSpade.lore.0={c:ITALIC}Terrain Annihilator
+
+qa.items.itemRiftSword.name={c:LIGHT_PURPLE}Quantum Rift Sword{c:RESET}
+qa.items.itemRiftSword.lore.0={c:ITALIC}Destroyer of Souls
+
 
 #####################################
 # Instability

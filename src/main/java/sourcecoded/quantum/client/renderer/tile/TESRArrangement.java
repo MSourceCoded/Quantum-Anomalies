@@ -1,7 +1,6 @@
 package sourcecoded.quantum.client.renderer.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -13,11 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.client.renderer.fx.helpers.FXHelper;
 import sourcecoded.quantum.tile.TileArrangement;
-import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.utils.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;

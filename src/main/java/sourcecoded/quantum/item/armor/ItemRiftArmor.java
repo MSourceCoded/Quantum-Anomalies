@@ -1,29 +1,16 @@
 package sourcecoded.quantum.item.armor;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import sourcecoded.core.util.RandomUtils;
-import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
-import sourcecoded.quantum.listeners.FlightListener;
-import sourcecoded.quantum.network.MessageVanillaParticle;
-import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.registry.QAItems;
 
 import java.util.List;
@@ -88,8 +75,8 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
             return new ArmorProperties(priority, ratio, protection);
     }
 
+    @SuppressWarnings("unchecked")
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        //System.err.println(player.capabilities.allowFlying);
         double posX = player.posX;
         double posY = player.posY;
         double posZ = player.posZ;
@@ -101,23 +88,21 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
             player.setAir(300);
 
         if (itemStack.getItem() == QAItems.RIFT_CHEST.getItem()) {
-            if (world.isRemote)
-                FlightListener.resetCounter();
-
             double s = 2.5;
             List<Entity> projectiles = world.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(posX - s, posY - s, posZ - s, posX + s, posY + s, posZ + s));
+
             for (Entity ent : projectiles) {
                 boolean canThrowable = ent instanceof EntityThrowable && ((EntityThrowable) ent).getThrower() != player;
                 boolean canArrow = ent instanceof EntityArrow && ((EntityArrow) ent).shootingEntity != player;
                 if (canArrow || canThrowable) {
                     if (world.isRemote) {
-                        int loop = RandomUtils.nextInt(15, 30);
+                        int loop = RandomUtils.nextInt(15, 25);
                         for (int i = 0; i < loop; i++) {
-                            double mx = ent.motionX / 15 + RandomUtils.nextDouble(0, 0.025);
-                            double my = ent.motionY / 15 + RandomUtils.nextDouble(0, 0.025);
-                            double mz = ent.motionZ / 15 + RandomUtils.nextDouble(0, 0.025);
+                            double mx = ent.motionX / 10 + RandomUtils.nextDouble(0, 0.025);
+                            double my = ent.motionY / 10 + RandomUtils.nextDouble(0, 0.025);
+                            double mz = ent.motionZ / 10 + RandomUtils.nextDouble(0, 0.025);
 
-                            world.spawnParticle("portal", ent.posX + (mx*i), ent.posY - 1 + (my*i), ent.posZ + (mz*i), mx, my, mz);
+                            world.spawnParticle("portal", ent.posX + (mx*i - 1), ent.posY - 1 + (my*i), ent.posZ + (mz*i - 1), mx, my, mz);
                         }
                     }
                         //NetworkHandler.wrapper.sendToAllAround(new MessageVanillaParticle("flame", ent.posX, ent.posY, ent.posZ, 0D, 0D, 0D, 2), new NetworkRegistry.TargetPoint(world.provider.dimensionId, posX, posY, posZ, 32));
@@ -134,16 +119,19 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
         if (source == DamageSource.fall)
             return 0;
 
+        if (source == DamageSource.starve)
+            return 0;
+
         int protection = 20;
 
         if (slot == 3)      //Helm
-            protection = 120;
+            protection = 130;
         else if (slot == 2) //Chest
-            protection = 175;
+            protection = 200;
         else if (slot == 1) //Legs
-            protection = 150;
+            protection = 170;
         else if (slot == 0) //Boots
-            protection = 100;
+            protection = 110;
 
         return protection;
     }

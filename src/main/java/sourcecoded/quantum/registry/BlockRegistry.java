@@ -1,10 +1,8 @@
 package sourcecoded.quantum.registry;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import sourcecoded.core.block.AbstractBlockRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
@@ -13,7 +11,6 @@ import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class BlockRegistry extends AbstractBlockRegistry {

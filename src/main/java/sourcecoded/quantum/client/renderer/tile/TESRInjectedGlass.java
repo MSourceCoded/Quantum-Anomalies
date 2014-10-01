@@ -4,27 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.block.BlockInjectedGlass;
-import sourcecoded.quantum.block.BlockInjectedStone;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileCornerstone;
 import sourcecoded.quantum.tile.TileInjectedGlass;
-import sourcecoded.quantum.tile.TileSync;
 import sourcecoded.quantum.utils.TessUtils;
-
-import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 

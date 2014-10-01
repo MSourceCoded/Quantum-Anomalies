@@ -1,6 +1,5 @@
 package sourcecoded.quantum.block;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +14,6 @@ import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.block.IDiagnostic;
-import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;

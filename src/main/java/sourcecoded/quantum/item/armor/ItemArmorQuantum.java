@@ -26,7 +26,7 @@ public class ItemArmorQuantum extends ItemArmor {
 
     public String customName;
 
-    public List<String> loreList;
+    public List<String> loreList = new ArrayList<String>();
 
     public Item setTextureName(String name) {
         return super.setTextureName(prefix(Constants.MODID, name));

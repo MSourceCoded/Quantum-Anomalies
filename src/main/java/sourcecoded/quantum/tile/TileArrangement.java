@@ -1,6 +1,5 @@
 package sourcecoded.quantum.tile;
 
-import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.block.BlockArrangement;
 import sourcecoded.quantum.registry.QABlocks;

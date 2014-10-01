@@ -12,7 +12,6 @@ import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
-import sourcecoded.quantum.api.tileentity.IBindable;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;

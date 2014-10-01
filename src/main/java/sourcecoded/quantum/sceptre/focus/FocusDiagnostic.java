@@ -8,7 +8,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.block.IDiagnostic;
-import sourcecoded.quantum.api.block.RiftMultiplierUtils;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.gesture.AbstractGesture;
