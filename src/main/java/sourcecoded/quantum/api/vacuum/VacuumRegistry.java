@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.vacuum;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,9 @@ public class VacuumRegistry {
      * Meta
      */
     public static boolean matches(ItemStack item1, ItemStack item2) {
-        return item1.isItemEqual(item2);
+        //return item1.isItemEqual(item2);
+        return OreDictionary.itemMatches(item1, item2, false);
+
     }
 
     /**

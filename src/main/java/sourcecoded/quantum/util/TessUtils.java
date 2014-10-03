@@ -1,4 +1,4 @@
-package sourcecoded.quantum.utils;
+package sourcecoded.quantum.util;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraftforge.common.util.ForgeDirection;

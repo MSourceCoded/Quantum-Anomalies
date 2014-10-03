@@ -1,4 +1,4 @@
-package sourcecoded.quantum.utils;
+package sourcecoded.quantum.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

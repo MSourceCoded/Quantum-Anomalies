@@ -10,9 +10,8 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
-import sourcecoded.quantum.tile.TileManipulation;
 import sourcecoded.quantum.tile.TilePlayer;
-import sourcecoded.quantum.utils.TessUtils;
+import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 

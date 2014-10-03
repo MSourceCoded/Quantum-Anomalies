@@ -12,7 +12,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
+import sourcecoded.quantum.entity.EntityQuantumArrow;
 import sourcecoded.quantum.registry.QAItems;
+import sourcecoded.quantum.util.damage.DamageSourceQuantum;
 import sourcecoded.quantum.vacuum.recipes.VacuumArmorBoots;
 import sourcecoded.quantum.vacuum.recipes.VacuumArmorChest;
 import sourcecoded.quantum.vacuum.recipes.VacuumArmorHead;
@@ -108,7 +110,7 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
                             double my = ent.motionY / 10 + RandomUtils.nextDouble(0, 0.025);
                             double mz = ent.motionZ / 10 + RandomUtils.nextDouble(0, 0.025);
 
-                            world.spawnParticle("portal", ent.posX + (mx*i - 1), ent.posY - 1 + (my*i), ent.posZ + (mz*i - 1), mx, my, mz);
+                            world.spawnParticle("portal", ent.posX + (mx*i), ent.posY - 1.3 + (my*i), ent.posZ + (mz*i), mx, my, mz);
                         }
                     }
                         //NetworkHandler.wrapper.sendToAllAround(new MessageVanillaParticle("flame", ent.posX, ent.posY, ent.posZ, 0D, 0D, 0D, 2), new NetworkRegistry.TargetPoint(world.provider.dimensionId, posX, posY, posZ, 32));
@@ -126,6 +128,9 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
             return 0;
 
         if (source == DamageSource.starve)
+            return 0;
+
+        if (source instanceof DamageSourceQuantum && source.isUnblockable())
             return 0;
 
         int protection = 20;

@@ -1,4 +1,4 @@
-package sourcecoded.quantum.utils;
+package sourcecoded.quantum.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;

@@ -10,14 +10,13 @@ import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.client.renderer.entity.RenderEnderishCrystal;
 import sourcecoded.quantum.client.renderer.entity.RenderEnergyPacket;
 import sourcecoded.quantum.client.renderer.entity.RenderHellishCrystal;
-import sourcecoded.quantum.client.renderer.item.ItemDepthRenderer;
-import sourcecoded.quantum.client.renderer.item.ItemSceptreRenderer;
-import sourcecoded.quantum.client.renderer.item.ItemStickRenderer;
-import sourcecoded.quantum.client.renderer.item.TexDepthMap;
+import sourcecoded.quantum.client.renderer.entity.RenderQuantumArrow;
+import sourcecoded.quantum.client.renderer.item.*;
 import sourcecoded.quantum.client.renderer.tile.*;
 import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityHellishCrystal;
+import sourcecoded.quantum.entity.EntityQuantumArrow;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.*;
 
@@ -32,6 +31,7 @@ public class ClientProxy implements IProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityEnergyPacket.class, new RenderEnergyPacket());
         RenderingRegistry.registerEntityRenderingHandler(EntityHellishCrystal.class, new RenderHellishCrystal());
         RenderingRegistry.registerEntityRenderingHandler(EntityEnderishCrystal.class, new RenderEnderishCrystal());
+        RenderingRegistry.registerEntityRenderingHandler(EntityQuantumArrow.class, new RenderQuantumArrow());
 
         RenderingRegistry.registerBlockHandler(new SimpleTileProxy());
         RenderingRegistry.registerBlockHandler(new AdvancedTileProxy());
@@ -77,6 +77,18 @@ public class ClientProxy implements IProxy {
                 new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/tools/stick_0.png"), 0.09F),
                 new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/tools/stick_1.png"), 0.04F)
         ));
+
+        MinecraftForgeClient.registerItemRenderer(QAItems.INJECTED_STRING.getItem(), new ItemDepthRenderer(
+                new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/string_1.png"), 0.05F)
+        ));
+
+        MinecraftForgeClient.registerItemRenderer(QAItems.RIFT_MAGNET.getItem(), new ItemDepthRenderer(
+                new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/tools/magnet_0.png"), 0.06F),
+                new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/tools/magnet_1.png"), 0.08F),
+                new TexDepthMap(new ResourceLocation(Constants.MODID, "textures/items/tools/magnet_2.png"), 0.1F)
+        ));
+
+        MinecraftForgeClient.registerItemRenderer(QAItems.RIFT_BOW.getItem(), new ItemBowRenderer());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedStone.class, new TESRInjectedStone());
         ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedGlass.class, new TESRInjectedGlass());

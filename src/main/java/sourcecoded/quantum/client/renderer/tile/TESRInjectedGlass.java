@@ -14,7 +14,7 @@ import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.block.BlockInjectedGlass;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileInjectedGlass;
-import sourcecoded.quantum.utils.TessUtils;
+import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 

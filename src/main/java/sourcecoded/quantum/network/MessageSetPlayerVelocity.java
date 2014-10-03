@@ -4,7 +4,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import sourcecoded.quantum.utils.PlayerUtils;
+import sourcecoded.quantum.util.PlayerUtils;
 
 public class MessageSetPlayerVelocity implements IMessage, IMessageHandler<MessageSetPlayerVelocity, IMessage> {
 

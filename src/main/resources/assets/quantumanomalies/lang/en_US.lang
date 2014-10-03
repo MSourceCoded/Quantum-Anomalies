@@ -40,6 +40,10 @@ qa.items.itemInjectedStick.lore.0@0={c:ITALIC}A truly disastrous weapon
 qa.items.itemInjectedStick.name@1={c:LIGHT_PURPLE}Entropic Stick{c:RESET}
 qa.items.itemInjectedStick.lore.0@1={c:ITALIC}Not for playing fetch
 
+qa.items.itemInjectedString.name={c:AQUA}Injected String{c:RESET}
+qa.items.itemInjectedString.lore.0={c:ITALIC}Putting the 'tangle' in
+qa.items.itemInjectedString.lore.1={c:ITALIC}   Quantum Entanglement
+
 qa.items.itemObsidianJewel.name@0={c:AQUA}Obsidian Jewel{c:RESET}
 qa.items.itemObsidianJewel.name@1={c:LIGHT_PURPLE}Charged Obsidian Jewel{c:RESET}
 qa.items.itemObsidianJewel.lore.0@0={c:ITALIC}Refined Density
@@ -47,6 +51,13 @@ qa.items.itemObsidianJewel.lore.0@1={c:ITALIC}Collective Entropy
 
 qa.items.itemEntropicStar.name={c:LIGHT_PURPLE}Entropic Star{c:RESET}
 qa.items.itemEntropicStar.lore.0={c:ITALIC}Atomically Pure
+
+qa.items.itemRiftMagnet.name@0={c:LIGHT_PURPLE}Matter Attraction Magnet{c:RESET}
+qa.items.itemRiftMagnet.name@1={c:LIGHT_PURPLE}Matter Attraction Magnet (Active){c:RESET}
+qa.items.itemRiftMagnet.lore.0@0={c:ITALIC}Slightly better than a fridge magnet...
+qa.items.itemRiftMagnet.lore.0@1={c:ITALIC}Slightly better than a fridge magnet...
+qa.items.itemRiftMagnet.remove={c:RED}Removed Item From Blacklist:
+qa.items.itemRiftMagnet.add={c:GREEN}Added Item To Blacklist:
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
@@ -82,12 +93,16 @@ qa.items.itemRiftSpade.lore.0={c:ITALIC}Terrain Annihilator
 qa.items.itemRiftSword.name={c:LIGHT_PURPLE}Quantum Rift Sword{c:RESET}
 qa.items.itemRiftSword.lore.0={c:ITALIC}Destroyer of Souls
 
+qa.items.itemRiftBow.name={c:LIGHT_PURPLE}Quantum Rift Disruption Bow{c:RESET}
+qa.items.itemRiftBow.lore.0={c:ITALIC}Destroying Atomic Bonds since 1999
+
 
 #####################################
-# Instability
+# Damage
 #####################################
 
 death.attack.qa.vacuum.instability=%s forgot to RTFM 3:<
+death.attack.qa.damage.arrow=%s's atoms were torn apart!
 
 #####################################
 # Achievements
@@ -147,3 +162,11 @@ qa.lore.multipliers.production=Production
 
 qa.lore.dyeable.0=Dyeable!
 qa.lore.dyeable.1=Any colour you want!
+
+#####################################
+# Keybinding
+#####################################
+
+qa.keybind.category=Quantum Anomalies
+
+qa.keybind.focus.change=Change Sceptre Focus

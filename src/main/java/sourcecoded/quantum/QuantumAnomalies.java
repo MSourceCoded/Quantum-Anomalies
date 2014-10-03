@@ -7,25 +7,26 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.WorldEvent;
+import org.lwjgl.input.Keyboard;
 import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.core.util.SourceLogger;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
-import sourcecoded.quantum.entity.EntityEnderishCrystal;
-import sourcecoded.quantum.entity.EntityEnergyPacket;
-import sourcecoded.quantum.entity.EntityHellishCrystal;
-import sourcecoded.quantum.entity.EntityItemJewel;
+import sourcecoded.quantum.entity.*;
 import sourcecoded.quantum.handler.ConfigHandler;
+import sourcecoded.quantum.handler.KeyBindHandler;
 import sourcecoded.quantum.listeners.ArrangementTableListener;
 import sourcecoded.quantum.listeners.BiomeListener;
+import sourcecoded.quantum.listeners.ItemTossListener;
 import sourcecoded.quantum.listeners.SecretListener;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
@@ -58,6 +59,7 @@ public class QuantumAnomalies {
 
     public static Item.ToolMaterial materialRift = EnumHelper.addToolMaterial("rift", 4, 1000, 30F, 15F, 30);
 
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
         logger = new SourceLogger("Quantum Anomalies");
@@ -78,7 +80,7 @@ public class QuantumAnomalies {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        int id = 0;
+        int entityID = 0;
 
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
@@ -86,15 +88,16 @@ public class QuantumAnomalies {
             MinecraftForge.EVENT_BUS.register(new BiomeListener());
         }
 
-
         BlockRegistry.instance().registerAll();
         ItemRegistry.instance().registerAll();
         TileRegistry.instance().registerAll();
 
-        EntityRegistry.registerModEntity(EntityEnergyPacket.class, "riftPacket", id++, this, 80, 10, true);
-        EntityRegistry.registerModEntity(EntityHellishCrystal.class, "hellishCrystal", id++, this, 80, 3, true);
-        EntityRegistry.registerModEntity(EntityEnderishCrystal.class, "enderishCrystal", id++, this, 80, 3, true);
-        EntityRegistry.registerModEntity(EntityItemJewel.class, "itemJewel", id++, this, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityEnergyPacket.class, "riftPacket", entityID++, this, 80, 10, true);
+        EntityRegistry.registerModEntity(EntityHellishCrystal.class, "hellishCrystal", entityID++, this, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityEnderishCrystal.class, "enderishCrystal", entityID++, this, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityItemJewel.class, "itemJewel", entityID++, this, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityItemMagnet.class, "itemMagnet", entityID++, this, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityQuantumArrow.class, "quantumArrow", entityID++, this, 80, 3, true);
 
         BiomeDictionary.registerBiomeType(endAnomaly, BiomeDictionary.Type.END);
         BiomeDictionary.registerBiomeType(hellAnomaly, BiomeDictionary.Type.NETHER);
@@ -111,6 +114,7 @@ public class QuantumAnomalies {
         MinecraftForge.EVENT_BUS.register(new ArrangementTableListener());
 
         FMLCommonHandler.instance().bus().register(new SecretListener());
+        MinecraftForge.EVENT_BUS.register(new ItemTossListener());
 
         FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");
     }
@@ -118,6 +122,9 @@ public class QuantumAnomalies {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         Achievements.initAchievements();
+
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+            KeyBindHandler.initKeybinds();
     }
 
     @Mod.EventHandler

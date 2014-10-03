@@ -52,7 +52,7 @@ public class FocusHelium implements ISceptreFocus {
     public void onClickEnd(EntityPlayer player, ItemStack item, World world, int ticker) {
         Vec3 lookVec = player.getLook(1.0F);
 
-        double tick = Math.min(4D, (item.getItem().getMaxItemUseDuration(item) - ticker) / 10D);
+        double tick = Math.min(5D, Math.max((item.getItem().getMaxItemUseDuration(item) - ticker) / 10D, 0.6D));
 
         double force = 2.5D * tick;
         player.motionX += force * lookVec.xCoord;

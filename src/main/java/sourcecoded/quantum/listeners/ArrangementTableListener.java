@@ -9,14 +9,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.block.BlockArrangement;
 import sourcecoded.quantum.registry.QABlocks;
 
 public class ArrangementTableListener {
 
-    @SubscribeEvent
+    @SubscribeEvent(receiveCanceled = true)         //Damn mods cancelling events >.<
     public void playerClick(PlayerInteractEvent event) {
         if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) return;
+
 
         EntityPlayer thePlayer = event.entityPlayer;
         World world = thePlayer.getEntityWorld();
@@ -29,10 +31,12 @@ public class ArrangementTableListener {
                     Block block = world.getBlock(event.x + x, event.y, event.z + z);
                     int meta = world.getBlockMetadata(event.x + x, event.y, event.z + z);
 
-                    if (!world.isRemote)
+                    if (!world.isRemote) {
                         world.setBlockToAir(event.x + x, event.y, event.z + z);
-                    else
+                    }
+                    else {
                         Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(event.x + x, event.y, event.z + z, block, meta);
+                    }
                 }
             if (!world.isRemote) {
                 world.setBlock(event.x, event.y, event.z, QABlocks.ARRANGEMENT.getBlock());

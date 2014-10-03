@@ -16,7 +16,7 @@ public class VacuumEntropicStar implements IVacuumRecipe {
     @Override
     public List<ItemStack> getIngredients() {
         ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(Items.nether_star),
+                new ItemStack(Items.nether_star, 2),
                 new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 2, 1),
                 new ItemStack(Blocks.obsidian, 4)
         };

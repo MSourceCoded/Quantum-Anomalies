@@ -1,4 +1,4 @@
-package sourcecoded.quantum.utils;
+package sourcecoded.quantum.util;
 
 import sourcecoded.core.util.RandomUtils;
 

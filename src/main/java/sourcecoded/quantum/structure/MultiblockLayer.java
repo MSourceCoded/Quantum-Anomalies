@@ -1,6 +1,9 @@
 package sourcecoded.quantum.structure;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import sourcecoded.quantum.QuantumAnomalies;
 
 import java.util.HashMap;
 
@@ -62,8 +65,15 @@ public class MultiblockLayer {
         for (int xO = 0; xO < blocks.length; xO++)
             for (int zO = 0; zO < blocks[xO].length; zO++) {
                 Object compare = blocks[xO][zO];
+                Block block = world.getBlock(x + xO, y, z + zO);
                 if (compare == null) continue;
-                if (!compare.getClass().isAssignableFrom(world.getBlock(x + xO, y, z + zO).getClass())) return false;
+
+                if (compare == Blocks.air) {                //F**ing railcraft and it's hidden blocks.
+                    if (!block.isAir(world, x + xO, y, z + zO)) return false;
+                    continue;
+                }
+
+                if (!compare.getClass().isAssignableFrom(block.getClass())) return false;           //Inheritance
             }
         return true;
     }

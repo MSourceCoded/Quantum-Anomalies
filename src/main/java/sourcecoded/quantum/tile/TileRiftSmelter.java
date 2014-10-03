@@ -11,8 +11,8 @@ import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
 import sourcecoded.quantum.registry.QABlocks;
-import sourcecoded.quantum.utils.MathUtils;
-import sourcecoded.quantum.utils.WorldUtils;
+import sourcecoded.quantum.util.MathUtils;
+import sourcecoded.quantum.util.WorldUtils;
 
 public class TileRiftSmelter extends TileDyeable implements ISidedInventory, ITileRiftHandler {
 

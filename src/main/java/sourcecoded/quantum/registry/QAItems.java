@@ -3,10 +3,7 @@ package sourcecoded.quantum.registry;
 import net.minecraft.item.Item;
 import sourcecoded.quantum.item.*;
 import sourcecoded.quantum.item.armor.ItemRiftArmor;
-import sourcecoded.quantum.item.tools.ItemRiftAxe;
-import sourcecoded.quantum.item.tools.ItemRiftPickaxe;
-import sourcecoded.quantum.item.tools.ItemRiftShovel;
-import sourcecoded.quantum.item.tools.ItemRiftSword;
+import sourcecoded.quantum.item.tools.*;
 
 public enum QAItems {
 
@@ -14,6 +11,7 @@ public enum QAItems {
     CHAOS_SHARD("itemChaosShard", new ItemChaosShard()),
     JOURNAL("itemJournal", new ItemJournal()),
     INJECTED_STICK("itemInjectedStick", new ItemInjectedStick()),
+    INJECTED_STRING("itemInjectedString", new ItemInjectedString()),
 
     OBSIDIAN_JEWEL("itemObsidianJewel", new ItemObsidianJewel()),
     ENTROPIC_STAR("itemEntropicStar", new ItemEntropicStar()),
@@ -27,6 +25,9 @@ public enum QAItems {
     RIFT_PICKAXE("itemRiftPickaxe", new ItemRiftPickaxe()),
     RIFT_SHOVEL("itemRiftSpade", new ItemRiftShovel()),
     RIFT_SWORD("itemRiftSword", new ItemRiftSword()),
+
+    RIFT_BOW("itemRiftBow", new ItemRiftBow()),
+    RIFT_MAGNET("itemRiftMagnet", new ItemRiftMagnet()),
     ;
 
     String identifier;

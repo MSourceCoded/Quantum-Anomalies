@@ -20,9 +20,9 @@ import sourcecoded.quantum.api.vacuum.Instability;
 import sourcecoded.quantum.network.MessageSetPlayerVelocity;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.tile.TileRiftNode;
-import sourcecoded.quantum.utils.WorldUtils;
-import sourcecoded.quantum.utils.shapes.CircleCallback;
-import sourcecoded.quantum.utils.shapes.CircleUtils;
+import sourcecoded.quantum.util.WorldUtils;
+import sourcecoded.quantum.util.shapes.CircleCallback;
+import sourcecoded.quantum.util.shapes.CircleUtils;
 
 import java.util.ArrayList;
 import java.util.List;

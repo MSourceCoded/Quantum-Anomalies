@@ -1,6 +1,6 @@
 //	Sphere Generator
 
-package sourcecoded.quantum.utils.shapes;
+package sourcecoded.quantum.util.shapes;
 
 import java.util.Hashtable;
 

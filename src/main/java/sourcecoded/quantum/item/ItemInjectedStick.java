@@ -41,7 +41,7 @@ public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, I
 
     @Override
     public byte getTier() {
-        return 0;
+        return 1;
     }
 
     @Override

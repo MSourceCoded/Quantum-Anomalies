@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileInjectedStone;
-import sourcecoded.quantum.utils.TessUtils;
+import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 

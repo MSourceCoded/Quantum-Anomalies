@@ -52,7 +52,7 @@ public class ItemRiftSword extends ItemSword implements ICraftableItem {
         if (!stack.hasTagCompound())
             stack.stackTagCompound = new NBTTagCompound();
 
-        double dmg = Math.max(entity.fallDistance / 15F, QuantumAnomalies.materialRift.getDamageVsEntity() + 5);
+        double dmg = entity.fallDistance / 2F;
 
         stack.stackTagCompound.setDouble("damageModifier", dmg);
     }
@@ -66,7 +66,7 @@ public class ItemRiftSword extends ItemSword implements ICraftableItem {
         double dmg = stack.stackTagCompound.getDouble("damageModifier");
 
         Multimap multimap = HashMultimap.create();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", dmg, 0));
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", dmg + QuantumAnomalies.materialRift.getDamageVsEntity() + 5, 0));
         return multimap;
     }
 

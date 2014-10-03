@@ -15,7 +15,7 @@ import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
-import sourcecoded.quantum.utils.WorldUtils;
+import sourcecoded.quantum.util.WorldUtils;
 
 public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, ISidedInventory {
 

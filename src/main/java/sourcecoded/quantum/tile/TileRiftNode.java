@@ -30,7 +30,7 @@ import sourcecoded.quantum.network.MessageVanillaParticle;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.structure.MultiblockLayer;
-import sourcecoded.quantum.utils.WorldUtils;
+import sourcecoded.quantum.util.WorldUtils;
 import sourcecoded.quantum.vacuum.instability.InstabilityHandler;
 
 import java.util.ArrayList;

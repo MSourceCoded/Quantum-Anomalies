@@ -24,11 +24,11 @@ public class VacuumSyncCharged implements IVacuumRecipe {
     public List<ItemStack> getIngredients() {
         ingredients = new ItemStack[] {
                 new ItemStack(QABlocks.SYNC.getBlock(), 2, 0),
-                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 2),
-                new ItemStack(Items.ender_pearl, 4),
-                new ItemStack(Items.ender_eye, 4),
-                new ItemStack(Blocks.hopper),
-                new ItemStack(Blocks.ender_chest),
+                new ItemStack(QAItems.ENTROPIC_STAR.getItem()),
+                new ItemStack(Items.ender_pearl, 8),
+                new ItemStack(Items.ender_eye, 8),
+                new ItemStack(Blocks.hopper, 4),
+                new ItemStack(Blocks.ender_chest, 2),
                 new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 4, 1)
         };
 

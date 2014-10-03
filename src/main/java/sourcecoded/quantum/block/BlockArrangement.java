@@ -82,7 +82,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
                     matrix.setItemAt(x + 1, z + 1, is);
                 } else {
                     Block block = world.getBlock(nx, y, nz);
-                    if (block != null && block != Blocks.air) {
+                    if (block != null && !block.isAir(world, nx, y, nz)) {
                         matrix.setItemAt(x + 1, z + 1, new ItemStack(block));
                         destroyPoints.add(new Point3D(nx, y, nz));
                     }

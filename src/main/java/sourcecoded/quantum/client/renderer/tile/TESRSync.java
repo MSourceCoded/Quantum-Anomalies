@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileSync;
-import sourcecoded.quantum.utils.TessUtils;
+import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 

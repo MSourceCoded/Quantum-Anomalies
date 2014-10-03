@@ -10,9 +10,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProviderEnd;
 import sourcecoded.quantum.registry.QABlocks;
-import sourcecoded.quantum.utils.WorldUtils;
-import sourcecoded.quantum.utils.shapes.SphereCallback;
-import sourcecoded.quantum.utils.shapes.SphereUtils;
+import sourcecoded.quantum.util.WorldUtils;
+import sourcecoded.quantum.util.shapes.SphereCallback;
+import sourcecoded.quantum.util.shapes.SphereUtils;
 
 public class EntityHellishCrystal extends Entity {
     /**

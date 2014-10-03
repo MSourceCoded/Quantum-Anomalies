@@ -1,4 +1,4 @@
-package sourcecoded.quantum.utils;
+package sourcecoded.quantum.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

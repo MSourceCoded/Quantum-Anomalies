@@ -14,7 +14,7 @@ import sourcecoded.quantum.api.gesture.GesturePointMap;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
-import sourcecoded.quantum.utils.ItemUtils;
+import sourcecoded.quantum.util.ItemUtils;
 
 import java.util.List;
 
@@ -120,12 +120,29 @@ public class ItemSceptre extends ItemQuantum {
         return stack;
     }
 
-    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+//    public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+//        ISceptreFocus focus;
+//
+//        if (entityLiving.isSneaking()) {
+//            changeFocus(null, stack);
+//            return false;
+//        }
+//
+//        if (stack.stackTagCompound.hasKey("focus"))
+//            focus = SceptreFocusRegistry.getNextFocus(getFocus(stack), (EntityPlayer) entityLiving, stack);
+//        else
+//            focus = SceptreFocusRegistry.getNextFocus(null, (EntityPlayer) entityLiving, stack);
+//
+//        changeFocus(focus, stack);
+//        return false;
+//    }
+
+    public void tryFocusChange(EntityLivingBase entityLiving, ItemStack stack) {
         ISceptreFocus focus;
 
         if (entityLiving.isSneaking()) {
             changeFocus(null, stack);
-            return false;
+            return;
         }
 
         if (stack.stackTagCompound.hasKey("focus"))
@@ -134,11 +151,10 @@ public class ItemSceptre extends ItemQuantum {
             focus = SceptreFocusRegistry.getNextFocus(null, (EntityPlayer) entityLiving, stack);
 
         changeFocus(focus, stack);
-        return false;
     }
 
     public EnumAction getItemUseAction(ItemStack stack) {
-        return EnumAction.none;
+        return EnumAction.bow;
     }
 
     public int getMaxItemUseDuration(ItemStack stack) {
