@@ -1,6 +1,5 @@
 package sourcecoded.quantum.block;
 
-import sourcecoded.quantum.api.Point3D;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
@@ -14,6 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.core.util.RandomUtils;
+import sourcecoded.quantum.api.Point3D;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.arrangement.ItemMatrix;

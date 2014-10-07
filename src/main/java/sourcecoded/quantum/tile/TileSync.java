@@ -3,6 +3,7 @@ package sourcecoded.quantum.tile;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -78,6 +79,8 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
                     bound.changeBlock(Blocks.air, 0);
                 }
 
+
+                //TODO Fix tile invalidation
                 nbt:
                 if (shouldSyncNBT) {
                     if (nbtChanged && getRiftEnergy() >= 200) {
@@ -234,7 +237,7 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
     }
 
     @Override
-    public boolean tryBind(int x, int y, int z, boolean silent) {
+    public boolean tryBind(EntityPlayer player, int x, int y, int z, boolean silent) {
         TileEntity tileOld = getBoundTile();
         if (tileOld != null)
             ((TileSync) tileOld).clearBinding();
@@ -246,7 +249,7 @@ public class TileSync extends TileDyeable implements IBindable, ITileRiftHandler
             boundZ = z;
 
             if (!silent)
-                getBoundTile().tryBind(xCoord, yCoord, zCoord, true);
+                getBoundTile().tryBind(player, xCoord, yCoord, zCoord, true);
             return true;
         } else
             return false;

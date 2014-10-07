@@ -29,4 +29,13 @@ public class Point3D {
         return z;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof Point3D) {
+            Point3D p3 = (Point3D) o;
+
+            return getX() == p3.getX() && getY() == p3.getY() && getZ() == p3.getZ();
+        }
+        return false;
+    }
+
 }

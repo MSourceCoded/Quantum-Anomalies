@@ -9,7 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.block.BlockArrangement;
 import sourcecoded.quantum.registry.QABlocks;
 

@@ -118,20 +118,26 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
             }
         }
 
-        if (worldObj.rand.nextInt(10) == 0) {
+        if (worldObj.rand.nextInt(4) == 0) {
             List<EntityLivingBase> list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(this.posX - 0.5, this.posY - 0.5, this.posZ - 0.5, this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5));
             for (EntityLivingBase ent : list) {
-                Potion[] effects = Potion.potionTypes;
-                int select = RandomUtils.nextInt(0, effects.length);
-                try {
-                    if (!worldObj.isRemote)
-                        ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(effects[select].getId(), RandomUtils.nextInt(60, 200), 0, true));
-                } catch (NullPointerException e) {} //Potion effect shouldn't exist
+                if (!worldObj.isRemote)
+                    ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(getPotionEffect().getId(), RandomUtils.nextInt(60, 200), 0, true));
                 this.setDead();
             }
         }
 
         this.moveEntity(motionX, motionY, motionZ);
+    }
+
+    public Potion getPotionEffect() {
+        Potion[] effects = Potion.potionTypes;
+        int select = RandomUtils.nextInt(0, effects.length);
+
+        if (effects[select] == null)
+            return getPotionEffect();
+        else
+            return effects[select];
     }
 
     protected boolean canTriggerWalking() {

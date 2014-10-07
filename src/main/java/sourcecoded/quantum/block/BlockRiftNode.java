@@ -1,6 +1,7 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.Explosion;
@@ -31,6 +32,19 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
+    }
+
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
+        boolean suResult = super.onBlockActivated(world, x, y, z, player, side, xo, yo, zo);
+        if (suResult) return true;
+
+        if (player.isSneaking() && player.getHeldItem() == null) {
+            TileRiftNode node = (TileRiftNode) world.getTileEntity(x, y, z);
+            node.cycleBehaviour(player);
+            return true;
+        }
+
+        return false;
     }
 
     public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
@@ -80,5 +94,14 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
 
     public int quantityDropped(Random rnd) {
         return 0;
+    }
+
+    //Shhhh... it's a secret... between you and me.....
+    public float getEnchantPowerBonus(World world, int x, int y, int z) {
+        TileRiftNode node = (TileRiftNode) world.getTileEntity(x, y, z);
+        if (node.getColour() != Colourizer.RAINBOW) return 0F;
+
+        float levels = ((float)node.getRiftEnergy() / (float)node.getMaxRiftEnergy()) * 15F;
+        return levels;
     }
 }

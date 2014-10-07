@@ -71,8 +71,8 @@ qa.items.riftArmor_helm.lore.0={c:ITALIC}Hold your breath and count to 10...
 qa.items.riftArmor_chest.name={c:LIGHT_PURPLE}Quantum Rift Chestplate{c:RESET}
 qa.items.riftArmor_chest.lore.0={c:ITALIC}No shirt, no service...
 
-qa.items.riftArmor_legs.name={c:LIGHT_PURPLE}Quantum Rift Leggings{c:RESET}
-qa.items.riftArmor_legs.lore.0={c:ITALIC}Pants are for losers!
+qa.items.riftArmor_skirt.name={c:LIGHT_PURPLE}Quantum Rift Skirt{c:RESET}
+qa.items.riftArmor_skirt.lore.0={c:ITALIC}Who's a pretty little princess?
 
 qa.items.riftArmor_boots.name={c:LIGHT_PURPLE}Quantum Rift Boots{c:RESET}
 qa.items.riftArmor_boots.lore.0={c:ITALIC}And you thought heels were bad...
@@ -129,7 +129,7 @@ qa.sceptre.focus.helium=Helium Focus
 qa.sceptre.focus.helium.lore.0=Lighter than Air
 qa.sceptre.focus.diagnostic=Diagnostics Focus
 qa.sceptre.focus.diagnostic.lore.0=I wonder how this is doing...
-qa.sceptre.focus.diagnostic.energyContained={c:GOLD}Energy: {c:ITALIC}%s {c:GOLD}QRE
+qa.sceptre.focus.diagnostic.energyContained={c:GOLD}Energy: {c:ITALIC}%s {c:GOLD}QRE : %s%%
 qa.sceptre.focus.diagnostic.energyCapacity={c:AQUA}Capacity: {c:ITALIC}%s {c:AQUA}QRE
 qa.sceptre.focus.diagnostic.energyBehaviour={c:LIGHT_PURPLE}Behaviour: {c:ITALIC}%s
 qa.sceptre.focus.diagnostic.notEnergy={c:GRAY}{c:ITALIC}This block does not support Rift Energy
@@ -139,8 +139,8 @@ qa.sceptre.focus.bind.lore.0=I wonder if I can link these...
 qa.sceptre.focus.bind.bindingSet={c:GOLD}Block set as Binding Location!
 qa.sceptre.focus.bind.notSet={c:RED}Binding not set! Sneak click to set binding location!
 qa.sceptre.focus.bind.notBindable={c:RED}You can't bind to this block. Sneak click to set binding location!
-qa.sceptre.focus.bind.bindingFailed={c:RED}Binding was not Successful!
 qa.sceptre.focus.bind.bindingComplete={c:AQUA}Binding Successful!
+qa.sceptre.focus.bind.bindingRemoved={c:AQUA}Binding Removed!
 
 #####################################
 # Journal

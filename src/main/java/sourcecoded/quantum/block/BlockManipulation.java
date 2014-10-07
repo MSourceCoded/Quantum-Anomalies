@@ -39,6 +39,10 @@ public class BlockManipulation extends BlockDyeable implements ITileEntityProvid
         this.setTickRandomly(true);
     }
 
+    public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
+        return false;
+    }
+
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
         Colourizer oldColour = getDye(world, x, y, z);
         boolean result = IDyeable.DyeUtils.attemptDye(player, world, x, y, z);

@@ -1,13 +1,9 @@
 package sourcecoded.quantum.tile;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-
-import java.util.UUID;
 
 public class TilePlayer extends TileDyeable implements ISidedInventory {
 

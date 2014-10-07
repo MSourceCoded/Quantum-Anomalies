@@ -6,7 +6,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 
 public class FocusHelium implements ISceptreFocus {
@@ -75,10 +74,10 @@ public class FocusHelium implements ISceptreFocus {
     public void onUsingTick(ItemStack item) {
     }
 
-    @Override
-    public AbstractGesture[] getAvailableGestures() {
-        return null;
-    }
+//    @Override
+//    public AbstractGesture[] getAvailableGestures() {
+//        return null;
+//    }
 
     @Override
     public float[] getRGB() {

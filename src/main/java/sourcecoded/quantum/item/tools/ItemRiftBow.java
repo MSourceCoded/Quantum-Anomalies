@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
@@ -16,8 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
@@ -192,9 +189,8 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
         String translateString = getUnlocalizedName(item) + ".name";
         if (hasSubtypes)
             translateString += "@" + item.getItemDamage();
-        String translate = LocalizationUtils.translateLocalWithColours(translateString, translateString);
 
-        return translate;
+        return LocalizationUtils.translateLocalWithColours(translateString, translateString);
     }
 
     public void tryLore(String unlocalizedBase, ItemStack stack) {

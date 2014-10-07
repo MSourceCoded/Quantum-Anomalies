@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
 
 /**
  * An Interface for Sceptre Foci. This interface will allow your
@@ -133,8 +132,8 @@ public interface ISceptreFocus {
      * Return null if you do not wish to use Gestures.
      *
      * @see sourcecoded.quantum.api.gesture.AbstractGesture
-     */
-    public AbstractGesture[] getAvailableGestures();
+     *//*
+    public AbstractGesture[] getAvailableGestures();*/
 
     /**
      * Return a float array that contains an RBG color code for the focus.

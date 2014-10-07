@@ -3,67 +3,29 @@ package sourcecoded.quantum.api.gesture;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import sourcecoded.quantum.debugging.GUI;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractGesture {
 
-    public abstract GestureSegment[] getSegments(GesturePointMap tracer);
+    public abstract GestureTrackMap getGestureMap();
 
-    public abstract void onCompletion(EntityPlayer player, World world, ItemStack itemStack, GesturePointMap tracer);
+    public abstract void onGestureCompleted(EntityPlayer player, World world, ItemStack itemstack, GestureTrackMap compareMap);
 
-    public boolean attemptGesture(EntityPlayer player, World world, ItemStack itemstack, GesturePointMap tracer) {
-        final GestureSegment[] segments = getSegments(tracer);
+    public boolean attemptGesture(EntityPlayer player, World world, ItemStack itemstack, GestureTrackMap compare) {
+        GestureTrackMap thisMap = getGestureMap();
+        if (compare.size() != thisMap.size()) return false;
 
-        final GesturePointMap tracer2 = tracer;
+        List<GestureDirection> dirComp = compare.getDirections();
+        List<GestureDirection> dirThis = thisMap.getDirections();
 
-        int progress = 0;
-
-        new Thread() {
-            public void run() {
-                this.setName("Gesture Thread");
-                GUI tracer = new GUI(tracer2);
-                tracer.setVisible(true);
-                for (GestureSegment seg : segments) {
-                    tracer.addPolygon(seg.getBounding());
-                }
-            }
-        }.start();
-
-        for (int i = 0; i < tracer.length(); i++) {
-            Point point = tracer.getPoint(i);
-
-            //I'll fix all this later, I've got other things to do
-
-//            for (GestureSegment segment : segments) {
-//                if (segment.isPointInBounds(point)) {
-//                    segment.complete();
-//                    break;
-//                }
-//            }
-
-            loop:
-            for (int j = progress; j < segments.length; j++) {
-                GestureSegment segment = segments[j];
-                if (segment.isPointInBounds(point)) {
-                    segment.complete();
-                    progress++;
-                    break loop;
-                }
-            }
+        if (dirComp.equals(dirThis)) {
+            onGestureCompleted(player, world, itemstack, compare);
+            return true;
         }
 
-        boolean flag = true;
-        for (GestureSegment segment : segments)
-            if (!segment.isCompleted())
-                flag = false;
-
-        if (flag) {
-            onCompletion(player, world, itemstack, tracer);
-            return true;
-        } else
-            return false;
+        return false;
     }
 
 }

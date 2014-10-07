@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import sourcecoded.quantum.api.block.IDiagnostic;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 
@@ -69,17 +68,18 @@ public class FocusDiagnostic implements ISceptreFocus {
 
             if (tile != null && tile instanceof ITileRiftHandler) {
                 ITileRiftHandler t = (ITileRiftHandler) tile;
-                String containedEnergy = LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.diagnostic.energyContained", "Energy: %s QRE");
+                String containedEnergy = LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.diagnostic.energyContained", "Energy: %s QRE (%s%)");
                 String capacityEnergy = LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.diagnostic.energyCapacity", "Capacity: %s QRE");
                 String behaviourEnergy = LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.diagnostic.energyBehaviour", "Behaviour: %s");
 
                 double energy = t.getRiftEnergy();
                 double capacity = t.getMaxRiftEnergy();
+                double percent = Math.floor((double)energy / (double)capacity * 1000) / 10;
                 EnergyBehaviour behaviour = t.getBehaviour();
 
                 DecimalFormat format = new DecimalFormat("#,##0");
 
-                player.addChatComponentMessage(new ChatComponentText(String.format(containedEnergy, format.format(energy))));
+                player.addChatComponentMessage(new ChatComponentText(String.format(containedEnergy, format.format(energy), percent)));
                 player.addChatComponentMessage(new ChatComponentText(String.format(capacityEnergy, format.format(capacity))));
                 player.addChatComponentMessage(new ChatComponentText(String.format(behaviourEnergy, behaviour.toString())));
             } else {
@@ -102,10 +102,10 @@ public class FocusDiagnostic implements ISceptreFocus {
     public void onUsingTick(ItemStack item) {
     }
 
-    @Override
-    public AbstractGesture[] getAvailableGestures() {
-        return null;
-    }
+//    @Override
+//    public AbstractGesture[] getAvailableGestures() {
+//        return null;
+//    }
 
     @Override
     public float[] getRGB() {

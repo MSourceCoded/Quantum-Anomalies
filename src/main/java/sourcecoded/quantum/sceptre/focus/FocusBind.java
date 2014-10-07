@@ -8,7 +8,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusUtils;
 import sourcecoded.quantum.api.tileentity.IBindable;
@@ -73,11 +72,9 @@ public class FocusBind implements ISceptreFocus {
                     TileEntity tile = world.getTileEntity(x, y, z);
                     if (tile != null && tile instanceof IBindable) {
                         IBindable bind = (IBindable) tile;
-                        boolean bound = ((IBindable) tile).tryBind(compound.getInteger("bindX"), compound.getInteger("bindY"), compound.getInteger("bindZ"), false);
+                        boolean bound = ((IBindable) tile).tryBind(player, compound.getInteger("bindX"), compound.getInteger("bindY"), compound.getInteger("bindZ"), false);
                         if (bound)
                             player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.bind.bindingComplete", "{c:AQUA}Binding Successful!")));
-                        else
-                            player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.bind.bindingFailed", "{c:RED}Binding was not Successful!")));
                     } else
                         player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.bind.notBindable", "{c:RED}You can't bind to this block. Sneak click to set binding location!")));
                 } else
@@ -95,10 +92,10 @@ public class FocusBind implements ISceptreFocus {
     public void onUsingTick(ItemStack item) {
     }
 
-    @Override
-    public AbstractGesture[] getAvailableGestures() {
-        return null;
-    }
+//    @Override
+//    public AbstractGesture[] getAvailableGestures() {
+//        return null;
+//    }
 
     @Override
     public float[] getRGB() {

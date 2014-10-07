@@ -1,11 +1,9 @@
 package sourcecoded.quantum.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
@@ -34,6 +32,24 @@ public class TileManipulation extends TileDyeable implements IFluidHandler, ITil
     }
 
     @Override
+    public void updateEntity() {
+        if (getColour() == Colourizer.BLUE)
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+            if (tile != null) {
+                if (tile instanceof IFluidHandler) {
+                    IFluidHandler handler = (IFluidHandler) tile;
+                    if (handler.canFill(dir.getOpposite(), FluidRegistry.WATER))
+                        handler.fill(dir.getOpposite(), new FluidStack(FluidRegistry.WATER, 50), true);
+                } else if (tile instanceof IFluidTank) {        //WHY ARE THESE NOT 1 CLASS 3:<
+                    IFluidTank tank = (IFluidTank) tile;
+                    tank.fill(new FluidStack(FluidRegistry.WATER, 50), true);
+                }
+            }
+        }
+    }
+
+    @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         if (getColour() != Colourizer.BLACK)
             return 0;
@@ -43,12 +59,12 @@ public class TileManipulation extends TileDyeable implements IFluidHandler, ITil
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-        return null;
+        return new FluidStack(FluidRegistry.WATER, resource.amount);
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return null;
+        return new FluidStack(FluidRegistry.WATER, maxDrain);
     }
 
     @Override
@@ -58,11 +74,15 @@ public class TileManipulation extends TileDyeable implements IFluidHandler, ITil
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return false;
+        return getColour() == Colourizer.BLUE && fluid == FluidRegistry.WATER;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        if (getColour() == Colourizer.BLACK)
+            return new FluidTankInfo[] {new FluidTankInfo(null, Integer.MAX_VALUE)};
+        else if (getColour() == Colourizer.BLUE)
+            return new FluidTankInfo[] {new FluidTankInfo(new FluidStack(FluidRegistry.WATER, Integer.MAX_VALUE), Integer.MAX_VALUE)};
         return null;
     }
 

@@ -8,11 +8,9 @@ import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
-import sourcecoded.quantum.inventory.QATabs;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

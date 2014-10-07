@@ -57,6 +57,6 @@ public class VacuumMagnet implements IVacuumRecipe {
 
     @Override
     public Instability getInstabilityLevel() {
-        return Instability.EXTREME;
+        return Instability.CATACLYSMIC_SWITCH;
     }
 }

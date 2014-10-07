@@ -1,21 +1,15 @@
 package sourcecoded.quantum.sceptre.focus;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
-import sourcecoded.quantum.api.gesture.GesturePointMap;
-import sourcecoded.quantum.api.gesture.demos.GestureSquare;
-import sourcecoded.quantum.api.gesture.demos.IGestureCallback;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusUtils;
 
-public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
+public class FocusDematerialization implements ISceptreFocus {
 
     @Override
     public String getFocusIdentifier() {
@@ -81,28 +75,28 @@ public class FocusDematerialization implements ISceptreFocus, IGestureCallback {
     public void onUsingTick(ItemStack item) {
     }
 
-    @Override
-    public AbstractGesture[] getAvailableGestures() {
-        return new AbstractGesture[] {new GestureSquare(this)};
-    }
+//    @Override
+//    public AbstractGesture[] getAvailableGestures() {
+//        return new AbstractGesture[] {new GestureSquare(this)};
+//    }
 
     @Override
     public float[] getRGB() {
         return Colourizer.GRAY.rgb;
     }
 
-    public void callbackGesture(EntityPlayer player, World world, GesturePointMap pointMap, ItemStack item) {
-        System.err.println("Yooooo");
-        if (!player.worldObj.isRemote) {
-            NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
-            if (compound.hasKey("boundX")) {
-                player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));
-
-                player.fallDistance = 0F;
-
-                if (RandomUtils.nextInt(0, 3) == 2)
-                    player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
-            }
-        }
-    }
+//    public void callbackGesture(EntityPlayer player, World world, GesturePointMap pointMap, ItemStack item) {
+//        System.err.println("Yooooo");
+//        if (!player.worldObj.isRemote) {
+//            NBTTagCompound compound = SceptreFocusUtils.getAllocatedNBT(this, item);
+//            if (compound.hasKey("boundX")) {
+//                player.setPositionAndUpdate(compound.getDouble("boundX"), compound.getDouble("boundY"), compound.getDouble("boundZ"));
+//
+//                player.fallDistance = 0F;
+//
+//                if (RandomUtils.nextInt(0, 3) == 2)
+//                    player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
+//            }
+//        }
+//    }
 }

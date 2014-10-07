@@ -1,5 +1,7 @@
 package sourcecoded.quantum.api.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 /**
  * An interface for use with the Binding
  * Sceptre focus. Implement this on the tile
@@ -15,6 +17,6 @@ public interface IBindable {
      *               (For intra-binding TEs)
      * @return was the binding successful?
      */
-    public boolean tryBind(int x, int y, int z, boolean silent);
+    public boolean tryBind(EntityPlayer player, int x, int y, int z, boolean silent);
 
 }

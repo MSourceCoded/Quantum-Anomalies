@@ -6,11 +6,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import sourcecoded.quantum.api.gesture.AbstractGesture;
-import sourcecoded.quantum.api.gesture.GesturePointMap;
+import sourcecoded.quantum.api.gesture.GestureDirection;
+import sourcecoded.quantum.api.gesture.GestureTrackMap;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
@@ -20,9 +21,8 @@ import java.util.List;
 
 public class ItemSceptre extends ItemQuantum {
 
-    public GesturePointMap mostRecentGestureClient = new GesturePointMap();
-
-    public float[] offsetInitialClient = new float[2];
+    public GestureTrackMap gestureManager;
+    public float[] lastOffset = new float[2];
 
     public float step = 0.025F;
 
@@ -92,11 +92,6 @@ public class ItemSceptre extends ItemQuantum {
         ISceptreFocus focus = getFocus(stack);
         if (focus != null && world.isRemote) {
             focus.onClickEnd(player, stack, world, count);
-            AbstractGesture[] gestures = focus.getAvailableGestures();
-            if (gestures != null) {
-                for (AbstractGesture gesture : gestures)
-                    if (gesture.attemptGesture(player, world, stack, mostRecentGestureClient)) return;
-            }
         }
     }
 
@@ -111,9 +106,8 @@ public class ItemSceptre extends ItemQuantum {
             focus.onClickBegin(player, stack, world);
 
         if (world.isRemote) {
-            mostRecentGestureClient = new GesturePointMap();
-
-            offsetInitialClient = new float[]{player.getRotationYawHead(), player.rotationPitch};
+            gestureManager = new GestureTrackMap();
+            lastOffset = new float[]{player.getRotationYawHead(), player.rotationPitch};
         }
 
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
@@ -163,9 +157,32 @@ public class ItemSceptre extends ItemQuantum {
 
     public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
         if (player.worldObj.isRemote) {
-            float yaw = offsetInitialClient[0] - player.getRotationYawHead();
-            float pitch = offsetInitialClient[1] - player.rotationPitch;
-            mostRecentGestureClient.addPoint(-yaw, -pitch);
+            float yaw = lastOffset[0] - player.getRotationYawHead();
+            float pitch = lastOffset[1] - player.rotationPitch;
+            int lastSize = gestureManager.size();
+
+            float tol = GestureDirection.tolerance();
+
+            GestureDirection direction = null;
+
+            if (pitch >= tol)                           //Pitch went up
+                direction = GestureDirection.UP;
+            else if (pitch <= -tol)                     //Pitch went down
+                direction = GestureDirection.DOWN;
+            else if (yaw <= -tol)                       //Moved right
+                direction = GestureDirection.RIGHT;
+            else if (yaw >= tol)                        //Moved left
+                direction = GestureDirection.LEFT;
+
+            if (direction != null) {
+                gestureManager.addStep(direction);
+                player.addChatComponentMessage(new ChatComponentText("Gesture Step " + direction));
+            }
+
+            if (gestureManager.size() != lastSize) {        //Only if the size has changed (a step was added) reset the offset
+                lastOffset[0] = player.getRotationYawHead();
+                lastOffset[1] = player.rotationPitch;
+            }
         }
     }
 

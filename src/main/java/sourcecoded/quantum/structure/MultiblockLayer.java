@@ -3,7 +3,6 @@ package sourcecoded.quantum.structure;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import sourcecoded.quantum.QuantumAnomalies;
 
 import java.util.HashMap;
 

@@ -1,12 +1,8 @@
 package sourcecoded.quantum.item.tools;
 
-import com.google.common.collect.Sets;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
@@ -17,15 +13,12 @@ import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
-import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
-import sourcecoded.quantum.api.arrangement.ItemMatrix;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
 import sourcecoded.quantum.registry.QAItems;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 

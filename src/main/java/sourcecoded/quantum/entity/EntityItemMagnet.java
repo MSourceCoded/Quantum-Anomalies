@@ -2,11 +2,9 @@ package sourcecoded.quantum.entity;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import sourcecoded.quantum.registry.QABlocks;
 
 public class EntityItemMagnet extends EntityItem {
 

@@ -13,14 +13,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.Point3D;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
+import sourcecoded.quantum.api.tileentity.IBindable;
 import sourcecoded.quantum.api.tileentity.IDyeable;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
@@ -38,7 +42,7 @@ import java.util.List;
 
 import static sourcecoded.quantum.api.block.Colourizer.LIGHT_BLUE;
 
-public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
+public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBindable {
 
     public RiftEnergyStorage riftStorage;
 
@@ -57,8 +61,12 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
     ArrayList<ItemStack> remainingInputs;
 
+    ArrayList<Point3D> boundPoints = new ArrayList<Point3D>();
+
     InstabilityHandler currentHandler;
     public boolean unstable;
+
+    public EnergyBehaviour behaviour = EnergyBehaviour.EQUALIZE;
 
     public MultiblockLayer[] vacuumLayers = new MultiblockLayer[]{
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
@@ -70,9 +78,19 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             new MultiblockLayer("ciiiiic", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "iiiiiii", "ciiiiic", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock(), 'i', QABlocks.INJECTED_STONE.getBlock()),
     };
 
-
     public TileRiftNode() {
         riftStorage = new RiftEnergyStorage(1000000);
+    }
+
+    public void cycleBehaviour(EntityPlayer player) {
+        if (worldObj.isRemote) return;
+        int start = behaviour.ordinal();
+        start++;
+        if (start >= EnergyBehaviour.values().length)
+            start = 0;
+        behaviour = EnergyBehaviour.values()[start];
+
+        player.addChatComponentMessage(new ChatComponentText(String.format(LocalizationUtils.translateLocalWithColours("qa.sceptre.focus.diagnostic.energyBehaviour", "Behaviour: %s"), behaviour.toString())));
     }
 
     @Override
@@ -108,6 +126,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             nbt.setTag("Catalysts", catalysts);
         }
         nbt.setBoolean("Unstable", unstable);
+
+        nbt.setInteger("BehaviourIndex", behaviour.ordinal());
     }
 
     @Override
@@ -136,6 +156,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             this.currentActiveRecipe = VacuumRegistry.getRecipeForCatalyst(catalystList);
         }
         unstable = nbt.getBoolean("Unstable");
+
+        if (nbt.hasKey("BehaviourIndex"))
+            behaviour = EnergyBehaviour.values()[nbt.getInteger("BehaviourIndex")];
     }
 
     @SuppressWarnings("unchecked")
@@ -182,6 +205,9 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
             if (worldInteractionTicker % 5 == 0)
                 checkLightning();
 
+            if (worldInteractionTicker % 5 == 0)
+                checkDaylight();
+
             if (worldInteractionTicker % 40 == 0)
                 checkFire();
 
@@ -222,6 +248,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                 }
             }
 
+            energyIf:
             if (energyUpdateTicker >= 30) {
                 energyUpdateTicker = 0;
 
@@ -235,6 +262,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
                     }
 
                     ITileRiftHandler handler = (ITileRiftHandler) tile;
+                    Point3D handlerPoint = new Point3D(tile.xCoord, tile.yCoord, tile.zCoord);
+                    if (handler instanceof TileRiftNode && getBehaviour() == EnergyBehaviour.DRAIN && !boundPoints.contains(handlerPoint)) break energyIf;
                     int remaining = handler.getMaxRiftEnergy() - handler.getRiftEnergy();
                     int toSend = Math.min(Math.min(remaining, 1000), getRiftEnergy());          //Max Packet Size
 
@@ -305,6 +334,16 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
                 currentActiveRecipe = null;
             }
+        }
+    }
+
+    public void checkDaylight() {
+        if (getColour() == Colourizer.YELLOW) {
+            if (worldObj.isDaytime())
+                giveRiftEnergy(1);
+        } else if (getColour() == Colourizer.BLACK) {
+            if (!worldObj.isDaytime())
+                giveRiftEnergy(1);
         }
     }
 
@@ -577,6 +616,25 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler {
 
     @Override
     public EnergyBehaviour getBehaviour() {
-        return EnergyBehaviour.EQUALIZE;
+        return behaviour;
+    }
+
+    @Override
+    public boolean tryBind(EntityPlayer player, int x, int y, int z, boolean silent) {
+        Point3D point = new Point3D(x, y, z);
+        //TODO make DRAIN nodes have to bind other nodes
+        if (!(worldObj.getTileEntity(x, y, z) instanceof TileRiftNode)) return false;
+
+        if (boundPoints.contains(point)) {
+            boundPoints.remove(point);
+            String bind = "qa.sceptre.focus.bind.bindingRemoved";
+            player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours(bind, bind)));
+        } else {
+            boundPoints.add(point);
+            String bind = "qa.sceptre.focus.bind.bindingComplete";
+            player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours(bind, bind)));
+        }
+
+        return false;
     }
 }

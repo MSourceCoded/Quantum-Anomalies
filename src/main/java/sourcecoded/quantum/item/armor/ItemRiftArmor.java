@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
-import sourcecoded.quantum.entity.EntityQuantumArrow;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.util.damage.DamageSourceQuantum;
 import sourcecoded.quantum.vacuum.recipes.VacuumArmorBoots;
@@ -43,7 +42,7 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
                 break;
             case LEGS:
                 VacuumRegistry.addRecipe(new VacuumArmorLegs());
-                name = "legs";
+                name = "skirt";
                 break;
             case BOOTS:
                 VacuumRegistry.addRecipe(new VacuumArmorBoots());
