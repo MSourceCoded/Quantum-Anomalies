@@ -80,9 +80,9 @@ public class FXPortalFragment extends EntityFX {
 
         float percentage = (float)particleAge / (float)particleMaxAge;
 
-        tess.draw();
-
-        glPushMatrix();
+//        tess.draw();
+//
+//        glPushMatrix();
 
         glDepthMask(false);
         glEnable(GL_BLEND);
@@ -110,10 +110,10 @@ public class FXPortalFragment extends EntityFX {
         glDisable(GL_BLEND);
         glDepthMask(true);
 
-        glPopMatrix();
+        //glPopMatrix();
         Minecraft.getMinecraft().renderEngine.bindTexture(FXHelper.getParticleTexture());
 
-        tess.startDrawingQuads();
+        //tess.startDrawingQuads();
     }
 
 }

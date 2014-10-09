@@ -77,9 +77,9 @@ public class FXRiftInjection extends EntityFX {
 
         float progress = (float) particleAge / particleMaxAge;
 
-        tess.draw();
-
-        glPushMatrix();
+//        tess.draw();
+//
+//        glPushMatrix();
 
         glDepthMask(false);
         glEnable(GL_BLEND);
@@ -101,10 +101,10 @@ public class FXRiftInjection extends EntityFX {
         glDisable(GL_BLEND);
         glDepthMask(true);
 
-        glPopMatrix();
+        //glPopMatrix();
         Minecraft.getMinecraft().renderEngine.bindTexture(FXHelper.getParticleTexture());
 
-        tess.startDrawingQuads();
+        //tess.startDrawingQuads();
     }
 
     public void draw(Tessellator tess, float[] pos, float scale, float[] rot) {

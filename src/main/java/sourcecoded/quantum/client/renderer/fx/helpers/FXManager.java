@@ -14,7 +14,7 @@ public class FXManager {
     public static FXRiftNode riftNodeFX1Larger(float sizeBase, World world, double x, double y, double z, Colourizer colour) {
         FXRiftNode.DataHolder data = new FXRiftNode.DataHolder(colour.rgb[0], colour.rgb[1], colour.rgb[2], 0.1F, sizeBase);
         FXRiftNode nodeFX = new FXRiftNode(world, x, y, z, data, false);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 
@@ -24,7 +24,7 @@ public class FXManager {
         FXRiftNode.DataHolder data = new FXRiftNode.DataHolder(0F, 0F, 0F, 0.07F, size);
         data.fadeLength = 0.4F;
         FXRiftNode nodeFX = new FXRiftNode(world, x, y, z, data, false);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 
@@ -36,7 +36,7 @@ public class FXManager {
             data.zRad *= -1;
         }
         FXRiftInjection nodeFX = new FXRiftInjection(world, x, y, z, data);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 
@@ -55,7 +55,7 @@ public class FXManager {
         data.zRadius = RandomUtils.nextFloat(-3F, 3F);
 
         FXPortalFragment fx = new FXPortalFragment(world, x + 0.5, y + 0.5, z + 0.5, data);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(fx);
         return fx;
     }
 
@@ -74,7 +74,7 @@ public class FXManager {
         data.zRadius = RandomUtils.nextFloat(-1F, 1F);
 
         FXPortalFragment fx = new FXPortalFragment(world, x + 0.5, y + 0.5, z + 0.5, data);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(fx);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(fx);
         return fx;
     }
 
@@ -83,7 +83,7 @@ public class FXManager {
 
         data.fadeLength = 0.15F;
         FXRiftNode nodeFX = new FXRiftNode(world, x + 0.5, y + 0.5, z + 0.5, data, true);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 
@@ -92,7 +92,7 @@ public class FXManager {
 
         data.fadeLength = 0.2F;
         FXRiftNode nodeFX = new FXRiftNode(world, x + 0.5, y + 0.5, z + 0.5, data, false);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 
@@ -107,7 +107,7 @@ public class FXManager {
 
         data.fadeLength = 0.05F;
         FXRiftNodeOrbit nodeFX = new FXRiftNodeOrbit(world, x + 0.5, y + 0.5, z + 0.5, data);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
+        ParticleDispatcher.INSTANCE.addParticleToRenderQueue(nodeFX);
         return nodeFX;
     }
 }

@@ -78,9 +78,9 @@ public class FXRiftNode extends EntityFX {
     public void renderParticle(Tessellator tess, float ptt, float rotX, float rotXZ, float rotZ, float rotYZ, float rotXY) {
         brightness = brightnessFade.updateFade(particleAge);
 
-        tess.draw();
+        //tess.draw();
 
-        glPushMatrix();
+        //glPushMatrix();
 
         glDepthMask(false);
         glEnable(GL_BLEND);
@@ -101,10 +101,10 @@ public class FXRiftNode extends EntityFX {
         glDisable(GL_BLEND);
         glDepthMask(true);
 
-        glPopMatrix();
+        //glPopMatrix();
         Minecraft.getMinecraft().renderEngine.bindTexture(FXHelper.getParticleTexture());
 
-        tess.startDrawingQuads();
+        //tess.startDrawingQuads();
 
     }
 

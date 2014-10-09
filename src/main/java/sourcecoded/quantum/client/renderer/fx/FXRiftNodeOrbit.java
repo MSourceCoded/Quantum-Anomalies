@@ -77,9 +77,9 @@ public class FXRiftNodeOrbit extends EntityFX {
 
         float progress = (float) particleAge / particleMaxAge;
 
-        tess.draw();
+        //tess.draw();
 
-        glPushMatrix();
+        //glPushMatrix();
 
         glDepthMask(false);
         glEnable(GL_BLEND);
@@ -101,10 +101,10 @@ public class FXRiftNodeOrbit extends EntityFX {
         glDisable(GL_BLEND);
         glDepthMask(true);
 
-        glPopMatrix();
+        //glPopMatrix();
         Minecraft.getMinecraft().renderEngine.bindTexture(FXHelper.getParticleTexture());
 
-        tess.startDrawingQuads();
+        //tess.startDrawingQuads();
     }
 
     public void draw(Tessellator tess, float[] pos, float scale, float[] rot) {
