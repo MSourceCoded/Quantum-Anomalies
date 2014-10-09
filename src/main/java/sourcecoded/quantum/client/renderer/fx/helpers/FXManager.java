@@ -12,9 +12,6 @@ import sourcecoded.quantum.client.renderer.fx.FXRiftNodeOrbit;
 public class FXManager {
 
     public static FXRiftNode riftNodeFX1Larger(float sizeBase, World world, double x, double y, double z, Colourizer colour) {
-//        float r = RandomUtils.nextFloat(0.8F, 0.95F);
-//        float b = RandomUtils.nextFloat(0.85F, 1F);
-
         FXRiftNode.DataHolder data = new FXRiftNode.DataHolder(colour.rgb[0], colour.rgb[1], colour.rgb[2], 0.1F, sizeBase);
         FXRiftNode nodeFX = new FXRiftNode(world, x, y, z, data, false);
         FMLClientHandler.instance().getClient().effectRenderer.addEffect(nodeFX);
@@ -100,10 +97,6 @@ public class FXManager {
     }
 
     public static FXRiftNodeOrbit orbitingFX1(float size, World world, int x, int y, int z, Colourizer colour) {
-//        float r = RandomUtils.nextFloat(0.5F, 1F);
-//        float g = RandomUtils.nextFloat(0F, 0.1F);
-//        float b = RandomUtils.nextFloat(0.5F, 1F);
-
         float bright = RandomUtils.nextFloat(0.1F, 0.3F);
 
         FXRiftNodeOrbit.DataHolder data = new FXRiftNodeOrbit.DataHolder(colour.rgb[0], colour.rgb[1], colour.rgb[2], bright, size);
