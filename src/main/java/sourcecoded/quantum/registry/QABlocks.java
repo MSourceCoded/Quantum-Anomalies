@@ -20,7 +20,9 @@ public enum QABlocks {
     MANIPULATION_WATER("blockManipulationWater", new BlockManipulation(Material.water), TileManipulation.class),
     ARRANGEMENT("blockArrangementTable", new BlockArrangement(), TileArrangement.class),
     SYNC("blockSynchronize", new BlockSync(), TileSync.class),
-    PLAYER("blockPlayerEntanglement", new BlockPlayer(), TilePlayer.class)
+    PLAYER("blockPlayerEntanglement", new BlockPlayer(), TilePlayer.class),
+
+    LOCK("blockQuantumLock", new BlockQuantumLock()),
     ;
 
     public String identifier;

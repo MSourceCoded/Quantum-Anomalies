@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import sourcecoded.quantum.api.worldgen.IBiomeAnomaly;
-import sourcecoded.quantum.worldgen.decorator.BiomeEndAnomalyDecorator;
+import sourcecoded.quantum.worldgen.decorator.BiomeAnomalyDecorator;
 
 @SuppressWarnings("unchecked")
 public class BiomeEndAnomaly extends BiomeGenBase implements IBiomeAnomaly {
@@ -15,8 +15,8 @@ public class BiomeEndAnomaly extends BiomeGenBase implements IBiomeAnomaly {
         super(id);
         this.setBiomeName("End Anomaly");
 
-        this.rootHeight = 0.6F;
-        this.heightVariation = 1.5F;
+        this.rootHeight = -1F;
+        this.heightVariation = 3F;
 
         this.setColor(16711935);
         this.setDisableRain();
@@ -30,7 +30,7 @@ public class BiomeEndAnomaly extends BiomeGenBase implements IBiomeAnomaly {
         this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityEnderman.class, 10, 4, 4));
         this.topBlock = Blocks.end_stone;
         this.fillerBlock = Blocks.end_stone;
-        this.theBiomeDecorator = new BiomeEndAnomalyDecorator();
+        this.theBiomeDecorator = new BiomeAnomalyDecorator();
     }
 
     @SideOnly(Side.CLIENT)

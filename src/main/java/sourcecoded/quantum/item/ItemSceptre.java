@@ -28,6 +28,7 @@ public class ItemSceptre extends ItemQuantum {
 
     public ItemSceptre() {
         this.setUnlocalizedName("itemSceptre");
+        this.setMaxStackSize(1);
     }
 
     public String getItemStackDisplayName(ItemStack item) {

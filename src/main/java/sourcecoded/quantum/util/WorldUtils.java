@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileRiftNode;
@@ -51,7 +52,9 @@ public strictfp class WorldUtils {
     public static void generateRiftNode(World world, int x, int y, int z) {
         world.setBlock(x, y, z, QABlocks.RIFT_NODE.getBlock());
         TileRiftNode node = (TileRiftNode) world.getTileEntity(x, y, z);
-        node.riftStorage.giveRiftEnergy(RandomUtils.nextInt(6500, 10000));
+        node.riftStorage.giveRiftEnergy(RandomUtils.nextInt(650000, 1000000));
+        Colourizer color = Colourizer.values()[RandomUtils.nextInt(0, Colourizer.values().length)];
+        node.dye(color);
     }
 
     public static float getMultiplication(World world, int xOrigin, int yOrigin, int zOrigin, int xRadius, int yRadius, int zRadius, IRiftMultiplier.RiftMultiplierTypes type) {

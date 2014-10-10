@@ -25,6 +25,7 @@ minecraft {
     version = "1.7.10-10.13.0.1207"
 	
 	replace "@VERSION@", project.version
+	replace "NOT_BUILT", "BUILT"
 	replaceIn "Constants.java"
 }
 

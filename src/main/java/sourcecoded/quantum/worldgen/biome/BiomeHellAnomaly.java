@@ -8,7 +8,7 @@ import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import sourcecoded.quantum.api.worldgen.IBiomeAnomaly;
-import sourcecoded.quantum.worldgen.decorator.BiomeHellAnomalyDecorator;
+import sourcecoded.quantum.worldgen.decorator.BiomeAnomalyDecorator;
 
 @SuppressWarnings("unchecked")
 public class BiomeHellAnomaly extends BiomeGenBase implements IBiomeAnomaly {
@@ -17,8 +17,8 @@ public class BiomeHellAnomaly extends BiomeGenBase implements IBiomeAnomaly {
         super(id);
         this.setBiomeName("Hell Anomaly");
 
-        this.rootHeight = 1F;
-        this.heightVariation = 2F;
+        this.rootHeight = -1F;
+        this.heightVariation = 3.5F;
 
         this.setColor(16711680);
         this.setDisableRain();
@@ -32,7 +32,7 @@ public class BiomeHellAnomaly extends BiomeGenBase implements IBiomeAnomaly {
         this.spawnableMonsterList.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 1, 4, 4));
         this.topBlock = Blocks.netherrack;
         this.fillerBlock = Blocks.netherrack;
-        this.theBiomeDecorator = new BiomeHellAnomalyDecorator();
+        this.theBiomeDecorator = new BiomeAnomalyDecorator();
     }
 
     @SideOnly(Side.CLIENT)

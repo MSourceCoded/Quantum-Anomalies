@@ -7,15 +7,11 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
-import sourcecoded.quantum.client.renderer.entity.RenderEnderishCrystal;
 import sourcecoded.quantum.client.renderer.entity.RenderEnergyPacket;
-import sourcecoded.quantum.client.renderer.entity.RenderHellishCrystal;
 import sourcecoded.quantum.client.renderer.entity.RenderQuantumArrow;
 import sourcecoded.quantum.client.renderer.item.*;
 import sourcecoded.quantum.client.renderer.tile.*;
-import sourcecoded.quantum.entity.EntityEnderishCrystal;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
-import sourcecoded.quantum.entity.EntityHellishCrystal;
 import sourcecoded.quantum.entity.EntityQuantumArrow;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.*;
@@ -29,8 +25,6 @@ public class ClientProxy implements IProxy {
 
     void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityEnergyPacket.class, new RenderEnergyPacket());
-        RenderingRegistry.registerEntityRenderingHandler(EntityHellishCrystal.class, new RenderHellishCrystal());
-        RenderingRegistry.registerEntityRenderingHandler(EntityEnderishCrystal.class, new RenderEnderishCrystal());
         RenderingRegistry.registerEntityRenderingHandler(EntityQuantumArrow.class, new RenderQuantumArrow());
 
         RenderingRegistry.registerBlockHandler(new SimpleTileProxy());

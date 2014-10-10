@@ -41,7 +41,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
     }
 
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xo, float yo, float zo) {
-            boolean t = super.onBlockActivated(world, x, y, z, player, side, xo, yo, zo);
+        boolean t = super.onBlockActivated(world, x, y, z, player, side, xo, yo, zo);
 
         if (!t)
             tryCraft(world, x, y, z, true);

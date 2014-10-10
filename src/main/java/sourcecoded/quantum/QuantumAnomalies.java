@@ -32,10 +32,7 @@ import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
 import sourcecoded.quantum.registry.TileRegistry;
-import sourcecoded.quantum.sceptre.focus.FocusBind;
-import sourcecoded.quantum.sceptre.focus.FocusDematerialization;
-import sourcecoded.quantum.sceptre.focus.FocusDiagnostic;
-import sourcecoded.quantum.sceptre.focus.FocusHelium;
+import sourcecoded.quantum.sceptre.focus.*;
 import sourcecoded.quantum.worldgen.biome.BiomeEndAnomaly;
 import sourcecoded.quantum.worldgen.biome.BiomeHellAnomaly;
 
@@ -58,6 +55,9 @@ public class QuantumAnomalies {
 
     public static Item.ToolMaterial materialRift = EnumHelper.addToolMaterial("rift", 4, 1000, 30F, 15F, 30);
 
+    public static boolean isDevEnvironment() {
+        return Constants.BUILD_STATUS.equals("NOT_BUILT");
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
@@ -73,6 +73,7 @@ public class QuantumAnomalies {
         SceptreFocusRegistry.registerFocus(new FocusHelium());
         SceptreFocusRegistry.registerFocus(new FocusDiagnostic());
         SceptreFocusRegistry.registerFocus(new FocusBind());
+        SceptreFocusRegistry.registerFocus(new FocusDebug());
 
         NetworkHandler.initNetwork();
     }
@@ -94,8 +95,6 @@ public class QuantumAnomalies {
         TileRegistry.instance().registerAll();
 
         EntityRegistry.registerModEntity(EntityEnergyPacket.class, "riftPacket", entityID++, this, 80, 10, true);
-        EntityRegistry.registerModEntity(EntityHellishCrystal.class, "hellishCrystal", entityID++, this, 80, 3, true);
-        EntityRegistry.registerModEntity(EntityEnderishCrystal.class, "enderishCrystal", entityID++, this, 80, 3, true);
         EntityRegistry.registerModEntity(EntityItemJewel.class, "itemJewel", entityID++, this, 80, 3, true);
         EntityRegistry.registerModEntity(EntityItemMagnet.class, "itemMagnet", entityID++, this, 80, 3, true);
         EntityRegistry.registerModEntity(EntityQuantumArrow.class, "quantumArrow", entityID++, this, 80, 3, true);
