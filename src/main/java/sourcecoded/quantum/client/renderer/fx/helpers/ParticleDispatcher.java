@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
+import sourcecoded.quantum.client.renderer.block.QuantumLockRender;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +29,8 @@ public enum ParticleDispatcher {
 
     @SubscribeEvent
     public void onRenderTick(RenderWorldLastEvent event) {
+        QuantumLockRender.renderTick(event);
+
         float partialTicks = event.partialTicks;
         Tessellator tess = Tessellator.instance;
 

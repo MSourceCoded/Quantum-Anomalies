@@ -1,14 +1,13 @@
 package sourcecoded.quantum.util.save;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
-import org.apache.commons.lang3.tuple.Triple;
-import sourcecoded.quantum.registry.BlockRegistry;
+import sourcecoded.quantum.client.renderer.block.QuantumLockRender;
+import sourcecoded.quantum.network.MessageClientWorldData;
+import sourcecoded.quantum.network.NetworkHandler;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class QAWorldSavedData extends WorldSavedData {
         return data;
     }
 
-    NBTTagList lockList = new NBTTagList();
+    public NBTTagList lockList = new NBTTagList();
 
     public QAWorldSavedData(String id) {
         super(id);
@@ -32,6 +31,10 @@ public class QAWorldSavedData extends WorldSavedData {
     public void markForUpdate(World world) {
         world.perWorldStorage.setData(SAVEID, this);
         this.markDirty();
+        if (!world.isRemote)            //SERVER
+            NetworkHandler.wrapper.sendToAll(new MessageClientWorldData(this));
+        else
+            QuantumLockRender.refreshCache(this);
     }
 
     @Override
@@ -46,6 +49,8 @@ public class QAWorldSavedData extends WorldSavedData {
     }
 
     public void injectQuantumLock(World world, Block block, int meta, int x, int y, int z) {
+        destroyQuantumLock(x, y, z);
+
         String blockName = Block.blockRegistry.getNameForObject(block);
 
         NBTTagCompound compoundTag = new NBTTagCompound();

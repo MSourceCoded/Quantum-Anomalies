@@ -33,8 +33,8 @@ public class BlockQuantumLock extends BlockQuantum {
     public BlockQuantumLock() {
         this.setBlockName("blockQuantumLock");
         this.setBlockTextureName("infusedStone");
-        this.setBlockUnbreakable();
         this.setResistance(99999F);           //That should be enough
+        this.setBlockUnbreakable();
         this.setTickRandomly(true);
     }
 
@@ -62,6 +62,14 @@ public class BlockQuantumLock extends BlockQuantum {
         return null;
     }
 
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    public int getRenderType() {
+        return -1;
+    }
+
     public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z) {
         return false;
     }
@@ -78,6 +86,8 @@ public class BlockQuantumLock extends BlockQuantum {
 
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         world.removeTileEntity(x, y, z);
+        QAWorldSavedData.getInstance(world).destroyQuantumLock(x, y, z);
+        QAWorldSavedData.getInstance(world).markForUpdate(world);
     }
 
     public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
@@ -93,10 +103,6 @@ public class BlockQuantumLock extends BlockQuantum {
     public boolean getBlocksMovement(IBlockAccess iba, int x, int y, int z) {
         return getBlock(iba, x, y, z).getBlocksMovement(iba, x, y, z);
     }
-
-    //public int getMixedBrightnessForBlock(IBlockAccess iba, int x, int y, int z) {
-    //    return getBlock(iba, x, y, z).getMixedBrightnessForBlock(iba, x, y, z);
-    //}
 
     public boolean isBlockSolid(IBlockAccess iba, int x, int y, int z, int side) {
         return getBlock(iba, x, y, z).isBlockSolid(iba, x, y, z, side);
@@ -135,10 +141,6 @@ public class BlockQuantumLock extends BlockQuantum {
 
     public void onBlockAdded(World world, int x, int y, int z) {
         getBlock(world, x, y, z).onBlockAdded(world, x, y, z);
-    }
-
-    public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
-        return getBlock(world, x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z);
     }
 
     public void dropBlockAsItemWithChance(World world, int x, int y, int z, int p1, float p2, int p3) {

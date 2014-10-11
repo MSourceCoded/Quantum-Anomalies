@@ -45,10 +45,10 @@ public class AdvancedTileProxy implements ISimpleBlockRenderingHandler{
 
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderBlocks) {
+
         if (block instanceof ITileEntityProvider) {
             te = world.getTileEntity(x, y, z);
         } else return false;
-
         Tessellator.instance.draw();
         TESRStaticHandler renderer = (TESRStaticHandler) TileEntityRendererDispatcher.instance.mapSpecialRenderers.get(te.getClass());
         renderer.renderTile(te, x, y, z, 0, true, renderBlocks);

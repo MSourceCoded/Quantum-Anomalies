@@ -3,6 +3,12 @@ package sourcecoded.quantum.network;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTSizeTracker;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.io.IOException;
 
 public class NetworkHandler {
 
@@ -20,6 +26,30 @@ public class NetworkHandler {
         wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 10, Side.CLIENT);
         wrapper.registerMessage(MessageBlockBreakFX.class, MessageBlockBreakFX.class, 11, Side.CLIENT);
         wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 12, Side.CLIENT);
+        wrapper.registerMessage(MessageClientWorldData.class, MessageClientWorldData.class, 13, Side.CLIENT);
+    }
+
+    public static void writeNBT(ByteBuf target, NBTTagCompound tag) throws IOException {
+        if (tag == null)
+            target.writeShort(-1);
+        else{
+            byte[] abyte = CompressedStreamTools.compress(tag);
+            target.writeShort((short)abyte.length);
+            target.writeBytes(abyte);
+        }
+    }
+
+    public static NBTTagCompound readNBT(ByteBuf dat) throws IOException {
+        short short1 = dat.readShort();
+
+        if (short1 < 0)
+            return null;
+        else {
+            byte[] abyte = new byte[short1];
+            dat.readBytes(abyte);
+            //return CompressedStreamTools.decompress(abyte);
+            return CompressedStreamTools.func_152457_a(abyte, NBTSizeTracker.field_152451_a);
+        }
     }
 
 }

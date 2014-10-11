@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -23,14 +24,12 @@ import sourcecoded.quantum.client.renderer.fx.helpers.ParticleDispatcher;
 import sourcecoded.quantum.entity.*;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.handler.KeyBindHandler;
-import sourcecoded.quantum.listeners.ArrangementTableListener;
-import sourcecoded.quantum.listeners.BiomeListener;
-import sourcecoded.quantum.listeners.ItemTossListener;
-import sourcecoded.quantum.listeners.SecretListener;
+import sourcecoded.quantum.listeners.*;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
+import sourcecoded.quantum.registry.QAEnchant;
 import sourcecoded.quantum.registry.TileRegistry;
 import sourcecoded.quantum.sceptre.focus.*;
 import sourcecoded.quantum.worldgen.biome.BiomeEndAnomaly;
@@ -93,6 +92,7 @@ public class QuantumAnomalies {
         BlockRegistry.instance().registerAll();
         ItemRegistry.instance().registerAll();
         TileRegistry.instance().registerAll();
+        QAEnchant.register();
 
         EntityRegistry.registerModEntity(EntityEnergyPacket.class, "riftPacket", entityID++, this, 80, 10, true);
         EntityRegistry.registerModEntity(EntityItemJewel.class, "itemJewel", entityID++, this, 80, 3, true);
@@ -112,8 +112,10 @@ public class QuantumAnomalies {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ArrangementTableListener());
+        MinecraftForge.EVENT_BUS.register(new EnchantmentListener());
 
         FMLCommonHandler.instance().bus().register(new SecretListener());
+        FMLCommonHandler.instance().bus().register(new ServerListener());
         MinecraftForge.EVENT_BUS.register(new ItemTossListener());
 
         FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");

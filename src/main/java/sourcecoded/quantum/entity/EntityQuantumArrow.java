@@ -20,7 +20,10 @@ import sourcecoded.quantum.util.damage.DamageSourceQArrow;
 import java.util.List;
 
 /**
- * Mostly a copy of EntityArrow modified to my own needs
+ * Mostly a copy of EntityArrow modified to my own needs. Bypasses armour and
+ * can't be deflected by classes that affect IProjectiles.
+ *
+ * Checkmate.
  */
 public class EntityQuantumArrow extends Entity {
 
@@ -432,9 +435,9 @@ public class EntityQuantumArrow extends Entity {
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
 
         if (p_70243_1_)
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 | 1)));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 1));
         else
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & -2)));
+            this.dataWatcher.updateObject(16, (byte) (b0 & -2));
     }
 
     /**

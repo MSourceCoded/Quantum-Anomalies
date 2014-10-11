@@ -114,6 +114,13 @@ achievement.qa|secret.desc=Turn to page 394
 achievement.qa|learning=Learning to Quantum
 achievement.qa|learning.desc=What the...
 
+
+#####################################
+# Enchantments
+#####################################
+
+qa.enchantment.deception=Deception
+
 #####################################
 # Sceptre
 #####################################

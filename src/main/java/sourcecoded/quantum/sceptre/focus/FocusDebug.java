@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +15,7 @@ import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
+import sourcecoded.quantum.block.BlockQuantumLock;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.util.save.QAWorldSavedData;
 
@@ -68,7 +70,11 @@ public class FocusDebug implements ISceptreFocus {
     public boolean onBlockClick(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (!player.isSneaking()) {
             TileEntity tile = world.getTileEntity(x, y, z);
+            if (tile != null) tile.invalidate();
             Block block = world.getBlock(x, y, z);
+
+            if (block instanceof BlockQuantumLock) return false;
+
             int meta = world.getBlockMetadata(x, y, z);
             QAWorldSavedData.getInstance(world).injectQuantumLock(world, block, meta, x, y, z);
             world.setBlock(x, y, z, QABlocks.LOCK.getBlock(), meta, 3);
@@ -79,7 +85,10 @@ public class FocusDebug implements ISceptreFocus {
             }
         } else {
             TileEntity tile = world.getTileEntity(x, y, z);
+            if (tile != null) tile.invalidate();
             Block block = world.getBlock(x, y, z);
+
+            if (block != QABlocks.LOCK.getBlock()) return false;
 
             Map.Entry<Block, Integer> entry = QAWorldSavedData.getInstance(world).retrieveQuantumLock(x, y, z);
             if (entry != null) {
@@ -93,7 +102,6 @@ public class FocusDebug implements ISceptreFocus {
                 QAWorldSavedData.getInstance(world).destroyQuantumLock(x, y, z);
             }
         }
-
         return !world.isRemote;
     }
 

@@ -69,7 +69,9 @@ public class ConfigHandler {
     public static enum Categories {
         INTEGRATION("integration", "For integration with other mods and APIs"),
         WORLD_GEN("world_gen", "Changes how the WorldGen in the mod works. Mostly requires a new world to take effect"),
-        RENDERING("rendering", "Changes how things look. Change these settings for performance/quality settings");
+        RENDERING("rendering", "Changes how things look. Change these settings for performance/quality settings"),
+        ID("identification", "Change these values to resolve ID conflicts with other mods"),
+        ;
 
         private String categoryName, comment;
 
@@ -104,7 +106,11 @@ public class ConfigHandler {
 
         /* Rendering */
         PARTICLE_RANGE_HIGH(Categories.RENDERING, "particle_range_high", "The range (in blocks) particles with a HIGH priority should be rendered.", 64.0D),
-        PARTICLE_RANGE_LOW(Categories.RENDERING, "particle_range_low", "The range (in blocks) particles with a LOW priority should be rendered.", 40.0D);
+        PARTICLE_RANGE_LOW(Categories.RENDERING, "particle_range_low", "The range (in blocks) particles with a LOW priority should be rendered.", 40.0D),
+
+        /* ID */
+        ENCHANT_ID_DECEPTION(Categories.ID, "enchantment_id_deception", "The ID (0-256) for the Deception Enchantment. Change this if another mod conflicts with this", 170),
+        ;
 
         String category, propertyName, comment;
         Object defaultValue;
