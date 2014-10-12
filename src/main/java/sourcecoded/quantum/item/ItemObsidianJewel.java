@@ -46,7 +46,7 @@ public class ItemObsidianJewel extends ItemQuantum implements ICraftableItem, II
         return new IRecipe[0];
     }
 
-    public boolean hasEffect(ItemStack stack) {
+    public boolean hasEffect(ItemStack stack, int meta) {
         return getDamage(stack) == 1;
     }
 

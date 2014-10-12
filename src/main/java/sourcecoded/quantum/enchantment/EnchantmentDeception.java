@@ -6,7 +6,7 @@ import sourcecoded.quantum.handler.ConfigHandler;
 public class EnchantmentDeception extends EnchantmentQuantum {
 
     public EnchantmentDeception() {
-        super(ConfigHandler.Properties.ENCHANT_ID_DECEPTION, "deception", 3, EnumEnchantmentType.armor);
+        super(ConfigHandler.Properties.ENCHANT_ID_DECEPTION, "deception", 2, EnumEnchantmentType.armor);
     }
 
     public int getMaxLevel() {
@@ -14,7 +14,7 @@ public class EnchantmentDeception extends EnchantmentQuantum {
     }
 
     public float baseChance() {
-        return 0.05F;
+        return 0.045F;
     }
 
     public float chanceForLevel(int level) {

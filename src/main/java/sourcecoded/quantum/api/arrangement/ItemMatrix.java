@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.arrangement;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * The ItemMatrix object is used to
@@ -87,7 +88,8 @@ public class ItemMatrix {
 
                 if (compare == null && itemstack == null) continue;
                 if (compare == null || itemstack == null) return false;
-                if (!compare.isItemEqual(itemstack)) return false;
+                //if (!compare.isItemEqual(itemstack)) return false;
+                if (!OreDictionary.itemMatches(itemstack, compare, false)) return false;
             }
 
         return true;

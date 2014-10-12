@@ -15,8 +15,8 @@ import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.tile.TileSync;
-import sourcecoded.quantum.vacuum.recipes.VacuumSyncCharged;
-import sourcecoded.quantum.vacuum.recipes.VacuumSyncStandard;
+import sourcecoded.quantum.crafting.vacuum.VacuumSyncCharged;
+import sourcecoded.quantum.crafting.vacuum.VacuumSyncStandard;
 
 import java.util.List;
 

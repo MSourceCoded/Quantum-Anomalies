@@ -21,6 +21,7 @@ import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
 import sourcecoded.quantum.client.renderer.fx.helpers.ParticleDispatcher;
+import sourcecoded.quantum.crafting.arrangement.ArrangementRecipes;
 import sourcecoded.quantum.entity.*;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.handler.KeyBindHandler;
@@ -93,6 +94,8 @@ public class QuantumAnomalies {
         ItemRegistry.instance().registerAll();
         TileRegistry.instance().registerAll();
         QAEnchant.register();
+
+        ArrangementRecipes.init();
 
         EntityRegistry.registerModEntity(EntityEnergyPacket.class, "riftPacket", entityID++, this, 80, 10, true);
         EntityRegistry.registerModEntity(EntityItemJewel.class, "itemJewel", entityID++, this, 80, 3, true);

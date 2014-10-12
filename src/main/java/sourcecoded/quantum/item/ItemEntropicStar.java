@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
-import sourcecoded.quantum.vacuum.recipes.VacuumEntropicStar;
+import sourcecoded.quantum.crafting.vacuum.VacuumEntropicStar;
 
 public class ItemEntropicStar extends ItemQuantum implements ICraftableItem {
 

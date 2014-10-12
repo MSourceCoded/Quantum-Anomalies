@@ -1,6 +1,7 @@
 package sourcecoded.quantum.tile;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.block.BlockFire;
@@ -18,10 +19,12 @@ import net.minecraft.util.Vec3;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.Point3D;
+import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
+import sourcecoded.quantum.api.event.crafting.VacuumCraftingEvent;
 import sourcecoded.quantum.api.tileentity.IBindable;
 import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
@@ -397,8 +400,19 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBind
             return;
         }
 
+
         List<IInventory> imports = getVacuumImports();
         List<IInventory> exports = getVacuumExports();
+
+        VacuumCraftingEvent.CraftingCycle event = new VacuumCraftingEvent.CraftingCycle(this.currentActiveRecipe, worldObj, imports, exports, getVacuumCatalysts(), this);
+        if (!QuantumAPI.eventBus.post(event)) {
+            setCrafting(false);
+
+            if (event.getResult() == Event.Result.ALLOW)
+                instability();
+
+            return;
+        }
 
         if (remainingInputs.size() > 0) {
             ItemStack nextItem = remainingInputs.get(0);
@@ -482,6 +496,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBind
 
         for (int i = 0; i < 10; i++)
             NetworkHandler.wrapper.sendToAllAround(new MessageVanillaParticle("happyVillager", xCoord + RandomUtils.nextDouble(0F, 1F), yCoord + RandomUtils.nextDouble(0F, 1F), zCoord + RandomUtils.nextDouble(0F, 1F), 0F, 0F, 0F, 1), new NetworkRegistry.TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, 32));
+
+        QuantumAPI.eventBus.post(new VacuumCraftingEvent.Complete(currentActiveRecipe, worldObj, getVacuumImports(), getVacuumExports(), getVacuumCatalysts(), this));
     }
 
     @SuppressWarnings("unchecked")

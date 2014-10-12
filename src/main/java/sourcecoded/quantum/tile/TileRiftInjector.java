@@ -6,10 +6,12 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
+import sourcecoded.quantum.api.event.crafting.InjectionCraftingEvent;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
@@ -149,6 +151,8 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             itemstack.stackSize *= currentItem.stackSize;
 
             currentItem = itemstack;
+
+            QuantumAPI.eventBus.post(new InjectionCraftingEvent.Complete(recipe, this.worldObj, currentItem, this));
         }
     }
 
@@ -166,6 +170,9 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             ItemStack itemstack = recipe.getOutput();
             if (itemstack == null) return false;
             int result = currentItem.stackSize * itemstack.stackSize;
+
+            if (!QuantumAPI.eventBus.post(new InjectionCraftingEvent.Validating(recipe, worldObj, currentItem, this))) return false;
+
             return result <= getInventoryStackLimit() && result <= this.currentItem.getMaxStackSize();
         }
     }

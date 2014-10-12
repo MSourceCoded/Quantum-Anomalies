@@ -14,10 +14,10 @@ import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.util.damage.DamageSourceQuantum;
-import sourcecoded.quantum.vacuum.recipes.VacuumArmorBoots;
-import sourcecoded.quantum.vacuum.recipes.VacuumArmorChest;
-import sourcecoded.quantum.vacuum.recipes.VacuumArmorHead;
-import sourcecoded.quantum.vacuum.recipes.VacuumArmorLegs;
+import sourcecoded.quantum.crafting.vacuum.VacuumArmorBoots;
+import sourcecoded.quantum.crafting.vacuum.VacuumArmorChest;
+import sourcecoded.quantum.crafting.vacuum.VacuumArmorHead;
+import sourcecoded.quantum.crafting.vacuum.VacuumArmorLegs;
 
 import java.util.List;
 

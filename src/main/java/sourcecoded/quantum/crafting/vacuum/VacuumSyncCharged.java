@@ -1,4 +1,4 @@
-package sourcecoded.quantum.vacuum.recipes;
+package sourcecoded.quantum.crafting.vacuum;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,24 +11,25 @@ import sourcecoded.quantum.registry.QAItems;
 import java.util.Arrays;
 import java.util.List;
 
-public class VacuumSyncStandard implements IVacuumRecipe {
+public class VacuumSyncCharged implements IVacuumRecipe {
 
     ItemStack[] ingredients;
     ItemStack[] catalysts;
     ItemStack[] outputs;
 
-    public VacuumSyncStandard() {
+    public VacuumSyncCharged() {
     }
 
     @Override
     public List<ItemStack> getIngredients() {
         ingredients = new ItemStack[] {
-                new ItemStack(Items.ender_eye, 4),
-                new ItemStack(Items.ender_pearl, 2),
-                new ItemStack(Blocks.redstone_block),
-                new ItemStack(Items.gold_ingot, 2),
-                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock(), 1),
-                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1)
+                new ItemStack(QABlocks.SYNC.getBlock(), 2, 0),
+                new ItemStack(QAItems.ENTROPIC_STAR.getItem()),
+                new ItemStack(Items.ender_pearl, 8),
+                new ItemStack(Items.ender_eye, 8),
+                new ItemStack(Blocks.hopper, 4),
+                new ItemStack(Blocks.ender_chest, 2),
+                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 4, 1)
         };
 
         return Arrays.asList(ingredients);
@@ -39,9 +40,8 @@ public class VacuumSyncStandard implements IVacuumRecipe {
         catalysts = new ItemStack[] {
                 new ItemStack(Items.ender_pearl),
                 new ItemStack(Items.ender_eye),
-                new ItemStack(Items.nether_star),
-                new ItemStack(Items.ender_eye),
-                new ItemStack(Items.ender_pearl),
+                new ItemStack(Blocks.chest),
+                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem())
         };
 
         return Arrays.asList(catalysts);
@@ -50,7 +50,7 @@ public class VacuumSyncStandard implements IVacuumRecipe {
     @Override
     public List<ItemStack> getOutputs() {
         outputs = new ItemStack[] {
-                new ItemStack(QABlocks.SYNC.getBlock(), 4)
+                new ItemStack(QABlocks.SYNC.getBlock(), 2, 1)
         };
 
         return Arrays.asList(outputs);
@@ -58,16 +58,16 @@ public class VacuumSyncStandard implements IVacuumRecipe {
 
     @Override
     public int getVacuumEnergyStart() {
-        return 100000;
+        return 200000;
     }
 
     @Override
     public int getVacuumEnergyPerItem() {
-        return 3000;
+        return 6000;
     }
 
     @Override
     public Instability getInstabilityLevel() {
-        return Instability.EXTREME;
+        return Instability.APOCALYPTIC;
     }
 }

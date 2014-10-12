@@ -3,7 +3,9 @@ package sourcecoded.quantum.api.discovery;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 
 public class DiscoveryPage {
 
@@ -27,9 +29,19 @@ public class DiscoveryPage {
         CRAFTING,
 
         /**
+         * Arrangement table crafting
+         */
+        ARRANGEMENT,
+
+        /**
          * Injection crafting
          */
-        INJECTION
+        INJECTION,
+
+        /**
+         * Vacuum catalyst crafting
+         */
+        VACUUM
     }
 
     /**
@@ -65,7 +77,9 @@ public class DiscoveryPage {
      * The recipe for the page.
      *
      * IRecipe for PageContext.CRAFTING
+     * IArrangementRecipe for PageContext.ARRANGEMENT
      * IInjectionRecipe for PageContext.INJECTION
+     * IVacuumRecipe for PageContext.VACUUM
      */
     public Object recipe = null;
 
@@ -104,6 +118,17 @@ public class DiscoveryPage {
     }
 
     /**
+     * Create a new Arrangement discovery page
+     * @see sourcecoded.quantum.api.discovery.DiscoveryPage.PageContext
+     */
+    public DiscoveryPage(String title, IArrangementRecipe arrangement) {
+        this.title = title;
+        this.recipe = arrangement;
+
+        this.type = PageContext.ARRANGEMENT;
+    }
+
+    /**
      * Create a new Injector discovery page
      * @see sourcecoded.quantum.api.discovery.DiscoveryPage.PageContext
      */
@@ -112,6 +137,17 @@ public class DiscoveryPage {
         this.recipe = injection;
 
         this.type = PageContext.INJECTION;
+    }
+
+    /**
+     * Create a new Vacuum discovery page
+     * @see sourcecoded.quantum.api.discovery.DiscoveryPage.PageContext
+     */
+    public DiscoveryPage(String title, IVacuumRecipe vacuum) {
+        this.title = title;
+        this.recipe = vacuum;
+
+        this.type = PageContext.VACUUM;
     }
 
     /**

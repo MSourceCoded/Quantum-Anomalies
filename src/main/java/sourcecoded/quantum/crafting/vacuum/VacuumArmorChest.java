@@ -1,4 +1,4 @@
-package sourcecoded.quantum.vacuum.recipes;
+package sourcecoded.quantum.crafting.vacuum;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -10,15 +10,16 @@ import sourcecoded.quantum.registry.QAItems;
 import java.util.Arrays;
 import java.util.List;
 
-public class VacuumArmorHead implements IVacuumRecipe {
+public class VacuumArmorChest implements IVacuumRecipe {
 
     @Override
     public List<ItemStack> getIngredients() {
         ItemStack[] list = new ItemStack[] {
-                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 5),
-                new ItemStack(Items.diamond_helmet),
+                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 8),
+                new ItemStack(Items.diamond_chestplate),
                 new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 4, 1),
-                new ItemStack(Items.water_bucket, 2),
+                new ItemStack(Items.arrow, 32),
+                new ItemStack(Items.snowball, 16),
                 new ItemStack(Items.ender_pearl, 4),
                 new ItemStack(Items.ender_eye, 2)
         };
@@ -30,7 +31,7 @@ public class VacuumArmorHead implements IVacuumRecipe {
     public List<ItemStack> getCatalysts() {
         ItemStack[] list = new ItemStack[] {
             new ItemStack(QABlocks.INJECTED_STONE.getBlock()),
-            new ItemStack(Items.diamond_helmet)
+            new ItemStack(Items.diamond_chestplate)
         };
 
         return Arrays.asList(list);
@@ -39,7 +40,7 @@ public class VacuumArmorHead implements IVacuumRecipe {
     @Override
     public List<ItemStack> getOutputs() {
         ItemStack[] list = new ItemStack[] {
-            new ItemStack(QAItems.RIFT_HELM.getItem())
+            new ItemStack(QAItems.RIFT_CHEST.getItem())
         };
 
         return Arrays.asList(list);

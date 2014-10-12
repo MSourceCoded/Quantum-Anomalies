@@ -21,7 +21,7 @@ import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.tile.TileManipulation;
-import sourcecoded.quantum.vacuum.recipes.VacuumManipulation;
+import sourcecoded.quantum.crafting.vacuum.VacuumManipulation;
 
 import java.util.Random;
 

@@ -22,12 +22,10 @@ import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.entity.EntityItemMagnet;
 import sourcecoded.quantum.entity.properties.PropertiesItem;
-import sourcecoded.quantum.listeners.ItemTossListener;
-import sourcecoded.quantum.vacuum.recipes.VacuumMagnet;
+import sourcecoded.quantum.crafting.vacuum.VacuumMagnet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableItem {
 

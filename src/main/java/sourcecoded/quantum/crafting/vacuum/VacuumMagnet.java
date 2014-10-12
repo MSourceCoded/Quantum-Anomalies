@@ -1,4 +1,4 @@
-package sourcecoded.quantum.vacuum.recipes;
+package sourcecoded.quantum.crafting.vacuum;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

@@ -1,5 +1,7 @@
 package sourcecoded.quantum.api;
 
+import cpw.mods.fml.common.eventhandler.EventBus;
+
 /**
  * This is the main class for the Quantum Anomalies mod
  * API. If you're doing any kind of integration, the methods
@@ -14,6 +16,12 @@ public class QuantumAPI {
      * the isQAPresent() method.
      */
     public static boolean isQAPresent = false;
+
+    /**
+     * The EventBus for the Quantum API. Events are in the
+     * {@link sourcecoded.quantum.api.event} package
+     */
+    public static EventBus eventBus = new EventBus();
 
     /**
      * Returns 'true' is the Quantum Anomalies mod

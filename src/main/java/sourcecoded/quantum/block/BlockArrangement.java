@@ -14,9 +14,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.Point3D;
+import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.arrangement.ItemMatrix;
+import sourcecoded.quantum.api.event.crafting.ArrangementCraftingEvent;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.network.MessageBlockBreakFX;
 import sourcecoded.quantum.network.MessageVanillaParticle;
@@ -27,10 +29,10 @@ import sourcecoded.quantum.tile.TileArrangement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockArrangement extends BlockDyeable implements ITileEntityProvider{
+public class BlockArrangement extends BlockDyeable implements ITileEntityProvider {
 
     public static MultiblockLayer multiblock = new MultiblockLayer(
-        "oao", "aca", "oao", 'o', Blocks.obsidian, 'c', Blocks.crafting_table, 'a', Blocks.air
+            "oao", "aca", "oao", 'o', Blocks.obsidian, 'c', Blocks.crafting_table, 'a', Blocks.air
     );
 
     public BlockArrangement() {
@@ -44,7 +46,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
         boolean t = super.onBlockActivated(world, x, y, z, player, side, xo, yo, zo);
 
         if (!t)
-            tryCraft(world, x, y, z, true);
+            tryCraft(world, x, y, z, true, player);
         return true;
     }
 
@@ -56,15 +58,14 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
         if (powered && !flag1) {
             world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world));
             world.setBlockMetadataWithNotify(x, y, z, l | 8, 4);
-            tryCraft(world, x, y, z, true);
-        }
-        else if (!powered && flag1) {
+            tryCraft(world, x, y, z, true, null);
+        } else if (!powered && flag1) {
             world.setBlockMetadataWithNotify(x, y, z, l & -9, 4);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public IArrangementRecipe tryCraft(World world, int xO, int yO, int zO, boolean destroy) {
+    public IArrangementRecipe tryCraft(World world, int xO, int yO, int zO, boolean destroy, EntityPlayer player) {
         ItemMatrix matrix = new ItemMatrix(3, 3);
         ArrayList<Point3D> destroyPoints = new ArrayList<Point3D>();
 
@@ -92,7 +93,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
         IArrangementRecipe recipe = ArrangementRegistry.getRecipe(matrix);
 
         if (destroy && !world.isRemote) {
-            if (recipe != null) {
+            if (recipe != null && !QuantumAPI.eventBus.post(new ArrangementCraftingEvent.Initiated(recipe, player, world, world.getTileEntity(xO, yO, zO)))) {
                 for (int x = -1; x <= 1; x++)
                     for (int z = -1; z <= 1; z++) {
                         int nx = xO + x;
@@ -103,14 +104,14 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
                         for (Point3D point : destroyPoints) {
                             if (point.getX() == nx && point.getY() == y && point.getZ() == nz) {
-                                    NetworkHandler.wrapper.sendToDimension(new MessageBlockBreakFX(nx, y, nz), world.provider.dimensionId);
+                                NetworkHandler.wrapper.sendToDimension(new MessageBlockBreakFX(nx, y, nz), world.provider.dimensionId);
                                 world.setBlockToAir(nx, y, nz);
                             }
                         }
 
                         List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(nx, y, nz, nx + 1, y + 1, nz + 1));
                         if (items.size() == 1)
-                            items.get(0).getEntityItem().stackSize-=1;
+                            items.get(0).getEntityItem().stackSize -= 1;
                     }
 
                 ItemStack result = recipe.getOutput();
@@ -126,13 +127,15 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
                 entity.motionX = 0;
                 entity.motionZ = 0;
 
-                    world.spawnEntityInWorld(entity);
-                    for (int i1 = 0; i1 < 9; ++i1) {
-                        double d0 = RandomUtils.rnd.nextGaussian() * 0.02D;
-                        double d1 = RandomUtils.rnd.nextGaussian() * 0.02D;
-                        double d2 = RandomUtils.rnd.nextGaussian() * 0.02D;
-                        NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("happyVillager", xO + RandomUtils.rnd.nextFloat(), yO + 1 + RandomUtils.nextFloat(0F, 0.3F), zO + RandomUtils.rnd.nextFloat(), d0, d1, d2, 1), world.provider.dimensionId);
+                world.spawnEntityInWorld(entity);
+                for (int i1 = 0; i1 < 9; ++i1) {
+                    double d0 = RandomUtils.rnd.nextGaussian() * 0.02D;
+                    double d1 = RandomUtils.rnd.nextGaussian() * 0.02D;
+                    double d2 = RandomUtils.rnd.nextGaussian() * 0.02D;
+                    NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("happyVillager", xO + RandomUtils.rnd.nextFloat(), yO + 1 + RandomUtils.nextFloat(0F, 0.3F), zO + RandomUtils.rnd.nextFloat(), d0, d1, d2, 1), world.provider.dimensionId);
                 }
+
+                QuantumAPI.eventBus.post(new ArrangementCraftingEvent.Complete(recipe, player, world, world.getTileEntity(xO, yO, zO)));
             } else {
                 NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("mobSpell", xO + 0.5, yO + 1, zO + 0.5, 1D, 0D, 0D, 1), world.provider.dimensionId);
             }
@@ -140,7 +143,6 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
         return recipe;
     }
-
 
 
     public int getRenderType() {

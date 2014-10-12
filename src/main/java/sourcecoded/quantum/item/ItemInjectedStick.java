@@ -23,12 +23,13 @@ public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, I
         this.setHasSubtypes(true);
     }
 
+    @SuppressWarnings("unchecked")
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(this, 1, 0));
         list.add(new ItemStack(this, 1, 1));
     }
 
-    public boolean hasEffect(ItemStack stack) {
+    public boolean hasEffect(ItemStack stack, int meta) {
         return stack.getItemDamage() == 1;
     }
 

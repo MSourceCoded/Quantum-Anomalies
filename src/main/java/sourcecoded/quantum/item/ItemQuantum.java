@@ -36,17 +36,15 @@ public abstract class ItemQuantum extends Item {
     }
 
     public String getUnlocalizedName(ItemStack item) {
-        String base = "qa.items." + customName;
-        return base;
+        return "qa.items." + customName;
     }
 
     public String getItemStackDisplayName(ItemStack item) {
         String translateString = getUnlocalizedName(item) + ".name";
         if (hasSubtypes)
             translateString += "@" + item.getItemDamage();
-        String translate = LocalizationUtils.translateLocalWithColours(translateString, translateString);
 
-        return translate;
+        return LocalizationUtils.translateLocalWithColours(translateString, translateString);
     }
 
     public void tryLore(String unlocalizedBase, ItemStack stack) {
@@ -65,6 +63,7 @@ public abstract class ItemQuantum extends Item {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean idk) {
         tryLore(itemStack.getUnlocalizedName(), itemStack);
