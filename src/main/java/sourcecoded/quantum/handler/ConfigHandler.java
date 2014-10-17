@@ -109,7 +109,8 @@ public class ConfigHandler {
         PARTICLE_RANGE_LOW(Categories.RENDERING, "particle_range_low", "The range (in blocks) particles with a LOW priority should be rendered.", 40.0D),
 
         /* ID */
-        ENCHANT_ID_DECEPTION(Categories.ID, "enchantment_id_deception", "The ID (0-256) for the Deception Enchantment. Change this if another mod conflicts with this", 170),
+        ENCHANT_ID_DECEPTION(Categories.ID, "enchantment_id_deception", "The ID (0-256) for the Deception Enchantment. Change this if another mod conflicts with this", 130),
+        ENCHANT_ID_RANGE(Categories.ID, "enchantment_id_range", "The ID (0-256) for the Range Enchantment. Change this if another mod conflicts with this", 131),
         ;
 
         String category, propertyName, comment;

@@ -2,9 +2,12 @@ package sourcecoded.quantum.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.client.gui.GuiDiscoveryMain;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.client.renderer.entity.RenderEnergyPacket;

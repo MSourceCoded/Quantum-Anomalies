@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.multiplayer.ServerList;
@@ -18,6 +19,7 @@ import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.core.util.SourceLogger;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
+import sourcecoded.quantum.client.gui.GuiHandler;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
 import sourcecoded.quantum.client.renderer.fx.helpers.ParticleDispatcher;
@@ -25,8 +27,10 @@ import sourcecoded.quantum.crafting.arrangement.ArrangementRecipes;
 import sourcecoded.quantum.entity.*;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.handler.KeyBindHandler;
+import sourcecoded.quantum.journal.JournalHandler;
 import sourcecoded.quantum.listeners.*;
 import sourcecoded.quantum.network.NetworkHandler;
+import sourcecoded.quantum.proxy.ClientProxy;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
@@ -48,6 +52,9 @@ public class QuantumAnomalies {
     @SidedProxy(serverSide = Constants.PROXY_COMMON, clientSide = Constants.PROXY_CLIENT)
     public static IProxy proxy;
 
+    @Mod.Instance(Constants.MODID)
+    public static QuantumAnomalies instance;
+
     public static BiomeEndAnomaly endAnomaly;
     public static BiomeHellAnomaly hellAnomaly;
 
@@ -64,7 +71,7 @@ public class QuantumAnomalies {
         logger = new SourceLogger("Quantum Anomalies");
 
         QuantumAPI.isQAPresent = true;
-        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.1", Constants.MODID));
+        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.2", Constants.MODID));
 
         endAnomaly = new BiomeEndAnomaly(getInteger(END_ANOMALY_ID));
         hellAnomaly = new BiomeHellAnomaly(getInteger(HELL_ANOMALY_ID));
@@ -107,9 +114,13 @@ public class QuantumAnomalies {
         BiomeManager.addSpawnBiome(endAnomaly);
         BiomeManager.addSpawnBiome(hellAnomaly);
 
-        BiomeManager.desertBiomes.add(new BiomeManager.BiomeEntry(hellAnomaly, getInteger(HELL_ANOMALY_WEIGHT)));
-        BiomeManager.coolBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
-        BiomeManager.warmBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
+        //BiomeManager.desertBiomes.add(new BiomeManager.BiomeEntry(hellAnomaly, getInteger(HELL_ANOMALY_WEIGHT)));                 13.0.1207
+        //BiomeManager.coolBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
+        //BiomeManager.warmBiomes.add(new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
+
+        BiomeManager.addBiome(BiomeManager.BiomeType.DESERT, new BiomeManager.BiomeEntry(hellAnomaly, getInteger(HELL_ANOMALY_WEIGHT)));
+        BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(endAnomaly, getInteger(END_ANOMALY_WEIGHT)));
 
         proxy.register();
 
@@ -120,6 +131,7 @@ public class QuantumAnomalies {
         FMLCommonHandler.instance().bus().register(new SecretListener());
         FMLCommonHandler.instance().bus().register(new ServerListener());
         MinecraftForge.EVENT_BUS.register(new ItemTossListener());
+        MinecraftForge.EVENT_BUS.register(new EntityListener());
 
         FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");
     }
@@ -130,6 +142,10 @@ public class QuantumAnomalies {
 
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
             KeyBindHandler.initKeybinds();
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+        JournalHandler.init();
     }
 
     @Mod.EventHandler

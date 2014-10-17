@@ -1,5 +1,6 @@
 package sourcecoded.quantum.api.discovery;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -18,12 +19,15 @@ public class DiscoveryCategory {
 
     public ResourceLocation icon;
     public ResourceLocation background;
+    public ItemStack displayStack;
 
     private boolean isUnlocked = false;
     private boolean isHidden = false;
 
     /**
-     * Create a new Discovery Category
+     * Create a new Discovery Category.
+     *
+     * Names beginning with "QA|" are reserved
      */
     public DiscoveryCategory(String key) {
         this.key = key;
@@ -42,6 +46,14 @@ public class DiscoveryCategory {
      */
     public DiscoveryCategory setBackground(ResourceLocation location) {
         this.background = location;
+        return this;
+    }
+
+    /**
+     * Set the icon for the Category in an ItemStack form
+     */
+    public DiscoveryCategory setDisplayItemStack(ItemStack stack) {
+        this.displayStack = stack;
         return this;
     }
 

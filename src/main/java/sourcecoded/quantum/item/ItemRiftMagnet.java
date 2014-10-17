@@ -2,6 +2,7 @@ package sourcecoded.quantum.item;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -23,6 +24,7 @@ import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.entity.EntityItemMagnet;
 import sourcecoded.quantum.entity.properties.PropertiesItem;
 import sourcecoded.quantum.crafting.vacuum.VacuumMagnet;
+import sourcecoded.quantum.registry.QAEnchant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,14 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
 
     public Entity createEntity(World world, Entity location, ItemStack itemstack) {
         return new EntityItemMagnet(world, location, itemstack);
+    }
+
+    public int getItemEnchantability() {
+        return 22;
+    }
+
+    public boolean isItemTool(ItemStack par1ItemStack) {
+        return true;
     }
 
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
@@ -165,7 +175,17 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
     public void onUpdate(ItemStack stack, World world, Entity p, int slot, boolean held) {
         checkCompound(stack);
         if (this.getDamage(stack) == 1 && !world.isRemote) {
-            List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(p.posX - 8, p.posY - 4, p.posZ - 8, p.posX + 8, p.posY + 4, p.posZ + 8));
+            int rangeX = 8;
+            int rangeY = 4;
+
+            int ench = EnchantmentHelper.getEnchantmentLevel(QAEnchant.RANGE.get().effectId, stack);
+
+            if (ench > 0) {
+                rangeX += ench * 2;
+                rangeY += ench;
+            }
+
+            List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(p.posX - rangeX, p.posY - rangeY, p.posZ - rangeY, p.posX + rangeX, p.posY + rangeY, p.posZ + rangeX));
 
             itemLoop:
             for (EntityItem item : items) {
@@ -188,6 +208,23 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
                 item.setPosition(p.posX, p.posY, p.posZ);
             }
         }
+    }
+
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean idk) {
+        String formatted = "qa.items.itemRiftMagnet.lore.range";
+        String newForm = LocalizationUtils.translateLocalWithColours(formatted, formatted);
+
+        int rangeX = 8;
+        int rangeY = 4;
+
+        int ench = EnchantmentHelper.getEnchantmentLevel(QAEnchant.RANGE.get().effectId, itemStack);
+
+        if (ench > 0) {
+            rangeX += ench * 2;
+            rangeY += ench;
+        }
+
+        list.add(String.format(newForm, rangeX, rangeY));
     }
 
     @Override

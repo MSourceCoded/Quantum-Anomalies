@@ -63,19 +63,12 @@ public interface IDyeable {
         public static boolean attemptDye(EntityPlayer player, World world, int x, int y, int z) {
             ItemStack stack = player.getCurrentEquippedItem();
 
-            if (stack != null && stack.getItem() == Items.dye) {
+            if (stack != null) {
                 TileEntity tile = world.getTileEntity(x, y, z);
                 if (tile != null && tile instanceof IDyeable) {
-                    Colourizer color = Colourizer.match(stack.getItemDamage());
+                    Colourizer color = Colourizer.match(stack);
+                    if (color == null) return false;
                     ((IDyeable) tile).dye(color);
-                    return true;
-                }
-            }
-
-            if (stack != null && stack.getItem() == Items.nether_star) {
-                TileEntity tile = world.getTileEntity(x, y, z);
-                if (tile != null && tile instanceof IDyeable) {
-                    ((IDyeable) tile).dye(Colourizer.RAINBOW);
                     return true;
                 }
             }

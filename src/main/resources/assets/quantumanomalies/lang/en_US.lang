@@ -58,6 +58,7 @@ qa.items.itemRiftMagnet.lore.0@0={c:ITALIC}Slightly better than a fridge magnet.
 qa.items.itemRiftMagnet.lore.0@1={c:ITALIC}Slightly better than a fridge magnet...
 qa.items.itemRiftMagnet.remove={c:RED}Removed Item From Blacklist:
 qa.items.itemRiftMagnet.add={c:GREEN}Added Item To Blacklist:
+qa.items.itemRiftMagnet.lore.range={c:ITALIC}Range: x=%s y=%s
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
@@ -120,6 +121,7 @@ achievement.qa|learning.desc=What the...
 #####################################
 
 qa.enchantment.deception=Deception
+qa.enchantment.range=Magnetism
 
 #####################################
 # Sceptre

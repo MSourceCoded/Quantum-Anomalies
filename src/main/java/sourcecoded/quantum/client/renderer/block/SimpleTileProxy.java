@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
+import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -34,6 +35,7 @@ public class SimpleTileProxy implements ISimpleBlockRenderingHandler {
         float scale = 1F;
         glScalef(scale, scale, scale);
 
+        glAlphaFunc(GL_GREATER, 0.1F);
         TileEntityRendererDispatcher.instance.renderTileEntityAt(te, 0.0D, 0.0D, 0.0D, 0.0F);
     }
 

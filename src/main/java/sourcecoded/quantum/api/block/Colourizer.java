@@ -1,6 +1,9 @@
 package sourcecoded.quantum.api.block;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemDye;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Arrays;
 
@@ -15,41 +18,43 @@ import java.util.Arrays;
  */
 public enum Colourizer {
 
-    BLACK("black", 0F, 0F, 0F),
-    RED("red", 1F, 0F, 0F),
-    GREEN("green", 0F, 0.6F, 0F),
-    BROWN("brown", 0.4F, 0.3F, 0.1F),
-    BLUE("blue", 0F, 0F, 1F),
-    PURPLE("purple", 0.7F, 0F, 0.7F),
-    CYAN("cyan", 0.4F, 0.6F, 0.8F),
-    LIGHT_GRAY("silver", 0.7F, 0.7F, 0.7F),
-    GRAY("gray", 0.5F, 0.5F, 0.5F),
-    PINK("pink", 0.9F, 0.5F, 0.9F),
-    LIME("lime", 0F, 1F, 0F),
-    YELLOW("yellow", 1F, 1F, 0F),
-    LIGHT_BLUE("lightBlue", 0F, 0.5F, 1F),
-    MAGENTA("magenta", 0.7F, 0.5F, 0.7F),
-    ORANGE("orange", 1F, 0.5F, 0F),
-    WHITE("white", 1F, 1F, 1F),
+    BLACK("Black", 0F, 0F, 0F),
+    RED("Red", 1F, 0F, 0F),
+    GREEN("Green", 0F, 0.6F, 0F),
+    BROWN("Brown", 0.4F, 0.3F, 0.1F),
+    BLUE("Blue", 0F, 0F, 1F),
+    PURPLE("Purple", 0.7F, 0F, 0.7F),
+    CYAN("Cyan", 0.4F, 0.6F, 0.8F),
+    LIGHT_GRAY("LightGray", 0.7F, 0.7F, 0.7F),
+    GRAY("Gray", 0.5F, 0.5F, 0.5F),
+    PINK("Pink", 0.9F, 0.5F, 0.9F),
+    LIME("Lime", 0F, 1F, 0F),
+    YELLOW("Yellow", 1F, 1F, 0F),
+    LIGHT_BLUE("LightBlue", 0F, 0.5F, 1F),
+    MAGENTA("Magenta", 0.7F, 0.5F, 0.7F),
+    ORANGE("Orange", 1F, 0.5F, 0F),
+    WHITE("White", 1F, 1F, 1F),
     RAINBOW("rainbow", 0F, 0F, 0F);
 
     public float[] rgb;
-    public int meta;
+    public String oredictName;
 
     Colourizer(String name, float r, float g, float b) {
         rgb = new float[] {r, g, b};
-        meta = Arrays.asList(ItemDye.field_150923_a).indexOf(name);
+        this.oredictName = "dye"+name;
     }
 
-    /**
-     * Match the colourizer to the given
-     * ItemDye metadata
-     */
-    public static Colourizer match(int meta) {
-        for (Colourizer colour : Colourizer.values())
-            if (colour.meta == meta) return colour;
+    public static Colourizer match(ItemStack stack) {
+        if (stack.getItem() == Items.nether_star) return RAINBOW;
 
-        return Colourizer.PURPLE;
+        int[] names = OreDictionary.getOreIDs(stack);
+        for (int n : names) {
+            String oredict = OreDictionary.getOreName(n);
+            for (Colourizer colour : Colourizer.values()) {
+                if (colour.oredictName.equals(oredict)) return colour;
+            }
+        }
+        return null;
     }
 
 }

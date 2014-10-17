@@ -36,11 +36,11 @@ public class AdvancedTileProxy implements ISimpleBlockRenderingHandler{
         float scale = 1F;
         glScalef(scale, scale, scale);
 
+        glAlphaFunc(GL_GREATER, 0.1F);
         TESRStaticHandler renderer = (TESRStaticHandler) TileEntityRendererDispatcher.instance.mapSpecialRenderers.get(te.getClass());
         renderer.renderTile(te, 0.0, 0.0, 0.0, 0, true, renderBlocks);
 
         renderer.renderTile(te, 0.0, 0.0, 0.0, 0, false, renderBlocks);
-
     }
 
     @Override
