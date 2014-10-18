@@ -6,6 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.stats.StatList;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 
 public class MessageAchievement implements IMessage, IMessageHandler<MessageAchievement, IMessage> {
 
@@ -29,6 +30,7 @@ public class MessageAchievement implements IMessage, IMessageHandler<MessageAchi
     @Override
     public IMessage onMessage(MessageAchievement message, MessageContext ctx) {
         ctx.getServerHandler().playerEntity.addStat(StatList.func_151177_a(message.name), 1);
+        DiscoveryManager.unlockCategory("QA|Basics0", ctx.getServerHandler().playerEntity);
         return null;
     }
 }

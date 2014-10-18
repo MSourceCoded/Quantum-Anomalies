@@ -9,6 +9,8 @@ import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 
 /**
  * A set of events relating to Arrangement Table Crafting
+ *
+ * @author SourceCoded
  */
 public class ArrangementCraftingEvent extends Event {
 
@@ -23,6 +25,25 @@ public class ArrangementCraftingEvent extends Event {
         this.playerCrafting = player;
         this.worldObj = world;
         this.craftingTile = tile;
+    }
+
+    /**
+     * Called when the Arrangement table is formed (Obsidian on
+     * a crafting table's vertices and shift-clicking a diamond)
+     */
+    public static class Formed extends Event {
+
+        public World world;
+        public int x, y, z;
+        public EntityPlayer player;
+
+        public Formed(World world, int x, int y, int z, EntityPlayer player) {
+            this.world = world;
+            this.x = x;
+            this.y = y;
+            this.player = player;
+        }
+
     }
 
     /**

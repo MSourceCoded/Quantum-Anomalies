@@ -9,6 +9,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.QuantumAPI;
+import sourcecoded.quantum.api.event.crafting.ArrangementCraftingEvent;
 import sourcecoded.quantum.block.BlockArrangement;
 import sourcecoded.quantum.registry.QABlocks;
 
@@ -39,6 +42,8 @@ public class ArrangementTableListener {
                 }
             if (!world.isRemote) {
                 world.setBlock(event.x, event.y, event.z, QABlocks.ARRANGEMENT.getBlock());
+
+                QuantumAPI.eventBus.post(new ArrangementCraftingEvent.Formed(world, event.x, event.y, event.z, event.entityPlayer));
 
                 if (!thePlayer.capabilities.isCreativeMode)
                     itemInUse.stackSize -= 1;

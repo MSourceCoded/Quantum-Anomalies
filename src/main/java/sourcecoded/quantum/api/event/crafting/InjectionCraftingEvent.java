@@ -11,6 +11,8 @@ import sourcecoded.quantum.api.injection.IInjectorRecipe;
 
 /**
  * A set of events relating to Injection Pool Crafting
+ *
+ * @author SourceCoded
  */
 public class InjectionCraftingEvent extends Event {
 

@@ -158,6 +158,14 @@ qa.sceptre.focus.bind.bindingRemoved={c:AQUA}Binding Removed!
 qa.items.itemJournal.name={c:LIGHT_PURPLE}Anomolical Journal{c:WHITE}
 qa.items.itemJournal.lore.0={c:ITALIC}[ah-nom-ol-ic-al]
 
+qa.journal.category.QA|Basics0.name=The Basics
+qa.journal.category.QA|Basics1.name={c:RED}The Basics
+qa.journal.category.QA|Basics2.name={c:LIGHT_PURPLE}The Basics
+qa.journal.category.QA|Basics3.name={c:GREEN}The Basics
+qa.journal.category.QA|Basics4.name={c:ITALIC}The Basics
+qa.journal.category.QA|Basics5.name={c:OBFUSCATED}The Basics
+qa.journal.category.QA|Basics6.name={c:BOLD}The Basics
+
 #####################################
 # Misc Lore
 #####################################

@@ -5,8 +5,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 
+/**
+ * A page of data for a DiscoveryItem
+ *
+ * @author SourceCoded
+ */
 public class DiscoveryPage {
 
     /**
@@ -155,7 +161,7 @@ public class DiscoveryPage {
      */
     public String localizeText() {
         if (this.text != null)
-            return StatCollector.translateToLocal(this.text);
+            return LocalizationUtils.translateLocalWithColours(this.text, this.text);
         return null;
     }
 
@@ -164,7 +170,7 @@ public class DiscoveryPage {
      */
     public String localizeTitle() {
         if (this.title != null)
-            return StatCollector.translateToLocal(this.title);
+            return LocalizationUtils.translateLocalWithColours(this.title, this.title);
         return null;
     }
 

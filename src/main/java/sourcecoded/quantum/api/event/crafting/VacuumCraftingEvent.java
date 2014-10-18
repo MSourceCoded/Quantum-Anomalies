@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * A set of events relating to Vacuum Catalyst Crafting
+ *
+ * @author SourceCoded
  */
 public class VacuumCraftingEvent extends Event {
 

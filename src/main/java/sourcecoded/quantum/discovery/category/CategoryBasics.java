@@ -1,6 +1,5 @@
-package sourcecoded.quantum.journal.category;
+package sourcecoded.quantum.discovery.category;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
@@ -19,7 +18,8 @@ public class CategoryBasics extends DiscoveryCategory {
         else
             this.setIcon(new ResourceLocation(Constants.MODID, "textures/items/string.png"));
 
-        this.setUnlocked(true);
+        this.setUnlockedByDefault(id == 3);
+        this.setHiddenByDefault(id == 4);
     }
 
 }

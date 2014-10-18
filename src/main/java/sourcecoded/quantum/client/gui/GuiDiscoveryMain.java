@@ -4,6 +4,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -11,9 +13,15 @@ import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL14;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.QuantumAnomalies;
+import sourcecoded.quantum.api.QuantumAPI;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.DiscoveryCategory;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 import sourcecoded.quantum.api.discovery.IDiscoveryCustomRenderer;
+import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +45,13 @@ public class GuiDiscoveryMain extends GuiScreen {
 
     List<List<DiscoveryCategory>> categorySets;
 
-    public GuiDiscoveryMain() {
+    public EntityPlayer player;
+
+    public GuiDiscoveryMain(EntityPlayer player) {
+        QuantumAPI.eventBus.post(new DiscoveryUpdateEvent(player));
+
+        this.player = player;
+
         categorySets = new ArrayList<List<DiscoveryCategory>>();
         int index = 0;
         int level = 0;
@@ -48,7 +62,8 @@ public class GuiDiscoveryMain extends GuiScreen {
             }
             if (categorySets.size() == level || categorySets.get(level) == null)
                 categorySets.add(new ArrayList<DiscoveryCategory>());
-            if (!entry.getValue().getHidden()) {
+            //if (!entry.getValue().getHidden()) {
+            if (!DiscoveryManager.categoryHidden(entry.getKey(), player)) {
                 categorySets.get(level).add(entry.getValue());
                 index++;
             }
@@ -68,9 +83,6 @@ public class GuiDiscoveryMain extends GuiScreen {
         int minDragY = 0;
         int maxDragX = 30;
         int maxDragY = 90;
-
-        mx -= centreW;
-        my -= centreH;
 
         if (Mouse.isButtonDown(0)) {
             if (!mouseDone) {
@@ -96,7 +108,7 @@ public class GuiDiscoveryMain extends GuiScreen {
         this.drawTexturedModalRect(centreW - frameWidth / 2 + pad, centreH - frameHeight / 2 + pad, dragX / 3, dragY / 3, frameWidth - pad * 2, frameHeight - pad * 3);           //Rendered with parallax
 
         int perOffsetX = 40;
-        int perOffsetY = 30;
+        int perOffsetY = 40;
 
         int itemDiameter = 22;
 
@@ -128,34 +140,58 @@ public class GuiDiscoveryMain extends GuiScreen {
                 if (meow instanceof IDiscoveryCustomRenderer)
                     renderCode = ((IDiscoveryCustomRenderer) meow).getRenderContext();
 
-                if (meow.getUnlocked())
+                boolean unlocked = DiscoveryManager.categoryUnlocked(meow.getKey(), player);
+
+                if (unlocked)
                     GL11.glColor4f(1F, 1F, 1F, 1F);
                 else
                     GL11.glColor4f(0.5F, 0.5F, 0.5F, 1F);
 
                 GL11.glEnable(GL11.GL_BLEND);
 
+                int itemX = centreW - (itemDiameter / 2) + xFactor - dragX;
+                int itemY = centreH - (itemDiameter) / 2 - 38 - dragY + yOffset;
+
                 if (renderCode != 2 && renderCode != 3) {
                     this.mc.getTextureManager().bindTexture(guiLocation);
                     //drawTexturedModalRect(centreW - 13 + xFactor - dragX, centreH - 46 - dragY + yOffset, 26, 202, 26, 26);
-                    drawPartialQuadWithBounds(centreW - (itemDiameter / 2) + xFactor - dragX, centreH - (itemDiameter) / 2 - 30 - dragY + yOffset, itemDiameter, itemDiameter, 26F / 256F, 202F / 256F, 52F / 256F, 228F / 256F);
+                    drawPartialQuadWithBounds(itemX, itemY, itemDiameter, itemDiameter, 26F / 256F, 202F / 256F, 52F / 256F, 228F / 256F);
+                }
+
+                if (Mouse.isButtonDown(0) && mx >= itemX && mx <= itemX + itemDiameter && my >= itemY && my <= itemY + itemDiameter) {
+                    //CLICKED
                 }
 
                 RenderItem render = new RenderItem();
 
                 if (renderCode != 1 && renderCode != 3) {
-                    if (!meow.getUnlocked())
+                    if (!unlocked)
                         GL11.glColor4f(0.3F, 0.3F, 0.3F, 1F);
                     if (meow.icon != null) {
                         this.mc.getTextureManager().bindTexture(meow.icon);
-                        drawFullQuadWithBounds(centreW - 8 + xFactor - dragX, centreH - 38 - dragY + yOffset, 16, 16);
+                        drawFullQuadWithBounds(centreW - 8 + xFactor - dragX, centreH - 46 - dragY + yOffset, 16, 16);
                     } else if (meow.displayStack != null) {
-                        render.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.getTextureManager(), meow.displayStack, centreW - 8 + xFactor - dragX, centreH - 38 - dragY + yOffset);
+                        render.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.getTextureManager(), meow.displayStack, centreW - 8 + xFactor - dragX, centreH - 46 - dragY + yOffset);
                     }
                 }
 
                 if (renderCode != 0)
                     ((IDiscoveryCustomRenderer) meow).render(xFactor - dragX, dragY + yOffset, mx, my, renderCode);
+
+                itemX = centreW + xFactor - dragX;
+                itemY = centreH - 23 - dragY + yOffset;
+
+                float scale = meow.getTitleScale();
+                float scaleI = (float) Math.pow(scale, -1);
+
+                GL11.glTranslatef(itemX, itemY, 0);
+                GL11.glScalef(scale, scale, scale);
+                if (unlocked)
+                    drawCenteredString(this.fontRendererObj, meow.getLocalizedName(), 0, 0, meow.getTitleColour().toInteger());
+                else
+                    drawCenteredString(this.fontRendererObj, EnumChatFormatting.OBFUSCATED + "blah blah", 0, 0, Colourizer.GRAY.toInteger());
+                GL11.glScalef(scaleI, scaleI, scaleI);
+                GL11.glTranslatef(-itemX, -itemY, 0);
 
                 GL11.glDisable(GL11.GL_LIGHTING);
             }

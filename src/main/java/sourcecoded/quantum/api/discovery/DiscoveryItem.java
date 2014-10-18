@@ -1,7 +1,9 @@
 package sourcecoded.quantum.api.discovery;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +15,8 @@ import java.util.Arrays;
  * It is recommended that you extend this class
  * for you own research, however, you can reference
  * this in a new instance, as it is not abstract.
+ *
+ * @author SourceCoded
  */
 public class DiscoveryItem {
 
@@ -44,20 +48,20 @@ public class DiscoveryItem {
     public ResourceLocation icon;
 
     /**
-     * Is the item unlocked?
-     */
-    private boolean unlocked = false;
-
-    /**
-     * Should the item be rendered?
-     */
-    private boolean hidden = true;
-
-    /**
      * An array of pages that this item
      * contains
      */
     public ArrayList<DiscoveryPage> pages;
+
+    /**
+     * Is this item hidden by default?
+     */
+    public boolean hiddenByDefault = true;
+
+    /**
+     * Is this item unlocked by default?
+     */
+    public boolean unlockedByDefault = false;
 
     /**
      * Create a new DiscoveryItem
@@ -102,7 +106,7 @@ public class DiscoveryItem {
      * only for Translation
      */
     public String getUnlocalizedName() {
-        return "qa.research.item." + key + ".name";
+        return "qa.journal.item." + key + ".name";
     }
 
     /**
@@ -115,7 +119,7 @@ public class DiscoveryItem {
      * not a cop
      */
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(getUnlocalizedName());
+        return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(), getUnlocalizedName());
     }
 
     /**
@@ -166,76 +170,19 @@ public class DiscoveryItem {
     }
 
     /**
-     * Is this item unlocked?
+     * Change the item's default unlock state
      */
-    public boolean isUnlocked() {
-        return unlocked;
+    public DiscoveryItem setUnlockedByDefault(boolean state) {
+        this.unlockedByDefault = state;
+        return this;
     }
 
     /**
-     * Is this item hidden?
-     *
-     * By default, this checks if the
-     * item is set to be not hidden
-     * (an override), and then
-     * (if hidden) checks all the parents
-     * if they are unlocked. If they are, it
-     * returns false. Also returns
-     * false if the item is unlocked
-     *
-     * Feel free to override this method
+     * Change the item's default hidden state
      */
-    public boolean isHidden() {
-        return !unlocked && hidden && !areAllParentsUnlocked();
-    }
-
-    /**
-     * Set the hidden state of the
-     * item.
-     */
-    public void setHidden(boolean val) {
-        this.hidden = val;
-    }
-
-    /**
-     * Checks if all the parents are unlocked
-     */
-    public boolean areAllParentsUnlocked() {
-        for (String current : parents) {
-            DiscoveryItem item = DiscoveryRegistry.getItemFromKey(current);
-            if (!item.isUnlocked()) return false;
-        }
-        return true;
-    }
-
-    /**
-     * Unlock all the parents
-     */
-    public void unlockAllParents() {
-        this.unlocked = true;
-        for (String current : parents) {
-            DiscoveryItem item = DiscoveryRegistry.getItemFromKey(current);
-            item.unlockAllParents();
-        }
-    }
-
-    /**
-     * Unlock the item.
-     * @param force Should the unlock be forced?
-     *              By default, the item will
-     *              only unlock if all parents
-     *              are unlocked, but if it's forced,
-     *              it will unlock all parents as well.
-     */
-    public boolean unlock(boolean force) {
-        if (areAllParentsUnlocked()) {
-            this.unlocked = true;
-            return true;
-        } else if (force) {
-            unlockAllParents();
-            return true;
-        }
-        return false;
+    public DiscoveryItem setHiddenByDefault(boolean state) {
+        this.hiddenByDefault = state;
+        return this;
     }
 
 }

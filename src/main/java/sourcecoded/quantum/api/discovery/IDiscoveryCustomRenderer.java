@@ -3,6 +3,8 @@ package sourcecoded.quantum.api.discovery;
 /**
  * A class implemented by DiscoveryItems/Categories to denote a custom
  * renderer to be used in the Anomolical Journal's GUI
+ *
+ * @author SourceCoded
  */
 public interface IDiscoveryCustomRenderer {
 

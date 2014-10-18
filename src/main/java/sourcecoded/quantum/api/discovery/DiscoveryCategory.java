@@ -1,16 +1,23 @@
 package sourcecoded.quantum.api.discovery;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import sourcecoded.quantum.api.block.Colourizer;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Discovery Categories are chapters of the
  * In-Game manual. It is recommended that you
  * create a new one if you are hooking into this
  * for an add-on mod.
+ *
+ * @author SourceCoded
  */
 public class DiscoveryCategory {
 
@@ -21,8 +28,11 @@ public class DiscoveryCategory {
     public ResourceLocation background;
     public ItemStack displayStack;
 
-    private boolean isUnlocked = false;
-    private boolean isHidden = false;
+    public boolean hiddenByDefault = true;
+    public boolean unlockedByDefault = false;
+
+    public Colourizer titleColour = Colourizer.WHITE;
+    public float titleScale = 0.5F;
 
     /**
      * Create a new Discovery Category.
@@ -77,7 +87,7 @@ public class DiscoveryCategory {
      * category (before StatCollector/l18n)
      */
     public String getUnlocalizedName() {
-        return "qa.research.category." + key + ".name";
+        return "qa.journal.category." + key + ".name";
     }
 
     /**
@@ -85,38 +95,9 @@ public class DiscoveryCategory {
      * category (after StatCollector/l18n)
      */
     public String getLocalizedName() {
-        return StatCollector.translateToLocal(getUnlocalizedName());
+        return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(), getUnlocalizedName());
     }
 
-    /**
-     * Set if the Category is 'unlocked' (accessible)
-     */
-    public DiscoveryCategory setUnlocked(boolean state) {
-        this.isUnlocked = state;
-        return this;
-    }
-
-    /**
-     * Get if the Category is 'unlocked' (accessible)
-     */
-    public boolean getUnlocked() {
-        return isUnlocked;
-    }
-
-    /**
-     * Set the Category's hidden state (can be seen)
-     */
-    public DiscoveryCategory setHidden(boolean state) {
-        this.isHidden = state;
-        return this;
-    }
-
-    /**
-     * Get the Category's hidden state (can be seen)
-     */
-    public boolean getHidden() {
-        return isHidden;
-    }
 
     /**
      * Add a discovery item to this category
@@ -138,5 +119,53 @@ public class DiscoveryCategory {
      */
     public DiscoveryItem getDiscoveryItem(String key) {
         return discoveries.get(key);
+    }
+
+    /**
+     * Set the title scale for the Journal
+     */
+    public DiscoveryCategory setTitleScale(float f) {
+        this.titleScale = f;
+        return this;
+    }
+
+    /**
+     * Set the title colour for the journal
+     */
+    public DiscoveryCategory setTitleColour(Colourizer colour) {
+        this.titleColour = colour;
+        return this;
+    }
+
+    /**
+     * Set the title scale for the Journal
+     */
+    public float getTitleScale() {
+        return this.titleScale;
+    }
+
+    /**
+     * Get the title colour for the journal. This should
+     * usually be WHITE if you plan to change the colour
+     * in the lang file
+     */
+    public Colourizer getTitleColour() {
+        return this.titleColour;
+    }
+
+    /**
+     * Change the category's default unlock state
+     */
+    public DiscoveryCategory setUnlockedByDefault(boolean state) {
+        this.unlockedByDefault = state;
+        return this;
+    }
+
+    /**
+     * Change the category's default hidden state
+     */
+    public DiscoveryCategory setHiddenByDefault(boolean state) {
+        this.hiddenByDefault = state;
+        return this;
     }
 }

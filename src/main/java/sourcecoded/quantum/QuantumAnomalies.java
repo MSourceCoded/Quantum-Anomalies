@@ -8,7 +8,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
@@ -24,13 +23,12 @@ import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
 import sourcecoded.quantum.client.renderer.fx.helpers.ParticleDispatcher;
 import sourcecoded.quantum.crafting.arrangement.ArrangementRecipes;
+import sourcecoded.quantum.discovery.DiscoveryHandler;
 import sourcecoded.quantum.entity.*;
 import sourcecoded.quantum.handler.ConfigHandler;
 import sourcecoded.quantum.handler.KeyBindHandler;
-import sourcecoded.quantum.journal.JournalHandler;
 import sourcecoded.quantum.listeners.*;
 import sourcecoded.quantum.network.NetworkHandler;
-import sourcecoded.quantum.proxy.ClientProxy;
 import sourcecoded.quantum.proxy.IProxy;
 import sourcecoded.quantum.registry.BlockRegistry;
 import sourcecoded.quantum.registry.ItemRegistry;
@@ -128,7 +126,6 @@ public class QuantumAnomalies {
         MinecraftForge.EVENT_BUS.register(new ArrangementTableListener());
         MinecraftForge.EVENT_BUS.register(new EnchantmentListener());
 
-        FMLCommonHandler.instance().bus().register(new SecretListener());
         FMLCommonHandler.instance().bus().register(new ServerListener());
         MinecraftForge.EVENT_BUS.register(new ItemTossListener());
         MinecraftForge.EVENT_BUS.register(new EntityListener());
@@ -145,7 +142,7 @@ public class QuantumAnomalies {
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
-        JournalHandler.init();
+        DiscoveryHandler.init();
     }
 
     @Mod.EventHandler

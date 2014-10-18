@@ -4,6 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * A class that is an instance of a block, mostly
+ * used for compacting storage of Blocks in an
+ * ArrayList
+ *
+ * @author SourceCoded
+ */
 public class BlockWithData {
 
     public Block block;

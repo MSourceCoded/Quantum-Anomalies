@@ -44,6 +44,17 @@ public enum Colourizer {
         this.oredictName = "dye"+name;
     }
 
+    public int toInteger() {
+        int base = 0;
+        base += rgb[0] * 255;
+        base = base << 8;
+        base += rgb[1] * 255;
+        base = base << 8;
+        base += rgb[2] * 255;
+
+        return base;
+    }
+
     public static Colourizer match(ItemStack stack) {
         if (stack.getItem() == Items.nether_star) return RAINBOW;
 

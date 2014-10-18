@@ -21,12 +21,14 @@ public class NetworkHandler {
         wrapper.registerMessage(MessageAchievement.class, MessageAchievement.class, 0, Side.SERVER);
         wrapper.registerMessage(MessageFlight.class, MessageFlight.class, 1, Side.SERVER);
         wrapper.registerMessage(MessageChangeFocus.class, MessageChangeFocus.class, 2, Side.SERVER);
+        wrapper.registerMessage(MessageDiscoveryRequest.class, MessageDiscoveryRequest.class, 3, Side.SERVER);
 
         /* Sending to client */
         wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 10, Side.CLIENT);
         wrapper.registerMessage(MessageBlockBreakFX.class, MessageBlockBreakFX.class, 11, Side.CLIENT);
         wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 12, Side.CLIENT);
         wrapper.registerMessage(MessageClientWorldData.class, MessageClientWorldData.class, 13, Side.CLIENT);
+        wrapper.registerMessage(MessageDiscoveryUpdate.class, MessageDiscoveryUpdate.class, 14, Side.CLIENT);
     }
 
     public static void writeNBT(ByteBuf target, NBTTagCompound tag) throws IOException {

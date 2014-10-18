@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
  * the discovery mechanics of Quantum
  * Anomalies. Categories and their
  * respective Items are registered
- * in here. It is recommended you register
- * your items during Init.
- * @see cpw.mods.fml.common.event.FMLInitializationEvent
+ * in here.
+ *
+ * @author SourceCoded
  */
 public class DiscoveryRegistry {
 
@@ -46,6 +46,21 @@ public class DiscoveryRegistry {
         for (DiscoveryCategory cat : categories.values()) {
             if (cat.hasDiscoveryItem(key))
                 return cat.getDiscoveryItem(key);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the category for the item
+     * given.
+     *
+     * @return The category, null if nothing was found
+     */
+    public static DiscoveryCategory getCategoryForItem(String key) {
+        for (DiscoveryCategory cat : categories.values()) {
+            if (cat.hasDiscoveryItem(key))
+                return cat;
         }
 
         return null;
