@@ -38,7 +38,7 @@ public class VacuumEntropicStar implements IVacuumRecipe {
     @Override
     public List<ItemStack> getOutputs() {
         ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 1)
+                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 1),
         };
 
         return Arrays.asList(stacks);

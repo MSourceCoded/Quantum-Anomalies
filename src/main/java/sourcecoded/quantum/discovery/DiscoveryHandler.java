@@ -3,6 +3,7 @@ package sourcecoded.quantum.discovery;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayerMP;
 import sourcecoded.quantum.api.QuantumAPI;
+import sourcecoded.quantum.api.discovery.DiscoveryItem;
 import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 import sourcecoded.quantum.api.event.discovery.DiscoveryRegistrationEvent;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
@@ -14,15 +15,11 @@ import sourcecoded.quantum.network.NetworkHandler;
 public class DiscoveryHandler {
 
     public static void init() {
-        CategoryBasics basicNotYetUnlocked = new CategoryBasics(2);
+        for (QADiscoveries.Category cat : QADiscoveries.Category.values())
+            DiscoveryRegistry.registerCategory(cat.get());
 
-        DiscoveryRegistry.registerCategory(new CategoryBasics(0));
-        DiscoveryRegistry.registerCategory(new CategoryBasics(1));
-        DiscoveryRegistry.registerCategory(basicNotYetUnlocked);
-        DiscoveryRegistry.registerCategory(new CategoryBasics(3));
-        DiscoveryRegistry.registerCategory(new CategoryBasics(4));
-        DiscoveryRegistry.registerCategory(new CategoryBasics(5));
-        DiscoveryRegistry.registerCategory(new CategoryBasics(6));
+        for (QADiscoveries.Item item : QADiscoveries.Item.values())
+            item.registerItem();
 
         QuantumAPI.eventBus.register(new DiscoveryHandler());
         QuantumAPI.eventBus.post(new DiscoveryRegistrationEvent());

@@ -42,4 +42,11 @@ public class LocalizationUtils {
         return n;
     }
 
+    /**
+     * Escapes all EnumChatFormatting from a text
+     */
+    public static String escapeFormatting(String text) {
+        return EnumChatFormatting.getTextWithoutFormattingCodes(text);
+    }
+
 }

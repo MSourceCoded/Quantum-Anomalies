@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.arrangement;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -126,6 +127,26 @@ public class ItemMatrix {
      */
     public static ItemMatrix rotate270(ItemMatrix matrix) {
         return rotate180(rotate90(matrix));
+    }
+
+    public static ItemMatrix createFromRecipe(ShapedRecipes recipe) {
+        ItemStack[][] stacks = new ItemStack[recipe.recipeWidth][recipe.recipeHeight];
+        int level = 0;
+        int index = 0;
+        for (int i = 0; i < recipe.getRecipeSize(); i++) {
+            ItemStack stack = recipe.recipeItems[i];
+            if (index == stacks.length) {
+                level++;
+                index = 0;
+            }
+
+            stacks[level][index] = stack;
+            index++;
+        }
+
+        ItemMatrix matrix = new ItemMatrix(recipe.recipeWidth, recipe.recipeHeight);
+        matrix.setGrid(stacks);
+        return matrix;
     }
 
 }

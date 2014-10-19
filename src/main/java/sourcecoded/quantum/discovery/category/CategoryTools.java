@@ -4,14 +4,14 @@ import net.minecraft.item.ItemStack;
 import sourcecoded.quantum.api.discovery.DiscoveryCategory;
 import sourcecoded.quantum.registry.QAItems;
 
-public class CategoryBasics extends DiscoveryCategory {
+public class CategoryTools extends DiscoveryCategory {
 
-    public CategoryBasics() {
-        super("QA|Basics");
+    public CategoryTools() {
+        super("QA|Tools");
 
-        this.displayStack = new ItemStack(QAItems.JOURNAL.getItem());
+        this.displayStack = new ItemStack(QAItems.RIFT_PICKAXE.getItem());
 
         this.setHiddenByDefault(false);
-        this.setUnlockedByDefault(true);
+        this.setUnlockedByDefault(false);
     }
 }

@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.injection;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +58,19 @@ public class InjectorRegistry {
         return null;
     }
 
+    public static IInjectorRecipe getRecipeForOutput(ItemStack output) {
+        for (IInjectorRecipe recipe : recipes)
+            if (matches(recipe.getOutput(), output)) return recipe;
+        return null;
+    }
+
     /**
      * Returns true if both ItemStacks match. This does
      * not yet take into account NBT tags, only Item and
      * Meta
      */
     public static boolean matches(ItemStack item1, ItemStack item2) {
-        return item1.isItemEqual(item2);
+        return OreDictionary.itemMatches(item1, item2, false);
     }
 
 }

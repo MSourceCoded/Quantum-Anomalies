@@ -61,6 +61,22 @@ public class VacuumRegistry {
         return null;
     }
 
+    public static IVacuumRecipe getRecipeForOutput(List<ItemStack> outputs) {
+        for (IVacuumRecipe recipe : getRecipes()) {
+            if (matches(recipe.getOutputs(), outputs))
+                return recipe;
+        }
+        return null;
+    }
+
+    public static IVacuumRecipe getRecipeForOutput(ItemStack output) {
+        for (IVacuumRecipe recipe : getRecipes()) {
+            for (ItemStack out : recipe.getOutputs())
+                if (matches(out, output)) return recipe;
+        }
+        return null;
+    }
+
     /**
      * Returns true if both ItemStacks match. This does
      * not yet take into account NBT tags, only Item and

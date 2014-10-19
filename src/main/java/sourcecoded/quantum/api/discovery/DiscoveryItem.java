@@ -1,5 +1,6 @@
 package sourcecoded.quantum.api.discovery;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -47,6 +48,8 @@ public class DiscoveryItem {
      */
     public ResourceLocation icon;
 
+    public ItemStack displayStack;
+
     /**
      * An array of pages that this item
      * contains
@@ -62,6 +65,11 @@ public class DiscoveryItem {
      * Is this item unlocked by default?
      */
     public boolean unlockedByDefault = false;
+
+    /**
+     * Is this a special icon?
+     */
+    public boolean isSpecial = false;
 
     /**
      * Create a new DiscoveryItem
@@ -84,10 +92,13 @@ public class DiscoveryItem {
      */
     public DiscoveryItem(String key, String[] parents, int x, int y, ResourceLocation icon) {
         this.key = key;
-        this.parents = new ArrayList<String>(Arrays.asList(parents));
+        if (parents != null)
+            this.parents = new ArrayList<String>(Arrays.asList(parents));
         this.x = x;
         this.y = y;
         this.icon = icon;
+
+        this.pages = new ArrayList<DiscoveryPage>();
     }
 
     /**
@@ -145,6 +156,29 @@ public class DiscoveryItem {
      */
     public DiscoveryItem addParent(String key) {
         this.parents.add(key);
+        return this;
+    }
+
+    /**
+     * Set the item to have a special icon
+     */
+    public DiscoveryItem setSpecial(boolean state) {
+        this.isSpecial = state;
+        return this;
+    }
+
+    /**
+     * Get if the item has a special state
+     */
+    public boolean getSpecial() {
+        return isSpecial;
+    }
+
+    /**
+     * Set the icon for the Category in an ItemStack form
+     */
+    public DiscoveryItem setDisplayItemStack(ItemStack stack) {
+        this.displayStack = stack;
         return this;
     }
 

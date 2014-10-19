@@ -109,4 +109,9 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
     public ItemStack getOutput() {
         return output.copy();
     }
+
+    @Override
+    public ItemMatrix getMatrix() {
+        return grid;
+    }
 }

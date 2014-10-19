@@ -31,7 +31,7 @@ public class DiscoveryCategory {
     public boolean hiddenByDefault = true;
     public boolean unlockedByDefault = false;
 
-    public Colourizer titleColour = Colourizer.WHITE;
+    public Colourizer titleColour = Colourizer.LIGHT_GRAY;
     public float titleScale = 0.5F;
 
     /**

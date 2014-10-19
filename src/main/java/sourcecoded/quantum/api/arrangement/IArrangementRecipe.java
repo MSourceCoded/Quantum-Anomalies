@@ -25,4 +25,9 @@ public interface IArrangementRecipe {
      */
     public ItemStack getOutput();
 
+    /**
+     * Get the ItemMatrix for the recipe
+     */
+    public ItemMatrix getMatrix();
+
 }

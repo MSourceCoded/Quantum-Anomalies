@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
@@ -42,6 +43,8 @@ public class ItemSceptreRenderer implements IItemRenderer {
         glTranslatef(0F, -0.5F, 0F);
 
         glDisable(GL_LIGHTING);
+        float lastBrightX = OpenGlHelper.lastBrightnessX;
+        float lastBrightY = OpenGlHelper.lastBrightnessY;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
 
         EntityLivingBase entity = null;
@@ -99,9 +102,10 @@ public class ItemSceptreRenderer implements IItemRenderer {
 
         glDisable(GL_BLEND);
 
+        glPopMatrix();
         glEnable(GL_LIGHTING);
 
-        glPopMatrix();
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastBrightX, lastBrightY);
     }
 
     public void useCheck(ItemStack item, ItemRenderType type, EntityLivingBase player) {

@@ -19,6 +19,7 @@ import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
+import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.client.renderer.item.TexDepthMap;
 import sourcecoded.quantum.entity.EntityQuantumArrow;
@@ -59,6 +60,8 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
         new TexDepthMap(new ResourceLocation(Constants.MODID, resourceDraw + "1_4.png"), 0.07F),
         new TexDepthMap(new ResourceLocation(Constants.MODID, resourceDraw + "1_5.png"), 0.09F)
     };
+
+    public IArrangementRecipe recipe = new ArrangementShapedRecipe(new ItemStack(this), " se", "ser", " se", 's', QAItems.INJECTED_STRING.getItem(), 'r', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1), 'e', QAItems.ENTROPIC_STAR.getItem());
 
     public ItemRiftBow() {
         super();
@@ -217,7 +220,7 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
 
     @Override
     public IRecipe[] getRecipes(Item item) {
-        ArrangementRegistry.addRecipe(new ArrangementShapedRecipe(new ItemStack(this), " se", "ser", " se", 's', QAItems.INJECTED_STRING.getItem(), 'r', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1), 'e', QAItems.ENTROPIC_STAR.getItem()));
+        ArrangementRegistry.addRecipe(recipe);
         return new IRecipe[0];
     }
 }

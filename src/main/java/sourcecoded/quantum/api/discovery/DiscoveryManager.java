@@ -71,8 +71,11 @@ public class DiscoveryManager {
      * Initializes the categories and items
      */
     public static void init(EntityPlayer player) {
-        for (Map.Entry<String, DiscoveryCategory> entry : DiscoveryRegistry.categories.entrySet())
+        for (Map.Entry<String, DiscoveryCategory> entry : DiscoveryRegistry.categories.entrySet()) {
             getCategory(entry.getKey(), player);
+            for (Map.Entry<String, DiscoveryItem> entry1 : entry.getValue().discoveries.entrySet())
+                getItem(entry1.getKey(), player);
+        }
     }
 
     /**

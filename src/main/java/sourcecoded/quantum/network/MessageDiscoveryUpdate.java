@@ -53,7 +53,6 @@ public class MessageDiscoveryUpdate implements IMessage, IMessageHandler<Message
 
         player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setTag("QuantumAnomalies", message.compound);
 
-        System.err.println("Rec " + Minecraft.getMinecraft().thePlayer.getEntityData());
         return null;
     }
 }

@@ -79,6 +79,8 @@ public class DiscoveryPage {
      */
     public ResourceLocation image = null;
 
+    public int width, height;
+
     /**
      * The recipe for the page.
      *
@@ -102,14 +104,20 @@ public class DiscoveryPage {
 
     /**
      * Create a new Image discovery page
+     *
+     * Please note that the width/height are of the ResourceLocation
+     * itself, not the desired size to render.
      * @see sourcecoded.quantum.api.discovery.DiscoveryPage.PageContext
      */
-    public DiscoveryPage(String title, ResourceLocation image, String caption) {
+    public DiscoveryPage(String title, ResourceLocation image, String caption, int width, int height) {
         this.title = title;
         this.image = image;
         this.text = caption;
 
         this.type = PageContext.IMAGE;
+
+        this.width = width;
+        this.height = height;
     }
 
     /**

@@ -1,5 +1,8 @@
 package sourcecoded.quantum.api.arrangement;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +47,23 @@ public class ArrangementRegistry {
     }
 
     /**
-     * Returns the Vacuum Recipe for the given ItemMatrix.
+     * Returns the Arrangement Recipe for the given ItemMatrix.
      * This will return null if there is no recipe found
      */
     public static IArrangementRecipe getRecipe(ItemMatrix grid) {
         for (IArrangementRecipe recipe : recipes)
             if (recipe.matches(grid)) return recipe;
+
+        return null;
+    }
+
+    /**
+     * Returns the recipe for the recipe
+     */
+    public static IArrangementRecipe getRecipeForOutput(ItemStack output) {
+        for (IArrangementRecipe recipe : recipes)
+            if (OreDictionary.itemMatches(output, recipe.getOutput(), false))
+                return recipe;
 
         return null;
     }
