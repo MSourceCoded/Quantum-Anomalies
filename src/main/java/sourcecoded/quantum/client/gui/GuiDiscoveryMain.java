@@ -28,9 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.*;
 
 public class GuiDiscoveryMain extends GuiScreen {
 
@@ -85,6 +83,12 @@ public class GuiDiscoveryMain extends GuiScreen {
     }
 
     public void drawScreen(int mx, int my, float par3) {
+        this.mc.getTextureManager().bindTexture(guiBlank);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0F);
+        GL11.glColor4f(0F, 0F, 0F, 0.1F);
+        this.drawTexturedModalRect(0, 0, 0, 0, this.width, this.height);
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+
         int centreW = super.width / 2;
         int centreH = super.height / 2;
 
@@ -184,7 +188,9 @@ public class GuiDiscoveryMain extends GuiScreen {
                         this.mc.getTextureManager().bindTexture(meow.icon);
                         drawFullQuadWithBounds(centreW - 8 + xFactor - dragX, centreH - 46 - dragY + yOffset, 16, 16);
                     } else if (meow.displayStack != null) {
+                        GL11.glEnable(GL_LIGHTING);
                         render.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.getTextureManager(), meow.displayStack, centreW - 8 + xFactor - dragX, centreH - 46 - dragY + yOffset);
+                        GL11.glDisable(GL_LIGHTING);
                     }
                 }
 

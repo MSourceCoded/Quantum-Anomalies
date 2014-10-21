@@ -95,11 +95,11 @@ public class ConfigHandler {
 
     public static enum Properties {
         /* Integration */
-        REDSTONE_FLUX(Categories.INTEGRATION, "baby_kicker_mode", "Enables RF integration >.>", false),
+        //REDSTONE_FLUX(Categories.INTEGRATION, "baby_kicker_mode", "Enables RF integration >.>", false),
 
         /* World Gen */
-        END_ANOMALY_WEIGHT(Categories.WORLD_GEN, "end_anomaly_biome_weight", "The weight used for generating End Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 70-100 for Biomes o' Plenty)", 10),
-        HELL_ANOMALY_WEIGHT(Categories.WORLD_GEN, "hell_anomaly_biome_weight", "The weight used for generating Hell Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 40-80 for Biomes o' Plenty)", 3),
+        END_ANOMALY_WEIGHT(Categories.WORLD_GEN, "end_anomaly_biome_weight", "The weight used for generating End Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 60-90 for Biomes o' Plenty)", 7),
+        HELL_ANOMALY_WEIGHT(Categories.WORLD_GEN, "hell_anomaly_biome_weight", "The weight used for generating Hell Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 30-60 for Biomes o' Plenty)", 3),
 
         END_ANOMALY_ID(Categories.WORLD_GEN, "end_anomaly_biome_id", "The ID used for the End Anomaly Biome", 150),
         HELL_ANOMALY_ID(Categories.WORLD_GEN, "hell_anomaly_biome_id", "The ID used for the Hell Anomaly Biome", 151),

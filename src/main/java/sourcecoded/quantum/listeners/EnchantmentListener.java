@@ -5,16 +5,25 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.enchantment.EnchantmentDeception;
 import sourcecoded.quantum.entity.properties.PropertiesDeceptionTarget;
 import sourcecoded.quantum.registry.QAEnchant;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class EnchantmentListener {
 
@@ -68,4 +77,44 @@ public class EnchantmentListener {
             ((EntityCreature) entity).setAttackTarget(null);
     }
 
+    //Magnetism
+    @SubscribeEvent
+    public void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
+        if (event.harvester == null || event.world.isRemote) return;
+        if (EnchantmentHelper.getEnchantmentLevel(QAEnchant.RANGE.get().effectId, event.harvester.getHeldItem()) < 1) return;
+
+        String UUID = event.harvester.getUniqueID().toString();
+        List<ItemStack> drops = new ArrayList<ItemStack>();
+        drops.addAll(event.drops);
+        for (ItemStack drop : drops) {
+            if (drop.stackTagCompound == null) {
+                drop.stackTagCompound = new NBTTagCompound();
+                drop.stackTagCompound.setBoolean("compoundExisted", false);
+            }
+            drop.stackTagCompound.setString("magnetism|harvestUUID", UUID);                                                             //Set the harvest entity before the drops are spawned
+        }
+    }
+
+    //Magnetism
+    @SubscribeEvent
+    public void onEntitySpawned(EntityJoinWorldEvent event) {
+        if (event.entity instanceof EntityItem && !event.world.isRemote) {
+            ItemStack stack = ((EntityItem) event.entity).getEntityItem();
+            if (stack.stackTagCompound != null && stack.stackTagCompound.hasKey("magnetism|harvestUUID")) {                             //Remove the Tag from the itemstack before it is picked up, so stacking can still happen
+                String UUID = stack.stackTagCompound.getString("magnetism|harvestUUID");
+                stack.stackTagCompound.removeTag("magnetism|harvestUUID");
+                if (stack.stackTagCompound.hasKey("compoundExisted"))
+                    stack.stackTagCompound = null;
+
+                for (Object p : event.world.playerEntities) {
+                    EntityPlayer player = (EntityPlayer) p;
+                    if (player.getUniqueID().toString().equals(UUID)) {
+                        event.entity.setPosition(player.posX, player.posY, player.posZ);
+
+                        ((EntityItem) event.entity).delayBeforeCanPickup = 0;
+                    }
+                }
+            }
+        }
+    }
 }

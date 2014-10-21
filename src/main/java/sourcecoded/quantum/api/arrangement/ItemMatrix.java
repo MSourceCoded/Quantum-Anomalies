@@ -3,6 +3,7 @@ package sourcecoded.quantum.api.arrangement;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import sourcecoded.quantum.api.CraftingContext;
 
 /**
  * The ItemMatrix object is used to
@@ -78,7 +79,7 @@ public class ItemMatrix {
      * call this multiple times, each time with the
      * matrix rotated.
      */
-    public boolean matches(ItemMatrix grid) {
+    public boolean matches(ItemMatrix grid, CraftingContext context) {
         if (grid.getHeight() != getHeight()) return false;
         if (grid.getWidth() != getWidth()) return false;
 
@@ -90,7 +91,9 @@ public class ItemMatrix {
                 if (compare == null && itemstack == null) continue;
                 if (compare == null || itemstack == null) return false;
                 //if (!compare.isItemEqual(itemstack)) return false;
-                if (!OreDictionary.itemMatches(itemstack, compare, false)) return false;
+                //if (!OreDictionary.itemMatches(itemstack, compare, false)) return false;
+
+                if (!context.matches(itemstack, compare)) return false;
             }
 
         return true;

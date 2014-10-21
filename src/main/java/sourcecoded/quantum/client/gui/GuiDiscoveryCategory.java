@@ -1,11 +1,14 @@
 package sourcecoded.quantum.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -20,9 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.*;
 
 public class GuiDiscoveryCategory extends GuiScreen {
 
@@ -82,6 +83,12 @@ public class GuiDiscoveryCategory extends GuiScreen {
     }
 
     public void drawScreen(int mx, int my, float par3) {
+        this.mc.getTextureManager().bindTexture(guiBlank);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0F);
+        GL11.glColor4f(0F, 0F, 0F, 0.1F);
+        this.drawTexturedModalRect(0, 0, 0, 0, this.width, this.height);
+        GL11.glColor4f(1F, 1F, 1F, 1F);
+
         int centreW = super.width / 2;
         int centreH = super.height / 2;
 
@@ -178,7 +185,10 @@ public class GuiDiscoveryCategory extends GuiScreen {
                     this.mc.getTextureManager().bindTexture(item.icon);
                     drawFullQuadWithBounds(centreW - 8 + item.getX() - dragX, centreH - 46 - dragY + item.getY(), 16, 16);
                 } else if (item.displayStack != null) {
+                    if (!unlocked)
+                        GL11.glEnable(GL_LIGHTING);
                     render.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.getTextureManager(), item.displayStack, centreW - 8 + item.getX() - dragX, centreH - 46 - dragY + item.getY());
+                    GL11.glDisable(GL_LIGHTING);
                 }
             }
 

@@ -3,6 +3,7 @@ package sourcecoded.quantum.api.arrangement;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 
 import java.util.HashMap;
 
@@ -19,6 +20,7 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
 
     ItemStack output;
     ItemMatrix grid;
+    CraftingContext context;
 
     /**
      * Create a new Shaped Recipe object. The params are the
@@ -28,6 +30,17 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
      * e.g. new ItemStack(yourOutput), "obo", "bob", "obo", 'o', yourBlock, 'b', yourOtherBlock
      */
     public ArrangementShapedRecipe(ItemStack output, Object... params) {
+        this(output, CraftingContext.getStandardContext(), params);
+    }
+
+    /**
+     * Create a new Shaped Recipe object. The params are the
+     * same as you would put into GameRegistry.addShapedRecipe
+     * @see cpw.mods.fml.common.registry.GameRegistry#addShapedRecipe(net.minecraft.item.ItemStack, Object...)
+     *
+     * e.g. new ItemStack(yourOutput), "obo", "bob", "obo", 'o', yourBlock, 'b', yourOtherBlock
+     */
+    public ArrangementShapedRecipe(ItemStack output, CraftingContext context, Object... params) {
         this.output = output;
 
         String s = "";
@@ -76,6 +89,8 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
                     grid.setItemAt(xC, zC, matches.get(c));
                 j++;
             }
+
+        this.context = context;
     }
 
     /**
@@ -98,7 +113,7 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
         ItemMatrix i90 = ItemMatrix.rotate90(i);
         ItemMatrix i180 = ItemMatrix.rotate180(i);
         ItemMatrix i270 = ItemMatrix.rotate270(i);
-        return grid.matches(i) || grid.matches(i90) || grid.matches(i180) || grid.matches(i270);
+        return grid.matches(i, context) || grid.matches(i90, context) || grid.matches(i180, context) || grid.matches(i270, context);
     }
 
     /**
@@ -113,5 +128,10 @@ public class ArrangementShapedRecipe implements IArrangementRecipe{
     @Override
     public ItemMatrix getMatrix() {
         return grid;
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return context;
     }
 }

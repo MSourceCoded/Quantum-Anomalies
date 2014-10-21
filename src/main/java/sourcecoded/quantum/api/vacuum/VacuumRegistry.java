@@ -2,6 +2,7 @@ package sourcecoded.quantum.api.vacuum;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import sourcecoded.quantum.api.CraftingContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class VacuumRegistry {
      */
     public static IVacuumRecipe getRecipeForCatalyst(List<ItemStack> catalysts) {
         for (IVacuumRecipe recipe : getRecipes()) {
-            if (matches(recipe.getCatalysts(), catalysts))
+            if (matchesContext(recipe.getCatalysts(), catalysts, recipe.getContext()))
                 return recipe;
         }
         return null;
@@ -96,6 +97,17 @@ public class VacuumRegistry {
 
         for (int i = 0; i < l1.size(); i++) {
             if (!matches(l1.get(i), l2.get(i)))
+                return false;
+        }
+
+        return true;
+    }
+
+    public static boolean matchesContext(List<ItemStack> l1, List<ItemStack> l2, CraftingContext context) {
+        if (l1.size() != l2.size()) return false;
+
+        for (int i = 0; i < l1.size(); i++) {
+            if (!context.matches(l1.get(i), l2.get(i)))
                 return false;
         }
 

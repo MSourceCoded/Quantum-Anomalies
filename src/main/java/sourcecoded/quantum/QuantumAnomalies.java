@@ -150,6 +150,7 @@ public class QuantumAnomalies {
         e.registerServerCommand(new CommandSpawnEntity());
         e.registerServerCommand(new DebugCommand());
         e.registerServerCommand(new DamageCommand());
+        e.registerServerCommand(new QACommand());
     }
 
     @SubscribeEvent

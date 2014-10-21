@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.vacuum;
 
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 
 import java.util.List;
 
@@ -75,4 +76,11 @@ public interface IVacuumRecipe {
      * @see sourcecoded.quantum.api.vacuum.Instability
      */
     public Instability getInstabilityLevel();
+
+    /**
+     * Get the crafting context for this recipe. This denotes
+     * whether or not to respect OreDictionary, MetaData
+     * or NBT.
+     */
+    public CraftingContext getContext();
 }

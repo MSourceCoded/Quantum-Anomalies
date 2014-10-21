@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import sourcecoded.core.crafting.ICraftableItem;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
@@ -68,5 +69,10 @@ public class ItemObsidianJewel extends ItemQuantum implements ICraftableItem, II
     @Override
     public ItemStack getOutput() {
         return new ItemStack(this, 1, 1);
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 }

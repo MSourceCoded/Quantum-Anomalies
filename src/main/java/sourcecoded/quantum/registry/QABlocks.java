@@ -21,6 +21,8 @@ public enum QABlocks {
     ARRANGEMENT("blockArrangementTable", new BlockArrangement(), TileArrangement.class),
     SYNC("blockSynchronize", new BlockSync(), TileSync.class),
     PLAYER("blockPlayerEntanglement", new BlockPlayer(), TilePlayer.class),
+    SHELF("blockQuantumBookshelf", new BlockShelf(), TileShelf.class),
+    ENERGISED_AIR("blockEnergisedAir", new BlockEnergisedAir()),
 
     LOCK("blockQuantumLock", new BlockQuantumLock()),
     ;

@@ -2,11 +2,13 @@ package sourcecoded.quantum.item;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -123,6 +125,18 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
         checkCompound(stack);
 
         TileEntity tile = world.getTileEntity(x, y, z);
+
+        Block block = world.getBlock(x, y, z);
+        if (block == Blocks.cauldron) {
+            if (!world.isRemote)
+            if (world.getBlockMetadata(x, y, z) > 0) {
+                stack.stackTagCompound.removeTag("blacklist");
+                world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) - 1, 2);
+                player.addChatComponentMessage(new ChatComponentText(LocalizationUtils.translateLocalWithColours("qa.items.itemRiftMagnet.clear", "Cleared the Blacklist!")));
+            }
+
+            return world.isRemote;
+        }
 
         if (tile != null && tile instanceof IInventory) {
             ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();

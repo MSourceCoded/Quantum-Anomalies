@@ -65,5 +65,4 @@ public class DiscoveryRegistry {
 
         return null;
     }
-
 }

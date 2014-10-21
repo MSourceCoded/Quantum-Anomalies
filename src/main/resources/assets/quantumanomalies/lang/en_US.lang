@@ -33,6 +33,12 @@ qa.blocks.blockSynchronize.lore.0@1={c:ITALIC}Tile Entities are people too!
 qa.blocks.blockPlayerEntanglement.name={c:LIGHT_PURPLE}Player Entanglement Device{c:RESET}
 qa.blocks.blockPlayerEntanglement.lore.0={c:ITALIC}Never leave home without your keys again
 
+qa.blocks.blockQuantumBookshelf.name={c:AQUA}Rift Bookshelf{c:RESET}
+qa.blocks.blockQuantumBookshelf.lore.0={c:ITALIC}Knowledge from a primeval atom
+
+qa.blocks.blockEnergisedAir.name=Rift Energised Air
+qa.blocks.blockEnergisedAir.lore.0={c:ITALIC}Quantum Energy is afraid of the dark
+
 qa.items.itemChaosShard.name=Chaos Shard
 
 qa.items.itemInjectedStick.name@0={c:AQUA}Injected Stick{c:RESET}
@@ -58,6 +64,7 @@ qa.items.itemRiftMagnet.lore.0@0={c:ITALIC}Slightly better than a fridge magnet.
 qa.items.itemRiftMagnet.lore.0@1={c:ITALIC}Slightly better than a fridge magnet...
 qa.items.itemRiftMagnet.remove={c:RED}Removed Item From Blacklist:
 qa.items.itemRiftMagnet.add={c:GREEN}Added Item To Blacklist:
+qa.items.itemRiftMagnet.clear={c:AQUA}Cleared blacklist!
 qa.items.itemRiftMagnet.lore.range={c:ITALIC}Range: x=%s y=%s
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
@@ -163,6 +170,17 @@ qa.journal.category.QA|Blocks.name=Blocks
 qa.journal.category.QA|Items.name=Items
 qa.journal.category.QA|Tools.name=Tools
 
+qa.journal.item.QA|Lore.name=Quantum Anomalies
+qa.journal.item.QA|Lore.desc=Chaos, Entropy and all things Bad
+qa.journal.item.QA|Lore.page.0=Welcome to {c:DARK_PURPLE}Quantum Anomalies{c:BLACK}, a Minecraft mod about Chaos, Entropy, and all things {c:DARK_RED}b{c:ITALIC}A{c:RESET}{c:DARK_RED}{c:BOLD}d{c:RESET}{c:BLACK}. <br>Bend the environment to your will and stumble your way though the world of {c:DARK_PURPLE}{c:ITALIC}Quantum Rift Energy{c:RESET}{c:BLACK}, but be warned, it's not the faint of heart. Abusing the environment has its consequences, but can you handle them?
+qa.journal.item.QA|Lore.page.1={c:STRIKETHROUGH}{c:ITALIC} PLEASE HELP ME I'M STUCK IN HERE WHAT MAD MAN WOULD DO TH-- {c:RESET} {c:DARK_RED}{c:BOLD}{c:ITALIC} KEEP QUIET! {c:RESET}
+
+qa.journal.item.QA|Biome.name=Biomes and Exploration
+qa.journal.item.QA|Biome.desc=The beginning steps to spark your curiosity
+qa.journal.item.QA|Biome.page.0={c:DARK_PURPLE}Anomaly Biomes{c:BLACK}. They come in both flavours of Hell and End. Extremely mountainous, extremely dangerous, but they appear to have something that strikes your curiosity, something you {c:ITALIC}want.{c:RESET} <br>You notice after exploring these biomes for some time that there are weird {c:RED}{c:ITALIC}collections of energy{c:RESET}{c:BLACK}. Could it be plasma? It's too early to tell, I need some better research equipment...
+qa.journal.item.QA|Biome.page.1={c:ITALIC}The End Anomaly Biome
+qa.journal.item.QA|Biome.page.2={c:ITALIC}The Hell Anomaly Biome
+
 #####################################
 # Misc
 #####################################
@@ -177,8 +195,6 @@ qa.lore.multipliers.production=Production
 qa.lore.dyeable.0=Dyeable!
 qa.lore.dyeable.1=Any colour you want!
 
-qa.vacuum.chamber.name=Vacuum Chamber
-
 #####################################
 # Keybinding
 #####################################
@@ -186,3 +202,22 @@ qa.vacuum.chamber.name=Vacuum Chamber
 qa.keybind.category=Quantum Anomalies
 
 qa.keybind.focus.change=Change Sceptre Focus
+
+#####################################
+# Vacuum
+#####################################
+qa.vacuum.chamber.name=Vacuum Chamber
+
+qa.vacuum.instability.none.name={c:DARK_GREEN}None
+qa.vacuum.instability.minimal.name={c:DARK_GREEN}Minimal
+qa.vacuum.instability.small.name={c:DARK_GREEN}Small
+qa.vacuum.instability.medium.name={c:GOLD}Medium
+qa.vacuum.instability.high.name={c:GOLD}High
+qa.vacuum.instability.dismal.name={c:RED}Dismal
+qa.vacuum.instability.critical.name={c:RED}Critical
+qa.vacuum.instability.extreme.name={c:DARK_RED}Extreme
+qa.vacuum.instability.catastrophic.name={c:DARK_RED}Catastrophic
+qa.vacuum.instability.apocalyptic.name={c:DARK_PURPLE}Apocalyptic
+qa.vacuum.instability.dimensional_shift.name={c:BLACK}{c:BOLD}DIMENSIONAL SHIFT
+qa.vacuum.instability.cataclysmic_switch.name={c:DARK_PURPLE}{c:BOLD}CATACLYSMIC SWITCH
+

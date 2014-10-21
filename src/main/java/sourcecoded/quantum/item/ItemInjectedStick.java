@@ -4,6 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
@@ -93,5 +94,10 @@ public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, I
     @Override
     public Instability getInstabilityLevel() {
         return Instability.SMALL;
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 }

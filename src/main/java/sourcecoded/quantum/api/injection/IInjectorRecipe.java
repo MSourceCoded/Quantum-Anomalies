@@ -1,6 +1,7 @@
 package sourcecoded.quantum.api.injection;
 
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 
 /**
  * An interface for use with Quantum Injection.
@@ -34,5 +35,12 @@ public interface IInjectorRecipe {
      * The resulting ItemStack after the injection
      */
     public ItemStack getOutput();
+
+    /**
+     * Get the crafting context for this recipe. This denotes
+     * whether or not to respect OreDictionary, MetaData
+     * or NBT.
+     */
+    public CraftingContext getContext();
 
 }

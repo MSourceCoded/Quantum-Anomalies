@@ -1,7 +1,6 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -9,22 +8,21 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.api.CraftingContext;
+import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
-import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
-import sourcecoded.quantum.tile.TileInjectedStone;
+import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
+import sourcecoded.quantum.tile.TileShelf;
 
-public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
+public class BlockShelf extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
 
-    public BlockInjectedStone() {
-        super();
-        this.setBlockName("blockInjectedStone");
+    public BlockShelf() {
         this.setBlockTextureName("infusedStone");
-        this.setHardness(5F);
+        this.setBlockName("blockQuantumBookshelf");
     }
 
     public int getRenderType() {
-        return SimpleTileProxy.renderID;
+        return AdvancedTileProxy.renderID;
     }
 
     @Override
@@ -41,35 +39,35 @@ public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvi
     }
 
     public TileEntity createNewTileEntity(World world, int meta) {
-        return new TileInjectedStone();
+        return new TileShelf();
     }
 
-    public float getExplosionResistance(Entity entity) {
-        return 15F;
+    public float getEnchantPowerBonus(World world, int x, int y, int z) {
+        return 2.5F;
     }
 
     @Override
     public int getEnergyRequired() {
-        return InjectionConstants.INJECTION_STANDARD_BLOCK;
+        return (int) (InjectionConstants.INJECTION_STANDARD_BLOCK * 1.5F);
     }
 
     @Override
     public byte getTier() {
-        return 0;
+        return 2;
     }
 
     @Override
     public ItemStack getInput() {
-        return new ItemStack(Blocks.stone, 1, 0);
+        return new ItemStack(Blocks.bookshelf);
     }
 
     @Override
     public ItemStack getOutput() {
-        return new ItemStack(this, 1, 0);
+        return new ItemStack(this, 1);
     }
 
     @Override
     public CraftingContext getContext() {
-        return CraftingContext.getStandardContext();
+        return new CraftingContext().setOreDictionary(true);
     }
 }

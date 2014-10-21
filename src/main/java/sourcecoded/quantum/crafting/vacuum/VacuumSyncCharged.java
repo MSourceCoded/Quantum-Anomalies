@@ -3,6 +3,7 @@ package sourcecoded.quantum.crafting.vacuum;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
 import sourcecoded.quantum.registry.QABlocks;
@@ -68,6 +69,11 @@ public class VacuumSyncCharged implements IVacuumRecipe {
 
     @Override
     public Instability getInstabilityLevel() {
-        return Instability.APOCALYPTIC;
+        return Instability.CATACLYSMIC_SWITCH;
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 }

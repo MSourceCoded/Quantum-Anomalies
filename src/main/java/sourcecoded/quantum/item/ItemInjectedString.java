@@ -2,6 +2,7 @@ package sourcecoded.quantum.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 
 public class ItemInjectedString extends ItemQuantum implements IInjectorRecipe {
@@ -29,5 +30,10 @@ public class ItemInjectedString extends ItemQuantum implements IInjectorRecipe {
     @Override
     public ItemStack getOutput() {
         return new ItemStack(this);
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 }

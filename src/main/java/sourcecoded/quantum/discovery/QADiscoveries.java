@@ -7,6 +7,7 @@ import sourcecoded.quantum.discovery.category.CategoryBlocks;
 import sourcecoded.quantum.discovery.category.CategoryItems;
 import sourcecoded.quantum.discovery.category.CategoryTools;
 import sourcecoded.quantum.discovery.item.DItemLoreBasic;
+import sourcecoded.quantum.discovery.item.DItemLoreBiomes;
 
 public class QADiscoveries {
 
@@ -31,6 +32,7 @@ public class QADiscoveries {
 
     public static enum Item {
         LORE(new DItemLoreBasic(), Category.BASICS.get()),
+        BIOME(new DItemLoreBiomes(), Category.BASICS.get()),
 
         ;
 

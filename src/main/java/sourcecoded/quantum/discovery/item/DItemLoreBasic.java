@@ -26,10 +26,8 @@ public class DItemLoreBasic extends DiscoveryItem {
         this.setHiddenByDefault(false);
         this.setUnlockedByDefault(true);
 
-        this.addPage(new DiscoveryPage("Discovery Page Demo", "Welcome to the Demonstration page of the {c:DARK_PURPLE}Anomolical Journal{c:BLACK}. Please keep your hands and legs inside of the vehicle at all times.<br>What a {c:ITALIC}magical{c:RESET} book, I'm sure it holds all kinds of secrets.<br>Please help I'm {c:STRIKETHROUGH}trapped in here{c:RESET} {c:DARK_RED}{c:ITALIC}{c:BOLD} SHUT UP!"));
-        this.addPage(new DiscoveryPage("Crafting Arrangement", ArrangementRegistry.getRecipeForOutput(new ItemStack(QAItems.RIFT_PICKAXE.getItem()))));
-        this.addPage(new DiscoveryPage("Crafting Injection", InjectorRegistry.getRecipeForOutput(new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1))));
-        this.addPage(new DiscoveryPage("Crafting Vacuum", new VacuumSyncCharged()));
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.1"));
     }
 
 

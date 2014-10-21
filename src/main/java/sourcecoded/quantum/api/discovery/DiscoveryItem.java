@@ -121,6 +121,14 @@ public class DiscoveryItem {
     }
 
     /**
+     * Similar to #getUnlocalizedName, but without the
+     * .name suffix
+     */
+    public String getPrefixKey() {
+        return "qa.journal.item." + key;
+    }
+
+    /**
      * Get the Localized name for the
      * item (before StatCollector/l18n)
      *

@@ -37,6 +37,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class GuiDiscoveryPage extends GuiScreen {
 
     public static ResourceLocation pageLocation = new ResourceLocation(Constants.MODID, "textures/gui/book.png");
+    public static ResourceLocation guiBlank = new ResourceLocation(Constants.MODID, "textures/misc/blank.png");
 
     int frameWidth = 146;
     int frameHeight = 180;
@@ -133,7 +134,7 @@ public class GuiDiscoveryPage extends GuiScreen {
 
         switch (currentPage.type) {
             case TEXT:
-                renderText(centreH - 65);
+                renderText(centreH - 67);
                 break;
 
             case IMAGE:
@@ -190,7 +191,10 @@ public class GuiDiscoveryPage extends GuiScreen {
 
         this.mc.getTextureManager().bindTexture(this.currentPage.image);
 
-        float ratio = this.currentPage.height / this.currentPage.width;
+        int imgH = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT);
+        int imgW = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH);
+
+        float ratio = imgH / (float)imgW;
         int width = frameWidth - pad * 2;
 
         this.drawFullQuadWithBounds(centreW - frameWidth / 2 + pad, centreH - 60, width, (int) (width * ratio));
@@ -292,6 +296,7 @@ public class GuiDiscoveryPage extends GuiScreen {
             GL11.glTranslatef(centreW, centreH - 25, 0);
             GL11.glScalef(scale, scale, scale);
             drawCenteredStringWOShadow(fontRendererObj, format.format(recipe.getEnergyRequired()) + " QRE", 0, 0, Colourizer.BLACK.toInteger());
+            drawCenteredStringWOShadow(fontRendererObj, "Tier: " + recipe.getTier(), 0, 13, Colourizer.BLACK.toInteger());
             GL11.glScalef(scaleI, scaleI, scaleI);
             GL11.glTranslatef(-centreW, -centreH + 25, 0);
 
@@ -331,6 +336,7 @@ public class GuiDiscoveryPage extends GuiScreen {
             GL11.glScalef(scale, scale, scale);
             drawCenteredStringWOShadow(fontRendererObj, format.format(recipe.getVacuumEnergyStart()) + " QRE (Start)", 0, 0, Colourizer.BLACK.toInteger());
             drawCenteredStringWOShadow(fontRendererObj, format.format(recipe.getVacuumEnergyPerItem()) + " QRE (Per Item)", 0, 13, Colourizer.BLACK.toInteger());
+            drawCenteredStringWOShadow(fontRendererObj,  "Instability: " + recipe.getInstabilityLevel().getInstabilityName(), 0, 26, Colourizer.BLACK.toInteger());
             GL11.glScalef(scaleI, scaleI, scaleI);
             GL11.glTranslatef(-centreW, -centreH - 50, 0);
 
@@ -451,5 +457,4 @@ public class GuiDiscoveryPage extends GuiScreen {
         tess.addVertexWithUV(x, y, this.zLevel, u, v);
         tess.draw();
     }
-
 }

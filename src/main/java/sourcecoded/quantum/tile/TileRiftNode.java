@@ -424,7 +424,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBind
                 for (int i = 0; i < inventory.getSizeInventory(); i++) {
                     ItemStack current = inventory.getStackInSlot(i);
                     if (current == null) continue;
-                    if (current.isItemEqual(nextItem)) {
+                    //if (current.isItemEqual(nextItem)) {
+                    if (currentActiveRecipe.getContext().matches(current, nextItem)) {
                         current.stackSize -= 1;
                         nextItem.stackSize -= 1;
                         if (current.stackSize > 0)

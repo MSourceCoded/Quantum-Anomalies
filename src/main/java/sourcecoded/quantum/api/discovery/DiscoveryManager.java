@@ -59,12 +59,14 @@ public class DiscoveryManager {
         if (!items.hasKey(item))
             items.setTag(item, new NBTTagCompound());
 
-        if (!items.hasKey("Unlocked"))
-            items.setBoolean("Unlocked", it.unlockedByDefault);
-        if (!items.hasKey("Hidden"))
-            items.setBoolean("Hidden", it.hiddenByDefault);
+        NBTTagCompound comp = items.getCompoundTag(item);
 
-        return items;
+        if (!comp.hasKey("Unlocked"))
+            comp.setBoolean("Unlocked", it.unlockedByDefault);
+        if (!comp.hasKey("Hidden"))
+            comp.setBoolean("Hidden", it.hiddenByDefault);
+
+        return comp;
     }
 
     /**
@@ -85,6 +87,15 @@ public class DiscoveryManager {
         NBTTagCompound compound = getCategory(category, player);
         compound.setBoolean("Unlocked", true);
         revealCategory(category, player);
+        sync(player);
+    }
+
+    /**
+     * Sets a category's unlock state
+     */
+    public static void setCategoryUnlock(String item, EntityPlayer player, boolean state) {
+        getCategory(item, player).setBoolean("Unlocked", state);
+
         sync(player);
     }
 
@@ -114,6 +125,15 @@ public class DiscoveryManager {
     }
 
     /**
+     * Sets an item's unlock state, regardless of parents
+     */
+    public static void setItemUnlock(String item, EntityPlayer player, boolean state) {
+        getItem(item, player).setBoolean("Unlocked", state);
+
+        sync(player);
+    }
+
+    /**
      * Set a category as revealed (not hidden)
      */
     public static void revealCategory(String category, EntityPlayer player) {
@@ -123,10 +143,28 @@ public class DiscoveryManager {
     }
 
     /**
+     * Set the hidden state of a category
+     */
+    public static void hideCategory(String item, EntityPlayer player, boolean state) {
+        getCategory(item, player).setBoolean("Hidden", state);
+
+        sync(player);
+    }
+
+    /**
      * Set an item as revealed (not hidden)
      */
     public static void revealItem(String item, EntityPlayer player) {
         getItem(item, player).setBoolean("Hidden", false);
+
+        sync(player);
+    }
+
+    /**
+     * Set the hidden state of an item
+     */
+    public static void hideItem(String item, EntityPlayer player, boolean state) {
+        getItem(item, player).setBoolean("Hidden", state);
 
         sync(player);
     }
