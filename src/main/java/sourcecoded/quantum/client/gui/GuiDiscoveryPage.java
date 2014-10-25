@@ -18,6 +18,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.arrangement.ItemMatrix;
 import sourcecoded.quantum.api.block.Colourizer;
@@ -30,6 +31,7 @@ import sourcecoded.quantum.registry.QABlocks;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -43,6 +45,9 @@ public class GuiDiscoveryPage extends GuiScreen {
     int frameHeight = 180;
 
     int pageIndex = 0;
+
+    int mx;
+    int my;
 
     DiscoveryItem parentItem;
     DiscoveryPage currentPage;
@@ -81,6 +86,9 @@ public class GuiDiscoveryPage extends GuiScreen {
     public void drawScreen(int mx, int my, float par3) {
         int centreW = super.width / 2;
         int centreH = super.height / 2;
+
+        this.mx = mx;
+        this.my = my;
 
         Tessellator tess = Tessellator.instance;
 
@@ -157,6 +165,8 @@ public class GuiDiscoveryPage extends GuiScreen {
                 renderVacuum();
                 break;
         }
+
+        renderTooltips();
 
         mouse = Mouse.isButtonDown(0);
     }
@@ -249,7 +259,7 @@ public class GuiDiscoveryPage extends GuiScreen {
             //drawTexturedModalRect(centreW - 3, centreH + 12, 5, 220, 8, 11);
             drawPartialQuadWithBounds(centreW - 4, centreH + 16, 10, 14, 5/256F, 220/256F, 13/256F, 231/256F);
 
-            renderItemAndOverlay(render, fontRendererObj, this.mc.getTextureManager(), output, centreW - 7, centreH + 32);
+            renderItemAndOverlay(render, fontRendererObj, this.mc.getTextureManager(), output, centreW - 7, centreH + 32, true);
         }
 
         if (matrix != null) {
@@ -258,10 +268,17 @@ public class GuiDiscoveryPage extends GuiScreen {
                     ItemStack stack = matrix.getItemAt(j, i);               //Why is this backwards? Idk, I screwed something up. Oh well, idc
                     if (stack == null) continue;
 
-                    renderItemAndOverlay(render, fontRendererObj, this.mc.getTextureManager(), stack, xStart + xPadding * i, yStart + yPadding * j);
+                    renderItemAndOverlay(render, fontRendererObj, this.mc.getTextureManager(), stack, xStart + xPadding * i, yStart + yPadding * j, true);
                     GL11.glColor4f(1F, 1F, 1F, 1F);
                     GL11.glDisable(GL11.GL_LIGHTING);
                 }
+        }
+
+        if (arrangement) {
+            this.mc.getTextureManager().bindTexture(pageLocation);
+            IArrangementRecipe recipe = (IArrangementRecipe) currentPage.recipe;
+
+            renderCraftingContext(recipe.getContext());
         }
     }
 
@@ -284,9 +301,9 @@ public class GuiDiscoveryPage extends GuiScreen {
         GL11.glAlphaFunc(GL11.GL_GREATER, 0F);
         GL11.glColor4f(1F, 1F, 1F, 0.2F);
         drawPartialQuadWithBounds(centreW - 26, centreH - 40, 14, 10, 28 / 256F, 222 / 256F, 39 / 256F, 230 / 256F);
-        drawPartialQuadWithBounds(centreW + 11, centreH - 40, 14, 10, 28/256F, 222/256F, 39/256F, 230/256F);
+        drawPartialQuadWithBounds(centreW + 11, centreH - 40, 14, 10, 28 / 256F, 222 / 256F, 39 / 256F, 230 / 256F);
+
         render.renderItemAndEffectIntoGUI(fontRendererObj, mc.getTextureManager(), new ItemStack(QABlocks.RIFT_INJECTION_POOL.getBlock()), centreW - 8, centreH - 44);
-        GL11.glColor4f(1F, 1F, 1F, 1F);
 
         IInjectorRecipe recipe = (IInjectorRecipe) currentPage.recipe;
 
@@ -300,9 +317,12 @@ public class GuiDiscoveryPage extends GuiScreen {
             GL11.glScalef(scaleI, scaleI, scaleI);
             GL11.glTranslatef(-centreW, -centreH + 25, 0);
 
-            renderItemAndOverlay(render, fontRendererObj, mc.getTextureManager(), recipe.getInput(), centreW - 44, centreH - 44);
-            renderItemAndOverlay(render, fontRendererObj, mc.getTextureManager(), recipe.getOutput(), centreW + 28, centreH - 44);
+            renderItemAndOverlay(render, fontRendererObj, mc.getTextureManager(), recipe.getInput(), centreW - 44, centreH - 44, true);
+            renderItemAndOverlay(render, fontRendererObj, mc.getTextureManager(), recipe.getOutput(), centreW + 28, centreH - 44, true);
+
+            renderCraftingContext(recipe.getContext());
         }
+
     }
 
     public void renderVacuum() {
@@ -358,6 +378,9 @@ public class GuiDiscoveryPage extends GuiScreen {
             float itemScale = 0.8F;
             float itemScaleI = (float) Math.pow(itemScale, -1);
 
+            int nmx = mx - centreW;
+            int nmy = my - centreH;
+
             GL11.glTranslatef(centreW, centreH, 0);
             GL11.glScalef(itemScale, itemScale, itemScale);
             for (List<ItemStack> stackList : inputs) {
@@ -370,7 +393,11 @@ public class GuiDiscoveryPage extends GuiScreen {
                     int itemX = - 8 + xFactor;
                     int itemY = - 8 - 38 + yOffset;
 
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY);
+                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
+
+                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
+                        this.tooltip(stack.getTooltip(player, true), mx, my);
+                    }
                 }
             }
 
@@ -384,7 +411,11 @@ public class GuiDiscoveryPage extends GuiScreen {
                     int itemX = - 8 + xFactor;
                     int itemY = - 8 - 38 + yOffset;
 
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY);
+                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
+
+                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
+                        this.tooltip(stack.getTooltip(player, true), mx, my);
+                    }
                 }
             }
 
@@ -398,12 +429,18 @@ public class GuiDiscoveryPage extends GuiScreen {
                     int itemX = - 8 + xFactor;
                     int itemY = - 8 - 38 + yOffset;
 
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY);
+                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
+
+                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
+                        this.tooltip(stack.getTooltip(player, true), mx, my);
+                    }
                 }
             }
 
             GL11.glScalef(itemScaleI, itemScaleI, itemScaleI);
             GL11.glTranslatef(-centreW, -centreH, 0);
+
+            renderCraftingContext(recipe.getContext());
         }
 
     }
@@ -428,10 +465,91 @@ public class GuiDiscoveryPage extends GuiScreen {
         return list;
     }
 
-    public void renderItemAndOverlay(RenderItem render, FontRenderer f, TextureManager tex, ItemStack stack, int x, int y) {
+    public void renderCraftingContext(CraftingContext context) {
+        int centreW = super.width / 2;
+        int centreH = super.height / 2;
+
+        GL11.glEnable(GL11.GL_BLEND);
+        RenderHelper.disableStandardItemLighting();
+
+        if (context.oreDictionary) {
+            GL11.glColor4f(1F, 1F, 1F, 0.4F);
+            renderOreDictionary(centreW + 45, centreH + 28, mx, my);
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
+        }
+        if (context.respectsMeta) {
+            GL11.glColor4f(1F, 1F, 1F, 0.4F);
+            renderRespectDamage(centreW + 45, centreH + 40, mx, my);
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
+        }
+        if (context.respectsNBT) {
+            GL11.glColor4f(1F, 1F, 1F, 0.4F);
+            renderRespectNBT(centreW + 45, centreH + 52, mx, my);
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
+        }
+    }
+
+    public void renderOreDictionary(int x, int y, int mx, int my) {
+        this.mc.getTextureManager().bindTexture(pageLocation);
+
+        int texU = 177;
+        int texV = 189;
+        drawPartialQuadWithBounds(x, y, 10, 10, texU/256F, texV/256F, (texU+16F)/256F, (texV+16F)/256F);
+        if (mx >= x && mx <= x+10 && my >= y && my <=y+10) {
+            String[] tooltip = new String[] {"qa.journal.gui.oredict.title", "qa.journal.gui.oredict"};
+            this.tooltip(LocalizationUtils.translateList(Arrays.asList(tooltip)), mx, my);
+        }
+    }
+
+    public void renderRespectDamage(int x, int y, int mx, int my) {
+        this.mc.getTextureManager().bindTexture(pageLocation);
+
+        int texU = 194;
+        int texV = 189;
+        drawPartialQuadWithBounds(x, y, 10, 10, texU/256F, texV/256F, (texU+16F)/256F, (texV+16F)/256F);
+        if (mx >= x && mx <= x+10 && my >= y && my <=y+10) {
+            String[] tooltip = new String[] {"qa.journal.gui.damage.title", "qa.journal.gui.damage"};
+            this.tooltip(LocalizationUtils.translateList(Arrays.asList(tooltip)), mx, my);
+        }
+    }
+
+    public void renderRespectNBT(int x, int y, int mx, int my) {
+        this.mc.getTextureManager().bindTexture(pageLocation);
+
+        int texU = 210;
+        int texV = 189;
+        drawPartialQuadWithBounds(x, y, 10, 10, texU/256F, texV/256F, (texU+16F)/256F, (texV+16F)/256F);
+        if (mx >= x && mx <= x+10 && my >= y && my <=y+10) {
+            String[] tooltip = new String[] {"qa.journal.gui.nbt.title", "qa.journal.gui.nbt"};
+            this.tooltip(LocalizationUtils.translateList(Arrays.asList(tooltip)), mx, my);
+        }
+    }
+
+    public void renderItemAndOverlay(RenderItem render, FontRenderer f, TextureManager tex, ItemStack stack, int x, int y, boolean tooltip) {
         RenderHelper.disableStandardItemLighting();
         render.renderItemAndEffectIntoGUI(f, tex, stack, x, y);
         render.renderItemOverlayIntoGUI(f, tex, stack, x, y);
+
+        if (tooltip && mx >= x && mx <= x+16 && my >= y && my <=y+16) {
+            this.tooltip(stack.getTooltip(player, true), mx, my);
+        }
+    }
+
+    List<Tooltip> tips = new ArrayList<Tooltip>();
+
+    public void tooltip(List text, int x, int y) {
+        tips.add(new Tooltip(text, x, y));
+    }
+
+    public void renderTooltips() {
+        for (Tooltip tip : tips) {
+            this.drawHoveringText(tip.text, tip.x, tip.y, fontRendererObj);
+        }
+
+        tips.clear();
     }
 
     public void drawCenteredStringWOShadow(FontRenderer fontRenderer, String string, int x, int y, int colour) {

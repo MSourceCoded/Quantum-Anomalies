@@ -165,21 +165,50 @@ qa.sceptre.focus.bind.bindingRemoved={c:AQUA}Binding Removed!
 qa.items.itemJournal.name={c:LIGHT_PURPLE}Anomolical Journal{c:WHITE}
 qa.items.itemJournal.lore.0={c:ITALIC}[ah-nom-ol-ic-al]
 
+qa.journal.gui.oredict.title={c:BLUE}OreDictionary Support
+qa.journal.gui.oredict=This recipe supports the OreDictionary
+
+qa.journal.gui.damage.title={c:BLUE}Damage and Metadata Support
+qa.journal.gui.damage=This recipe requires items to <br>be of a specified damage value
+
+qa.journal.gui.nbt.title={c:BLUE}NBT Support
+qa.journal.gui.nbt=This recipe requires a specific <br>set of NBT Data
+
 qa.journal.category.QA|Basics.name=The Basics
 qa.journal.category.QA|Blocks.name=Blocks
 qa.journal.category.QA|Items.name=Items
 qa.journal.category.QA|Tools.name=Tools
 
 qa.journal.item.QA|Lore.name=Quantum Anomalies
-qa.journal.item.QA|Lore.desc=Chaos, Entropy and all things Bad
+qa.journal.item.QA|Lore.desc={c:GRAY}{c:ITALIC}Chaos, Entropy and all things Bad
 qa.journal.item.QA|Lore.page.0=Welcome to {c:DARK_PURPLE}Quantum Anomalies{c:BLACK}, a Minecraft mod about Chaos, Entropy, and all things {c:DARK_RED}b{c:ITALIC}A{c:RESET}{c:DARK_RED}{c:BOLD}d{c:RESET}{c:BLACK}. <br>Bend the environment to your will and stumble your way though the world of {c:DARK_PURPLE}{c:ITALIC}Quantum Rift Energy{c:RESET}{c:BLACK}, but be warned, it's not the faint of heart. Abusing the environment has its consequences, but can you handle them?
 qa.journal.item.QA|Lore.page.1={c:STRIKETHROUGH}{c:ITALIC} PLEASE HELP ME I'M STUCK IN HERE WHAT MAD MAN WOULD DO TH-- {c:RESET} {c:DARK_RED}{c:BOLD}{c:ITALIC} KEEP QUIET! {c:RESET}
 
 qa.journal.item.QA|Biome.name=Biomes and Exploration
-qa.journal.item.QA|Biome.desc=The beginning steps to spark your curiosity
+qa.journal.item.QA|Biome.desc={c:GRAY}{c:ITALIC}The beginning steps to spark your curiosity
 qa.journal.item.QA|Biome.page.0={c:DARK_PURPLE}Anomaly Biomes{c:BLACK}. They come in both flavours of Hell and End. Extremely mountainous, extremely dangerous, but they appear to have something that strikes your curiosity, something you {c:ITALIC}want.{c:RESET} <br>You notice after exploring these biomes for some time that there are weird {c:RED}{c:ITALIC}collections of energy{c:RESET}{c:BLACK}. Could it be plasma? It's too early to tell, I need some better research equipment...
 qa.journal.item.QA|Biome.page.1={c:ITALIC}The End Anomaly Biome
 qa.journal.item.QA|Biome.page.2={c:ITALIC}The Hell Anomaly Biome
+qa.journal.item.QA|Biome.page.3={c:DARK_RED}{c:ITALIC}{c:BOLD}DESTROY IT, PLEASE, DESTROY IT NOW. {c:STRIKETHROUGH}PLEEEEEE--
+qa.journal.item.QA|Biome.page.3.t=HELP M{c:OBFUSCATED}E PLE{c:RESET}ASE
+
+qa.journal.item.QA|Energy.name=Nodes and Energy
+qa.journal.item.QA|Energy.desc={c:GRAY}{c:ITALIC}Ooh, what's that glowy thing?
+qa.journal.item.QA|Energy.page.0=After stumbling around those biomes that seem to be from another world, you find yourself fascinated by a glowy-orb. Or rather, a lot of them. Each one is a different colour. Some have rings of particles around them, and others don't. Could this be some kind of energy storage device? Who knows. It seems that once they get to a certain size, they gain those.... rings. They're awfully pretty, I'll say that much.
+qa.journal.item.QA|Energy.page.1=Another feature catches your attention. Those particle rings. After measuring them with your instruments, they don't show up. Everything else does, but those don't. Could it be an illusion? Is your mind playing up? Are you going mad? Who's this narrator? Why are you talking in third person? Perhaps these are more powerful than yo-- I--- {c:ITALIC}...whatever{c:RESET} first thought.
+qa.journal.item.QA|Energy.page.2=After swinging at one of these with a tool, it seems to let out a {c:BOLD}HUGE{c:RESET} gust of... wind? No... force. Some strange force you can't seem to control. Is that a grey hair on your head? I don't recall you having that say.... 5 seconds ago?
+qa.journal.item.QA|Energy.page.3={c:ITALIC}A {c:DARK_PURPLE}{c:ITALIC}Rift Node{c:BLACK}{c:ITALIC} in its natural habitat
+
+qa.journal.item.QA|Arrangement.name=Matter Arrangement Table
+qa.journal.item.QA|Arrangement.desc={c:GRAY}{c:ITALIC}Squares, Triangles, they're all the same!
+qa.journal.item.QA|Arrangement.page.0=After doing some crafting, it dawns on you. Perhaps it's time for a more.... refined crafting table. Something which can arrange things on an atomic level. Perhaps reinforcing a table will make it stronger, more durable. Injecting a diamond into its core might make it a bit more precise. Why not give it a try?
+qa.journal.item.QA|Arrangement.page.1=You place {c:DARK_PURPLE}Obsidian{c:BLACK} adjacent to the four corners of a Crafting Table to reinforce it, and Sneak-Click it with a diamond.
+qa.journal.item.QA|Arrangement.page.2={c:ITALIC}The proposed schematic for the {c:DARK_PURPLE}{c:ITALIC}Matter Arrangement Table
+qa.journal.item.QA|Arrangement.page.2.title=Multiblock
+qa.journal.item.QA|Arrangement.page.3=Tinkering on such a small scale ironically needs quite a lot of space, 3x3 to be exact. Use blocks in the world as your Crafting Matrix, the table being the centre-piece. Blocks can be placed down, whilst items must be dropped on the floor. Sneak-Clicking the table will complete the crafting operation.
+qa.journal.item.QA|Arrangement.page.4=For any items that need to be in the centre, drop them on top of the table. When a valid recipe is recognised, a ghost item will appear above the table to show you what you are about to craft. <br>It should be noted the table can craft both its {c:ITALIC}own{c:RESET} recipes and regular {c:ITALIC}Shaped or Shapeless{c:RESET} recipes
+qa.journal.item.QA|Arrangement.page.5={c:ITALIC}A simple crafting example of the {c:DARK_RED}{c:ITALIC}Daylight Sensor{c:BLACK}{c:ITALIC} using the {c:DARK_PURPLE}{c:ITALIC}Matter Arrangement Table
+qa.journal.item.QA|Arrangement.page.5.title=Demonstration
 
 #####################################
 # Misc

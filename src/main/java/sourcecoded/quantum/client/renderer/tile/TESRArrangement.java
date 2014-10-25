@@ -7,11 +7,14 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileArrangement;
 import sourcecoded.quantum.util.TessUtils;
@@ -56,7 +59,9 @@ public class TESRArrangement extends TESRStaticHandler {
                 if (arrangement.renderProgress >= 1F)
                     arrangement.renderProgress = 0F;
 
-                EntityItem item = new EntityItem(arrangement.getWorldObj(), 0D, 0D, 0D, arrangement.activeRecipe.getOutput());
+                ItemStack items = arrangement.getOutput();
+
+                EntityItem item = new EntityItem(arrangement.getWorldObj(), 0D, 0D, 0D, items);
                 item.hoverStart = 0.0F;
                 RenderItem.renderInFrame = true;
 
@@ -75,14 +80,14 @@ public class TESRArrangement extends TESRStaticHandler {
             y += 0.5;
             z += 0.5;
 
-            tess.addTranslation((float)x, (float)y, (float)z);
+            tess.addTranslation((float) x, (float) y, (float) z);
             tess.startDrawingQuads();
             tess.setColorRGBA_F(1F, 1F, 1F, 1F);
             brightness(tess);
             Minecraft.getMinecraft().renderEngine.bindTexture(texDark);
             model.tessellateAll(tess);
             tess.draw();
-            tess.addTranslation((float)-x, (float)-y, (float)-z);
+            tess.addTranslation((float) -x, (float) -y, (float) -z);
 
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         }

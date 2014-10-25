@@ -12,6 +12,7 @@ import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 import sourcecoded.quantum.crafting.vacuum.VacuumSyncCharged;
 import sourcecoded.quantum.item.tools.ItemRiftBow;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 
 public class DItemLoreBasic extends DiscoveryItem {
@@ -28,6 +29,11 @@ public class DItemLoreBasic extends DiscoveryItem {
 
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.1"));
+
+        //TESTING
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), ArrangementRegistry.getRecipeForOutput(new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem()))));
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), InjectorRegistry.getRecipeForOutput(new ItemStack(QAItems.INJECTED_STRING.getItem()))));
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), VacuumRegistry.getRecipeForOutput(new ItemStack(QABlocks.SYNC.getBlock(), 1, 1))));
     }
 
 

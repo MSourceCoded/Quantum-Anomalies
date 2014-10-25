@@ -2,6 +2,10 @@ package sourcecoded.quantum.api.translation;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import scala.actors.threadpool.Arrays;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A static utility class for Localization. This is
@@ -47,6 +51,18 @@ public class LocalizationUtils {
      */
     public static String escapeFormatting(String text) {
         return EnumChatFormatting.getTextWithoutFormattingCodes(text);
+    }
+
+    /**
+     * Patches a list through translateLocalWithColours
+     */
+    @SuppressWarnings("unchecked")
+    public static List<String> translateList(List<String> string) {
+        List<String> list = new ArrayList<String>();
+        for (String s : string) {
+            list.addAll(Arrays.asList(translateLocalWithColours(s, s).split("<br>")));
+        }
+        return list;
     }
 
 }

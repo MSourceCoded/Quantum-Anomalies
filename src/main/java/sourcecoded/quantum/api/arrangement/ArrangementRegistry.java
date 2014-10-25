@@ -1,6 +1,12 @@
 package sourcecoded.quantum.api.arrangement;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -64,6 +70,37 @@ public class ArrangementRegistry {
         for (IArrangementRecipe recipe : recipes)
             if (OreDictionary.itemMatches(output, recipe.getOutput(), false))
                 return recipe;
+
+        return null;
+    }
+
+    public static IRecipe hasVanillaRecipeForMatrix(ItemMatrix grid, World world) {
+        InventoryCrafting crafting = new InventoryCrafting(new Container() { public boolean canInteractWith(EntityPlayer p_75145_1_) { return false; } },
+                grid.getWidth(), grid.getSizeGrid());
+
+        for (int a = 0; a <= 3; a++) {
+            if (a == 1)
+                grid = ItemMatrix.rotate90(grid);
+            else if (a == 2)
+                grid = ItemMatrix.rotate180(grid);
+            else if (a == 3)
+                grid = ItemMatrix.rotate270(grid);
+
+            int i = 0;
+            for (int x = 0; x < grid.getWidth(); x++) {
+                for (int y = 0; y < grid.getHeight(); y++) {
+                    crafting.setInventorySlotContents(i, grid.getItemAt(x, y));
+                    i++;
+                }
+            }
+
+            List listRecipe = CraftingManager.getInstance().getRecipeList();
+            for (Object ob : listRecipe) {
+                IRecipe recipe = (IRecipe) ob;
+                if (recipe.matches(crafting, world))
+                    return recipe;
+            }
+        }
 
         return null;
     }

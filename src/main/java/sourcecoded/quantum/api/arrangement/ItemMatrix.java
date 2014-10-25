@@ -59,6 +59,13 @@ public class ItemMatrix {
     }
 
     /**
+     * Get the size of the grid
+     */
+    public int getSizeGrid() {
+        return items.length * items[0].length;
+    }
+
+    /**
      * Get the ItemStack at the specified x/y
      */
     public ItemStack getItemAt(int x, int y) {

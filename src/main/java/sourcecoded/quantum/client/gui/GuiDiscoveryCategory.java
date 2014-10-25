@@ -13,11 +13,13 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import scala.tools.nsc.backend.icode.Members;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.*;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
+import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +51,9 @@ public class GuiDiscoveryCategory extends GuiScreen {
         this.player = player;
 
         items = new ArrayList<DiscoveryItem>();
-        int index = 0;
-        int level = 0;
         for (Map.Entry<String, DiscoveryItem> entry : category.discoveries.entrySet()) {
-            if (index == 4) {
-                level++;
-                index = 0;
-            }
             if (!DiscoveryManager.itemHidden(entry.getKey(), player)) {
                 items.add(entry.getValue());
-                index++;
             }
         }
 
@@ -171,9 +166,20 @@ public class GuiDiscoveryCategory extends GuiScreen {
                     drawPartialQuadWithBounds(itemX, itemY, itemDiameter, itemDiameter, 0F / 256F, 202F / 256F, 26F / 256F, 228F / 256F);
             }
 
-            if (Mouse.isButtonDown(0) && mx >= itemX && mx <= itemX + itemDiameter && my >= itemY && my <= itemY + itemDiameter && unlocked && item.pages != null && item.pages.size() > 0) {
-                //CLICKED
-                this.mc.displayGuiScreen(new GuiDiscoveryPage(item, 0, player, this));
+            if (mx >= itemX && mx <= itemX + itemDiameter && my >= itemY && my <= itemY + itemDiameter) {
+                List<String> list = new ArrayList<String>();
+                List<String> desc = new ArrayList<String>();
+                desc.add(LocalizationUtils.translateLocalWithColours(item.getUnlocalizedDescription(), item.getUnlocalizedDescription()));
+                desc = LocalizationUtils.translateList(desc);               //Split the description with <br> breaks
+
+                list.add(EnumChatFormatting.BLUE + item.getLocalizedName());
+                list.addAll(desc);
+                tooltip(list, mx, my);
+
+                if (Mouse.isButtonDown(0) && unlocked && item.pages != null && item.pages.size() > 0) {
+                    //CLICKED
+                    this.mc.displayGuiScreen(new GuiDiscoveryPage(item, 0, player, this));
+                }
             }
 
             RenderItem render = new RenderItem();
@@ -210,9 +216,25 @@ public class GuiDiscoveryCategory extends GuiScreen {
         this.mc.getTextureManager().bindTexture(guiLocation);
         this.drawTexturedModalRect(centreW - frameWidth / 2, centreH - frameHeight / 2, 0, 0, frameWidth, frameHeight);
 
+        renderTooltips();
+
         super.drawScreen(mx, my, par3);
 
         GL11.glPopMatrix();
+    }
+
+    List<Tooltip> tips = new ArrayList<Tooltip>();
+
+    public void tooltip(List text, int x, int y) {
+        tips.add(new Tooltip(text, x, y));
+    }
+
+    public void renderTooltips() {
+        for (Tooltip tip : tips) {
+            this.drawHoveringText(tip.text, tip.x, tip.y, fontRendererObj);
+        }
+
+        tips.clear();
     }
 
     public void drawFullQuadWithBounds(int x, int y, int width, int height) {

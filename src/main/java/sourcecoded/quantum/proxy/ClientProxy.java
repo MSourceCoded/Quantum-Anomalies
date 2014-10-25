@@ -3,6 +3,8 @@ package sourcecoded.quantum.proxy;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -16,6 +18,7 @@ import sourcecoded.quantum.client.renderer.item.*;
 import sourcecoded.quantum.client.renderer.tile.*;
 import sourcecoded.quantum.entity.EntityEnergyPacket;
 import sourcecoded.quantum.entity.EntityQuantumArrow;
+import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.*;
 
@@ -86,6 +89,7 @@ public class ClientProxy implements IProxy {
         ));
 
         MinecraftForgeClient.registerItemRenderer(QAItems.RIFT_BOW.getItem(), new ItemBowRenderer());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(QABlocks.RIFT_NODE.getBlock()), new ItemTransparencyRenderer());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedStone.class, new TESRInjectedStone());
         ClientRegistry.bindTileEntitySpecialRenderer(TileInjectedGlass.class, new TESRInjectedGlass());
@@ -96,7 +100,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileManipulation.class, new TESRManipulation());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSync.class, new TESRSync());
         ClientRegistry.bindTileEntitySpecialRenderer(TileArrangement.class, new TESRArrangement());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileRiftNode.class, new TESRRiftNode());
         ClientRegistry.bindTileEntitySpecialRenderer(TilePlayer.class, new TESRPlayer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileShelf.class, new TESRShelf());
     }

@@ -127,8 +127,10 @@ public class QuantumAnomalies {
         MinecraftForge.EVENT_BUS.register(new EnchantmentListener());
 
         FMLCommonHandler.instance().bus().register(new ServerListener());
+        FMLCommonHandler.instance().bus().register(new DiscoveryListener());
         MinecraftForge.EVENT_BUS.register(new ItemTossListener());
         MinecraftForge.EVENT_BUS.register(new EntityListener());
+        MinecraftForge.EVENT_BUS.register(new DiscoveryListener());
 
         FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");
     }

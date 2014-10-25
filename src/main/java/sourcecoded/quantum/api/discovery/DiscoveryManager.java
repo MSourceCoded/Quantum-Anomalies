@@ -200,7 +200,7 @@ public class DiscoveryManager {
     public static boolean areParentsUnlocked(String item, EntityPlayer player) {
         List<String> items = DiscoveryRegistry.getItemFromKey(item).parents;
         for (String itemN : items) {
-            if (!itemUnlocked(item, player)) return false;
+            if (!itemUnlocked(itemN, player)) return false;
         }
 
         return true;

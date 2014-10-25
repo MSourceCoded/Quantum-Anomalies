@@ -62,8 +62,6 @@ public class GravityHandler {
                     entity.motionY -= force * normal.yCoord;
                 if (entity.motionZ < force)
                     entity.motionZ -= force * normal.zCoord;
-
-                ((IGravityEntity) entity).onGravityAffected((float) force);
             }
         }
     }

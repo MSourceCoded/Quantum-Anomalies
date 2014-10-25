@@ -129,6 +129,15 @@ public class DiscoveryItem {
     }
 
     /**
+     * Get the Unlocalized Name for the
+     * item's Description
+     * (before StatCollector/l18n)
+     */
+    public String getUnlocalizedDescription() {
+        return "qa.journal.item." + key + ".desc";
+    }
+
+    /**
      * Get the Localized name for the
      * item (before StatCollector/l18n)
      *

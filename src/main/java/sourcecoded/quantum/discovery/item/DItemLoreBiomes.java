@@ -23,6 +23,7 @@ public class DItemLoreBiomes extends DiscoveryItem {
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), new ResourceLocation(Constants.MODID, "textures/discovery/biome_anomaly_end.png"), this.getPrefixKey() + ".page.1"));
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), new ResourceLocation(Constants.MODID, "textures/discovery/biome_anomaly_hell.png"), this.getPrefixKey() + ".page.2"));
+        this.addPage(new DiscoveryPage(this.getPrefixKey() + ".page.3.t", this.getPrefixKey() + ".page.3"));
     }
 
 
