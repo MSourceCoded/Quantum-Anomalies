@@ -2,7 +2,6 @@ package sourcecoded.quantum.api.discovery;
 
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.translation.LocalizationUtils;

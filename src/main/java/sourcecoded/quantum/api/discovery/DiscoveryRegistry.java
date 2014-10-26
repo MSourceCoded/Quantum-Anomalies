@@ -1,6 +1,8 @@
 package sourcecoded.quantum.api.discovery;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * The registry for everything to do with
@@ -64,5 +66,23 @@ public class DiscoveryRegistry {
         }
 
         return null;
+    }
+
+    public static List<String> getItemKeyList() {
+        List<String> list = new ArrayList<String>();
+        for (DiscoveryCategory cat : categories.values()) {
+            for (DiscoveryItem item : cat.discoveries.values())
+                list.add(item.getKey());
+        }
+
+        return list;
+    }
+
+    public static List<String> getCategoryKeyList() {
+        List<String> list = new ArrayList<String>();
+        for (DiscoveryCategory cat : categories.values())
+            list.add(cat.getKey());
+
+        return list;
     }
 }

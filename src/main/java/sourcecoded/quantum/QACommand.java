@@ -5,6 +5,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayer;
 import sourcecoded.quantum.api.discovery.DiscoveryManager;
+import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 
 import java.util.List;
 
@@ -40,6 +41,6 @@ public class QACommand extends CommandBase {
     }
 
     public List addTabCompletionOptions(ICommandSender sender, String[] str) {
-        return str.length == 1 ? getListOfStringsMatchingLastWord(str, "discoveries") : str.length == 2 ? getListOfStringsMatchingLastWord(str, "item", "category") : str.length == 3 ? getListOfStringsMatchingLastWord(str, "hidden", "unlocked") : str.length == 5 ? getListOfStringsMatchingLastWord(str, "true", "false") : null;
+        return str.length == 1 ? getListOfStringsMatchingLastWord(str, "discoveries") : str.length == 2 ? getListOfStringsMatchingLastWord(str, "item", "category") : str.length == 3 ? getListOfStringsMatchingLastWord(str, "hidden", "unlocked") : str.length == 4 ? str[1].equals("item") ? getListOfStringsMatchingLastWord(str, DiscoveryRegistry.getItemKeyList().toArray(new String[0])) : str[1].equals("category") ? getListOfStringsMatchingLastWord(str, DiscoveryRegistry.getCategoryKeyList().toArray(new String[0])) : null : str.length == 5 ? getListOfStringsMatchingLastWord(str, "true", "false") : null;
     }
 }

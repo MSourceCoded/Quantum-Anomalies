@@ -8,7 +8,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import sourcecoded.quantum.api.CraftingContext;
-import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;

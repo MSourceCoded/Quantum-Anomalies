@@ -2,11 +2,9 @@ package sourcecoded.quantum.api.event.crafting;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 
 /**

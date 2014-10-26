@@ -1,17 +1,11 @@
 package sourcecoded.quantum.sceptre.focus;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.FMLInjectionData;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityDropper;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.sceptre.ISceptreFocus;
@@ -19,8 +13,6 @@ import sourcecoded.quantum.block.BlockQuantumLock;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.util.save.QAWorldSavedData;
 
-import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Map;
 
 public class FocusDebug implements ISceptreFocus {

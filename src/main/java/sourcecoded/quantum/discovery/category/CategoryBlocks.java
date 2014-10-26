@@ -3,7 +3,6 @@ package sourcecoded.quantum.discovery.category;
 import net.minecraft.item.ItemStack;
 import sourcecoded.quantum.api.discovery.DiscoveryCategory;
 import sourcecoded.quantum.registry.QABlocks;
-import sourcecoded.quantum.registry.QAItems;
 
 public class CategoryBlocks extends DiscoveryCategory {
 

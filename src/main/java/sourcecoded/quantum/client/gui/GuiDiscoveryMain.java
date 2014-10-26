@@ -1,7 +1,6 @@
 package sourcecoded.quantum.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,10 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL14;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.DiscoveryCategory;
@@ -22,7 +18,6 @@ import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 import sourcecoded.quantum.api.discovery.IDiscoveryCustomRenderer;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
-import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.ArrayList;
 import java.util.List;

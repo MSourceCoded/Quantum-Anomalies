@@ -1,15 +1,11 @@
 package sourcecoded.quantum.api.discovery;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Discovery Categories are chapters of the

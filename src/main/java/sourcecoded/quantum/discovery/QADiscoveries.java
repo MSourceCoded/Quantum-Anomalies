@@ -6,10 +6,7 @@ import sourcecoded.quantum.discovery.category.CategoryBasics;
 import sourcecoded.quantum.discovery.category.CategoryBlocks;
 import sourcecoded.quantum.discovery.category.CategoryItems;
 import sourcecoded.quantum.discovery.category.CategoryTools;
-import sourcecoded.quantum.discovery.item.DItemBlockCraft;
-import sourcecoded.quantum.discovery.item.DItemBlockEnergy;
-import sourcecoded.quantum.discovery.item.DItemLoreBasic;
-import sourcecoded.quantum.discovery.item.DItemLoreBiomes;
+import sourcecoded.quantum.discovery.item.*;
 
 public class QADiscoveries {
 
@@ -35,9 +32,12 @@ public class QADiscoveries {
     public static enum Item {
         LORE(new DItemLoreBasic(), Category.BASICS.get()),
         BIOME(new DItemLoreBiomes(), Category.BASICS.get()),
+        DISCOVERY(new DItemDiscovery(), Category.BASICS.get()),
+
         NODE(new DItemBlockEnergy(), Category.BLOCKS.get()),
         ARRANGEMENT(new DItemBlockCraft(), Category.BLOCKS.get()),
 
+        JEWEL(new DItemJewel(), Category.ITEMS.get()),
         ;
 
         private DiscoveryItem item;

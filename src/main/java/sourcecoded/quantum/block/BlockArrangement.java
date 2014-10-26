@@ -19,8 +19,10 @@ import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.arrangement.ItemMatrix;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.event.crafting.ArrangementCraftingEvent;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
+import sourcecoded.quantum.discovery.QADiscoveries;
 import sourcecoded.quantum.network.MessageBlockBreakFX;
 import sourcecoded.quantum.network.MessageVanillaParticle;
 import sourcecoded.quantum.network.NetworkHandler;
@@ -101,7 +103,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
                 ItemStack result = recipe.getOutput();
 
-                completeCraft(result, world, xO, yO, zO);
+                completeCraft(result, world, xO, yO, zO, player);
 
                 QuantumAPI.eventBus.post(new ArrangementCraftingEvent.Complete(recipe, player, world, world.getTileEntity(xO, yO, zO)));
             } else if (vanillaRecipe != null) {
@@ -109,7 +111,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
 
                 ItemStack result = vanillaRecipe.getRecipeOutput();
 
-                completeCraft(result, world, xO, yO, zO);
+                completeCraft(result, world, xO, yO, zO, player);
             } else {
                 NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("mobSpell", xO + 0.5, yO + 1, zO + 0.5, 1D, 0D, 0D, 1), world.provider.dimensionId);
             }
@@ -141,7 +143,7 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
             }
     }
 
-    public void completeCraft(ItemStack result, World world, int xO, int yO, int zO) {
+    public void completeCraft(ItemStack result, World world, int xO, int yO, int zO, EntityPlayer player) {
         if (result.stackSize == 0)
             result.stackSize = 1;
 
@@ -160,6 +162,9 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
             double d2 = RandomUtils.rnd.nextGaussian() * 0.02D;
             NetworkHandler.wrapper.sendToDimension(new MessageVanillaParticle("happyVillager", xO + RandomUtils.rnd.nextFloat(), yO + 1 + RandomUtils.nextFloat(0F, 0.3F), zO + RandomUtils.rnd.nextFloat(), d0, d1, d2, 1), world.provider.dimensionId);
         }
+
+        if (RandomUtils.nextInt(0, 4) == 0 && player != null)
+            DiscoveryManager.unlockItem(QADiscoveries.Item.JEWEL.get().getKey(), player, false);
     }
 
     public int getRenderType() {

@@ -9,7 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.event.crafting.ArrangementCraftingEvent;
 import sourcecoded.quantum.block.BlockArrangement;

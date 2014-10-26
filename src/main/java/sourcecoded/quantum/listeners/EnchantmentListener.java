@@ -1,7 +1,6 @@
 package sourcecoded.quantum.listeners;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,21 +8,16 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.enchantment.EnchantmentDeception;
 import sourcecoded.quantum.entity.properties.PropertiesDeceptionTarget;
 import sourcecoded.quantum.registry.QAEnchant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class EnchantmentListener {
 

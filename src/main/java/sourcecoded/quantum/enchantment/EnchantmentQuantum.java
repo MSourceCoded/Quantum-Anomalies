@@ -2,7 +2,6 @@ package sourcecoded.quantum.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.handler.ConfigHandler;
 
 public class EnchantmentQuantum extends Enchantment {

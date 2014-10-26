@@ -189,6 +189,10 @@ qa.journal.item.QA|Lore.desc={c:GRAY}{c:ITALIC}Chaos, Entropy and all things Bad
 qa.journal.item.QA|Lore.page.0=Welcome to {c:DARK_PURPLE}Quantum Anomalies{c:BLACK}, a Minecraft mod about Chaos, Entropy, and all things {c:DARK_RED}b{c:ITALIC}A{c:RESET}{c:DARK_RED}{c:BOLD}d{c:RESET}{c:BLACK}. <br>Bend the environment to your will and stumble your way though the world of {c:DARK_PURPLE}{c:ITALIC}Quantum Rift Energy{c:RESET}{c:BLACK}, but be warned, it's not the faint of heart. Abusing the environment has its consequences, but can you handle them?
 qa.journal.item.QA|Lore.page.1={c:STRIKETHROUGH}{c:ITALIC} PLEASE HELP ME I'M STUCK IN HERE WHAT MAD MAN WOULD DO TH-- {c:RESET} {c:DARK_RED}{c:BOLD}{c:ITALIC} KEEP QUIET! {c:RESET}
 
+qa.journal.item.QA|Discovery.name=Discovery
+qa.journal.item.QA|Discovery.desc={c:GRAY}{c:ITALIC}Trial and Error -- Like a true (mad) scientist!
+qa.journal.item.QA|Discovery.page.0={c:DARK_PURPLE}Discovery{c:BLACK} is a system in which you must unlock different aspects of the mod by Trial-And-Error. Instead of sitting you down at a table to write notes, we want to make it a bit more..... interesting, shall we say. See something weird? Touch it! Looks dangerous? Destroy it! It's up to you, it's time to take your first steps into {c:DARK_PURPLE}{c:ITALIC}Quantum Anomalies{c:BLACK}
+
 qa.journal.item.QA|Biome.name=Biomes and Exploration
 qa.journal.item.QA|Biome.desc={c:GRAY}{c:ITALIC}The beginning steps to spark your curiosity
 qa.journal.item.QA|Biome.page.0={c:DARK_PURPLE}Anomaly Biomes{c:BLACK}. They come in both flavours of Hell and End. Extremely mountainous, extremely dangerous, but they appear to have something that strikes your curiosity, something you {c:ITALIC}want.{c:RESET} <br>You notice after exploring these biomes for some time that there are weird {c:RED}{c:ITALIC}collections of energy{c:RESET}{c:BLACK}. Could it be plasma? It's too early to tell, I need some better research equipment...
@@ -214,6 +218,11 @@ qa.journal.item.QA|Arrangement.page.3=Tinkering on such a small scale ironically
 qa.journal.item.QA|Arrangement.page.4=For any items that need to be in the centre, drop them on top of the table. When a valid recipe is recognised, a ghost item will appear above the table to show you what you are about to craft. <br>It should be noted the table can craft both its {c:ITALIC}own{c:RESET} recipes and regular {c:ITALIC}Shaped or Shapeless{c:RESET} recipes
 qa.journal.item.QA|Arrangement.page.5={c:ITALIC}A simple crafting example of the {c:DARK_RED}{c:ITALIC}Daylight Sensor{c:BLACK}{c:ITALIC} using the {c:DARK_PURPLE}{c:ITALIC}Matter Arrangement Table
 qa.journal.item.QA|Arrangement.page.5.title=Demonstration
+
+qa.journal.item.QA|Jewel.name=Obsidian Jewel
+qa.journal.item.QA|Jewel.desc={c:GRAY}{c:ITALIC}Density, refined.
+qa.journal.item.QA|Jewel.page.0=After doing some arrangement crafting, you notice something. There's a small... crack in the table. You notice that diamond that you had injected into the core earlier has lost its shiny blue colour. It's starting to look more like the Obsidian surrounding it. <br>It seems the purity of the diamond has been taken by the impure Obsidian around it when compressed.
+qa.journal.item.QA|Jewel.page.1=It seems as though {c:DARK_PURPLE}Entropy{c:BLACK} has started to seep its way into the more pure elements. In something that's pure, there's no change, it's almost {c:ITALIC}perfect{c:RESET} in its structure. Entropy must be seeing this as perfect real-estate to move in, having a lot of room to mess with. Storing Entropy. Huh, who knew?
 
 #####################################
 # Misc

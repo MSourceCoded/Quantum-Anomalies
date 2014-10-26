@@ -12,16 +12,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
-import sourcecoded.quantum.registry.QAItems;
-import sourcecoded.quantum.util.damage.DamageSourceQuantum;
 import sourcecoded.quantum.crafting.vacuum.VacuumArmorBoots;
 import sourcecoded.quantum.crafting.vacuum.VacuumArmorChest;
 import sourcecoded.quantum.crafting.vacuum.VacuumArmorHead;
 import sourcecoded.quantum.crafting.vacuum.VacuumArmorLegs;
+import sourcecoded.quantum.registry.QAItems;
+import sourcecoded.quantum.util.damage.DamageSourceQuantum;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.nodes.IRevealer;
 
 import java.util.List;
 
-public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
+public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor, IGoggles, IRevealer {
 
     public final int HELM = 0;
     public final int CHEST = 1;
@@ -161,5 +163,15 @@ public class ItemRiftArmor extends ItemArmorQuantum implements ISpecialArmor {
 
     @Override
     public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+    }
+
+    @Override
+    public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
+        return itemstack.getItem() == QAItems.RIFT_HELM.getItem();
+    }
+
+    @Override
+    public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
+        return itemstack.getItem() == QAItems.RIFT_HELM.getItem();
     }
 }

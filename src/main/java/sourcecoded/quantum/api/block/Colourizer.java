@@ -1,11 +1,8 @@
 package sourcecoded.quantum.api.block;
 
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Arrays;
 
 /**
  * An Enumeration containing all the available

@@ -2,7 +2,6 @@ package sourcecoded.quantum.api.arrangement;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraftforge.oredict.OreDictionary;
 import sourcecoded.quantum.api.CraftingContext;
 
 /**

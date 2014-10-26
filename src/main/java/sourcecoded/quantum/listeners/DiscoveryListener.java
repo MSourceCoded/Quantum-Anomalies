@@ -5,9 +5,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraftforge.event.world.BlockEvent;
+import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.block.BlockRiftNode;
 import sourcecoded.quantum.discovery.QADiscoveries;
+import sourcecoded.quantum.registry.QAItems;
 
 public class DiscoveryListener {
 
@@ -27,7 +29,11 @@ public class DiscoveryListener {
     public void craftEvent(PlayerEvent.ItemCraftedEvent event) {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) return;
 
-        DiscoveryManager.unlockItem(QADiscoveries.Item.ARRANGEMENT.get().getKey(), event.player, false);
+        if (RandomUtils.nextInt(0, 4) == 0)
+            DiscoveryManager.unlockItem(QADiscoveries.Item.ARRANGEMENT.get().getKey(), event.player, false);
+
+        if (event.crafting.getItem() == QAItems.JOURNAL.getItem())
+            DiscoveryManager.unlockItem(QADiscoveries.Item.DISCOVERY.get().getKey(), event.player, false);
     }
 
 }

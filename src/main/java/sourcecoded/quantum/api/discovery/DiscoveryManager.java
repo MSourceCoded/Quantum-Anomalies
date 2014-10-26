@@ -3,10 +3,8 @@ package sourcecoded.quantum.api.discovery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
-import sourcecoded.quantum.client.gui.GuiHandler;
 import sourcecoded.quantum.network.MessageDiscoveryToast;
 import sourcecoded.quantum.network.NetworkHandler;
 

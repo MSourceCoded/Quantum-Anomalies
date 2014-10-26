@@ -4,19 +4,17 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import org.lwjgl.opengl.GL11;
 import sourcecoded.quantum.client.renderer.block.QuantumLockRender;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
-import static org.lwjgl.opengl.GL11.*;
 import static net.minecraft.client.renderer.ActiveRenderInfo.*;
+import static org.lwjgl.opengl.GL11.*;
 
 public enum ParticleDispatcher {
     INSTANCE;

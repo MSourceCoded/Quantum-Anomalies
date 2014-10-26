@@ -9,8 +9,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.DiscoveryItem;
 import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 import sourcecoded.quantum.api.discovery.IDiscoveryCustomRenderer;
@@ -105,8 +103,13 @@ public class GuiDiscoveryUnlocked extends Gui {
             GL11.glDisable(GL11.GL_LIGHTING);
             this.drawTexturedModalRect(i, j, 96, 202, 160, 32);
 
-            this.mc.fontRenderer.drawString(EnumChatFormatting.BLUE + this.title, i + 30, j + 7, -1);
-            this.mc.fontRenderer.drawString(this.body, i + 30, j + 18, -1);
+            float scale = 0.75F;
+            float scaleI = (float) Math.pow(scale, -1);
+
+            this.mc.fontRenderer.drawString(EnumChatFormatting.LIGHT_PURPLE + this.title, i + 30, j + 7, -1);
+            GL11.glScalef(scale, scale, 1F);
+            this.mc.fontRenderer.drawString(this.body, (int)((i + 30) / scale), (int)((j + 18) / scale), -1);
+            GL11.glScalef(scaleI, scaleI, 1F);
 
             RenderHelper.enableGUIStandardItemLighting();
             GL11.glDisable(GL11.GL_LIGHTING);

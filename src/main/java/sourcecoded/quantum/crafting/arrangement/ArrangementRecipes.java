@@ -3,7 +3,6 @@ package sourcecoded.quantum.crafting.arrangement;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 

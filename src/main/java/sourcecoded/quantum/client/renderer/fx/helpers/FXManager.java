@@ -1,6 +1,5 @@
 package sourcecoded.quantum.client.renderer.fx.helpers;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.world.World;
 import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;

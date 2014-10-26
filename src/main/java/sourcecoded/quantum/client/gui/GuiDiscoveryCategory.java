@@ -1,26 +1,18 @@
 package sourcecoded.quantum.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import scala.tools.nsc.backend.icode.Members;
 import sourcecoded.quantum.Constants;
-import sourcecoded.quantum.api.QuantumAPI;
-import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.*;
-import sourcecoded.quantum.api.event.discovery.DiscoveryRegistrationEvent;
-import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 
@@ -159,6 +151,8 @@ public class GuiDiscoveryCategory extends GuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(GL11.GL_LEQUAL);
 
+        int phase = 0;
+
         for (DiscoveryItem item : items) {              //Draw the Connections before the items
             int itemX = centreW + item.getX() - dragX;
             int itemY = centreH - 38 - dragY + item.getY();
@@ -168,13 +162,15 @@ public class GuiDiscoveryCategory extends GuiScreen {
             boolean unlocked = DiscoveryManager.itemUnlocked(item.getKey(), player);
 
             for (String parent : item.parents) {
+                phase++;
+
                 if (DiscoveryRegistry.getCategoryForItem(parent) == DiscoveryRegistry.getCategoryForItem(item.getKey())) {
                     DiscoveryItem parentItem = DiscoveryRegistry.getItemFromKey(parent);
 
                     int pitemX = centreW + parentItem.getX() - dragX;
                     int pitemY = centreH - 38 - dragY + parentItem.getY();
 
-                    drawLine(itemX, itemY, pitemX, pitemY, item.getParentColour().rgb[0], item.getParentColour().rgb[1], item.getParentColour().rgb[2], parentItem.getChildColour().rgb[0], parentItem.getChildColour().rgb[1], parentItem.getChildColour().rgb[2], !unlocked);
+                    drawLine(itemX, itemY, pitemX, pitemY, item.getParentColour().rgb[0], item.getParentColour().rgb[1], item.getParentColour().rgb[2], parentItem.getChildColour().rgb[0], parentItem.getChildColour().rgb[1], parentItem.getChildColour().rgb[2], !unlocked, phase);
                 }
             }
 
@@ -268,7 +264,7 @@ public class GuiDiscoveryCategory extends GuiScreen {
         mouse = Mouse.isButtonDown(0);
     }
 
-    public void drawLine(int x, int y, int x2, int y2, float r, float g, float b, float r2, float g2, float b2, boolean dim) {
+    public void drawLine(int x, int y, int x2, int y2, float r, float g, float b, float r2, float g2, float b2, boolean dim, int linePhase) {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
         GL11.glLineWidth(3);
@@ -283,8 +279,8 @@ public class GuiDiscoveryCategory extends GuiScreen {
 
         GL11.glBegin(GL11.GL_LINES);
 
-        float bright1 = (float) Math.sin(GlowRenderHandler.instance().scaler * 15) / 4F + 0.35F;
-        float bright2 = (float) Math.cos(GlowRenderHandler.instance().scaler * 15) / 4F + 0.35F;
+        float bright1 = (float) Math.sin(GlowRenderHandler.instance().scaler * 15 + linePhase) / 6F + 0.3F;
+        float bright2 = (float) Math.cos(GlowRenderHandler.instance().scaler * 15 + linePhase) / 6F + 0.3F;
 
         if (dim) {
             bright1 /= 5;

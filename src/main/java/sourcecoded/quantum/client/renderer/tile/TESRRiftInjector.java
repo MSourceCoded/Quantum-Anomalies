@@ -61,7 +61,7 @@ public class TESRRiftInjector extends TESRStaticHandler {
                 try {
                     percentage = (float)injector.getRiftEnergy() / (float)injector.getMaxRiftEnergy();
                     tess.setColorRGBA_F(injector.colour.rgb[0], injector.colour.rgb[1], injector.colour.rgb[2], GlowRenderHandler.instance().brightness);
-                } catch (ArithmeticException exception) {
+                } catch (ArithmeticException e) {
                     //Divided by 0
                 }
             }

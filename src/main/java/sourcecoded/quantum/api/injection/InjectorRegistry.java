@@ -2,7 +2,6 @@ package sourcecoded.quantum.api.injection;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import sourcecoded.quantum.api.CraftingContext;
 
 import java.util.ArrayList;
 import java.util.List;

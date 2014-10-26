@@ -11,8 +11,6 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileDyeable;
-import sourcecoded.quantum.tile.TilePlayer;
-import sourcecoded.quantum.tile.TileShelf;
 import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;

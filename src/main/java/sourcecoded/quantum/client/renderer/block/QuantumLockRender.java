@@ -1,6 +1,5 @@
 package sourcecoded.quantum.client.renderer.block;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;

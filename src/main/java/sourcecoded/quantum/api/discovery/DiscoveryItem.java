@@ -1,9 +1,7 @@
 package sourcecoded.quantum.api.discovery;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 

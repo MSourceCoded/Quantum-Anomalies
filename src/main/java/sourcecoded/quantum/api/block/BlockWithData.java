@@ -1,8 +1,6 @@
 package sourcecoded.quantum.api.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.tileentity.TileEntity;
 
 /**
  * A class that is an instance of a block, mostly
