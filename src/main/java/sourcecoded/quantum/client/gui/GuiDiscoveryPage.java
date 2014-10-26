@@ -13,7 +13,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -22,9 +21,10 @@ import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.arrangement.IArrangementRecipe;
 import sourcecoded.quantum.api.arrangement.ItemMatrix;
 import sourcecoded.quantum.api.block.Colourizer;
-import sourcecoded.quantum.api.discovery.*;
+import sourcecoded.quantum.api.discovery.DiscoveryItem;
+import sourcecoded.quantum.api.discovery.DiscoveryPage;
+import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
-import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.registry.QABlocks;
@@ -389,59 +389,10 @@ public class GuiDiscoveryPage extends GuiScreen {
 
             GL11.glTranslatef(centreW, centreH, 0);
             GL11.glScalef(itemScale, itemScale, itemScale);
-            for (List<ItemStack> stackList : inputs) {
-                int totalOffset = perOffsetX * (stackList.size() + 1);
-                int yOffset = perOffsetY * inputs.indexOf(stackList) + 26;
-                for (ItemStack stack : stackList) {
-                    int xFactor = perOffsetX * (stackList.indexOf(stack) + 1);
-                    xFactor -= (totalOffset / 2);
 
-                    int itemX = - 8 + xFactor;
-                    int itemY = - 8 - 38 + yOffset;
-
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
-
-                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
-                        this.tooltip(stack.getTooltip(player, true), mx, my);
-                    }
-                }
-            }
-
-            for (List<ItemStack> stackList : catalysts) {
-                int totalOffset = perOffsetX * (stackList.size() + 1);
-                int yOffset = perOffsetY * catalysts.indexOf(stackList) - 11;
-                for (ItemStack stack : stackList) {
-                    int xFactor = perOffsetX * (stackList.indexOf(stack) + 1);
-                    xFactor -= (totalOffset / 2);
-
-                    int itemX = - 8 + xFactor;
-                    int itemY = - 8 - 38 + yOffset;
-
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
-
-                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
-                        this.tooltip(stack.getTooltip(player, true), mx, my);
-                    }
-                }
-            }
-
-            for (List<ItemStack> stackList : output) {
-                int totalOffset = perOffsetX * (stackList.size() + 1);
-                int yOffset = perOffsetY * output.indexOf(stackList) + 71;
-                for (ItemStack stack : stackList) {
-                    int xFactor = perOffsetX * (stackList.indexOf(stack) + 1);
-                    xFactor -= (totalOffset / 2);
-
-                    int itemX = - 8 + xFactor;
-                    int itemY = - 8 - 38 + yOffset;
-
-                    renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
-
-                    if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
-                        this.tooltip(stack.getTooltip(player, true), mx, my);
-                    }
-                }
-            }
+            makeMaartenHappy(inputs, perOffsetX, perOffsetY, itemScale, nmx, nmy, 26);
+            makeMaartenHappy(catalysts, perOffsetX, perOffsetY, itemScale, nmx, nmy, -11);
+            makeMaartenHappy(output, perOffsetX, perOffsetY, itemScale, nmx, nmy, 71);
 
             GL11.glScalef(itemScaleI, itemScaleI, itemScaleI);
             GL11.glTranslatef(-centreW, -centreH, 0);
@@ -449,6 +400,27 @@ public class GuiDiscoveryPage extends GuiScreen {
             renderCraftingContext(recipe.getContext());
         }
 
+    }
+
+    //It's a long story
+    public void makeMaartenHappy(List<List<ItemStack>> lists, int perOffsetX, int perOffsetY, float itemScale, int nmx, int nmy, int yIndex) {
+        for (List<ItemStack> stackList : lists) {
+            int totalOffset = perOffsetX * (stackList.size() + 1);
+            int yOffset = perOffsetY * lists.indexOf(stackList) + yIndex;
+            for (ItemStack stack : stackList) {
+                int xFactor = perOffsetX * (stackList.indexOf(stack) + 1);
+                xFactor -= (totalOffset / 2);
+
+                int itemX = - 8 + xFactor;
+                int itemY = - 8 - 38 + yOffset;
+
+                renderItemAndOverlay(itemRender, fontRendererObj, mc.getTextureManager(), stack, itemX, itemY, false);
+
+                if (nmx >= itemX*itemScale && nmx <= itemX*itemScale+itemScale*16 && nmy >= itemY*itemScale && nmy <=itemY*itemScale+itemScale*16) {
+                    this.tooltip(stack.getTooltip(player, true), mx, my);
+                }
+            }
+        }
     }
 
     public List<List<ItemStack>> splitStackList(List<ItemStack> stacks) {
