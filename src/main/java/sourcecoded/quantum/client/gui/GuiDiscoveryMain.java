@@ -50,6 +50,8 @@ public class GuiDiscoveryMain extends GuiScreen {
 
     public EntityPlayer player;
 
+    boolean mouse = true;
+
     public GuiDiscoveryMain(EntityPlayer player) {
         QuantumAPI.eventBus.post(new DiscoveryUpdateEvent(player));
 
@@ -174,7 +176,7 @@ public class GuiDiscoveryMain extends GuiScreen {
                     drawPartialQuadWithBounds(itemX, itemY, itemDiameter, itemDiameter, 26F / 256F, 202F / 256F, 52F / 256F, 228F / 256F);
                 }
 
-                if (Mouse.isButtonDown(0) && mx >= itemX && mx <= itemX + itemDiameter && my >= itemY && my <= itemY + itemDiameter && unlocked) {
+                if (Mouse.isButtonDown(0) && !mouse && mx >= itemX && mx <= itemX + itemDiameter && my >= itemY && my <= itemY + itemDiameter && unlocked) {
                     //CLICKED
                     this.mc.displayGuiScreen(new GuiDiscoveryCategory(meow, player));
                 }
@@ -230,6 +232,8 @@ public class GuiDiscoveryMain extends GuiScreen {
         super.drawScreen(mx, my, par3);
 
         GL11.glPopMatrix();
+
+        mouse = Mouse.isButtonDown(0);
     }
 
     public void drawFullQuadWithBounds(int x, int y, int width, int height) {

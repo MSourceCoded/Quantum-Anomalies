@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.input.Keyboard;
@@ -18,8 +19,10 @@ import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.*;
+import sourcecoded.quantum.api.event.discovery.DiscoveryRegistrationEvent;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
+import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +43,14 @@ public class GuiDiscoveryCategory extends GuiScreen {
 
     boolean mouseDone;
 
-    int dragX = 0;
-    int dragY = 0;
+    int dragX = 200;
+    int dragY = 30;
 
     List<DiscoveryItem> items;
 
     public EntityPlayer player;
+
+    boolean mouse = true;
 
     public GuiDiscoveryCategory(DiscoveryCategory category, EntityPlayer player) {
         this.player = player;
@@ -92,8 +97,8 @@ public class GuiDiscoveryCategory extends GuiScreen {
         int pad = 10;
         int minDragX = -10;
         int minDragY = 0;
-        int maxDragX = 30;
-        int maxDragY = 90;
+        int maxDragX = 400;
+        int maxDragY = 180;
 
         if (Mouse.isButtonDown(0)) {
             if (!mouseDone) {
@@ -115,8 +120,21 @@ public class GuiDiscoveryCategory extends GuiScreen {
             mouseDone = true;
         }
 
+        int px = centreW - frameWidth / 2 + pad;
+        int py = centreH - frameHeight / 2 + pad;
+
+        int w = frameWidth - pad * 2;
+        int h = frameHeight - pad * 3;
+
+        int dragCo = 4;
+
+        float scale = 1.5F;
+        float scaleI = (float) Math.pow(scale, -1);
+
+        GL11.glScalef(scale, scale, 1F);
         this.mc.getTextureManager().bindTexture(guiBackground);
-        this.drawTexturedModalRect(centreW - frameWidth / 2 + pad, centreH - frameHeight / 2 + pad, dragX / 3, dragY / 3, frameWidth - pad * 2, frameHeight - pad * 3);           //Rendered with parallax
+        this.drawTexturedModalRect((int) (px / scale), (int) (py / scale), dragX / dragCo, dragY / dragCo, (int) (w / scale), (int) (h / scale));           //Rendered with parallax
+        GL11.glScalef(scaleI, scaleI, 1F);
 
         int perOffsetX = 40;
         int perOffsetY = 40;
@@ -132,14 +150,39 @@ public class GuiDiscoveryCategory extends GuiScreen {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
 
-        this.drawTexturedModalRect(centreW - frameWidth / 2 + pad, centreH - frameHeight / 2 + pad, dragX / 3, dragY / 3, frameWidth - pad * 2, frameHeight - pad * 3);           //Rendered with parallax
+        GL11.glScalef(scale, scale, 1F);
+        this.drawTexturedModalRect((int) (px / scale), (int) (py / scale), dragX / dragCo, dragY / dragCo, (int) (w / scale), (int) (h / scale));           //Rendered with parallax
+        GL11.glScalef(scaleI, scaleI, 1F);
 
         GL11.glPopMatrix();
 
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(GL11.GL_LEQUAL);
 
-        for (DiscoveryItem item : items) {            //Ha.... ha.... ha.....
+        for (DiscoveryItem item : items) {              //Draw the Connections before the items
+            int itemX = centreW + item.getX() - dragX;
+            int itemY = centreH - 38 - dragY + item.getY();
+
+            GL11.glEnable(GL11.GL_BLEND);
+
+            boolean unlocked = DiscoveryManager.itemUnlocked(item.getKey(), player);
+
+            for (String parent : item.parents) {
+                if (DiscoveryRegistry.getCategoryForItem(parent) == DiscoveryRegistry.getCategoryForItem(item.getKey())) {
+                    DiscoveryItem parentItem = DiscoveryRegistry.getItemFromKey(parent);
+
+                    int pitemX = centreW + parentItem.getX() - dragX;
+                    int pitemY = centreH - 38 - dragY + parentItem.getY();
+
+                    drawLine(itemX, itemY, pitemX, pitemY, item.getParentColour().rgb[0], item.getParentColour().rgb[1], item.getParentColour().rgb[2], parentItem.getChildColour().rgb[0], parentItem.getChildColour().rgb[1], parentItem.getChildColour().rgb[2], !unlocked);
+                }
+            }
+
+            GL11.glDisable(GL11.GL_LIGHTING);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        }
+
+        for (DiscoveryItem item : items) {
             int renderCode = 0;
 
             if (item instanceof IDiscoveryCustomRenderer)
@@ -176,7 +219,7 @@ public class GuiDiscoveryCategory extends GuiScreen {
                 list.addAll(desc);
                 tooltip(list, mx, my);
 
-                if (Mouse.isButtonDown(0) && unlocked && item.pages != null && item.pages.size() > 0) {
+                if (Mouse.isButtonDown(0) && !mouse && unlocked && item.pages != null && item.pages.size() > 0) {
                     //CLICKED
                     this.mc.displayGuiScreen(new GuiDiscoveryPage(item, 0, player, this));
                 }
@@ -221,6 +264,39 @@ public class GuiDiscoveryCategory extends GuiScreen {
         super.drawScreen(mx, my, par3);
 
         GL11.glPopMatrix();
+
+        mouse = Mouse.isButtonDown(0);
+    }
+
+    public void drawLine(int x, int y, int x2, int y2, float r, float g, float b, float r2, float g2, float b2, boolean dim) {
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+
+        GL11.glLineWidth(3);
+
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+        GL11.glShadeModel(GL11.GL_SMOOTH);
+
+        GL11.glBegin(GL11.GL_LINES);
+
+        float bright1 = (float) Math.sin(GlowRenderHandler.instance().scaler * 15) / 4F + 0.35F;
+        float bright2 = (float) Math.cos(GlowRenderHandler.instance().scaler * 15) / 4F + 0.35F;
+
+        if (dim) {
+            bright1 /= 5;
+            bright2 /= 3;
+        }
+
+        GL11.glColor4f(r, g, b, bright1);
+        GL11.glVertex3f(x, y, 0);
+        GL11.glColor4f(r2, g2, b2, bright2);
+        GL11.glVertex3f(x2, y2, 0);
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
     List<Tooltip> tips = new ArrayList<Tooltip>();
@@ -230,9 +306,8 @@ public class GuiDiscoveryCategory extends GuiScreen {
     }
 
     public void renderTooltips() {
-        for (Tooltip tip : tips) {
+        for (Tooltip tip : tips)
             this.drawHoveringText(tip.text, tip.x, tip.y, fontRendererObj);
-        }
 
         tips.clear();
     }

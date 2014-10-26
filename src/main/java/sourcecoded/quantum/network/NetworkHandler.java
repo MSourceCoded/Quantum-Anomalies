@@ -31,6 +31,7 @@ public class NetworkHandler {
         wrapper.registerMessage(MessageSetPlayerVelocity.class, MessageSetPlayerVelocity.class, 12, Side.CLIENT);
         wrapper.registerMessage(MessageClientWorldData.class, MessageClientWorldData.class, 13, Side.CLIENT);
         wrapper.registerMessage(MessageDiscoveryUpdate.class, MessageDiscoveryUpdate.class, 14, Side.CLIENT);
+        wrapper.registerMessage(MessageDiscoveryToast.class, MessageDiscoveryToast.class, 15, Side.CLIENT);
     }
 
     public static void writeNBT(ByteBuf target, NBTTagCompound tag) throws IOException {

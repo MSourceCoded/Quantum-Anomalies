@@ -15,7 +15,7 @@ public class DItemBlockEnergy extends DiscoveryItem {
 
         this.displayStack = new ItemStack(QABlocks.RIFT_NODE.getBlock());
 
-        this.x = 0; this.y = 0;
+        this.x = 100; this.y = 0;
 
         this.setHiddenByDefault(false);
         this.setUnlockedByDefault(false);

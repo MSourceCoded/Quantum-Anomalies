@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 
 import java.util.ArrayList;
@@ -70,6 +71,16 @@ public class DiscoveryItem {
      * Is this a special icon?
      */
     public boolean isSpecial = false;
+
+    /**
+     * Parent line colour
+     */
+    public Colourizer parentLineColour = Colourizer.GRAY;
+
+    /**
+     * Child line colour
+     */
+    public Colourizer childLineColour = Colourizer.GRAY;
 
     /**
      * Create a new DiscoveryItem
@@ -148,6 +159,36 @@ public class DiscoveryItem {
      */
     public String getLocalizedName() {
         return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(), getUnlocalizedName());
+    }
+
+    /**
+     * Set the colour to attach to parents with
+     */
+    public DiscoveryItem setParentColour(Colourizer colour) {
+        this.parentLineColour = colour;
+        return this;
+    }
+
+    /**
+     * Set the colour to attach to children with
+     */
+    public DiscoveryItem setChildColour(Colourizer colour) {
+        this.childLineColour = colour;
+        return this;
+    }
+
+    /**
+     * Get the colour to attach to parents with
+     */
+    public Colourizer getParentColour() {
+        return Colourizer.PINK;
+    }
+
+    /**
+     * Get the colour to attach to children with
+     */
+    public Colourizer getChildColour() {
+        return Colourizer.PURPLE;
     }
 
     /**

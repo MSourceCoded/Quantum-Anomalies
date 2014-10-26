@@ -1,10 +1,14 @@
 package sourcecoded.quantum.api.discovery;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
+import sourcecoded.quantum.client.gui.GuiHandler;
+import sourcecoded.quantum.network.MessageDiscoveryToast;
+import sourcecoded.quantum.network.NetworkHandler;
 
 import java.util.List;
 import java.util.Map;
@@ -118,8 +122,13 @@ public class DiscoveryManager {
     }
 
     static void unlockSingleItem(String item, EntityPlayer player) {
-        getItem(item, player).setBoolean("Unlocked", true);
-        getItem(item, player).setBoolean("Hidden", false);
+        NBTTagCompound nbt = getItem(item, player);
+        boolean hasAlreadyBeenUnlocked = nbt.getBoolean("Unlocked");
+        nbt.setBoolean("Unlocked", true);
+        nbt.setBoolean("Hidden", false);
+
+        if (!hasAlreadyBeenUnlocked)
+            NetworkHandler.wrapper.sendTo(new MessageDiscoveryToast(item), (EntityPlayerMP) player);
 
         unlockCategory(DiscoveryRegistry.getCategoryForItem(item).getKey(), player);
     }

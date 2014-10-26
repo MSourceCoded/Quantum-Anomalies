@@ -60,6 +60,8 @@ public class QuantumAnomalies {
 
     public static Item.ToolMaterial materialRift = EnumHelper.addToolMaterial("rift", 4, 1000, 30F, 15F, 30);
 
+    public static GuiHandler guiHandler;
+
     public static boolean isDevEnvironment() {
         return Constants.BUILD_STATUS.equals("NOT_BUILT");
     }
@@ -67,6 +69,8 @@ public class QuantumAnomalies {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
         logger = new SourceLogger("Quantum Anomalies");
+
+        guiHandler = new GuiHandler();
 
         QuantumAPI.isQAPresent = true;
         ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.2", Constants.MODID));
@@ -91,6 +95,7 @@ public class QuantumAnomalies {
             FMLCommonHandler.instance().bus().register(GlowRenderHandler.instance());
             FMLCommonHandler.instance().bus().register(RainbowRenderHandler.instance());
             FMLCommonHandler.instance().bus().register(ParticleDispatcher.INSTANCE);
+            FMLCommonHandler.instance().bus().register(guiHandler);
             MinecraftForge.EVENT_BUS.register(ParticleDispatcher.INSTANCE);
             MinecraftForge.EVENT_BUS.register(new BiomeListener());
         }
@@ -137,12 +142,10 @@ public class QuantumAnomalies {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        Achievements.initAchievements();
-
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
             KeyBindHandler.initKeybinds();
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 
         DiscoveryHandler.init();
     }

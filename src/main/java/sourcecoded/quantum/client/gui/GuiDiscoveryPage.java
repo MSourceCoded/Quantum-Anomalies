@@ -256,7 +256,6 @@ public class GuiDiscoveryPage extends GuiScreen {
         if (output != null) {
             this.mc.getTextureManager().bindTexture(pageLocation);
             GL11.glColor4f(1F, 1F, 1F, 0.2F);
-            //drawTexturedModalRect(centreW - 3, centreH + 12, 5, 220, 8, 11);
             drawPartialQuadWithBounds(centreW - 4, centreH + 16, 10, 14, 5/256F, 220/256F, 13/256F, 231/256F);
 
             renderItemAndOverlay(render, fontRendererObj, this.mc.getTextureManager(), output, centreW - 7, centreH + 32, true);
@@ -274,11 +273,18 @@ public class GuiDiscoveryPage extends GuiScreen {
                 }
         }
 
+        this.mc.getTextureManager().bindTexture(pageLocation);
         if (arrangement) {
-            this.mc.getTextureManager().bindTexture(pageLocation);
             IArrangementRecipe recipe = (IArrangementRecipe) currentPage.recipe;
 
             renderCraftingContext(recipe.getContext());
+        } else {
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
+            GL11.glColor4f(1F, 1F, 1F, 0.4F);
+            renderVanillaRecipe(centreW + 45, centreH + 28, mx, my);
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderHelper.disableStandardItemLighting();
         }
     }
 
@@ -524,6 +530,18 @@ public class GuiDiscoveryPage extends GuiScreen {
         drawPartialQuadWithBounds(x, y, 10, 10, texU/256F, texV/256F, (texU+16F)/256F, (texV+16F)/256F);
         if (mx >= x && mx <= x+10 && my >= y && my <=y+10) {
             String[] tooltip = new String[] {"qa.journal.gui.nbt.title", "qa.journal.gui.nbt"};
+            this.tooltip(LocalizationUtils.translateList(Arrays.asList(tooltip)), mx, my);
+        }
+    }
+
+    public void renderVanillaRecipe(int x, int y, int mx, int my) {
+        this.mc.getTextureManager().bindTexture(pageLocation);
+
+        int texU = 227;
+        int texV = 188;
+        drawPartialQuadWithBounds(x, y, 10, 10, texU/256F, texV/256F, (texU+16F)/256F, (texV+16F)/256F);
+        if (mx >= x && mx <= x+10 && my >= y && my <=y+10) {
+            String[] tooltip = new String[] {"qa.journal.gui.vanilla.title", "qa.journal.gui.vanilla"};
             this.tooltip(LocalizationUtils.translateList(Arrays.asList(tooltip)), mx, my);
         }
     }

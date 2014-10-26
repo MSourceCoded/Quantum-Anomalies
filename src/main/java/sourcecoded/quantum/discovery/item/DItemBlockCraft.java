@@ -15,7 +15,7 @@ public class DItemBlockCraft extends DiscoveryItem {
 
         this.displayStack = new ItemStack(QABlocks.ARRANGEMENT.getBlock());
 
-        this.x = 40; this.y = 20;
+        this.x = 60; this.y = 40;
 
         this.setHiddenByDefault(true);
         this.setUnlockedByDefault(false);
