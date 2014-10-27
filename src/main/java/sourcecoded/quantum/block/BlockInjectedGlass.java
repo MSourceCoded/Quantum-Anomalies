@@ -1,14 +1,17 @@
 package sourcecoded.quantum.block;
 
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import sourcecoded.quantum.api.CraftingContext;
+import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.tile.TileInjectedGlass;
 
-public class BlockInjectedGlass extends BlockInjectedStone {
+public class BlockInjectedGlass extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
 
     public BlockInjectedGlass() {
         super();
@@ -43,5 +46,10 @@ public class BlockInjectedGlass extends BlockInjectedStone {
     @Override
     public ItemStack getOutput() {
         return new ItemStack(this, 1, 0);
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 }

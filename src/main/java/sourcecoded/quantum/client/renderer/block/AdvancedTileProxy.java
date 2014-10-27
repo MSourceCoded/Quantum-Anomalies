@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import sourcecoded.quantum.client.renderer.tile.TESRStaticHandler;
+import sourcecoded.quantum.tile.TileQuantum;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -24,6 +25,7 @@ public class AdvancedTileProxy implements ISimpleBlockRenderingHandler{
         if (block instanceof ITileEntityProvider) {
             ITileEntityProvider prov = (ITileEntityProvider) block;
             te = prov.createNewTileEntity(null, metadata);
+            te.blockMetadata = metadata;
         } else return;
 
         if (block instanceof IBlockRenderHook) {

@@ -2,6 +2,7 @@ package sourcecoded.quantum.client.renderer.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
@@ -11,6 +12,7 @@ import net.minecraftforge.client.model.obj.WavefrontObject;
 import sourcecoded.quantum.Constants;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.tile.TileCornerstone;
+import sourcecoded.quantum.util.TessUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -32,16 +34,18 @@ public class TESRCornerstone extends TESRStaticHandler {
 
             Tessellator tess = Tessellator.instance;
 
-            tess.startDrawingQuads();
-            //tess.setColorRGBA_F(1F, 1F, 1F, GlowRenderHandler.instance().brightness);
+            TileCornerstone tile = (TileCornerstone) te;
 
-            float[] rgb = ((TileCornerstone) te).colour.rgb;
+            float[] rgb = tile.colour.rgb;
 
-            tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
-            tess.setBrightness(240);
-            this.bindTexture(texHaze);
-            model.tessellatePart(tess, "Glow");
-            tess.draw();
+            if (tile.getBlockMetadata() >= 1) {
+                tess.startDrawingQuads();
+                tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
+                tess.setBrightness(240);
+                this.bindTexture(texHaze);
+                model.tessellatePart(tess, "Glow");
+                tess.draw();
+            }
 
             glEnable(GL_LIGHTING);
             glPopMatrix();

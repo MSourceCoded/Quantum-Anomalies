@@ -6,11 +6,14 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
+import sourcecoded.quantum.block.BlockQuantum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,11 @@ public class ItemBlockQuantum extends ItemBlock implements IWailaDataProvider {
     public ItemBlockQuantum(Block block) {
         super(block);
         loreList = new ArrayList<String>();
+
+        this.setMaxDamage(0);
+
+        if (block instanceof BlockQuantum)
+            this.setHasSubtypes(((BlockQuantum) block).subtypes);
     }
 
     @Override

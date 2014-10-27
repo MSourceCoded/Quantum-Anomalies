@@ -171,7 +171,7 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             if (itemstack == null) return false;
             int result = currentItem.stackSize * itemstack.stackSize;
 
-            if (!QuantumAPI.eventBus.post(new InjectionCraftingEvent.Validating(recipe, worldObj, currentItem, this))) return false;
+            if (QuantumAPI.eventBus.post(new InjectionCraftingEvent.Validating(recipe, worldObj, currentItem, this))) return false;
 
             return result <= getInventoryStackLimit() && result <= this.currentItem.getMaxStackSize();
         }

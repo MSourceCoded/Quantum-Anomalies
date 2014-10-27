@@ -12,7 +12,8 @@ public class DItemBlockEnergy extends DiscoveryItem {
     public DItemBlockEnergy() {
         super("QA|Energy");
 
-        this.displayStack = new ItemStack(QABlocks.RIFT_NODE.getBlock());
+        //this.displayStack = new ItemStack(QABlocks.RIFT_NODE.getBlock());
+        this.icon = new ResourceLocation(Constants.MODID, "textures/gui/nodeVec.png");
 
         this.x = 100; this.y = 0;
 

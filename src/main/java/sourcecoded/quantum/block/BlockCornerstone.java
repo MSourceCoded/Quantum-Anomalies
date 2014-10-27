@@ -1,6 +1,8 @@
 package sourcecoded.quantum.block;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -10,6 +12,8 @@ import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.tile.TileCornerstone;
 
+import java.util.List;
+
 public class BlockCornerstone extends BlockInjectedStone {
 
     public BlockCornerstone() {
@@ -17,6 +21,8 @@ public class BlockCornerstone extends BlockInjectedStone {
         this.setBlockName("blockCornerstone");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
+
+        this.setHasSubtypes(true);
     }
 
     public int getRenderType() {
@@ -43,11 +49,17 @@ public class BlockCornerstone extends BlockInjectedStone {
 
     @Override
     public ItemStack getInput() {
-        return new ItemStack(Blocks.stonebrick, 1, 3);
+        //return new ItemStack(Blocks.stonebrick, 1, 3);
+        return new ItemStack(this, 1, 0);
     }
 
     @Override
     public ItemStack getOutput() {
-        return new ItemStack(this, 1, 0);
+        return new ItemStack(this, 1, 1);
+    }
+
+    public void getSubBlocks(Item unknown, CreativeTabs tab, List subItems) {
+        subItems.add(new ItemStack(this, 1, 0));
+        subItems.add(new ItemStack(this, 1, 1));
     }
 }

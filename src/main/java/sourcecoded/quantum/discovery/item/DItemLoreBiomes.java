@@ -13,7 +13,8 @@ public class DItemLoreBiomes extends DiscoveryItem {
     public DItemLoreBiomes() {
         super("QA|Biome");
 
-        this.displayStack = new ItemStack(Items.filled_map);
+        //this.displayStack = new ItemStack(Items.filled_map);
+        this.icon = new ResourceLocation(Constants.MODID, "textures/gui/globeVec.png");
 
         this.x = 50; this.y = 35;
 

@@ -1,8 +1,10 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -14,6 +16,8 @@ import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.tile.TileInjectedStone;
 
+import java.util.List;
+
 public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
 
     public BlockInjectedStone() {
@@ -21,6 +25,8 @@ public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvi
         this.setBlockName("blockInjectedStone");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
+
+        this.setHasSubtypes(true);
     }
 
     public int getRenderType() {
@@ -60,16 +66,22 @@ public class BlockInjectedStone extends BlockDyeable implements ITileEntityProvi
 
     @Override
     public ItemStack getInput() {
-        return new ItemStack(Blocks.stone, 1, 0);
+        //return new ItemStack(Blocks.stone, 1, 0);
+        return new ItemStack(this, 1, 0);
     }
 
     @Override
     public ItemStack getOutput() {
-        return new ItemStack(this, 1, 0);
+        return new ItemStack(this, 1, 1);
     }
 
     @Override
     public CraftingContext getContext() {
         return CraftingContext.getStandardContext();
+    }
+
+    public void getSubBlocks(Item unknown, CreativeTabs tab, List subItems) {
+        subItems.add(new ItemStack(this, 1, 0));
+        subItems.add(new ItemStack(this, 1, 1));
     }
 }

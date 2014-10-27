@@ -65,8 +65,12 @@ public class DiscoveryManager {
 
         if (!comp.hasKey("Unlocked"))
             comp.setBoolean("Unlocked", it.unlockedByDefault);
-        if (!comp.hasKey("Hidden"))
-            comp.setBoolean("Hidden", it.hiddenByDefault);
+        if (!comp.hasKey("Hidden")) {
+            if (!areParentsRevealed(item, player))
+                comp.setBoolean("Hidden", true);
+            else
+                comp.setBoolean("Hidden", it.hiddenByDefault);
+        }
 
         return comp;
     }
@@ -208,6 +212,15 @@ public class DiscoveryManager {
         List<String> items = DiscoveryRegistry.getItemFromKey(item).parents;
         for (String itemN : items) {
             if (!itemUnlocked(itemN, player)) return false;
+        }
+
+        return true;
+    }
+
+    public static boolean areParentsRevealed(String item, EntityPlayer player) {
+        List<String> items = DiscoveryRegistry.getItemFromKey(item).parents;
+        for (String itemN : items) {
+            if (itemHidden(itemN, player)) return false;
         }
 
         return true;

@@ -14,6 +14,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class TESRInjectedStone extends TileEntitySpecialRenderer {
 
     ResourceLocation texDark = new ResourceLocation(Constants.MODID, "textures/blocks/infusedStone.png");
+    ResourceLocation texLight = new ResourceLocation("textures/blocks/stone.png");
     ResourceLocation texHaze = new ResourceLocation(Constants.MODID, "textures/blocks/hazeDesaturated.png");
 
     @Override
@@ -47,16 +48,19 @@ public class TESRInjectedStone extends TileEntitySpecialRenderer {
         TessUtils.drawCube(tess, 0, 1F - cubeSize, 1F - cubeSize, cubeSize, 0, 0, 0.5, 0.5);
         tess.draw();
 
-        tess.startDrawingQuads();
+        TileInjectedStone tile = (TileInjectedStone) te;
+        if (tile.getBlockMetadata() >= 1) {
+            tess.startDrawingQuads();
+            float[] rgb = tile.colour.rgb;
 
-        float[] rgb = ((TileInjectedStone) te).colour.rgb;
+            tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
 
-        tess.setColorRGBA_F(rgb[0], rgb[1], rgb[2], GlowRenderHandler.instance().brightness);
+            tess.setBrightness(240);
+            this.bindTexture(texHaze);
+            TessUtils.drawCube(tess, innerPadding, innerPadding, innerPadding, 1F - (innerPadding * 2), 0, 0, 1, 1);
+            tess.draw();
+        }
 
-        tess.setBrightness(240);
-        this.bindTexture(texHaze);
-        TessUtils.drawCube(tess, innerPadding, innerPadding, innerPadding, 1F - (innerPadding * 2), 0, 0, 1, 1);
-        tess.draw();
 
         glDisable(GL_BLEND);
         glEnable(GL_LIGHTING);

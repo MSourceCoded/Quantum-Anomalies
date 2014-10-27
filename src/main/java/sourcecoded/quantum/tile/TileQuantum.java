@@ -8,6 +8,14 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileQuantum extends TileEntity {
 
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+    }
+
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+    }
+
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();

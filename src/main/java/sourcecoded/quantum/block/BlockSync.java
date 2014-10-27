@@ -3,6 +3,7 @@ package sourcecoded.quantum.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -34,7 +35,7 @@ public class BlockSync extends BlockDyeable implements ITileEntityProvider, ICra
     }
 
     @SuppressWarnings("unchecked")
-    public void getSubBlocks(int unknown, CreativeTabs tab, List subItems) {
+    public void getSubBlocks(Item unknown, CreativeTabs tab, List subItems) {
         subItems.add(new ItemStack(this, 1, 0));
         subItems.add(new ItemStack(this, 1, 1));
     }

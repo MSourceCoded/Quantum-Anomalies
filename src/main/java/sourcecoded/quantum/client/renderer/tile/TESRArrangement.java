@@ -57,7 +57,9 @@ public class TESRArrangement extends TESRStaticHandler {
                 if (arrangement.renderProgress >= 1F)
                     arrangement.renderProgress = 0F;
 
-                ItemStack items = arrangement.getOutput();
+                ItemStack items = arrangement.getOutput().copy();
+
+                items.stackSize = 1;            //Display only one
 
                 EntityItem item = new EntityItem(arrangement.getWorldObj(), 0D, 0D, 0D, items);
                 item.hoverStart = 0.0F;

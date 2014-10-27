@@ -1,16 +1,18 @@
 package sourcecoded.quantum.discovery.item;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.discovery.DiscoveryItem;
 import sourcecoded.quantum.api.discovery.DiscoveryPage;
 import sourcecoded.quantum.discovery.QADiscoveries;
 import sourcecoded.quantum.registry.QABlocks;
 
-public class DItemBlockCraft extends DiscoveryItem {
+public class DItemBlockArrangement extends DiscoveryItem {
 
-    public DItemBlockCraft() {
+    public DItemBlockArrangement() {
         super("QA|Arrangement");
 
         this.displayStack = new ItemStack(QABlocks.ARRANGEMENT.getBlock());

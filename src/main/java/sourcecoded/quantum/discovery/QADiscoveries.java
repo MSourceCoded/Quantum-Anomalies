@@ -34,10 +34,15 @@ public class QADiscoveries {
         BIOME(new DItemLoreBiomes(), Category.BASICS.get()),
         DISCOVERY(new DItemDiscovery(), Category.BASICS.get()),
 
+        DYEABLES(new DItemBlockDyeable(), Category.BLOCKS.get()),
+
         NODE(new DItemBlockEnergy(), Category.BLOCKS.get()),
-        ARRANGEMENT(new DItemBlockCraft(), Category.BLOCKS.get()),
+        ARRANGEMENT(new DItemBlockArrangement(), Category.BLOCKS.get()),
 
         JEWEL(new DItemJewel(), Category.ITEMS.get()),
+
+        ETCHED_STONE(new DItemBlockEtched(0), Category.BLOCKS.get()),
+        ETCHED_CORNER(new DItemBlockEtched(1), Category.BLOCKS.get()),
         ;
 
         private DiscoveryItem item;

@@ -4,7 +4,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
+import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
 
 /**
  * An interface for use with a TileEntity that can
@@ -68,6 +71,10 @@ public interface IDyeable {
                     Colourizer color = Colourizer.match(stack);
                     if (color == null) return false;
                     ((IDyeable) tile).dye(color);
+
+                    if (!world.isRemote && QuantumAPI.isQAPresent())
+                        DiscoveryManager.unlockItem("QA|Dyeable", player, false);
+
                     return true;
                 }
             }

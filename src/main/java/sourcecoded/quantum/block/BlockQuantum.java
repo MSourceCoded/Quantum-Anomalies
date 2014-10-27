@@ -11,6 +11,7 @@ import sourcecoded.quantum.api.tileentity.IDyeable;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.inventory.QATabs;
 import sourcecoded.quantum.item.ItemBlockQuantum;
+import sourcecoded.quantum.tile.TileQuantum;
 
 import static sourcecoded.core.util.LocalizationUtils.prefix;
 
@@ -21,11 +22,21 @@ public class BlockQuantum extends Block implements IBlockHasItem {
 
     public String customName;
 
+    public boolean subtypes = false;
+
     public BlockQuantum(Material mat) {
         super(mat);
         this.setCreativeTab(QATabs.quantumTab);
 
         this.setHardness(6F);
+    }
+
+    public int damageDropped(int meta) {
+        return meta;
+    }
+
+    public void setHasSubtypes(boolean state) {
+        this.subtypes = state;
     }
 
     public BlockQuantum() {

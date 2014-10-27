@@ -5,8 +5,10 @@
 qa.blocks.blockChaosEnder.name=Chaos Bricks (Ender)
 qa.blocks.blockChaosHell.name=Chaos Bricks (Hell)
 
-qa.blocks.blockCornerstone.name=Injected Cornerstone
-qa.blocks.blockInjectedStone.name=Injected Stone
+qa.blocks.blockCornerstone.name@0=Etched Cornerstone
+qa.blocks.blockCornerstone.name@1=Injected Cornerstone
+qa.blocks.blockInjectedStone.name@0=Etched Stone
+qa.blocks.blockInjectedStone.name@1=Injected Stone
 qa.blocks.blockInjectedGlass.name=Injected Glass
 
 qa.blocks.blockRiftInjector.name={c:LIGHT_PURPLE}Quantum Rift Injection Pool{c:RESET}
@@ -208,6 +210,11 @@ qa.journal.item.QA|Energy.page.1=Another feature catches your attention. Those p
 qa.journal.item.QA|Energy.page.2=After swinging at one of these with a tool, it seems to let out a {c:BOLD}HUGE{c:RESET} gust of... wind? No... force. Some strange force you can't seem to control. Is that a grey hair on your head? I don't recall you having that say.... 5 seconds ago?
 qa.journal.item.QA|Energy.page.3={c:ITALIC}A {c:DARK_PURPLE}{c:ITALIC}Rift Node{c:BLACK}{c:ITALIC} in its natural habitat
 
+qa.journal.item.QA|Dyeable.name=Dyeables
+qa.journal.item.QA|Dyeable.desc={c:GRAY}{c:ITALIC}Any colour you want!
+qa.journal.item.QA|Dyeable.page.0=After receiving an alarming amount of requests for a colour 'Other than purple', people really don't seem to like it. I wonder why. What's wrong with {c:DARK_PURPLE}purple{c:BLACK}? I personally think it's a marvellous colour. Oh well then, guess we better give them every colour of the Minecraft Rainbow. Right click a glowy block with a dye to... well... dye it. It's that simple, and doesn't consume the dye.
+qa.journal.item.QA|Dyeable.page.1={c:ITALIC}So many colours!
+
 qa.journal.item.QA|Arrangement.name=Matter Arrangement Table
 qa.journal.item.QA|Arrangement.desc={c:GRAY}{c:ITALIC}Squares, Triangles, they're all the same!
 qa.journal.item.QA|Arrangement.page.0=After doing some crafting, it dawns on you. Perhaps it's time for a more.... refined crafting table. Something which can arrange things on an atomic level. Perhaps reinforcing a table will make it stronger, more durable. Injecting a diamond into its core might make it a bit more precise. Why not give it a try?
@@ -218,6 +225,13 @@ qa.journal.item.QA|Arrangement.page.3=Tinkering on such a small scale ironically
 qa.journal.item.QA|Arrangement.page.4=For any items that need to be in the centre, drop them on top of the table. When a valid recipe is recognised, a ghost item will appear above the table to show you what you are about to craft. <br>It should be noted the table can craft both its {c:ITALIC}own{c:RESET} recipes and regular {c:ITALIC}Shaped or Shapeless{c:RESET} recipes
 qa.journal.item.QA|Arrangement.page.5={c:ITALIC}A simple crafting example of the {c:DARK_RED}{c:ITALIC}Daylight Sensor{c:BLACK}{c:ITALIC} using the {c:DARK_PURPLE}{c:ITALIC}Matter Arrangement Table
 qa.journal.item.QA|Arrangement.page.5.title=Demonstration
+
+qa.journal.item.QA|Etched0.name=Etched Stone
+qa.journal.item.QA|Etched0.desc={c:GRAY}{c:ITALIC}Ooh, pretty!
+qa.journal.item.QA|Etched1.name=Etched Cornerstone
+qa.journal.item.QA|Etched1.desc={c:GRAY}{c:ITALIC}I like to live on the edge
+qa.journal.item.QA|Etched0.page.0={c:DARK_PURPLE}Etched Stone{c:BLACK} seems like something we should have had a long, long time ago. Taking something as simple as carving a block to induce a pattern on it. <br>Perhaps this shape can prove to be more useful later down the line. At least it looks pretty, though.
+qa.journal.item.QA|Etched.page.0=The {c:DARK_PURPLE}Etched Cornerstone{c:BLACK} is similar to its counterpart, but has a more tasteful inset design. It's kind of hard to see though. Hmm.
 
 qa.journal.item.QA|Jewel.name=Obsidian Jewel
 qa.journal.item.QA|Jewel.desc={c:GRAY}{c:ITALIC}Density, refined.
