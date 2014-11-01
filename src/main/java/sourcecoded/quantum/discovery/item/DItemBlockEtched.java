@@ -15,7 +15,7 @@ public class DItemBlockEtched extends DiscoveryItem {
 
         this.x = 30;
 
-        this.setHiddenByDefault(false);
+        this.setHiddenByDefault(true);
         this.setUnlockedByDefault(false);
 
         this.addParent(QADiscoveries.Item.ARRANGEMENT.get().getKey());

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import sourcecoded.quantum.api.QuantumAPI;
+import sourcecoded.quantum.api.event.discovery.DiscoveryRegistrationEvent;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
 import sourcecoded.quantum.network.MessageDiscoveryToast;
 import sourcecoded.quantum.network.NetworkHandler;
@@ -199,6 +200,18 @@ public class DiscoveryManager {
      */
     public static boolean itemUnlocked(String item, EntityPlayer player) {
         return getItem(item, player).getBoolean("Unlocked");
+    }
+
+    /**
+     * Reveal all children items
+     */
+    public static void revealChildren(String item, EntityPlayer player) {
+        for (String currentItem : DiscoveryRegistry.getItemKeyList()) {
+            DiscoveryItem current = DiscoveryRegistry.getItemFromKey(currentItem);
+            if (current.parents.contains(item)) {
+                revealItem(currentItem, player);
+            }
+        }
     }
 
     /**

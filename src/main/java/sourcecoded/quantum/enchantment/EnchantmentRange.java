@@ -20,6 +20,6 @@ public class EnchantmentRange extends EnchantmentQuantum {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack) {
-        return canApply(stack);
+        return false;
     }
 }

@@ -17,7 +17,7 @@ public class DItemJewel extends DiscoveryItem {
 
         this.x = 100; this.y = 5;
 
-        this.setHiddenByDefault(true);
+        this.setHiddenByDefault(false);
         this.setUnlockedByDefault(false);
 
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));

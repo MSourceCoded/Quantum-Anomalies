@@ -19,7 +19,7 @@ public class DItemBlockArrangement extends DiscoveryItem {
 
         this.x = 60; this.y = 40;
 
-        this.setHiddenByDefault(true);
+        this.setHiddenByDefault(false);
         this.setUnlockedByDefault(false);
 
         this.addParent(QADiscoveries.Item.NODE.get().getKey());

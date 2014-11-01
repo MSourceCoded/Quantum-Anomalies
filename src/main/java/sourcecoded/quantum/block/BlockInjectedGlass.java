@@ -1,7 +1,9 @@
 package sourcecoded.quantum.block;
 
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -11,13 +13,16 @@ import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.tile.TileInjectedGlass;
 
-public class BlockInjectedGlass extends BlockDyeable implements ITileEntityProvider, IInjectorRecipe {
+import java.util.List;
+
+public class BlockInjectedGlass extends BlockInjectedStone {
 
     public BlockInjectedGlass() {
         super();
         this.setBlockName("blockInjectedGlass");
         this.setBlockTextureName("infusedStone");
         this.setHardness(5F);
+        this.setHasSubtypes(false);
     }
 
     public int getRenderType() {
@@ -51,5 +56,9 @@ public class BlockInjectedGlass extends BlockDyeable implements ITileEntityProvi
     @Override
     public CraftingContext getContext() {
         return CraftingContext.getStandardContext();
+    }
+
+    public void getSubBlocks(Item unknown, CreativeTabs tab, List subItems) {
+        subItems.add(new ItemStack(this, 1, 0));
     }
 }

@@ -405,7 +405,7 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBind
         List<IInventory> exports = getVacuumExports();
 
         VacuumCraftingEvent.CraftingCycle event = new VacuumCraftingEvent.CraftingCycle(this.currentActiveRecipe, worldObj, imports, exports, getVacuumCatalysts(), this);
-        if (!QuantumAPI.eventBus.post(event)) {
+        if (QuantumAPI.eventBus.post(event)) {
             setCrafting(false);
 
             if (event.getResult() == Event.Result.ALLOW)

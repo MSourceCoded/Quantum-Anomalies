@@ -33,17 +33,32 @@ public class TileManipulation extends TileDyeable implements IFluidHandler, ITil
 
     @Override
     public void updateEntity() {
-        if (getColour() == Colourizer.BLUE)
+        if (getColour() == Colourizer.BLUE || getColour() == Colourizer.BLACK)
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
             if (tile != null) {
                 if (tile instanceof IFluidHandler) {
                     IFluidHandler handler = (IFluidHandler) tile;
-                    if (handler.canFill(dir.getOpposite(), FluidRegistry.WATER))
-                        handler.fill(dir.getOpposite(), new FluidStack(FluidRegistry.WATER, 50), true);
-                } else if (tile instanceof IFluidTank) {        //WHY ARE THESE NOT 1 CLASS 3:<
+
+                    if (getColour() == Colourizer.BLUE) {
+                        if (handler.canFill(dir.getOpposite(), FluidRegistry.WATER))
+                            handler.fill(dir.getOpposite(), new FluidStack(FluidRegistry.WATER, 50), true);
+                    } else if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
+                        for (FluidTankInfo info : handler.getTankInfo(dir.getOpposite())) {
+                            if (info.fluid != null && handler.canDrain(dir.getOpposite(), info.fluid.getFluid()))
+                                handler.drain(dir.getOpposite(), 250, true);
+                        }
+                    }
+
+                } else if (tile instanceof IFluidTank) {
                     IFluidTank tank = (IFluidTank) tile;
-                    tank.fill(new FluidStack(FluidRegistry.WATER, 50), true);
+
+                    if (getColour() == Colourizer.BLUE) {
+                        tank.fill(new FluidStack(FluidRegistry.WATER, 50), true);
+                    } else if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
+                        tank.drain(250, true);
+                    }
+
                 }
             }
         }
