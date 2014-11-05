@@ -43,6 +43,8 @@ public class QADiscoveries {
 
         ETCHED_STONE(new DItemBlockEtched(0), Category.BLOCKS.get()),
         ETCHED_CORNER(new DItemBlockEtched(1), Category.BLOCKS.get()),
+
+        INJECTION(new DItemBlockInjector(), Category.BLOCKS.get()),
         ;
 
         private DiscoveryItem item;

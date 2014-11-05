@@ -233,6 +233,10 @@ qa.journal.item.QA|Etched1.desc={c:GRAY}{c:ITALIC}I like to live on the edge
 qa.journal.item.QA|Etched0.page.0={c:DARK_PURPLE}Etched Stone{c:BLACK} seems like something we should have had a long, long time ago. Taking something as simple as carving a block to induce a pattern on it. <br>Perhaps this shape can prove to be more useful later down the line. At least it looks pretty, though.
 qa.journal.item.QA|Etched.page.0=The {c:DARK_PURPLE}Etched Cornerstone{c:BLACK} is similar to its counterpart, but has a more tasteful inset design. It's kind of hard to see though. Hmm.
 
+qa.journal.item.QA|Injection.name=Quantum Rift Injection Pool
+qa.journal.item.QA|Injection.desc={c:GRAY}{c:ITALIC}"This will only hurt a little"<br>  {c:GRAY}{c:ITALIC}-Every nurse, ever
+qa.journal.item.QA|Injection.page.0=Nothing says {c:ITALIC}'Good Morning'{c:RESET} like a jab in the arm from a needle which you swear is a little bit too thick. Seriously though, this jewel which you've discovered, it would seem your theory was correct. It's gaining the ability to hold some kind of... entropic energy. Perhaps if you somehow combined this into a basin of some sort you could use it with other items, too. Like a mop. Well, kind of like a mop. Not really. Forget I said that.
+
 qa.journal.item.QA|Jewel.name=Obsidian Jewel
 qa.journal.item.QA|Jewel.desc={c:GRAY}{c:ITALIC}Density, refined.
 qa.journal.item.QA|Jewel.page.0=After doing some arrangement crafting, you notice something. There's a small... crack in the table. You notice that diamond that you had injected into the core earlier has lost its shiny blue colour. It's starting to look more like the Obsidian surrounding it. <br>It seems the purity of the diamond has been taken by the impure Obsidian around it when compressed.
@@ -277,4 +281,3 @@ qa.vacuum.instability.catastrophic.name={c:DARK_RED}Catastrophic
 qa.vacuum.instability.apocalyptic.name={c:DARK_PURPLE}Apocalyptic
 qa.vacuum.instability.dimensional_shift.name={c:BLACK}{c:BOLD}DIMENSIONAL SHIFT
 qa.vacuum.instability.cataclysmic_switch.name={c:DARK_PURPLE}{c:BOLD}CATACLYSMIC SWITCH
-
