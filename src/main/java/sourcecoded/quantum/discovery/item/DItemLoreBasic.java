@@ -20,6 +20,8 @@ public class DItemLoreBasic extends DiscoveryItem {
         this.setHiddenByDefault(false);
         this.setUnlockedByDefault(true);
 
+        this.setSpecial(true);
+
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.1"));
     }

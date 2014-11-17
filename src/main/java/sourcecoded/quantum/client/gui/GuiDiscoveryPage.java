@@ -113,7 +113,7 @@ public class GuiDiscoveryPage extends GuiScreen {
 
         GL11.glColor4f(1F, 1F, 1F, 1F);
 
-        int buttonY = centreH + frameHeight / 2 - 30;
+        int buttonY = centreH + frameHeight / 2 - 20;
         int buttonSizeX = 18;
         int buttonSizeY = 11;
 
@@ -449,6 +449,8 @@ public class GuiDiscoveryPage extends GuiScreen {
 
         GL11.glEnable(GL11.GL_BLEND);
         RenderHelper.disableStandardItemLighting();
+
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         if (context.oreDictionary) {
             GL11.glColor4f(1F, 1F, 1F, 0.4F);

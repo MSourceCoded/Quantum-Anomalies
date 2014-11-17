@@ -2,6 +2,7 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -14,9 +15,11 @@ import sourcecoded.core.crafting.ICraftableBlock;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
 import sourcecoded.quantum.api.block.IDiagnostic;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.IBlockRenderHook;
+import sourcecoded.quantum.discovery.QADiscoveries;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.TileRiftInjector;
@@ -87,5 +90,10 @@ public class BlockRiftInjector extends BlockDyeable implements ITileEntityProvid
             String format = LocalizationUtils.translateLocalWithColours(getUnlocalizedName() + ".diagnose", "Tier: %s");
             player.addChatComponentMessage(new ChatComponentText(String.format(format, injector.getTier())));
         }
+    }
+
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase ent, ItemStack stack) {
+        if (ent instanceof EntityPlayer && !world.isRemote)
+            DiscoveryManager.unlockItem(QADiscoveries.Item.INJECTION_BLOCKS.get().getKey(), (EntityPlayer) ent, false);
     }
 }

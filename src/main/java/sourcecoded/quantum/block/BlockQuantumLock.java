@@ -84,7 +84,7 @@ public class BlockQuantumLock extends BlockQuantum {
 
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         world.removeTileEntity(x, y, z);
-        QAWorldSavedData.getInstance(world).destroyQuantumLock(x, y, z);
+        QAWorldSavedData.getInstance(world).destroyQuantumLock(world, x, y, z, true);
         QAWorldSavedData.getInstance(world).markForUpdate(world);
     }
 

@@ -91,7 +91,7 @@ public class FocusDebug implements ISceptreFocus {
                     world.setTileEntity(x, y, z, tile);
                 }
 
-                QAWorldSavedData.getInstance(world).destroyQuantumLock(x, y, z);
+                QAWorldSavedData.getInstance(world).destroyQuantumLock(world, x, y, z, true);
             }
         }
         return !world.isRemote;

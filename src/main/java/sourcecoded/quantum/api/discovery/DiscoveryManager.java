@@ -67,7 +67,7 @@ public class DiscoveryManager {
         if (!comp.hasKey("Unlocked"))
             comp.setBoolean("Unlocked", it.unlockedByDefault);
         if (!comp.hasKey("Hidden")) {
-            if (!areParentsRevealed(item, player))
+            if (!areParentsUnlocked(item, player))
                 comp.setBoolean("Hidden", true);
             else
                 comp.setBoolean("Hidden", it.hiddenByDefault);
@@ -134,6 +134,8 @@ public class DiscoveryManager {
             NetworkHandler.wrapper.sendTo(new MessageDiscoveryToast(item), (EntityPlayerMP) player);
 
         unlockCategory(DiscoveryRegistry.getCategoryForItem(item).getKey(), player);
+
+        revealChildren(item, player);
     }
 
     /**
@@ -208,7 +210,7 @@ public class DiscoveryManager {
     public static void revealChildren(String item, EntityPlayer player) {
         for (String currentItem : DiscoveryRegistry.getItemKeyList()) {
             DiscoveryItem current = DiscoveryRegistry.getItemFromKey(currentItem);
-            if (current.parents.contains(item)) {
+            if (current.parents.contains(item) && areParentsUnlocked(item, player) && !current.hiddenByDefault) {
                 revealItem(currentItem, player);
             }
         }
@@ -240,6 +242,18 @@ public class DiscoveryManager {
     }
 
     public static NBTTagCompound getDiscoveriesTag(EntityPlayer player) {
+        NBTTagCompound qa = getQuantumTag(player);
+
+        NBTTagCompound disc = new NBTTagCompound();
+        if (qa.hasKey("discoveries"))
+            disc = qa.getCompoundTag("discoveries");
+        else
+            qa.setTag("discoveries", disc);
+
+        return disc;
+    }
+
+    public static NBTTagCompound getQuantumTag(EntityPlayer player) {
         NBTTagCompound persist = player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 
         if (persist == null || !player.getEntityData().hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
@@ -253,13 +267,7 @@ public class DiscoveryManager {
         else
             persist.setTag("QuantumAnomalies", qa);
 
-        NBTTagCompound disc = new NBTTagCompound();
-        if (qa.hasKey("discoveries"))
-            disc = qa.getCompoundTag("discoveries");
-        else
-            qa.setTag("discoveries", disc);
-
-        return disc;
+        return qa;
     }
 
     /**

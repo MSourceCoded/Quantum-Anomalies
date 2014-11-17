@@ -13,7 +13,7 @@ public class DItemBlockEtched extends DiscoveryItem {
     public DItemBlockEtched(int index) {
         super("QA|Etched" + index);
 
-        this.x = 30;
+        this.y = 90;
 
         this.setHiddenByDefault(true);
         this.setUnlockedByDefault(false);
@@ -22,10 +22,10 @@ public class DItemBlockEtched extends DiscoveryItem {
 
         if (index == 0) {
             this.displayStack = new ItemStack(QABlocks.INJECTED_STONE.getBlock());
-            this.y = 75;
+            this.x = 30;
         } else if (index == 1) {
             this.displayStack = new ItemStack(QABlocks.INJECTED_CORNERSTONE.getBlock());
-            this.y = 110;
+            this.x = 60;
         } else
             throw new IndexOutOfBoundsException("Etched Discovery Entry: " + index + " Out of bounds!");
 

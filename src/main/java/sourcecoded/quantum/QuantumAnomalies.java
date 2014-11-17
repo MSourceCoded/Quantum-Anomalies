@@ -21,6 +21,7 @@ import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.gui.GuiHandler;
 import sourcecoded.quantum.client.renderer.GlowRenderHandler;
 import sourcecoded.quantum.client.renderer.RainbowRenderHandler;
+import sourcecoded.quantum.client.renderer.WorldLabelRenderer;
 import sourcecoded.quantum.client.renderer.fx.helpers.ParticleDispatcher;
 import sourcecoded.quantum.crafting.arrangement.ArrangementRecipes;
 import sourcecoded.quantum.discovery.DiscoveryHandler;
@@ -151,6 +152,8 @@ public class QuantumAnomalies {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 
         DiscoveryHandler.init();
+
+        WorldLabelRenderer.INSTANCE.init();
     }
 
     @Mod.EventHandler

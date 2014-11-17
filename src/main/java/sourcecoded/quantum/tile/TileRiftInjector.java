@@ -1,13 +1,17 @@
 package sourcecoded.quantum.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.energy.EnergyBehaviour;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.energy.RiftEnergyStorage;
@@ -15,7 +19,9 @@ import sourcecoded.quantum.api.event.crafting.InjectionCraftingEvent;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.client.renderer.fx.helpers.FXManager;
+import sourcecoded.quantum.discovery.QADiscoveries;
 import sourcecoded.quantum.registry.QABlocks;
+import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.structure.MultiblockLayer;
 import sourcecoded.quantum.util.WorldUtils;
 
@@ -49,6 +55,8 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             new MultiblockLayer("i     i", "       ", "       ", "       ", "       ", "       ", "i     i", 'i', QABlocks.INJECTED_STONE.getBlock()),
             new MultiblockLayer("c     c", "       ", "       ", "       ", "       ", "       ", "c     c", 'c', QABlocks.INJECTED_CORNERSTONE.getBlock()),
     };
+
+    public EntityPlayer recentPlayer;
 
     public TileRiftInjector() {
         rift = new RiftEnergyStorage(100000);
@@ -141,6 +149,8 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
 
             update();
         }
+
+        recentPlayer = clickEntity;
     }
 
     void inject() {
@@ -153,6 +163,18 @@ public class TileRiftInjector extends TileDyeable implements ITileRiftHandler, I
             currentItem = itemstack;
 
             QuantumAPI.eventBus.post(new InjectionCraftingEvent.Complete(recipe, this.worldObj, currentItem, this));
+
+            if (RandomUtils.nextInt(0, 2) == 0 && recentPlayer != null) {
+                DiscoveryManager.unlockItem(QADiscoveries.Item.INJECTION_ADV.get().getKey(), recentPlayer, false);
+            }
+
+            if (recentPlayer != null) {
+                //Do relevant discoveries
+                if (Block.getBlockFromItem(currentItem.getItem()) == QABlocks.RIFT_SMELTER.getBlock()) DiscoveryManager.unlockItem(QADiscoveries.Item.FURNACE.get().getKey(), recentPlayer, false);
+                if (currentItem.getItem() == QAItems.INJECTED_STRING.getItem()) DiscoveryManager.unlockItem(QADiscoveries.Item.STRING.get().getKey(), recentPlayer, false);
+                if (currentItem.getItem() == QAItems.INJECTED_STICK.getItem() && currentItem.getItemDamage() == 0) DiscoveryManager.unlockItem(QADiscoveries.Item.STICK.get().getKey(), recentPlayer, false);
+                if (currentItem.getItem() == QAItems.OBSIDIAN_JEWEL.getItem() && currentItem.getItemDamage() == 1) DiscoveryManager.unlockItem(QADiscoveries.Item.JEWEL_CHARGED.get().getKey(), recentPlayer, false);
+            }
         }
     }
 

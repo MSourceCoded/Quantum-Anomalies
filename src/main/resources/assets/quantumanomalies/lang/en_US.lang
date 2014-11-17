@@ -69,6 +69,9 @@ qa.items.itemRiftMagnet.add={c:GREEN}Added Item To Blacklist:
 qa.items.itemRiftMagnet.clear={c:AQUA}Cleared blacklist!
 qa.items.itemRiftMagnet.lore.range={c:ITALIC}Range: x=%s y=%s
 
+qa.items.itemRiftPencil.name={c:AQUA}Rift Pencil{c:RESET}
+qa.items.itemRiftPencil.lore.0={c:ITALIC}Not for scribbling
+
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
 #####################################
@@ -167,6 +170,9 @@ qa.sceptre.focus.bind.bindingRemoved={c:AQUA}Binding Removed!
 qa.items.itemJournal.name={c:LIGHT_PURPLE}Anomolical Journal{c:WHITE}
 qa.items.itemJournal.lore.0={c:ITALIC}[ah-nom-ol-ic-al]
 
+qa.items.itemJournalCheat.name={c:LIGHT_PURPLE}Anomolical Journal (Cheaty Cheat Sheet){c:WHITE}
+qa.items.itemJournalCheat.lore.0={c:ITALIC}You should feel bad....
+
 qa.journal.gui.oredict.title={c:BLUE}Ore Dictionary Support
 qa.journal.gui.oredict=This recipe supports the Ore Dictionary
 
@@ -231,7 +237,7 @@ qa.journal.item.QA|Etched0.desc={c:GRAY}{c:ITALIC}Ooh, pretty!
 qa.journal.item.QA|Etched1.name=Etched Cornerstone
 qa.journal.item.QA|Etched1.desc={c:GRAY}{c:ITALIC}I like to live on the edge
 qa.journal.item.QA|Etched0.page.0={c:DARK_PURPLE}Etched Stone{c:BLACK} seems like something we should have had a long, long time ago. Taking something as simple as carving a block to induce a pattern on it. <br>Perhaps this shape can prove to be more useful later down the line. At least it looks pretty, though.
-qa.journal.item.QA|Etched.page.0=The {c:DARK_PURPLE}Etched Cornerstone{c:BLACK} is similar to its counterpart, but has a more tasteful inset design. It's kind of hard to see though. Hmm.
+qa.journal.item.QA|Etched1.page.0=The {c:DARK_PURPLE}Etched Cornerstone{c:BLACK} is similar to its counterpart, but has a more tasteful inset design. It's kind of hard to see though. Hmm.
 
 qa.journal.item.QA|Injection.name=Quantum Rift Injection Pool
 qa.journal.item.QA|Injection.desc={c:GRAY}{c:ITALIC}"This will only hurt a little"<br>  {c:GRAY}{c:ITALIC}-Every nurse, ever
@@ -241,6 +247,69 @@ qa.journal.item.QA|Jewel.name=Obsidian Jewel
 qa.journal.item.QA|Jewel.desc={c:GRAY}{c:ITALIC}Density, refined.
 qa.journal.item.QA|Jewel.page.0=After doing some arrangement crafting, you notice something. There's a small... crack in the table. You notice that diamond that you had injected into the core earlier has lost its shiny blue colour. It's starting to look more like the Obsidian surrounding it. <br>It seems the purity of the diamond has been taken by the impure Obsidian around it when compressed.
 qa.journal.item.QA|Jewel.page.1=It seems as though {c:DARK_PURPLE}Entropy{c:BLACK} has started to seep its way into the more pure elements. In something that's pure, there's no change, it's almost {c:ITALIC}perfect{c:RESET} in its structure. Entropy must be seeing this as perfect real-estate to move in, having a lot of room to mess with. Storing Entropy. Huh, who knew?
+
+qa.journal.item.QA|EnergyAdv.name=Advanced Node Theory
+qa.journal.item.QA|EnergyAdv.desc={c:GRAY}{c:ITALIC}You're confusing the polarity
+qa.journal.item.QA|EnergyAdv.page.0=After taking a more.... {c:ITALIC}'interactive'{c:RESET} approach to learning, it seems you've discovered something new. This {c:DARK_RED}rift energy{c:BLACK} that flows between devices seems to change whatever it touches. Whether it's for the good or bad you can't tell, it's almost random. Either way, it seems best to stay out of the way. Blocks don't seem to stop it, only living beings.
+qa.journal.item.QA|EnergyAdv.page.1=In addition, it seems {c:DARK_RED}right clicking{c:BLACK} the node changes it's behavior towards energy. <br>This behaviour is how devices act when interacting with rift energy. They are described on the following page.
+qa.journal.item.QA|EnergyAdv.page.2={c:DARK_PURPLE}EQUALIZE{c:BLACK} Will cause devices to stop transmitting energy when their target is the same percentage full. <br>{c:DARK_PURPLE}DRAIN{c:BLACK} Will cause devices to receive energy until full. Nodes will not transmit in this mode. <br>{c:DARK_PURPLE}NOT_ACCEPTING{c:BLACK} Will cause devices to not request energy, but will receive if energy flows their way.
+qa.journal.item.QA|EnergyAdv.page.3=Furthermore, nodes will produce {c:DARK_RED}rift energy{c:BLACK} based on the {c:DARK_RED}colour{c:BLACK} they are dyed. <br>{c:DARK_PURPLE}Light Blue{c:BLACK} will generate rift energy with lightning strikes. <br>{c:DARK_PURPLE}Red{c:BLACK} will generate a {c:ITALIC}minute{c:RESET} amount of rift energy with nearby fire <br>{c:DARK_PURPLE}Orange{c:BLACK} will generate rift energy based on the power of the explosion affecting the node.
+qa.journal.item.QA|EnergyAdv.page.4=With this energy production comes a price. When a node is generating energy and is below {c:DARK_RED}5%{c:BLACK} capacity, the node will be unstable in order to sustain itself. This is based on how it generates energy, for example, {c:DARK_PURPLE}Light Blue{c:BLACK} will cause random lightning strikes, while {c:DARK_PURPLE}Red{c:BLACK} will cause random firey infernos. <br>As always, the best protection is prevention, so keep an eye on those nodes!
+
+qa.journal.item.QA|Smelt.name=Quantum Rift Furnace
+qa.journal.item.QA|Smelt.desc={c:GRAY}{c:ITALIC}Jesse, we have to cook!
+qa.journal.item.QA|Smelt.page.0=While pondering the meaning of the word 'heat', you find yourself perplexed by the process by which resources are smelted. Heating something up until its particles jiggle sounds a bit tedious and inefficient. <br>Since this process requires a state of change, perhaps it would be better to use {c:DARK_RED}entropy{c:BLACK} to undergo this change.
+qa.journal.item.QA|Smelt.page.1=The {c:DARK_PURPLE}Quantum Rift Furnace{c:BLACK} will smelt items piped in through the top. It requires a {c:DARK_RED}multiblock{c:BLACK} as well as {c:DARK_RED}energy{c:BLACK} to run, but it is well worth it. Not only is it {c:DARK_RED}faster{c:BLACK}, but doesn't require coal to run. <br>You see room for improvement, but that can wait for another day.
+qa.journal.item.QA|Smelt.page.3={c:ITALIC}The proposed multiblock structure for the {c:DARK_RED}{c:ITALIC}Quantum Rift Furnace
+
+qa.journal.item.QA|InjectedBlocks.name=Injected Blocks
+qa.journal.item.QA|InjectedBlocks.desc={c:GRAY}{c:ITALIC}Like a soft and goo-ey centre
+qa.journal.item.QA|InjectedBlocks.page.0=After some experimentation, you've found that it is possible to imbue blocks and items with {c:DARK_RED}rift energy{c:BLACK} in order to give them unique properties. <br>Perhaps taking those {c:DARK_PURPLE}etched blocks{c:BLACK} from earlier could yield some really pretty looking blocks. They seem to pulsate in-and-out, in tune with each other. Perhaps they have a deeper use, but you'll have to do some tinkering to see if that's the case.
+qa.journal.item.QA|InjectedBlocks.page.1=In addition, {c:DARK_PURPLE}Injected Glass{c:BLACK} functions as {c:DARK_RED}Connected Textures.{c:BLACK} When placed adjacent to each other, the glass' textures will connect, giving a clean, seamless look. <br>Furthermore, the glass will only connect to glass of the same colour, having potential to make really intricate designs of any colour of your choice.
+
+qa.journal.item.QA|InjectionAdv.name=Advanced Injection Theory
+qa.journal.item.QA|InjectionAdv.desc={c:GRAY}{c:ITALIC}I couldn't think of a sassy description
+qa.journal.item.QA|InjectionAdv.page.0=After toying about with the {c:DARK_PURPLE}Rift Injection Pool,{c:BLACK} you've noticed that the {c:DARK_PURPLE}Injected Blocks{c:BLACK} seem to have some kind of harmony with the Pool. Perhaps they could be used as an 'upgrade' persay. Well, there's only one way to find out. Go on then, hop to it!
+qa.journal.item.QA|InjectionAdv.page.1={c:ITALIC}Upgrading the pool to {c:DARK_RED}{c:ITALIC}Tier 1
+qa.journal.item.QA|InjectionAdv.page.2={c:ITALIC}Upgrading the pool to {c:DARK_RED}{c:ITALIC}Tier 2
+qa.journal.item.QA|InjectionAdv.page.3={c:ITALIC}Upgrading the pool to {c:DARK_RED}{c:ITALIC}Tier 3
+
+qa.journal.item.QA|RF.name=Redstone Flux integration
+qa.journal.item.QA|RF.desc={c:GRAY}{c:ITALIC}*sigh*
+qa.journal.item.QA|RF.page.0=No.
+
+qa.journal.item.QA|JewelCharged.name=Charged Obsidian Jewel
+qa.journal.item.QA|JewelCharged.desc={c:GRAY}{c:ITALIC}Collective Change
+qa.journal.item.QA|JewelCharged.page.0=After handling the {c:DARK_PURPLE}Obsidian Jewel{c:BLACK} for quite some time, you've noticed a small crack starts to form. A pure, dense and strong jewel somehow has a crack... <br>Perhaps you've been spending too long around this {c:DARK_RED}Entropic Energy,{c:BLACK} or maybe not long enough. You put it into an {c:DARK_PURPLE}Injection Pool{c:BLACK} and you notice it eats up all the energy and starts to glow. Hmm, sparkly.
+qa.journal.item.QA|JewelCharged.page.1=There seems to be enough energy to create a small collection. Like a battery, almost. You just need to find a way to ignite it, set the energy free and let it collapse into a cloud of energy. Is this how you make {c:DARK_PURPLE}Rift Nodes?{c:BLACK} <br>You throw the charged crystal on the ground and set it alight with fire. You pray that this will work.
+
+qa.journal.item.QA|Chaos.name=Chaotic Manipulation
+qa.journal.item.QA|Chaos.desc={c:GRAY}{c:ITALIC}Be productive! *cracks whip*
+qa.journal.item.QA|Chaos.page.0=After some experimentation with the {c:DARK_PURPLE}Rift Furnace,{c:BLACK} you notice some room for improvement. <br>Perhaps these weird {c:DARK_RED}biomes{c:BLACK} you've traversed can have something to do with that. I dunno, don't ask me, I'm just a silly little book designed to confuse you.
+qa.journal.item.QA|Chaos.page.1={c:DARK_PURPLE}Manipulation Catalysts{c:BLACK} are blocks placed in the world that will affect {c:DARK_RED}Quantum Machines.{c:BLACK} <br>{c:DARK_PURPLE}Speed{c:BLACK} affects the time a machine takes to complete an operation.<br>{c:DARK_PURPLE}Production{c:BLACK} in blocks like the {c:DARK_RED}Rift Furnace{c:BLACK}, it changes the chance of getting a 2nd item.<br>{c:DARK_PURPLE}Energy{c:BLACK} affects the energy usage of a machine
+qa.journal.item.QA|Chaos.page.2=These blocks must be placed in range of a machine to work. <br>Their effects stack, so the more you have, the better.
+
+qa.journal.item.QA|Vacuum.name=Vacuum Catalyst Crafting
+qa.journal.item.QA|Vacuum.desc={c:GRAY}{c:ITALIC}This blows! Or... sucks?
+qa.journal.item.QA|Vacuum.page.0=After taking a quick trip into the void, you notice something. You're not... falling. You're being {c:DARK_RED}pulled.{c:BLACK} <br>Something pulled you back up. What was it, you wonder? Perhaps some more research is required. <br>{c:DARK_PURPLE}Vacuum{c:BLACK} is about to take up a whole new meaning...
+qa.journal.item.QA|Vacuum.page.1=When a {c:ITALIC}Black Rift Node{c:RESET} is surrounded in a specific structure of {c:DARK_PURPLE}Injected Blocks,{c:BLACK} it seems to gain special properties. It becomes dense in a blackhole-esque kind of way. <br>It seems to be able to take items and condense them into one. Vacuum Crafting.
+qa.journal.item.QA|Vacuum.page.2=A {c:DARK_PURPLE}7x7{c:BLACK} structure must be created. <br>The {c:DARK_RED}edges{c:BLACK} must be made of either {c:DARK_PURPLE}Injected Stone{c:BLACK} or {c:DARK_PURPLE}Injected Cornerstones.{c:BLACK} <br>The {c:DARK_RED}corners{c:BLACK} {c:ITALIC}must{c:RESET} be {c:DARK_PURPLE}Injected Cornerstones.{c:BLACK} <br>The {c:DARK_RED}faces{c:BLACK} can be made of any {c:DARK_PURPLE}Injected Blocks,{c:BLACK} {c:ITALIC}even Injected Glass.{c:RESET} <br>To start crafting, apply a {c:DARK_RED}redstone signal{c:BLACK} to the middle block on any face.
+qa.journal.item.QA|Vacuum.page.4=Any {c:DARK_PURPLE}cornerstones{c:BLACK} in the structure can be used as {c:DARK_RED}interfaces{c:BLACK} depending on the colour they are dyed. <br>{c:DARK_PURPLE}LIME{c:BLACK} uses adjacent inventories as {c:DARK_RED}inputs{c:BLACK} <br>{c:DARK_PURPLE}WHITE{c:BLACK} uses adjacent inventories as {c:DARK_RED}catalysts{c:BLACK} <br>{c:DARK_PURPLE}ORANGE{c:BLACK} uses adjacent inventories as {c:DARK_RED}outputs{c:BLACK}
+qa.journal.item.QA|Vacuum.page.5={c:DARK_PURPLE}Catalysts{c:BLACK} are a form of {c:DARK_RED}instruction{c:BLACK} for the Vacuum Chamber. They must be in {c:DARK_RED}exact order{c:BLACK} and are {c:DARK_RED}not consumed.{c:BLACK}
+
+qa.journal.item.QA|String.name=Injected String
+qa.journal.item.QA|String.desc={c:GRAY}{c:ITALIC}En'tangle'ment. Har har har...
+qa.journal.item.QA|String.page.0=After fiddling about with {c:DARK_RED}Rift Energy,{c:BLACK} or perhaps scanning wiki pages like the little cheat you are, you find something that you think is useless. {c:DARK_PURPLE}Injected String{c:BLACK} seems fairly useless, to which you would be correct. It seems like nothing but a crafting piece. Oh well, you win some, you lose some.
+
+qa.journal.item.QA|Stick0.name=Injected Stick
+qa.journal.item.QA|Stick0.desc={c:GRAY}{c:ITALIC}A 'sticky' situation. Ha.
+qa.journal.item.QA|Stick0.page.0=Asking a dog to 'fetch' this is probably not a good idea, unless you want it to grow a 2nd tail. Much like {c:DARK_PURPLE}Injected String,{c:BLACK} this object is fairly useless on its own. <br>Oh well, I'm sure you'll find a use for it someday
+
+qa.journal.item.QA|Manipulation.name=Matter Manipulation
+qa.journal.item.QA|Manipulation.desc={c:GRAY}{c:ITALIC}Hold on, wasn't this in Xycraft?
+qa.journal.item.QA|Manipulation.page.0=After reminiscing over the good old days when Xycraft was {c:ITALIC}actually{c:RESET} released, you think it might be time to bring back some old mechanics. <br>The {c:DARK_PURPLE}Matter Manipulation Structure{c:BLACK} is a block with many capabilities, all tied to the {c:DARK_RED}colour{c:BLACK} it is dyed. <br>{c:DARK_RED}Red{c:BLACK} will allow the block to burn forever, similar to netherrack.
+qa.journal.item.QA|Manipulation.page.1={c:DARK_RED}White{c:BLACK} will freeze any adjacent water blocks, provided energy. <br>{c:DARK_RED}Black{c:BLACK} will void any surrounding liquids, as well as any liquids pumped into it. <br>{c:DARK_RED}Lime{c:BLACK} can sustain any plant without need for water. In addition, it will increase the tick rate of the block above. You can tower them to stack the effect. Each random tick requires energy
+qa.journal.item.QA|Manipulation.page.2={c:DARK_RED}Blue{c:BLACK} will act as a water source that does not flow. Water is automatically transferred into adjacent tanks, and can be taken out via pipes/conduits. Keep in mind this block also works in the nether, unlike regular water.
 
 #####################################
 # Misc
@@ -253,8 +322,7 @@ qa.lore.multipliers.speed=Speed Multiplier
 qa.lore.multipliers.energy=Energy Usage
 qa.lore.multipliers.production=Production
 
-qa.lore.dyeable.0=Dyeable!
-qa.lore.dyeable.1=Any colour you want!
+qa.aboutToVoid={c:ITALIC}{c:RED}Let's try not to do that again, hmm?{c:RESET}
 
 #####################################
 # Keybinding

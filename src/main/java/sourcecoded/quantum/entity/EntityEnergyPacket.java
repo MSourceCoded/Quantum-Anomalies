@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -14,8 +15,10 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
 import sourcecoded.quantum.api.gravity.IGravityEntity;
+import sourcecoded.quantum.discovery.QADiscoveries;
 
 import java.util.List;
 
@@ -121,8 +124,11 @@ public class EntityEnergyPacket extends Entity implements IGravityEntity {
         if (worldObj.rand.nextInt(4) == 0) {
             List<EntityLivingBase> list = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(this.posX - 0.5, this.posY - 0.5, this.posZ - 0.5, this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5));
             for (EntityLivingBase ent : list) {
-                if (!worldObj.isRemote)
+                if (!worldObj.isRemote) {
                     ((EntityLivingBase) ent).addPotionEffect(new PotionEffect(getPotionEffect().getId(), RandomUtils.nextInt(60, 200), 0, true));
+                    if (ent instanceof EntityPlayer && rand.nextInt(4) == 0)
+                        DiscoveryManager.unlockItem(QADiscoveries.Item.NODE_ADV.get().getKey(), (EntityPlayer) ent, false);
+                }
                 this.setDead();
             }
         }

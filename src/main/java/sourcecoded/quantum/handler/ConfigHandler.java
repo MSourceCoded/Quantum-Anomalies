@@ -107,6 +107,7 @@ public class ConfigHandler {
         /* Rendering */
         PARTICLE_RANGE_HIGH(Categories.RENDERING, "particle_range_high", "The range (in blocks) particles with a HIGH priority should be rendered.", 64.0D),
         PARTICLE_RANGE_LOW(Categories.RENDERING, "particle_range_low", "The range (in blocks) particles with a LOW priority should be rendered.", 40.0D),
+        BLOCK_LABEL_DISTANCE(Categories.RENDERING, "block_label_dist", "The range (in blocks sq) block labels should be rendered.", 100.0D),
 
         /* SCREENSHOT */
         ENCHANT_ID_DECEPTION(Categories.ID, "enchantment_id_deception", "The ID (0-256) for the Deception Enchantment. Change this if another mod conflicts with this", 130),

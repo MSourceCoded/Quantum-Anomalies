@@ -22,6 +22,8 @@ public class DItemBlockArrangement extends DiscoveryItem {
         this.setHiddenByDefault(false);
         this.setUnlockedByDefault(false);
 
+        this.setSpecial(true);
+
         this.addParent(QADiscoveries.Item.NODE.get().getKey());
 
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));

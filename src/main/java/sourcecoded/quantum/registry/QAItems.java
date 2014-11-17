@@ -10,6 +10,7 @@ public enum QAItems {
     SCEPTRE("itemSceptre", new ItemSceptre()),
     CHAOS_SHARD("itemChaosShard", new ItemChaosShard()),
     JOURNAL("itemJournal", new ItemJournal()),
+    JOURNAL_CHEAT("itemJournalCheat", new ItemJournalCheatSheet()),
     INJECTED_STICK("itemInjectedStick", new ItemInjectedStick()),
     INJECTED_STRING("itemInjectedString", new ItemInjectedString()),
 
@@ -28,6 +29,8 @@ public enum QAItems {
 
     RIFT_BOW("itemRiftBow", new ItemRiftBow()),
     RIFT_MAGNET("itemRiftMagnet", new ItemRiftMagnet()),
+
+    PENCIL("itemRiftPencil", new ItemPencil()),
     ;
 
     String identifier;

@@ -211,7 +211,7 @@ public class GuiDiscoveryCategory extends GuiScreen {
                 desc.add(LocalizationUtils.translateLocalWithColours(item.getUnlocalizedDescription(), item.getUnlocalizedDescription()));
                 desc = LocalizationUtils.translateList(desc);               //Split the description with <br> breaks
 
-                list.add(EnumChatFormatting.BLUE + item.getLocalizedName());
+                    list.add((item.isSpecial ? EnumChatFormatting.DARK_PURPLE : EnumChatFormatting.BLUE) + item.getLocalizedName());
                 list.addAll(desc);
                 tooltip(list, mx, my);
 
@@ -267,7 +267,7 @@ public class GuiDiscoveryCategory extends GuiScreen {
     public void drawLine(int x, int y, int x2, int y2, float r, float g, float b, float r2, float g2, float b2, boolean dim, int linePhase) {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        GL11.glLineWidth(3);
+        GL11.glLineWidth(2.75F);
 
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);

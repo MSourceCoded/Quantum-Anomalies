@@ -121,7 +121,7 @@ public class BlockRiftNode extends BlockDyeable implements ITileEntityProvider {
             if (entity.motionZ < force)
                 entity.motionZ += force * normal.zCoord;
 
-            if (entity instanceof EntityPlayer)
+            if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
                 NetworkHandler.wrapper.sendTo(new MessageSetPlayerVelocity(force * normal.xCoord, force * normal.yCoord, force * normal.zCoord), (EntityPlayerMP) entity);
         }
     }

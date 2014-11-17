@@ -2,18 +2,22 @@ package sourcecoded.quantum.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.block.IRiftMultiplier;
 import sourcecoded.quantum.api.block.RiftMultiplierUtils;
+import sourcecoded.quantum.api.injection.IInjectorRecipe;
+import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.item.ItemBlockQuantum;
 import sourcecoded.quantum.registry.QAItems;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier {
+public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier, IInjectorRecipe {
 
     public BlockChaosHell() {
         this.setBlockName("blockChaosHell");
@@ -46,6 +50,31 @@ public class BlockChaosHell extends BlockQuantum implements IRiftMultiplier {
     @Override
     public Class<? extends ItemBlock> getItemBlock(Block block) {
         return theItemBlock.class;
+    }
+
+    @Override
+    public int getEnergyRequired() {
+        return (int) (InjectionConstants.INJECTION_STANDARD_MACHINE * 1.5F);
+    }
+
+    @Override
+    public byte getTier() {
+        return 2;
+    }
+
+    @Override
+    public ItemStack getInput() {
+        return new ItemStack(Blocks.nether_brick);
+    }
+
+    @Override
+    public ItemStack getOutput() {
+        return new ItemStack(this);
+    }
+
+    @Override
+    public CraftingContext getContext() {
+        return CraftingContext.getStandardContext();
     }
 
     public static class theItemBlock extends ItemBlockQuantum {

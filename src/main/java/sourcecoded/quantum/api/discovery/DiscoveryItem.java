@@ -73,12 +73,12 @@ public class DiscoveryItem {
     /**
      * Parent line colour
      */
-    public Colourizer parentLineColour = Colourizer.GRAY;
+    public Colourizer parentLineColour = Colourizer.PINK;
 
     /**
      * Child line colour
      */
-    public Colourizer childLineColour = Colourizer.GRAY;
+    public Colourizer childLineColour = Colourizer.PURPLE;
 
     /**
      * Create a new DiscoveryItem
@@ -159,6 +159,12 @@ public class DiscoveryItem {
         return LocalizationUtils.translateLocalWithColours(getUnlocalizedName(), getUnlocalizedName());
     }
 
+    public void init() {
+        if (isSpecial) {
+            this.childLineColour = Colourizer.RED;
+        }
+    }
+
     /**
      * Set the colour to attach to parents with
      */
@@ -179,14 +185,14 @@ public class DiscoveryItem {
      * Get the colour to attach to parents with
      */
     public Colourizer getParentColour() {
-        return Colourizer.PINK;
+        return parentLineColour;
     }
 
     /**
      * Get the colour to attach to children with
      */
     public Colourizer getChildColour() {
-        return Colourizer.PURPLE;
+        return childLineColour;
     }
 
     /**

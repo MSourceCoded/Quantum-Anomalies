@@ -18,6 +18,10 @@ public class BiomeListener {
 
             if (biome instanceof IBiomeAnomaly)
                 NetworkHandler.wrapper.sendToServer(new MessageDiscoveryItem(QADiscoveries.Item.BIOME.get().getKey()));
+
+            if (biome.equals(BiomeGenBase.sky))
+                NetworkHandler.wrapper.sendToServer(new MessageDiscoveryItem(QADiscoveries.Item.CHAOS.get().getKey()));
+
         }
     }
 }
