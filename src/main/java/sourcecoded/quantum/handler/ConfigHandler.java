@@ -71,6 +71,7 @@ public class ConfigHandler {
         WORLD_GEN("world_gen", "Changes how the WorldGen in the mod works. Mostly requires a new world to take effect"),
         RENDERING("rendering", "Changes how things look. Change these settings for performance/quality settings"),
         ID("identification", "Change these values to resolve ID conflicts with other mods"),
+        VERSION("versionCheck", "Used to auto-update QA")
         ;
 
         private String categoryName, comment;
@@ -111,6 +112,11 @@ public class ConfigHandler {
         /* SCREENSHOT */
         ENCHANT_ID_DECEPTION(Categories.ID, "enchantment_id_deception", "The ID (0-256) for the Deception Enchantment. Change this if another mod conflicts with this", 130),
         ENCHANT_ID_RANGE(Categories.ID, "enchantment_id_range", "The ID (0-256) for the Range Enchantment. Change this if another mod conflicts with this", 131),
+
+        /* VERSION */
+        VERS_AUTO(Categories.VERSION, "vers_auto", "Should new Versions of this mod automatically update?", true),
+        VERS_SILENT(Categories.VERSION, "vers_silent", "Should this mod not send chat messages for updates?", false),
+        VERS_ON(Categories.VERSION, "vers_enabled", "Should this mod use a version checker?", true),
         ;
 
         String category, propertyName, comment;
