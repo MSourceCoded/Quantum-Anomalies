@@ -187,6 +187,11 @@ public class DiscoveryManager {
      * Get the 'hidden' state of an item
      */
     public static boolean itemHidden(String item, EntityPlayer player) {
+        DiscoveryItem theItem = DiscoveryRegistry.getItemFromKey(item);
+        int override = theItem.overrideHidden(player);
+        if ((override & DiscoveryItem.OVERRIDE) == DiscoveryItem.OVERRIDE)
+            return (override & DiscoveryItem.UNLOCKED_OR_HIDDEN) == DiscoveryItem.UNLOCKED_OR_HIDDEN;
+
         return getItem(item, player).getBoolean("Hidden");
     }
 
@@ -201,6 +206,11 @@ public class DiscoveryManager {
      * Get the 'unlocked' state of an item
      */
     public static boolean itemUnlocked(String item, EntityPlayer player) {
+        DiscoveryItem theItem = DiscoveryRegistry.getItemFromKey(item);
+        int override = theItem.overrideUnlock(player);
+        if ((override & DiscoveryItem.OVERRIDE) == DiscoveryItem.OVERRIDE)
+            return (override & DiscoveryItem.UNLOCKED_OR_HIDDEN) == DiscoveryItem.UNLOCKED_OR_HIDDEN;
+
         return getItem(item, player).getBoolean("Unlocked");
     }
 

@@ -10,11 +10,14 @@ import sourcecoded.quantum.api.injection.InjectorRegistry;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BlockRegistry extends AbstractBlockRegistry {
     public static BlockRegistry instance;
+
     public static BlockRegistry instance() {
         if (instance == null) instance = new BlockRegistry();
         return instance;
@@ -45,10 +48,17 @@ public class BlockRegistry extends AbstractBlockRegistry {
 
         HashMap<String, Block> hash = (HashMap<String, Block>) registry.blockMap.clone();
 
+        List<ItemBlock> listedRegistrars = new ArrayList<ItemBlock>();
+
         for (Map.Entry<String, Block> entry : hash.entrySet()) {
             ItemBlock ib = (ItemBlock) ItemBlock.getItemFromBlock(entry.getValue());
-            if (ib instanceof IWailaDataProvider)
-                registrar.registerBodyProvider((IWailaDataProvider)ib, entry.getValue().getClass());
+            if (ib instanceof IWailaDataProvider && !listedRegistrars.contains(ib)) {
+                registrar.registerBodyProvider((IWailaDataProvider) ib, entry.getValue().getClass());
+                listedRegistrars.add(ib);
+            }
+
+            if (entry.getValue() instanceof IWailaDataProvider)
+                registrar.registerBodyProvider((IWailaDataProvider) entry.getValue(), entry.getValue().getClass());
         }
     }
 }

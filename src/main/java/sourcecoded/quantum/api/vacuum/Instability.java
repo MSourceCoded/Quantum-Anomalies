@@ -19,9 +19,9 @@ public enum Instability {
     //Slightly larger damage, destroys some items
     SMALL("small", 2, 12),
     //Same damage, destroys more items
-    MEDIUM("medium", 2, 12),
+    MEDIUM("medium", 3, 12),
     //Higher damage, destroys all items
-    HIGH("high", 3, 15),
+    HIGH("high", 4, 15),
     //All of the above, as well as Summons lightning strikes. Destroys all catalysts, too
     DISMAL("dismal", 4, 15, 1, 1, false),
     //All of the above, Much higher damage, explosions, pulls entities to the rift node

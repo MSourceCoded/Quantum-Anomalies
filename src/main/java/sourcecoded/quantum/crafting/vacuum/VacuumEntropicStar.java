@@ -29,7 +29,7 @@ public class VacuumEntropicStar implements IVacuumRecipe {
     public List<ItemStack> getCatalysts() {
         ItemStack[] stacks = new ItemStack[] {
                 new ItemStack(Items.nether_star),
-                new ItemStack(QABlocks.INJECTED_STONE.getBlock()),
+                new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 1, 1),
                 new ItemStack(Blocks.glass)
         };
 

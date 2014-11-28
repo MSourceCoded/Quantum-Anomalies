@@ -8,6 +8,7 @@ import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.discovery.DiscoveryRegistry;
+import sourcecoded.quantum.discovery.QADiscoveries;
 
 /**
  * An interface for use with a TileEntity that can
@@ -73,7 +74,7 @@ public interface IDyeable {
                     ((IDyeable) tile).dye(color);
 
                     if (!world.isRemote && QuantumAPI.isQAPresent())
-                        DiscoveryManager.unlockItem("QA|Dyeable", player, false);
+                        DiscoveryManager.unlockItem(QADiscoveries.Item.DYEABLES.get().getKey(), player, false);
 
                     return true;
                 }

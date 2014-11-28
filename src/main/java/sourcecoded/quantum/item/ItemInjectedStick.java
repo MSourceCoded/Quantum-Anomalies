@@ -4,18 +4,22 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import sourcecoded.core.crafting.ICraftableItem;
 import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.api.injection.InjectionConstants;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
+import sourcecoded.quantum.crafting.vacuum.VacuumToolRod;
 import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, IVacuumRecipe {
+public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, ICraftableItem {
 
     public ItemInjectedStick() {
         this.setTextureName("infusedStick");
@@ -55,49 +59,14 @@ public class ItemInjectedStick extends ItemQuantum implements IInjectorRecipe, I
     }
 
     @Override
-    public List<ItemStack> getIngredients() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(this, 1, 0),
-                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 2, 1)
-        };
-
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public List<ItemStack> getCatalysts() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(Items.stick),
-                new ItemStack(QABlocks.INJECTED_STONE.getBlock())
-        };
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public List<ItemStack> getOutputs() {
-        ItemStack[] stacks = new ItemStack[] {
-                new ItemStack(this, 1, 1)
-        };
-        return Arrays.asList(stacks);
-    }
-
-    @Override
-    public int getVacuumEnergyStart() {
-        return 10000;
-    }
-
-    @Override
-    public int getVacuumEnergyPerItem() {
-        return 500;
-    }
-
-    @Override
-    public Instability getInstabilityLevel() {
-        return Instability.SMALL;
-    }
-
-    @Override
     public CraftingContext getContext() {
         return CraftingContext.getStandardContext();
+    }
+
+
+    @Override
+    public IRecipe[] getRecipes(Item item) {
+        VacuumRegistry.addRecipe(new VacuumToolRod());
+        return new IRecipe[0];
     }
 }

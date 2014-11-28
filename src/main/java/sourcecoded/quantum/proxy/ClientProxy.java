@@ -2,10 +2,15 @@ package sourcecoded.quantum.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
+import sourcecoded.core.SourceCodedCore;
 import sourcecoded.quantum.Constants;
+import sourcecoded.quantum.QAClientCommand;
 import sourcecoded.quantum.client.renderer.block.AdvancedTileProxy;
 import sourcecoded.quantum.client.renderer.block.SimpleTileProxy;
 import sourcecoded.quantum.client.renderer.entity.RenderEnergyPacket;
@@ -18,11 +23,39 @@ import sourcecoded.quantum.registry.QABlocks;
 import sourcecoded.quantum.registry.QAItems;
 import sourcecoded.quantum.tile.*;
 
+import java.io.File;
+
 public class ClientProxy implements IProxy {
+
+    public static File quantumDir;
+    public static File discoveriesDir;
+    public static File discoveryExportDir;
+    public static File discoveryImportDir;
 
     @Override
     public void register() {
         registerRenderers();
+        startFileInit();
+
+        ClientCommandHandler.instance.registerCommand(new QAClientCommand());
+    }
+
+    @Override
+    public EntityPlayer getClientPlayer() {
+        return Minecraft.getMinecraft().thePlayer;
+    }
+
+    void startFileInit() {
+        String root = SourceCodedCore.getForgeRoot();
+        quantumDir = new File(root, "quantumAnomalies");
+        discoveriesDir = new File(quantumDir, "discoveries");
+        discoveryExportDir = new File(discoveriesDir, "export");
+        discoveryImportDir = new File(discoveriesDir, "import");
+
+        quantumDir.mkdirs();
+        discoveriesDir.mkdirs();
+        discoveryImportDir.mkdirs();
+        discoveryExportDir.mkdirs();
     }
 
     void registerRenderers() {
@@ -99,4 +132,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TilePlayer.class, new TESRPlayer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileShelf.class, new TESRShelf());
     }
+
+
 }

@@ -43,28 +43,11 @@ public class ItemRiftPickaxe extends ItemPickaxe implements ICraftableItem {
     }
 
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int sideHit, float clickX, float clickY, float clickZ) {
-        //if (player.inventory.hasItem(Item.getItemFromBlock(Blocks.torch))) {            //TODO invisible blocks for light
-           // int slot = PlayerUtils.crawlInventoryForItem(player, Item.getItemFromBlock(Blocks.torch));
-
-            //ItemStack theItem = player.inventory.getStackInSlot(slot);
-
-            //boolean done = false;
-
-            //done = theItem.getItem().onItemUse(theItem, player, world, x, y, z, sideHit, clickX, clickY, clickZ);
-
-            //if (theItem.stackSize < 1)              //Client-side Phantom Item bug-fix
-                //player.inventory.setInventorySlotContents(slot, null);
-
-            //return done;
-        //}
-
         ItemStack blockStack = new ItemStack(QABlocks.ENERGISED_AIR.getBlock());
 
         blockStack.getItem().onItemUse(blockStack, player, world, x, y, z, sideHit, clickX, clickY, clickZ);
 
         return true;
-
-        //return false;
     }
 
     public String customName;

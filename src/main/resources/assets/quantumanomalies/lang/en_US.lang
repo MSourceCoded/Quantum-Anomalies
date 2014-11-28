@@ -74,6 +74,10 @@ qa.items.itemRiftPencil.lore.0={c:ITALIC}Not for scribbling
 
 itemGroup.Quantum Anomalies=Quantum Anomalies
 
+qa.blocks.blockQuantumLock.name=Quantum Lock (WIP)
+qa.blocks.blockQuantumLock.lore.0=DO NOT PLACE. IT WILL BREAK YOUR WORLD.
+qa.blocks.blockQuantumLock.lore.1=VERY MUCH WIP
+
 #####################################
 # Armor
 #####################################
@@ -297,6 +301,15 @@ qa.journal.item.QA|Vacuum.page.2=A {c:DARK_PURPLE}7x7{c:BLACK} structure must be
 qa.journal.item.QA|Vacuum.page.4=Any {c:DARK_PURPLE}cornerstones{c:BLACK} in the structure can be used as {c:DARK_RED}interfaces{c:BLACK} depending on the colour they are dyed. <br>{c:DARK_PURPLE}LIME{c:BLACK} uses adjacent inventories as {c:DARK_RED}inputs{c:BLACK} <br>{c:DARK_PURPLE}WHITE{c:BLACK} uses adjacent inventories as {c:DARK_RED}catalysts{c:BLACK} <br>{c:DARK_PURPLE}ORANGE{c:BLACK} uses adjacent inventories as {c:DARK_RED}outputs{c:BLACK}
 qa.journal.item.QA|Vacuum.page.5={c:DARK_PURPLE}Catalysts{c:BLACK} are a form of {c:DARK_RED}instruction{c:BLACK} for the Vacuum Chamber. They must be in {c:DARK_RED}exact order{c:BLACK} and are {c:DARK_RED}not consumed.{c:BLACK}
 
+qa.journal.item.QA|Instability.name=Vacuum Instability
+qa.journal.item.QA|Instability.desc={c:GRAY}{c:ITALIC}No one is safe
+qa.journal.item.QA|Instability.page.0=Whoops. Looks like you made a boo-boo. Something went wrong, but why? <br>Turns out {c:DARK_PURPLE}Vacuum Catalyst Crafting{c:BLACK} comes with its own set of risks. Occasionally things will go wrong, and they can be devastating if the situation calls for it.
+qa.journal.item.QA|Instability.page.1={c:DARK_RED}Instability{c:BLACK} will only occur if something is done incorrectly, such as Ingredients missing or lack of the required energy. If all is done correctly, there is exactly 0% chance of instability occurring. <br>Instability also has a varying scale of {c:DARK_RED}potency.{c:BLACK} Details on the following pages.
+qa.journal.item.QA|Instability.page.2={c:DARK_RED}Minimal:{c:BLACK} causes a small amount of damage to nearby entities. <br>{c:DARK_RED}Small:{c:BLACK} causes a slightly larger amount of damage. <br>{c:DARK_RED}Medium:{c:BLACK} is slightly more damage again <br>{c:DARK_RED}High:{c:BLACK} has a larger damage radius (150%)
+qa.journal.item.QA|Instability.page.3={c:DARK_RED}Dismal:{c:BLACK} causes small explosions <br>{c:DARK_RED}Critical:{c:BLACK} more damage, bigger explosions and pulls entities towards the chamber <br>{c:DARK_RED}Extreme:{c:BLACK} fiery explosions, stronger pull and significantly higher damage. <br>{c:DARK_RED}Catastrophic:{c:BLACK} 100 damage to any entity in a 200 block radius. Much stronger pull.
+qa.journal.item.QA|Instability.page.4={c:DARK_RED}Apocalyptic:{c:BLACK} 10x bigger explosion, more pull strength. Sure to ruin your day. <br>{c:DARK_RED}{c:BOLD}DIMENSIONAL SHIFT:{c:BLACK} {c:RESET}Ender dragon, lots of Withers, random void-holes and larger pull strength. WILL kill you.
+qa.journal.item.QA|Instability.page.5={c:DARK_RED}{c:BOLD}Cataclysmic Switch:{c:BLACK} same as {c:DARK_PURPLE}Dimensional Shift{c:BLACK}, but has a 1/4 chance of rewarding you instead of killing you. Will refill all nodes within a 1000 block radius, octuples output for current recipe, and heals all entities nearby. Is it worth the risk?
+
 qa.journal.item.QA|String.name=Injected String
 qa.journal.item.QA|String.desc={c:GRAY}{c:ITALIC}En'tangle'ment. Har har har...
 qa.journal.item.QA|String.page.0=After fiddling about with {c:DARK_RED}Rift Energy,{c:BLACK} or perhaps scanning wiki pages like the little cheat you are, you find something that you think is useless. {c:DARK_PURPLE}Injected String{c:BLACK} seems fairly useless, to which you would be correct. It seems like nothing but a crafting piece. Oh well, you win some, you lose some.
@@ -310,6 +323,82 @@ qa.journal.item.QA|Manipulation.desc={c:GRAY}{c:ITALIC}Hold on, wasn't this in X
 qa.journal.item.QA|Manipulation.page.0=After reminiscing over the good old days when Xycraft was {c:ITALIC}actually{c:RESET} released, you think it might be time to bring back some old mechanics. <br>The {c:DARK_PURPLE}Matter Manipulation Structure{c:BLACK} is a block with many capabilities, all tied to the {c:DARK_RED}colour{c:BLACK} it is dyed. <br>{c:DARK_RED}Red{c:BLACK} will allow the block to burn forever, similar to netherrack.
 qa.journal.item.QA|Manipulation.page.1={c:DARK_RED}White{c:BLACK} will freeze any adjacent water blocks, provided energy. <br>{c:DARK_RED}Black{c:BLACK} will void any surrounding liquids, as well as any liquids pumped into it. <br>{c:DARK_RED}Lime{c:BLACK} can sustain any plant without need for water. In addition, it will increase the tick rate of the block above. You can tower them to stack the effect. Each random tick requires energy
 qa.journal.item.QA|Manipulation.page.2={c:DARK_RED}Blue{c:BLACK} will act as a water source that does not flow. Water is automatically transferred into adjacent tanks, and can be taken out via pipes/conduits. Keep in mind this block also works in the nether, unlike regular water.
+
+qa.journal.item.QA|Star.name=Entropic Star
+qa.journal.item.QA|Star.desc={c:GRAY}{c:ITALIC}Blah blah bad things blah blah
+qa.journal.item.QA|Star.page.0=Since the {c:DARK_RED}Obsidian Jewel{c:BLACK} was such a success, you find it appealing to take something more pure, a {c:DARK_PURPLE}nether star{c:BLACK} and imbue it with {c:DARK_RED}Rift Energy.{c:BLACK} <br>This is going to take a lot more power, and could possibly be quite dangerous. Craft with caution.
+
+qa.journal.item.QA|Player.name=Player Entanglement Device
+qa.journal.item.QA|Player.desc={c:GRAY}{c:ITALIC}You can put pipes in your belly. <br>{c:GRAY}{c:ITALIC}Kinda like Augustus Waters.
+qa.journal.item.QA|Player.page.0=You know what's a pain? Running out of torches. I hate that. So why don't we fix it, me and you, together. *que rainbows* <br>The {c:DARK_PURPLE}Player Entanglement Device{c:BLACK} is a nifty little block that entangles a player's inventory to a block. You can pump things in, pump things out, whatever you like. It is bound to the player that places it though, so keep that in mind.
+
+qa.journal.item.QA|Sync.name=Entanglement Platforms
+qa.journal.item.QA|Sync.desc={c:GRAY}{c:ITALIC}It's just a block, block here....
+qa.journal.item.QA|Sync.page.0=Running back and forth between chests is far from a fun time. If only there was a way to have the same thing in 2 different places. Wait.... <br>The {c:DARK_PURPLE}Quantum Entanglement Platform{c:BLACK} will sync the blocks placed above it when bound together with the {c:DARK_PURPLE}Sceptre.{c:BLACK} Sneak-Click with the Binding Focus to set a location, and Right Click on another Platform to complete the bind.
+qa.journal.item.QA|Sync.page.1=The {c:DARK_PURPLE}Dimensional Rift Entanglement Platform,{c:BLACK} as well as being a mouthful to say, acts just like the regular version, but will allow you to Sync TileEntities, such as chests, in world as opposed to just regular blocks.
+
+qa.journal.item.QA|Shelf.name=Rift Bookshelf
+qa.journal.item.QA|Shelf.desc={c:GRAY}{c:ITALIC}Knowledge is power
+qa.journal.item.QA|Shelf.page.0=Normal bookshelves are boooooooooring... That wood texture with the obsidian texture of the Enchanting Table? Honey, no. <br>The {c:DARK_PURPLE}Rift Bookshelf{c:BLACK} acts just like a regular bookshelf, with the exception that it gives {c:DARK_RED}5{c:BLACK} levels per block as opposed to the {c:DARK_RED}1{c:BLACK} that regular bookshelves provide. Enchant away!
+
+qa.journal.item.QA|Magnet.name=Rift Magnet
+qa.journal.item.QA|Magnet.desc={c:GRAY}{c:ITALIC}One magnet to rule them all
+qa.journal.item.QA|Magnet.page.0=Dropping an item for someone else to pick up and then picking it up yourself is really no fun at all. It ruins the mere concept of a Magnet for most. Let me solve that. <br>The {c:DARK_PURPLE}Rift Magnet{c:BLACK} is a nifty little tool that, when enabled, will pick up any item instantly within an 8x8 radius. Additionally, it will {c:ITALIC}not{c:RESET} pick up items dropped by you until at least {c:DARK_RED}15 seconds{c:BLACK} have passed
+qa.journal.item.QA|Magnet.page.1=Furthermore, you can set a {c:DARK_RED}Blacklist.{c:BLACK} Simply fill a chest with items to blacklist and right click it with the magnet in hand. Shift-Right-Click to remove these items from the blacklist once again. <br>If you happen to have {c:DARK_RED}Baubles{c:BLACK} installed, this item can be put in the {c:DARK_RED}Amulet{c:BLACK} slot.
+
+qa.journal.item.QA|Enchant.name=Vacuum Enchanting
+qa.journal.item.QA|Enchant.desc={c:GRAY}{c:ITALIC}Making good things into better things
+qa.journal.item.QA|Enchant.page.0={c:DARK_PURPLE}Vacuum Enchanting{c:BLACK} allows you to convert specific {c:DARK_RED}items{c:BLACK} into {c:DARK_RED}enchantments.{c:BLACK} <br>{c:DARK_PURPLE}Vacuum Enchanting{c:BLACK} takes place like any other Vacuum recipe. Keep in mind that this process can only be applied to {c:DARK_RED}books,{c:BLACK} which can then be combined in an anvil if you so desire
+
+qa.journal.item.QA|EnchantMagnet.name=Magnetism Enchantment
+qa.journal.item.QA|EnchantMagnet.desc={c:GRAY}{c:ITALIC}Making the magnet less obnoxious
+qa.journal.item.QA|EnchantMagnet.page.0=There are some times when you just wish your magnet was off. But putting it in your hotbar and deactivating it is just a straight pain to do. <br>The {c:DARK_PURPLE}Magnetism{c:BLACK} enchantment, when applied to any tool, will {c:ITALIC}ONLY{c:BLACK} suck up items mined by that tool.
+qa.journal.item.QA|EnchantMagnet.page.1=Additionally, if this enchant is applied to the {c:DARK_RED}rift magnet{c:BLACK} item, the range is increased by 2 blocks per level of enchantment. Pretty nifty.
+
+qa.journal.item.QA|EnchantDeception.name=Deception Enchantment
+qa.journal.item.QA|EnchantDeception.desc={c:GRAY}{c:ITALIC}You filthy liar!
+qa.journal.item.QA|EnchantDeception.page.0=Running around in the night is no fun at all. You're constantly getting battered by Skeletons and blown up by Creepers. What if they just... didn't notice you were there? <br>Similar to sneaking into class late, the {c:DARK_PURPLE}Deception{c:BLACK} enchantment gives you a small chance of not being targeted, given it's applied to an armor piece.
+qa.journal.item.QA|EnchantDeception.page.1=The enchantment has a {c:DARK_RED}4.5%{c:BLACK} of a mob not noticing you. This chance stacks {c:DARK_RED}per level, per armor.{c:BLACK} This means you can get {c:DARK_RED}Deception V{c:BLACK} on 4 armor pieces to have a maximum {c:DARK_RED}90%{c:BLACK} chance of mobs ignoring you.
+
+qa.journal.item.QA|Potato.name=Potato
+qa.journal.item.QA|Potato.desc={c:GRAY}{c:ITALIC}Blame Kihira
+
+qa.journal.item.QA|Rod.name=Quantum Tools
+qa.journal.item.QA|Rod.desc={c:GRAY}{c:ITALIC}Almost as much of a tool as Sam Pepper
+qa.journal.item.QA|Rod.page.0=Diamonds just don't seem to be cutting it. It's time for some more powerful tools. But first, we need a better tool rod. Perhaps an {c:DARK_PURPLE}Entropic Stick{c:BLACK} will do. <br>Because of this Reinforced material, Rift Tools do {c:DARK_RED}not take damage{c:BLACK}
+
+qa.journal.item.QA|Pickaxe.name=Rift Pickaxe
+qa.journal.item.QA|Pickaxe.desc={c:GRAY}{c:ITALIC}Sparky
+qa.journal.item.QA|Pickaxe.page.0=The {c:DARK_PURPLE}Rift Pickaxe{c:BLACK} is a very effective Mining tool. It can break blocks remarkably quickly, as well as place {c:DARK_RED}invisible light sources{c:BLACK} among right click.
+
+qa.journal.item.QA|Axe.name=Rift Axe
+qa.journal.item.QA|Axe.desc={c:GRAY}{c:ITALIC}The Woodpecker
+qa.journal.item.QA|Axe.page.0=The {c:DARK_PURPLE}Rift Axe,{c:BLACK} also known as Tree-Annihilator, has the ability to chop wood materials very quickly. On top of this, it can also {c:DARK_RED}harvest entire trees{c:BLACK} when right-clicked
+
+qa.journal.item.QA|Shovel.name=Rift Shovel
+qa.journal.item.QA|Shovel.desc={c:GRAY}{c:ITALIC}Diggin' your own grave
+qa.journal.item.QA|Shovel.page.0=The {c:DARK_PURPLE}Rift Shovel{c:BLACK} functions solely as a tool of great speed, making terra forming a breeze.
+
+qa.journal.item.QA|Sword.name=Rift Sword
+qa.journal.item.QA|Sword.desc={c:GRAY}{c:ITALIC}Leap of Faith
+qa.journal.item.QA|Sword.page.0=The {c:DARK_PURPLE}Rift Sword{c:BLACK} is an extremely powerful weapon. It serves {c:DARK_RED}20 base damage,{c:BLACK} but also has a special feature. For every {c:DARK_RED}2 blocks{c:BLACK} fallen, the damage will increase by {c:DARK_RED}1{c:BLACK} point. This means you can land extremely powerful {c:DARK_RED}critical hits{c:BLACK} when falling from high places such as cliffs or ravines. This damage increase is one of the only ways to penetrate {c:DARK_PURPLE}rift armor{c:BLACK}
+
+qa.journal.item.QA|Bow.name=Rift Bow
+qa.journal.item.QA|Bow.desc={c:GRAY}{c:ITALIC}Atom Smasher
+qa.journal.item.QA|Bow.page.0=The {c:DARK_PURPLE}Rift Bow{c:BLACK} is death from a distance. Arrows fired from this bow are {c:DARK_RED}armor piercing,{c:BLACK} and the knock time is significantly faster. This damage increase is one of the only ways to penetrate {c:DARK_PURPLE}rift armor.{c:BLACK} <br>This bow uses regular arrows.
+
+qa.journal.item.QA|Armor.name=Rift Armor
+qa.journal.item.QA|Armor.desc={c:GRAY}{c:ITALIC}It's like I'm wearing nothing at all
+qa.journal.item.QA|Armor.page.0={c:DARK_PURPLE}Rift Armor{c:BLACK} is an extremely protective set of clothes. They prevent armor-piercing damage up to {c:DARK_RED}20 hitpoints{c:BLACK}, and also don't render on your player. So if you have a skin that isn't the default {c:ITALIC}*cough* direwolf20 *cough*{c:RESET} you should find this quite nice. Each piece of armor has a special ability.
+qa.journal.item.QA|Armor.page.1=The {c:DARK_PURPLE}Rift Helmet,{c:BLACK} as well as being a nice bike helmet, prevents you from drowning. It electrolyizes surrounding water in order to break the bonds present, creating Oxygen with an excess of Hydrogen, which is used with the remaining Carbon Dioxide to reform the water from air you breath out.
+qa.journal.item.QA|Armor.page.2=The {c:DARK_PURPLE}Rift Chestplate{c:BLACK} is a nifty shirt that prevents projectiles from coming your way. It will destroy incoming arrows and leave a trail of particles behind. Keep in mind that the exceptions are {c:DARK_PURPLE}Rift Arrows,{c:BLACK} which will pass straight through.
+qa.journal.item.QA|Armor.page.3=The {c:DARK_PURPLE}Rift Skirt{c:BLACK} is the 2nd most protective of the bunch, but doesn't provide much purpose except for making you feel pretty on the inside. <br>Who's a pretty little princess? You are.
+qa.journal.item.QA|Armor.page.4=The {c:DARK_PURPLE}Rift Boots{c:BLACK} account for the least damage, but make up for it in fall-damage protection. If the gravity of the situation calls for it, the boots will protect you from all fall-damage, while still being able to use the {c:DARK_PURPLE}Rift Sword{c:BLACK}
+
+qa.journal.item.QA|Pencil.name=Rift Pencil
+qa.journal.item.QA|Pencil.desc={c:GRAY}{c:ITALIC}Do your homework
+qa.journal.item.QA|Pencil.page.0=Signs above buttons are {c:ITALIC}sooo{c:BLACK} last version. The {c:DARK_PURPLE}Rift Pencil{c:BLACK} allows you to label blocks as if they were mobs. <br>Name the pencil in an {c:DARK_RED}anvil{c:BLACK} to change its label. Then right-click a block to name it. Shift-right click a block to remove the name.
+qa.journal.item.QA|Pencil.page.1={c:ITALIC}A block labelled by the {c:DARK_PURPLE}{c:ITALIC}Rift Pencil{c:BLACK}
 
 #####################################
 # Misc

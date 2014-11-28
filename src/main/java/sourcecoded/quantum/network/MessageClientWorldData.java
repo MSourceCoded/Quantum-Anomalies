@@ -1,6 +1,5 @@
 package sourcecoded.quantum.network;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -21,10 +20,10 @@ public class MessageClientWorldData implements IMessage, IMessageHandler<Message
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        data = QAWorldSavedData.getInstance(FMLClientHandler.instance().getWorldClient());
+        data = QAWorldSavedData.getInstanceClient();
         try {
             data.readFromNBT(NetworkHandler.readNBT(buf));
-            data.markForUpdate(FMLClientHandler.instance().getWorldClient());
+            data.markForUpdate(QAWorldSavedData.getWorldClient());
         } catch (IOException e) {
             e.printStackTrace();
         }

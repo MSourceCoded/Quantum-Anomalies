@@ -21,10 +21,14 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import sourcecoded.core.crafting.ICraftableItem;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.translation.LocalizationUtils;
 import sourcecoded.quantum.api.vacuum.VacuumRegistry;
+import sourcecoded.quantum.crafting.vacuum.VacuumEnchantDeception;
 import sourcecoded.quantum.crafting.vacuum.VacuumEnchantRange;
 import sourcecoded.quantum.crafting.vacuum.VacuumMagnet;
+import sourcecoded.quantum.discovery.QADiscoveries;
+import sourcecoded.quantum.enchantment.EnchantmentDeception;
 import sourcecoded.quantum.entity.EntityItemMagnet;
 import sourcecoded.quantum.entity.properties.PropertiesItem;
 import sourcecoded.quantum.registry.QAEnchant;
@@ -68,6 +72,9 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
             else
                 this.setDamage(stack, 0);
         }
+
+        if (!world.isRemote)
+            DiscoveryManager.unlockItem(QADiscoveries.Item.MAGNETISM.get().getKey(), player, false);
 
         return stack;
     }
@@ -274,6 +281,7 @@ public class ItemRiftMagnet extends ItemQuantum implements IBauble, ICraftableIt
     public IRecipe[] getRecipes(Item item) {
         VacuumRegistry.addRecipe(new VacuumMagnet());
         VacuumEnchantRange.registerAll();
+        VacuumEnchantDeception.registerAll();
         return new IRecipe[0];
     }
 }

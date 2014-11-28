@@ -1,11 +1,11 @@
 package sourcecoded.quantum.util.save;
 
-import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
+import sourcecoded.quantum.QuantumAnomalies;
 import sourcecoded.quantum.api.Point3D;
 import sourcecoded.quantum.client.renderer.WorldLabelRenderer;
 import sourcecoded.quantum.client.renderer.block.QuantumLockRender;
@@ -24,6 +24,14 @@ public class QAWorldSavedData extends WorldSavedData {
         QAWorldSavedData data = (QAWorldSavedData) world.perWorldStorage.loadData(QAWorldSavedData.class, SAVEID);
         if (data == null) return new QAWorldSavedData(SAVEID);
         return data;
+    }
+
+    public static QAWorldSavedData getInstanceClient() {
+        return getInstance(getWorldClient());
+    }
+
+    public static World getWorldClient() {
+        return QuantumAnomalies.proxy.getClientPlayer().getEntityWorld();
     }
 
     public NBTTagList lockList = new NBTTagList();

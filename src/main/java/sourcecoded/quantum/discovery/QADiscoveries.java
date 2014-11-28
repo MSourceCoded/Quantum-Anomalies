@@ -34,6 +34,7 @@ public class QADiscoveries {
         BIOME(new DItemLoreBiomes(), Category.BASICS.get()),
         DISCOVERY(new DItemDiscovery(), Category.BASICS.get()),
         RF(new DItemLoreRF(), Category.BASICS.get()),
+        POTATO(new DItemLorePotato(), Category.BASICS.get()),
 
         DYEABLES(new DItemBlockDyeable(), Category.BLOCKS.get()),
 
@@ -55,9 +56,31 @@ public class QADiscoveries {
 
         FURNACE(new DItemBlockRiftFurnace(), Category.BLOCKS.get()),
         CHAOS(new DItemBlockChaos(), Category.BLOCKS.get()),
+        SHELF(new DItemBlockShelf(), Category.BLOCKS.get()),
 
         VACUUM(new DItemVacuum(), Category.BLOCKS.get()),
+        VACUUM_INSTABILITY(new DItemVacuumInstability(), Category.BLOCKS.get()),
+        ENCHANT(new DItemVacuumEnchant(), Category.BLOCKS.get()),
         MANIPULATION(new DItemBlockManipulation(), Category.BLOCKS.get()),
+        PLAYER(new DItemBlockPlayer(), Category.BLOCKS.get()),
+
+        STAR(new DItemEntropicStar(), Category.ITEMS.get()),
+        MAGNET(new DItemMagnet(), Category.ITEMS.get()),
+
+        MAGNETISM(new DItemEnchantMagnetism(), Category.BLOCKS.get()),
+        DECEPTION(new DItemEnchantDeception(), Category.BLOCKS.get()),  //This
+
+        SYNC(new DItemBlockSync(), Category.BLOCKS.get()),
+
+        TOOLS(new DItemToolRod(), Category.TOOLS.get()),
+        PICKAXE(new DItemTools(0), Category.TOOLS.get()),
+        AXE(new DItemTools(1), Category.TOOLS.get()),
+        SHOVEL(new DItemTools(2), Category.TOOLS.get()),
+        SWORD(new DItemTools(3), Category.TOOLS.get()),
+        BOW(new DItemTools(4), Category.TOOLS.get()),
+        ARMOR(new DItemToolArmor(), Category.TOOLS.get()),
+
+        PENCIL(new DItemToolPencil(), Category.TOOLS.get()),
         ;
 
         private DiscoveryItem item;

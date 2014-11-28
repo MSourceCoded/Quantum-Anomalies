@@ -12,59 +12,65 @@ import sourcecoded.quantum.registry.QAItems;
 import java.util.Arrays;
 import java.util.List;
 
-public class VacuumArmorBoots implements IVacuumRecipe {
+public class VacuumPlayer implements IVacuumRecipe {
+
+    ItemStack[] ingredients;
+    ItemStack[] catalysts;
+    ItemStack[] outputs;
+
+    public VacuumPlayer() {
+    }
 
     @Override
     public List<ItemStack> getIngredients() {
-        ItemStack[] list = new ItemStack[] {
-                new ItemStack(QAItems.ENTROPIC_STAR.getItem(), 4),
-                new ItemStack(Items.diamond_boots),
-                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 4, 1),
-                new ItemStack(Items.feather, 10),
-                new ItemStack(Blocks.wool, 10),
-                new ItemStack(Items.ender_pearl, 4),
-                new ItemStack(Items.ender_eye, 2)
+        ingredients = new ItemStack[] {
+                new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 4, 1),
+                new ItemStack(Items.ender_eye, 4),
+                new ItemStack(Blocks.ender_chest),
+                new ItemStack(Items.experience_bottle, 2),
+                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1)
         };
 
-        return Arrays.asList(list);
+        return Arrays.asList(ingredients);
     }
 
     @Override
     public List<ItemStack> getCatalysts() {
-        ItemStack[] list = new ItemStack[] {
-            new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 1, 1),
-            new ItemStack(Items.diamond_boots)
+        catalysts = new ItemStack[] {
+                new ItemStack(Blocks.chest),
+                new ItemStack(QAItems.OBSIDIAN_JEWEL.getItem(), 1, 1)
         };
 
-        return Arrays.asList(list);
+        return Arrays.asList(catalysts);
     }
 
     @Override
     public List<ItemStack> getOutputs() {
-        ItemStack[] list = new ItemStack[] {
-            new ItemStack(QAItems.RIFT_BOOTS.getItem())
+        outputs = new ItemStack[] {
+                new ItemStack(QABlocks.PLAYER.getBlock())
         };
 
-        return Arrays.asList(list);
+        return Arrays.asList(outputs);
     }
 
     @Override
     public int getVacuumEnergyStart() {
-        return 500000;
+        return 25000;
     }
 
     @Override
     public int getVacuumEnergyPerItem() {
-        return 10000;
+        return 1000;
     }
 
     @Override
     public Instability getInstabilityLevel() {
-        return Instability.CATACLYSMIC_SWITCH;
+        return Instability.CRITICAL;
     }
 
     @Override
     public CraftingContext getContext() {
         return CraftingContext.getStandardContext();
     }
+
 }

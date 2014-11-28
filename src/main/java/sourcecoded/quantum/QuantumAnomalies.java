@@ -14,7 +14,9 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.WorldEvent;
+import sourcecoded.core.SourceCodedCore;
 import sourcecoded.core.configuration.VersionConfig;
+import sourcecoded.core.configuration.gui.SourceConfigGuiFactory;
 import sourcecoded.core.util.SourceLogger;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
@@ -46,6 +48,7 @@ import java.io.IOException;
 
 import static sourcecoded.quantum.Constants.*;
 import static sourcecoded.quantum.handler.ConfigHandler.Properties.*;
+import static sourcecoded.quantum.handler.ConfigHandler.getConfig;
 import static sourcecoded.quantum.handler.ConfigHandler.getInteger;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = "required-after:sourcecodedcore")
@@ -66,18 +69,21 @@ public class QuantumAnomalies {
 
     public static GuiHandler guiHandler;
 
+    SourceConfigGuiFactory factory;
+
     public static boolean isDevEnvironment() {
-        return Constants.BUILD_STATUS.equals("NOT_BUILT");
+        return SourceCodedCore.isDevEnv;
     }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws IOException {
         logger = new SourceLogger("Quantum Anomalies");
 
-        guiHandler = new GuiHandler();
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+            guiHandler = new GuiHandler();
 
         QuantumAPI.isQAPresent = true;
-        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.2", Constants.MODID));
+        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.5", Constants.MODID));
 
         endAnomaly = new BiomeEndAnomaly(getInteger(END_ANOMALY_ID));
         hellAnomaly = new BiomeHellAnomaly(getInteger(HELL_ANOMALY_ID));
@@ -141,19 +147,25 @@ public class QuantumAnomalies {
         MinecraftForge.EVENT_BUS.register(new EntityListener());
         MinecraftForge.EVENT_BUS.register(new DiscoveryListener());
 
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            MinecraftForge.EVENT_BUS.register(new DiscoveryListenerClient());
+        }
+
         FMLInterModComms.sendMessage("Waila", "register", "sourcecoded.quantum.registry.BlockRegistry.wailaRegister");
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             KeyBindHandler.initKeybinds();
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
+            NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
+            WorldLabelRenderer.INSTANCE.init();
+            factory = SourceConfigGuiFactory.create(Constants.MODID, instance, getConfig());
+            factory.inject();
+        }
 
         DiscoveryHandler.init();
 
-        WorldLabelRenderer.INSTANCE.init();
     }
 
     @Mod.EventHandler

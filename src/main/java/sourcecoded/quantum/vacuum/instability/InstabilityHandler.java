@@ -15,8 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import sourcecoded.core.util.RandomUtils;
+import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.vacuum.IVacuumRecipe;
 import sourcecoded.quantum.api.vacuum.Instability;
+import sourcecoded.quantum.discovery.QADiscoveries;
 import sourcecoded.quantum.network.MessageSetPlayerVelocity;
 import sourcecoded.quantum.network.NetworkHandler;
 import sourcecoded.quantum.tile.TileRiftNode;
@@ -80,6 +82,13 @@ public class InstabilityHandler {
                 handleCataclysmicSwitch(in);
         }
 
+
+        if (ticker == 1) {
+            int search = 100;
+            List<EntityPlayer> players = (List<EntityPlayer>) node.getWorldObj().getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(node.xCoord - search, node.yCoord - search, node.zCoord - search, node.xCoord + search, node.yCoord + search, node.zCoord + search));
+            for (EntityPlayer player : players)
+                DiscoveryManager.unlockItem(QADiscoveries.Item.VACUUM_INSTABILITY.get().getKey(), player, false);
+        }
 
         if (ticker == 600) isAlive = false;
     }

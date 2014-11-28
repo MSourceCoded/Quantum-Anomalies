@@ -1,5 +1,6 @@
 package sourcecoded.quantum.api.discovery;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import sourcecoded.quantum.api.block.Colourizer;
@@ -19,6 +20,9 @@ import java.util.Arrays;
  * @author SourceCoded
  */
 public class DiscoveryItem {
+
+    public static final int OVERRIDE = 1;
+    public static final int UNLOCKED_OR_HIDDEN = 2;
 
     /**
      * identification Key.
@@ -279,6 +283,22 @@ public class DiscoveryItem {
     public DiscoveryItem setHiddenByDefault(boolean state) {
         this.hiddenByDefault = state;
         return this;
+    }
+
+    /**
+     * Returns a Binary OR for the static integers regarding
+     * overriding and unlocking
+     */
+    public int overrideUnlock(EntityPlayer player) {
+        return 0;
+    }
+
+    /**
+     * Returns a Binary OR for the static integers regarding
+     * overriding and hiding
+     */
+    public int overrideHidden(EntityPlayer player) {
+        return 0;
     }
 
 }

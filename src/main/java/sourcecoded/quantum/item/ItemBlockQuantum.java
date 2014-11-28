@@ -80,8 +80,12 @@ public class ItemBlockQuantum extends ItemBlock implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        currenttip.clear();
-        addInformation(itemStack, accessor.getPlayer(), currenttip, true);
+        List<String> dummyTip = new ArrayList<String>();
+        addInformation(itemStack, accessor.getPlayer(), dummyTip, true);
+
+        for (String tip : dummyTip)
+            if (!currenttip.contains(tip)) currenttip.add(tip);
+
         return currenttip;
     }
 

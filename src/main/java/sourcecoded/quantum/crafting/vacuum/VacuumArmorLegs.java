@@ -29,7 +29,7 @@ public class VacuumArmorLegs implements IVacuumRecipe {
     @Override
     public List<ItemStack> getCatalysts() {
         ItemStack[] list = new ItemStack[] {
-            new ItemStack(QABlocks.INJECTED_STONE.getBlock()),
+            new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 1, 1),
             new ItemStack(Items.diamond_leggings)
         };
 

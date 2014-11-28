@@ -95,7 +95,6 @@ public class ConfigHandler {
 
     public static enum Properties {
         /* Integration */
-        //REDSTONE_FLUX(Categories.INTEGRATION, "baby_kicker_mode", "Enables RF integration >.>", false),
 
         /* World Gen */
         END_ANOMALY_WEIGHT(Categories.WORLD_GEN, "end_anomaly_biome_weight", "The weight used for generating End Anomaly biomes. Recommended that you increase this if you use Biome-Gen mods (e.g. 60-90 for Biomes o' Plenty)", 7),

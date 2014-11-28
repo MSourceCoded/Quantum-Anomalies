@@ -24,7 +24,7 @@ public class VacuumManipulation implements IVacuumRecipe {
     @Override
     public List<ItemStack> getIngredients() {
         ingredients = new ItemStack[] {
-                new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 4),
+                new ItemStack(QABlocks.INJECTED_STONE.getBlock(), 4, 1),
                 new ItemStack(Items.water_bucket),
                 new ItemStack(Blocks.netherrack),
                 new ItemStack(Blocks.grass),
@@ -52,7 +52,7 @@ public class VacuumManipulation implements IVacuumRecipe {
     @Override
     public List<ItemStack> getOutputs() {
         outputs = new ItemStack[] {
-                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock())
+                new ItemStack(QABlocks.MANIPULATION_STANDARD.getBlock(), 4)
         };
 
         return Arrays.asList(outputs);

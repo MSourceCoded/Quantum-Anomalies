@@ -63,6 +63,8 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
 
     public IArrangementRecipe recipe = new ArrangementShapedRecipe(new ItemStack(this), " se", "ser", " se", 's', QAItems.INJECTED_STRING.getItem(), 'r', new ItemStack(QAItems.INJECTED_STICK.getItem(), 1, 1), 'e', QAItems.ENTROPIC_STAR.getItem());
 
+    public static int maxDraw = 5;
+
     public ItemRiftBow() {
         super();
 
@@ -81,9 +83,9 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
             int index = 0;
             int use = getMaxItemUseDuration(stack) - count;
 
-            if (use >= 10)
+            if (use >= maxDraw)
                 index = 1;
-            else if (use >= 5)
+            else if (use >= maxDraw / 2)
                 index = 0;
             else if (use >= 0)
                 index = -1;
@@ -104,8 +106,10 @@ public class ItemRiftBow extends ItemBow implements ICraftableItem {
         boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
 
         if (flag || player.inventory.hasItem(Items.arrow)) {
-            float scaledPull = (float)pullTime / 10F;
-            scaledPull = (scaledPull * scaledPull + scaledPull * 2.0F) / 3.0F;
+            //float scaledPull = (float)pullTime / 10F;
+            //scaledPull = (scaledPull * scaledPull + scaledPull * 2.0F) / 3.0F;
+
+            float scaledPull = (float)pullTime / (float)maxDraw;
 
             if ((double)scaledPull < 0.05D)
                 return;

@@ -24,6 +24,7 @@ public class NetworkHandler {
         wrapper.registerMessage(MessageDiscoveryRequest.class, MessageDiscoveryRequest.class, 3, Side.SERVER);
         wrapper.registerMessage(MessageDiscoveryItem.class, MessageDiscoveryItem.class, 4, Side.SERVER);
         wrapper.registerMessage(MessageDiscoveryCategory.class, MessageDiscoveryCategory.class, 5, Side.SERVER);
+        wrapper.registerMessage(MessageDiscoveryImport.class, MessageDiscoveryImport.class, 6, Side.SERVER);
 
         /* Sending to client */
         wrapper.registerMessage(MessageVanillaParticle.class, MessageVanillaParticle.class, 10, Side.CLIENT);
