@@ -2,9 +2,9 @@ package sourcecoded.quantum.api.translation;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
