@@ -4,8 +4,11 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -59,7 +63,6 @@ public class DiscoveryListener {
 
         if (RandomUtils.nextInt(0, 4) == 0) {
             DiscoveryManager.unlockItem(QADiscoveries.Item.ARRANGEMENT.get().getKey(), event.player, false);
-            DiscoveryManager.revealChildren(QADiscoveries.Item.ARRANGEMENT.get().getKey(), event.player);
         }
 
         if (event.crafting.getItem() == QAItems.JOURNAL.getItem())
@@ -113,15 +116,28 @@ public class DiscoveryListener {
     }
 
     @SubscribeEvent
-    public void livingKilled(AttackEntityEvent event) {
-        if (event.target instanceof EntityWither && event.target.isDead && isServer()) {
-            DiscoveryManager.unlockItem(QADiscoveries.Item.STAR.get().getKey(), event.entityPlayer, false);
-        } else if (event.target instanceof EntityZombie) {
-            ItemStack equip = ((EntityZombie) event.target).getEquipmentInSlot(0);
-            if (equip != null && equip.getItem() instanceof ItemSword)
-                DiscoveryManager.unlockItem(QADiscoveries.Item.SWORD.get().getKey(), event.entityPlayer, false);
-        } else if (event.target instanceof EntityDragon && isServer()) {
+    public void livingAttacked(AttackEntityEvent event) {
+        if (event.target instanceof EntityDragon && isServer()) {
             DiscoveryManager.unlockItem(QADiscoveries.Item.DECEPTION.get().getKey(), event.entityPlayer, false);
+        }
+    }
+
+    @SubscribeEvent
+    public void livingKilled(LivingDeathEvent event) {
+        Entity killer = event.source.getEntity();
+        EntityLivingBase target = event.entityLiving;
+        if (isServer() && killer != null && killer instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) killer;
+
+            if (target instanceof EntityWither) {
+                DiscoveryManager.unlockItem(QADiscoveries.Item.STAR.get().getKey(), player, false);
+            } else if (target instanceof EntityZombie) {
+                ItemStack equip = ((EntityZombie) target).getEquipmentInSlot(0);
+                if (equip != null && equip.getItem() instanceof ItemSword)
+                    DiscoveryManager.unlockItem(QADiscoveries.Item.SWORD.get().getKey(), player, false);
+            } else if (target instanceof EntityBlaze) {
+                DiscoveryManager.unlockItem(QADiscoveries.Item.TOOLS.get().getKey(), player, false);
+            }
         }
     }
 

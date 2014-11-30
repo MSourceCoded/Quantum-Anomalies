@@ -1,0 +1,111 @@
+--DISCOVERY GUIDE--
+-Contains spoilers on how to unlock discoveries (a cheat sheet)-
+-You've been warned-
+
+--QA|Biome (Biomes and Exploration)--
+    Enter an Anomaly Biome
+
+--QA|Discovery (Discovery)--
+    Craft the Anomolical Journal
+
+--QA|Dyeable (Dyeables)--
+    Dye an Injected Block using any dye
+
+--QA|Energy (Nodes and Energy)--
+    Break a Rift Node in the world
+
+--QA|EnergyAdv (Advanced Node Theory)--
+    Get hit by a Rift Energy Packet and receive a random potion effect
+
+--QA|Arrangement (Matter Arrangement Table)--
+    Craft anything in a vanilla crafting table (25% chance to unlock)
+
+--QA|Jewel (Obsidian Jewel)--
+    Craft anything in a Matter Arrangement Table (25% chance to unlock)
+
+--QA|JewelCharged (Charged Obsidian Jewel)--
+    Put an Obsidian Jewel in a Rift Injection Pool and allow it to complete
+
+--QA|String (Injected String)--
+    Put String in a Rift Injection Pool and allow it to complete
+
+--QA|Stick0 (Injected Stick)--
+    Put a Stick in a Rift Injection Pool and allow it to complete
+
+--QA|Etched0 (Etched Stone)--
+    Break an obsidian block (20% chance to unlock)
+
+--QA|Etched1 (Etched Cornerstone)--
+    Break an obsidian block (20% chance to unlock)
+
+--QA|Injection (Rift Injection Pool)--
+    Right click an Obsidian Block with the Obsidian Jewel (33.3% chance of unlock)
+
+--QA|InjectedBlocks (Injected Blocks)--
+    Place a Rift Injection Pool in the world
+
+--QA|InjectionAdv (Advanced Injection Theory)--
+    Successfully inject something (50% chance of unlock)
+
+--QA|Smelt (Quantum Rift Furnace)--
+    Successfully inject a furnace in the Rift Injection Pool
+
+--QA|Chaos (Chaotic Manipulation)--
+    Enter the End dimension
+
+--QA|Shelf (Rift Bookshelf)--
+    Sign a Written Book
+
+--QA|Vacuum (Vacuum Catalyst Crafting)--
+    Jump into the Void. (It won't kill you)
+
+--QA|Instability (Vacuum Instability)--
+    Cause instability with the Vacuum Catalyst Crafting Chamber
+
+--QA|Enchant (Vacuum Enchanting)--
+    Open the GUI of an enchanting table
+
+--QA|Manipulation (Matter Manipulation)--
+    Bonemeal something
+
+--QA|Player (Player Entanglement Device)--
+    Craft a vanilla ender chest
+
+--QA|Star (Entropic Star)--
+    Kill the Wither Boss
+
+--QA|Magnet (Rift Magnet)--
+    Pick up an item off the ground (10% chance to unlock)
+
+--QA|EnchantMagnet (Magnetism Enchantment)--
+    Activate the Matter Attraction Magnet by shift-right clicking
+
+--QA|EnchantDeception (Deception Enchantment)--
+    Successfully land a hit on the Ender Dragon
+
+--QA|Sync (Entanglement Platforms)--
+    Travel between dimensions (Overworld, Nether, End, etc)
+
+--QA|Rod (Quantum Tools)--
+    Kill a Blaze
+
+--QA|Pickaxe (Rift Pickaxe)--
+    Mine diamond ore
+
+--QA|Axe (Rift Axe)--
+    Mine a log
+
+--QA|Shovel (Rift Shovel)--
+    Mine mycelium
+
+--QA|Sword (Rift Sword)--
+    Kill a zombie holding a sword
+
+--QA|Bow (Rift Bow)--
+    Fire an arrow from a vanilla bow (5% chance of unlock)
+
+--QA|Armor (Rift Armor)--
+    Get hurt (10% chance of unlock)
+
+--QA|Pencil (Rift Pencil)--
+    Name an entity with a name tag

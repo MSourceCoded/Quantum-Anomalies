@@ -24,5 +24,6 @@ public class DItemToolPencil extends DiscoveryItem {
 
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), this.getPrefixKey() + ".page.0"));
         this.addPage(new DiscoveryPage(this.getUnlocalizedName(), new ResourceLocation(Constants.MODID, "textures/discovery/iamblock.png"), this.getPrefixKey() + ".page.1"));
+        this.addPage(new DiscoveryPage(this.getUnlocalizedName(), VacuumRegistry.getRecipeForOutput(displayStack)));
     }
 }

@@ -17,12 +17,21 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-0.0.2a"
-group= "sourcecoded.quantum" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+ext.forgeDetails = file "../gradle.properties"
+forgeDetails.withReader {
+	def prop = new Properties()
+	prop.load(it)
+	project.ext.forgeProps = new ConfigSlurper().parse prop
+}
+
+version = "1.7.10-0.0.3"
+group= "sourcecoded.quantum"
 archivesBaseName = "quantumAnomalies"
 
 minecraft {
-    version = "1.7.10-10.13.1.1226"
+    //version = "1.7.10-10.13.1.1226"
+	
+	version = forgeProps.forgeVersion
 	
 	replace "@VERSION@", project.version
 	replace "NOT_BUILT", "BUILT"

@@ -1,11 +1,16 @@
 package sourcecoded.quantum.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import sourcecoded.core.crafting.ICraftableItem;
+import sourcecoded.quantum.api.vacuum.VacuumRegistry;
+import sourcecoded.quantum.crafting.vacuum.VacuumPencil;
 import sourcecoded.quantum.util.save.QAWorldSavedData;
 
-public class ItemPencil extends ItemQuantum {
+public class ItemPencil extends ItemQuantum implements ICraftableItem {
 
     public ItemPencil() {
         this.setTextureName("pencil");
@@ -26,5 +31,11 @@ public class ItemPencil extends ItemQuantum {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public IRecipe[] getRecipes(Item item) {
+        VacuumRegistry.addRecipe(new VacuumPencil());
+        return new IRecipe[0];
     }
 }
