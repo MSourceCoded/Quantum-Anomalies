@@ -13,7 +13,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.RandomUtils;
+import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.block.Colourizer;
 import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.energy.ITileRiftHandler;
