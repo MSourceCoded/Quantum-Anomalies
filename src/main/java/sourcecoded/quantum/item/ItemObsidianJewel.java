@@ -11,11 +11,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import sourcecoded.core.crafting.ICraftableItem;
-import sourcecoded.core.util.RandomUtils;
 import sourcecoded.quantum.api.CraftingContext;
 import sourcecoded.quantum.api.arrangement.ArrangementRegistry;
 import sourcecoded.quantum.api.arrangement.ArrangementShapedRecipe;
-import sourcecoded.quantum.api.discovery.DiscoveryCategory;
 import sourcecoded.quantum.api.discovery.DiscoveryManager;
 import sourcecoded.quantum.api.injection.IInjectorRecipe;
 import sourcecoded.quantum.discovery.QADiscoveries;
@@ -51,12 +49,10 @@ public class ItemObsidianJewel extends ItemQuantum implements ICraftableItem, II
 
     public boolean onItemUse(ItemStack item, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         if (!world.isRemote && world.getBlock(x, y, z) == Blocks.obsidian) {
-            if (RandomUtils.nextInt(0, 3) == 0) {
                 DiscoveryManager.unlockItem(QADiscoveries.Item.INJECTION.get().getKey(), player, false);
 
                 NetworkHandler.wrapper.sendToAllAround(new MessageBlockBreakFX(x, y, z), new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 20));
                 world.setBlock(x, y, z, Blocks.air);
-            }
 
             item.stackSize -= 1;
             if (item.stackSize < 0)

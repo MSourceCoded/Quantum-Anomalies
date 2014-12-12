@@ -39,7 +39,7 @@
     Break an obsidian block (20% chance to unlock)
 
 --QA|Injection (Rift Injection Pool)--
-    Right click an Obsidian Block with the Obsidian Jewel (33.3% chance of unlock)
+    Right click an Obsidian Block with the Obsidian Jewel (33.3% chance of unlock, changed to 100% in build 0.0.3a)
 
 --QA|InjectedBlocks (Injected Blocks)--
     Place a Rift Injection Pool in the world

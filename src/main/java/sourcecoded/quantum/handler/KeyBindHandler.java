@@ -2,13 +2,16 @@ package sourcecoded.quantum.handler;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import sourcecoded.quantum.network.MessageChangeFocus;
 import sourcecoded.quantum.network.NetworkHandler;
+import sourcecoded.quantum.registry.QAItems;
 
 public class KeyBindHandler {
 
@@ -20,12 +23,13 @@ public class KeyBindHandler {
         FMLCommonHandler.instance().bus().register(new KeyBindHandler());
     }
 
-    @SubscribeEvent
-    public void onKeyPressed(InputEvent.KeyInputEvent event) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onKeyPressed(InputEvent.KeyInputEvent event) throws IllegalAccessException {
         Minecraft mc = Minecraft.getMinecraft();
-        if (changeFocusKeybind.isPressed())
-            NetworkHandler.wrapper.sendToServer(new MessageChangeFocus());
-
+        ItemStack currentItem = mc.thePlayer.getCurrentEquippedItem();
+        if (changeFocusKeybind.getIsKeyPressed())
+            if (currentItem != null && currentItem.getItem() == QAItems.SCEPTRE.getItem())
+                NetworkHandler.wrapper.sendToServer(new MessageChangeFocus());
     }
 
 }

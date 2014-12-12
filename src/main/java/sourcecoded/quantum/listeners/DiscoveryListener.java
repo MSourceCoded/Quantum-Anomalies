@@ -105,7 +105,7 @@ public class DiscoveryListener {
 
     @SubscribeEvent
     public void boneMeal(BonemealEvent event) {
-        if (!event.world.isRemote)
+        if (!event.world.isRemote && event.entityPlayer != null)
             DiscoveryManager.unlockItem(QADiscoveries.Item.MANIPULATION.get().getKey(), event.entityPlayer, false);
     }
 

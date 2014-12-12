@@ -160,7 +160,9 @@ public class GuiDiscoveryCategory extends GuiScreen {
             GL11.glEnable(GL11.GL_BLEND);
 
             boolean unlocked = DiscoveryManager.itemUnlocked(item.getKey(), player);
+            boolean allParents = DiscoveryManager.areParentsUnlocked(item.getKey(), player);
 
+            if (allParents)
             for (String parent : item.parents) {
                 phase++;
 

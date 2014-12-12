@@ -86,8 +86,9 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
                     matrix.setItemAt(x + 1, z + 1, is);
                 } else {
                     Block block = world.getBlock(nx, y, nz);
+                    int metadata = world.getBlockMetadata(nx, y, nz);
                     if (block != null && !block.isAir(world, nx, y, nz)) {
-                        matrix.setItemAt(x + 1, z + 1, new ItemStack(block));
+                        matrix.setItemAt(x + 1, z + 1, new ItemStack(block, 1, metadata));
                         destroyPoints.add(new Point3D(nx, y, nz));
                     }
                 }
@@ -144,6 +145,8 @@ public class BlockArrangement extends BlockDyeable implements ITileEntityProvide
     }
 
     public void completeCraft(ItemStack result, World world, int xO, int yO, int zO, EntityPlayer player) {
+        result = result.copy();     //Dont change the recipe, yo
+
         if (result.stackSize == 0)
             result.stackSize = 1;
 
