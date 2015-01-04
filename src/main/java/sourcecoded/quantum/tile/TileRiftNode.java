@@ -1,6 +1,5 @@
 package sourcecoded.quantum.tile;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -175,7 +174,8 @@ public class TileRiftNode extends TileDyeable implements ITileRiftHandler, IBind
 
         if (this.worldObj.isRemote) {
             float size = Math.max(1F * ((float) getRiftEnergy() / (float) getMaxRiftEnergy()), 0.1F);
-            EntityPlayer renderEntity = FMLClientHandler.instance().getClientPlayerEntity();
+            //EntityPlayer renderEntity = FMLClientHandler.instance().getClientPlayerEntity();
+            EntityPlayer renderEntity = QuantumAnomalies.proxy.getClientPlayer();
 
             double distance = renderEntity.getDistance(xCoord, yCoord, zCoord);
 
