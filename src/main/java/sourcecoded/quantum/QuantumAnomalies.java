@@ -18,7 +18,6 @@ import sourcecoded.core.SourceCodedCore;
 import sourcecoded.core.configuration.VersionConfig;
 import sourcecoded.core.configuration.gui.SourceConfigGuiFactory;
 import sourcecoded.core.util.SourceLogger;
-import sourcecoded.core.version.VersionChecker;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.sceptre.SceptreFocusRegistry;
 import sourcecoded.quantum.client.gui.GuiHandler;
@@ -72,8 +71,6 @@ public class QuantumAnomalies {
 
     SourceConfigGuiFactory factory;
 
-    VersionChecker checker;
-
     public static boolean isDevEnvironment() {
         return SourceCodedCore.isDevEnv;
     }
@@ -86,7 +83,7 @@ public class QuantumAnomalies {
             guiHandler = new GuiHandler();
 
         QuantumAPI.isQAPresent = true;
-        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.5", Constants.MODID));
+        ConfigHandler.init(VersionConfig.createNewVersionConfig(event.getSuggestedConfigurationFile(), "0.6", Constants.MODID));
 
         endAnomaly = new BiomeEndAnomaly(getInteger(END_ANOMALY_ID));
         hellAnomaly = new BiomeHellAnomaly(getInteger(HELL_ANOMALY_ID));
@@ -98,9 +95,6 @@ public class QuantumAnomalies {
         SceptreFocusRegistry.registerFocus(new FocusDebug());
 
         NetworkHandler.initNetwork();
-
-        if (ConfigHandler.getBoolean(ConfigHandler.Properties.VERS_ON))
-            checker = new VersionChecker(sourcecoded.core.Constants.MODID, "https://raw.githubusercontent.com/MSourceCoded/Quantum-Anomalies/master/version/{MC}.txt", sourcecoded.core.Constants.VERSION, ConfigHandler.getBoolean(ConfigHandler.Properties.VERS_AUTO), ConfigHandler.getBoolean(ConfigHandler.Properties.VERS_SILENT));
 
     }
 
