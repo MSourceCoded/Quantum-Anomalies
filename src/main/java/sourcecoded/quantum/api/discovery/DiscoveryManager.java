@@ -3,6 +3,7 @@ package sourcecoded.quantum.api.discovery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.FakePlayer;
 import sourcecoded.quantum.api.QuantumAPI;
 import sourcecoded.quantum.api.event.discovery.DiscoveryRegistrationEvent;
 import sourcecoded.quantum.api.event.discovery.DiscoveryUpdateEvent;
@@ -80,6 +81,8 @@ public class DiscoveryManager {
      * Initializes the categories and items
      */
     public static void init(EntityPlayer player) {
+    	if (player instanceof FakePlayer) return; // Skips Fake players
+
         for (Map.Entry<String, DiscoveryCategory> entry : DiscoveryRegistry.categories.entrySet()) {
             getCategory(entry.getKey(), player);
             for (Map.Entry<String, DiscoveryItem> entry1 : entry.getValue().discoveries.entrySet())
@@ -91,6 +94,8 @@ public class DiscoveryManager {
      * Set a category as unlocked (discovered)
      */
     public static void unlockCategory(String category, EntityPlayer player) {
+    	if (player instanceof FakePlayer) return; // Skips Fake players
+
         NBTTagCompound compound = getCategory(category, player);
         compound.setBoolean("Unlocked", true);
         revealCategory(category, player);
@@ -101,6 +106,8 @@ public class DiscoveryManager {
      * Sets a category's unlock state
      */
     public static void setCategoryUnlock(String item, EntityPlayer player, boolean state) {
+    	if (player instanceof FakePlayer) return; // Skips Fake players
+
         getCategory(item, player).setBoolean("Unlocked", state);
 
         sync(player);
@@ -110,6 +117,8 @@ public class DiscoveryManager {
      * Set an item as unlocked (discovered)
      */
     public static void unlockItem(String item, EntityPlayer player, boolean force) {
+    	if (player instanceof FakePlayer) return; // Skips Fake players
+
         if (!areParentsUnlocked(item, player)) {
             if (force) {
                 unlockSingleItem(item, player);
@@ -142,6 +151,8 @@ public class DiscoveryManager {
      * Sets an item's unlock state, regardless of parents
      */
     public static void setItemUnlock(String item, EntityPlayer player, boolean state) {
+    	if (player instanceof FakePlayer) return; // Skips Fake players
+
         getItem(item, player).setBoolean("Unlocked", state);
 
         sync(player);
